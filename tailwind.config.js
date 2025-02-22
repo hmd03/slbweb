@@ -12,6 +12,7 @@ module.exports = {
         Error: '#E73B2F',
         White: '#ffffff',
         Info: '#456CB5',
+        Black: '#000000',
       },
     },
   },
