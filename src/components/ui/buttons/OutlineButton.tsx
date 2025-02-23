@@ -11,7 +11,7 @@ const OutlineButton = ({ children, theme = 'primary' , ...props }: Props) => {
   let filteredProps = {...props};
   
   const className = (() => {
-    let baseClasses = 'body2 px-8 py-[14px] rounded border-[1px]  bg-White';
+    let baseClasses = 'body2 px-8 py-[14px] border-[1px]  bg-White';
 
     if (props.disabled) {
       baseClasses += ' border-Gray text-Gray';

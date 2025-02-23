@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { MemoryRouter } from 'react-router-dom';
 
-import AppBar from './AppBar';
+import AdminHeader from './AdminHeader';
 
 const meta = {
   title: 'Design System/AppBar',
-  component: AppBar,
+  component: AdminHeader,
   tags: ['autodocs'],
   argTypes: {},
   decorators: [
@@ -15,13 +15,10 @@ const meta = {
       </MemoryRouter>
     ),
   ],
-} satisfies Meta<typeof AppBar>;
+} satisfies Meta<typeof AdminHeader>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const AppBarBase: Story = {
-  args: {
-    title: 'Title',
-  },
+export const AdminHeaderBase: Story = {
 };

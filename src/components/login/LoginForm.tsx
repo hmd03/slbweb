@@ -3,17 +3,15 @@ import InputField from '../ui/inputs/InputField';
 import Button from '../ui/buttons/Button';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
-import { userState, loadingState } from '../../store/userAtom';
-
-const apiClient = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-});
+import { loginState, loadingState } from '../../store/userAtom';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
     const idRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
-    const [user, setUser] = useRecoilState(userState);
+    const [login, setIogin] = useRecoilState(loginState);
     const [loading, setLoading] = useRecoilState(loadingState);
+    const navigate = useNavigate();
 
     const onSubmit = useCallback(
         async (event: React.FormEvent<HTMLFormElement>) => {
@@ -29,25 +27,32 @@ const LoginForm = () => {
             setLoading(true);
 
             try {
-                const response = await apiClient.post('/auth', {
+                const response = await axios.post('/api/auth', {
                     id,
                     password,
                 });
 
-                const {
-                    data: { data },
-                } = response;
+                console.log(response);
+                const data = response.data;
 
-                const { refreshToken, ...rest } = data;
-                setUser(rest);
-                localStorage.setItem('refreshToken', refreshToken);
+                if(response.status === 201){
+                    const { refreshToken, ...rest } = data;
+                    console.log(rest);
+                    setIogin(true);
+                    localStorage.setItem('userInfo', rest);
+                    localStorage.setItem('refreshToken', refreshToken);
+
+                    navigate('/admin/master');
+                } else {
+                    alert(data.message);
+                }
             } catch (error) {
                 alert((error as Error).message);
             } finally {
                 setLoading(false);
             }
         },
-        [setUser, setLoading]
+        [setIogin, setLoading, navigate]
     );
 
     return (

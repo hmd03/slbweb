@@ -4,8 +4,9 @@ module.exports = function (app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'https://port-0-server-dihik2mlj9ust62.sel4.cloudtype.app',
+      target: 'http://localhost:3001',
       changeOrigin: true,
     })
   );
 };
+ 

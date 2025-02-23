@@ -14,6 +14,12 @@ module.exports = {
         Info: '#456CB5',
         Black: '#000000',
       },
+      fontSize: {
+        title: '32px',
+        main: '20px',
+        detail: '14px',
+        diagram: '12px',
+      },
     },
   },
   plugins: [
