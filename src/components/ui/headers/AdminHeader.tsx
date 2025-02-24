@@ -2,7 +2,7 @@ import React from 'react';
 import { MdArrowBackIosNew } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { loginState } from '../../../store/userAtom';
+import { UserState } from '../../../store/atom';
 import OutlineButton from '../buttons/OutlineButton';
 
 interface Props {
@@ -11,14 +11,14 @@ interface Props {
 
 const AdminHeader = (props: Props) => {
   const navigate = useNavigate();
-  const [_, setLogin] = useRecoilState(loginState);
+  const [_, setLogin] = useRecoilState(UserState);
 
   const handleLogoClick = () => {
     navigate('/admin/inquiry');
   };
 
   const handleLogout = () => {
-    setLogin(null);
+    //setLogin(null);
     navigate('/admin/login');
   };
 

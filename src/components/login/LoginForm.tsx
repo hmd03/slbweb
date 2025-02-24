@@ -3,14 +3,15 @@ import InputField from '../ui/inputs/InputField';
 import Button from '../ui/buttons/Button';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
-import { loginState, loadingState } from '../../store/userAtom';
+import { UserState, LoadingState } from '../../store/atom';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const LoginForm = () => {
     const idRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
-    const [login, setIogin] = useRecoilState(loginState);
-    const [loading, setLoading] = useRecoilState(loadingState);
+    const [user, setUser] = useRecoilState(UserState);
+    const [loading, setLoading] = useRecoilState(LoadingState);
     const navigate = useNavigate();
 
     const onSubmit = useCallback(
@@ -27,21 +28,22 @@ const LoginForm = () => {
             setLoading(true);
 
             try {
-                const response = await axios.post('/api/auth', {
+                const response = await axios.post('/api/auth/log', {
                     id,
                     password,
                 });
 
-                console.log(response);
                 const data = response.data;
 
-                if(response.status === 201){
-                    const { refreshToken, ...rest } = data;
-                    console.log(rest);
-                    setIogin(true);
-                    localStorage.setItem('userInfo', rest);
-                    localStorage.setItem('refreshToken', refreshToken);
-
+                if (response.status === 201) {
+                    const { refreshToken, accessToken, user } = data;
+                    const id = user.user.id;
+                    setUser({
+                        id,
+                        accessToken,
+                    });
+                    Cookies.set('refreshToken', refreshToken, { secure: false, sameSite: 'Strict' });
+                    console.log(Cookies.get('refreshToken'))
                     navigate('/admin/master');
                 } else {
                     alert(data.message);
@@ -52,7 +54,7 @@ const LoginForm = () => {
                 setLoading(false);
             }
         },
-        [setIogin, setLoading, navigate]
+        [setLoading, navigate]
     );
 
     return (
@@ -60,13 +62,22 @@ const LoginForm = () => {
             <div className='flex flex-col items-center h-full justify-center'>
                 <div className='w-full mb-8'>로고가 아마도!</div>
                 <div className='pb-2 w-full'>
-                    <InputField aria-label='관리자 아이디' placeholder='관리자 아이디' ref={idRef} />
+                    <InputField
+                        aria-label='관리자 아이디'
+                        placeholder='관리자 아이디'
+                        ref={idRef} 
+                    />
                 </div>
                 <div className='pb-2 w-full'>
-                    <InputField aria-label='비밀번호' type='password' placeholder='비밀번호' ref={passwordRef} />
+                    <InputField 
+                        aria-label='비밀번호' 
+                        type='password' 
+                        placeholder='비밀번호' 
+                        ref={passwordRef} 
+                    />
                 </div>
                 <div className='pb-2 w-full'>
-                    <Button theme='admin' className='w-full' type='submit' disabled={loading}>
+                    <Button theme='admin' className='w-full' type='submit'>
                         {loading ? '로딩 중...' : '로그인'}
                     </Button>
                 </div>
