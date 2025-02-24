@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 type NavItem = {
   label?: string;
-  icon?: React.ReactElement;
   path: string;
   disabled?: boolean;
 };
@@ -12,7 +11,7 @@ type Props = {
   items: NavItem[];
 };
 
-const BottomNavigation = ({ items }: Props) => {
+const Sidebar = ({ items }: Props) => {
   const [selectIndex, setSelectIndex] = React.useState(0);
 
   const handleChange = (index: number) => {
@@ -20,26 +19,25 @@ const BottomNavigation = ({ items }: Props) => {
   };
 
   return (
-    <div className='static w-full h-fit left-0 bottom-0 flex items-center'>
+    <div className='fixed w-[12rem] h-full bg-Black text-white flex flex-col top-0 left-0 z-50 mt-[4rem]'>
       {items.map((item, index) => (
         <Link
           to={item.path}
           key={index}
-          className={`flex justify-center items-center flex-col py-1 w-full ${
+          className={`flex items-center py-2 px-4 w-[100%] h-[4rem] text-center border-b border-b-White text-main font-bold ${
             item.disabled
-              ? 'text-Gray pointer-events-none'
+              ? 'text-gray-500 pointer-events-none'
               : selectIndex === index
-              ? 'text-Primary'
-              : 'text-Secondary'
+              ? 'bg-White text-Black'
+              : 'bg-Black text-White hover:bg-White hover:text-Black'
           }`}
           onClick={() => handleChange(index)}
         >
-          {item.icon && item.icon}
-          {item.label && <span>{item.label}</span>}
+          {item.label && <span className='m-auto'>{item.label}</span>}
         </Link>
       ))}
     </div>
   );
 };
 
-export default BottomNavigation;
+export default Sidebar;

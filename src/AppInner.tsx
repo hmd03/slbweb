@@ -4,6 +4,7 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AdminHeader from './components/ui/headers/AdminHeader';
 import Loading from './components/ui/Loading';
+import SideBar from './components/ui/navigations/SideBar';
 import { LoadingState, UserState } from './store/atom';
 import Cookies from 'js-cookie';
 
@@ -31,8 +32,6 @@ const AppInner: React.FC = () => {
           config,
           response: { status },
         } = error;
-
-        console.log(status);
 
         if (status === 419) {
           if (error.response.data.code === 'expired') {
@@ -134,13 +133,18 @@ const AppInner: React.FC = () => {
   return (
     <>
       {isLoading && <Loading isLoading={isLoading} />}
-        <Suspense fallback={<Loading isLoading={isLoading} />}>
-          <HeaderWrapper />
-          <Routes>
-            <Route path='/admin/login' element={<Login />} />
-            <Route path='/admin/master' element={<AdminMaster />} />
-          </Routes>
-        </Suspense>
+      <div className="flex">
+        <SideBarWrapper />
+        <div className="flex-1 ml-60 mt-[4rem]"> {/* 사이드바 너비에 맞춰 여백 추가 */}
+          <Suspense fallback={<Loading isLoading={isLoading} />}>
+            <HeaderWrapper />
+            <Routes>
+              <Route path='/admin/login' element={<Login />} />
+              <Route path='/admin/master' element={<AdminMaster />} />
+            </Routes>
+          </Suspense>
+        </div>
+      </div>
     </>
   );
 };
@@ -153,6 +157,31 @@ const HeaderWrapper: React.FC = () => {
   return (
     <>
       {isAdminRoute && !isLoginRoute && <AdminHeader />}
+    </>
+  );
+};
+
+const SideBarWrapper: React.FC = () => {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+  const isLoginRoute = location.pathname === '/admin/login';
+
+  const sidebarItem = [
+    { label: '창업문의 관리', path: '/admin/inquiry' },
+    { label: '관리자 관리', path: '/admin/master' },
+    { label: '배너 관리',path: '/admin/banner ', },
+    { label: '팝업 관리', path: '/admin/popup', },
+    { label: '공지&뉴스', path: '/admin/board/notice', },
+    { label: '톡톡 이벤트', path: '/admin/board/event ', },
+    { label: '고객문의', path: '/admin/board/cs ', },
+    { label: '협력제안', path: '/admin/board/partner', },
+    { label: '매장관리', path: '/admin/store', },
+    { label: '설정', path: '/admin/config', },
+  ]
+
+  return (
+    <>
+      {isAdminRoute && !isLoginRoute && <SideBar items={sidebarItem} />}
     </>
   );
 };

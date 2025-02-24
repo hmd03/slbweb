@@ -1,7 +1,7 @@
 const AdminMasterForm = () => {
 
     return (
-        <div>AdminMasterForm</div>
+        <>AdminMasterForm</>
     );
 };
 

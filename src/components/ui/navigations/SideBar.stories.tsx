@@ -1,17 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { MemoryRouter } from 'react-router-dom';
-import {
-  MdHome,
-  MdCalendarMonth,
-  MdOutlineGroups,
-  MdAccountCircle,
-} from 'react-icons/md';
 
-import BottomNavigation from './BottomNavigation';
+import SideBar from './SideBar'; // Sidebar로 수정
 
 const meta = {
-  title: 'Design System/BottomNavigation',
-  component: BottomNavigation,
+  title: 'Design System/SideBar', // 제목 수정
+  component: SideBar,
   tags: ['autodocs'],
   argTypes: {},
   decorators: [
@@ -21,7 +15,7 @@ const meta = {
       </MemoryRouter>
     ),
   ],
-} satisfies Meta<typeof BottomNavigation>;
+} satisfies Meta<typeof SideBar>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -29,17 +23,15 @@ type Story = StoryObj<typeof meta>;
 export const TabBase: Story = {
   args: {
     items: [
-      { label: '홈', icon: <MdHome size={24} />, path: '/' },
-      { label: '일정', icon: <MdCalendarMonth size={24} />, path: '/calendar' },
+      { label: '홈', path: '/' },
+      { label: '일정', path: '/calendar' },
       {
-        label: '',
-        icon: <MdOutlineGroups size={24} />,
+        label: '그룹',
         path: '/group',
         disabled: true,
       },
       {
         label: '프로필',
-        icon: <MdAccountCircle size={24} />,
         path: '/profile',
       },
     ],

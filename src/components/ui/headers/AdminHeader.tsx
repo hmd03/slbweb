@@ -27,14 +27,14 @@ const AdminHeader = (props: Props) => {
   };
 
   return (
-    <div className='flex justify-between items-center p-4 w-full bg-Black fixed top-0 left-0 z-50'>
+    <div className='flex justify-between items-center w-full bg-Black fixed top-0 left-0 z-50 h-[4rem]'>
       <div 
-        className='text-White cursor-pointer text-title' 
+        className='cursor-pointer w-[12rem]' 
         onClick={handleLogoClick}
       >
-        로고위치
+       <img alt='adminLogo' src={`${process.env.PUBLIC_URL}/adminLogo.png`} className='h-[3rem] m-auto'/>
       </div>
-      <div>
+      <div className='m-[1rem]'>
         <OutlineButton theme='admin' onClick={handleHomePageRedirect}>
           홈페이지 바로가기
         </OutlineButton>
