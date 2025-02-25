@@ -60,7 +60,9 @@ const LoginForm = () => {
     return (
         <form onSubmit={onSubmit} className='w-[40rem] h-[32rem] border-[2px] border-Black bg-LightGray px-16'>
             <div className='flex flex-col items-center h-full justify-center'>
-                <div className='w-full mb-8'>로고가 아마도!</div>
+                <div className='w-full mb-10 mt-2'>
+                    <img alt='adminLoginLogo' src={`${process.env.PUBLIC_URL}/adminLoginLogo.png`} className='h-[6rem] m-auto'/>
+                </div>
                 <div className='pb-2 w-full'>
                     <InputField
                         aria-label='관리자 아이디'
@@ -76,12 +78,12 @@ const LoginForm = () => {
                         ref={passwordRef} 
                     />
                 </div>
-                <div className='pb-2 w-full'>
+                <div className='pb-2 w-full mb-2'>
                     <Button theme='admin' className='w-full' type='submit'>
                         {loading ? '로딩 중...' : '로그인'}
                     </Button>
                 </div>
-                <p>본 화면은 관리지 전용 페이지입니다.</p>
+                <p className='text-main'>본 화면은 관리지 전용 페이지입니다.</p>
             </div>
         </form>
     );
