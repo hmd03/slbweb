@@ -4,7 +4,7 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AdminHeader from './components/ui/headers/AdminHeader';
 import Loading from './components/ui/Loading';
-import SideBar from './components/ui/navigations/SideBar';
+import SideBar from './components/ui/navigations/AdminSideBar';
 import { LoadingState, UserState } from './store/atom';
 import Cookies from 'js-cookie';
 
@@ -79,7 +79,7 @@ const AppInner: React.FC = () => {
     return () => {
       axios.interceptors.response.eject(interceptor);
     };
-  }, [setUser]);
+  }, [navigate, setUser, user.id]);
 
   useEffect(() => {
     const requestVerifyRefreshToken = async () => {
@@ -102,7 +102,6 @@ const AppInner: React.FC = () => {
           }
         );
 
-        // 새로운 토큰 저장
         const { refreshToken, accessToken, user } = data;
         const id = user.user.id;
         setUser({
@@ -122,7 +121,7 @@ const AppInner: React.FC = () => {
     } else {
       setIsReady(true);
     }
-  }, [setUser]);
+  }, [location.pathname, setUser]);
 
   useEffect(() => {
     if (isReady && location.pathname.startsWith('/admin') && !user.accessToken) {
@@ -135,7 +134,7 @@ const AppInner: React.FC = () => {
       {isLoading && <Loading isLoading={isLoading} />}
       <div className="flex">
         <SideBarWrapper />
-        <div className="flex-1 ml-60 mt-[4rem]"> {/* 사이드바 너비에 맞춰 여백 추가 */}
+        <div className={`w-full h-screen ${location.pathname === '/admin/login' ? '' : 'flex-1  ml-[12rem] pt-[4rem]'}`}>
           <Suspense fallback={<Loading isLoading={isLoading} />}>
             <HeaderWrapper />
             <Routes>
