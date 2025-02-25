@@ -18,7 +18,7 @@ module.exports = {
         title: '32px',
         main: '20px',
         detail: '14px',
-        diagram: '12px',
+        diagram: '14px',
       },
     },
   },

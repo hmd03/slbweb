@@ -20,8 +20,6 @@ const AppInner: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log(user);
-
   useEffect(() => {
     const interceptor = axios.interceptors.response.use(
       (response) => {
@@ -134,7 +132,7 @@ const AppInner: React.FC = () => {
       {isLoading && <Loading isLoading={isLoading} />}
       <div className="flex">
         <SideBarWrapper />
-        <div className={`w-full h-screen ${location.pathname === '/admin/login' ? '' : 'flex-1  ml-[12rem] pt-[4rem]'}`}>
+        <div className={`w-full h-screen ${location.pathname === '/admin/login' ? '' : 'flex-1  ml-[12rem] pt-[4rem] bg-LightGray'}`}>
           <Suspense fallback={<Loading isLoading={isLoading} />}>
             <HeaderWrapper />
             <Routes>

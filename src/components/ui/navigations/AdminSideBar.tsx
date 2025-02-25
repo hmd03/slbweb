@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 type NavItem = {
   label?: string;
@@ -12,7 +12,20 @@ type Props = {
 };
 
 const Sidebar = ({ items }: Props) => {
+  const location = useLocation();
   const [selectIndex, setSelectIndex] = React.useState(0);
+
+  // 현재 경로에 포함된 항목의 인덱스를 찾는 함수
+  const findSelectedIndex = () => {
+    return items.findIndex(item => location.pathname.includes(item.path));
+  };
+
+  React.useEffect(() => {
+    const index = findSelectedIndex();
+    if (index !== -1) {
+      setSelectIndex(index);
+    }
+  }, [location.pathname, items]);
 
   const handleChange = (index: number) => {
     setSelectIndex(index);
