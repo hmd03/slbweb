@@ -44,7 +44,7 @@ const LoginForm = () => {
                     });
                     Cookies.set('refreshToken', refreshToken, { secure: false, sameSite: 'Strict' });
                     console.log(Cookies.get('refreshToken'))
-                    navigate('/admin/master');
+                    navigate('/admin/inquiry');
                 } else {
                     alert(data.message);
                 }

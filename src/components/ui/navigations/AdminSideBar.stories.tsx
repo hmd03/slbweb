@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { MemoryRouter } from 'react-router-dom';
 
-import SideBar from './SideBar'; // Sidebar로 수정
+import SideBar from './AdminSideBar'; // Sidebar로 수정
 
 const meta = {
   title: 'Design System/SideBar', // 제목 수정
@@ -20,7 +20,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const TabBase: Story = {
+export const AdminSideBarBase: Story = {
   args: {
     items: [
       { label: '홈', path: '/' },
