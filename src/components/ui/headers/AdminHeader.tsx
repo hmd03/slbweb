@@ -53,7 +53,7 @@ const AdminHeader = (props: Props) => {
         </div>
         <MdOutlineMenu 
           color='white'
-          className='cursor-pointer w-[2rem] h-[2rem]' 
+          className='cursor-pointer w-[2rem] h-[2rem] select-none' 
           onClick={onMenuClick}
         />
       </div>

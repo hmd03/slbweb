@@ -9,9 +9,10 @@ type NavItem = {
 
 type Props = {
   items: NavItem[];
+  visible: boolean;
 };
 
-const AdminSideBar = ({ items }: Props) => {
+const AdminSideBar = ({ items, visible = true}: Props) => {
   const location = useLocation();
   const [selectIndex, setSelectIndex] = React.useState(0);
 
@@ -32,7 +33,7 @@ const AdminSideBar = ({ items }: Props) => {
   };
 
   return (
-    <div className='fixed w-[12rem] h-full bg-Black text-white flex flex-col'>
+    <div className={`${visible ? 'fixed w-[12rem] h-full bg-Black text-white flex flex-col' : 'hidden'}`}>
       {items.map((item, index) => (
         <Link
           to={item.path}

@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -16,7 +16,6 @@ const AdminMasterWrite = React.lazy(() => import('./pages/AdminMasterWrite'));
 const AppInner: React.FC = () => {
   const isLoading = useRecoilValue(LoadingState);
   const [user, setUser] = useRecoilState(UserState);
-  const [isReady, setIsReady] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -34,12 +33,8 @@ const AppInner: React.FC = () => {
           response: { data },
         } = error;
 
-        console.log(data);
-
         if (data.statusCode === 419) {
           const type = error.response.data.type;
-
-          console.log(type);
 
           if (type === 'refresh') {
             setUser({
@@ -52,18 +47,17 @@ const AppInner: React.FC = () => {
             return;
           } else if (type === 'access') {
             const originalRequest = config;
-            const {
-              data: { data },
-            } = await axios.post(
+            const response = await axios.post(
               'api/auth/refresh',
             );
+            const accessToken = response.data.accessToken;
 
             setUser({
               id: user.id,
               name: user.name,
-              accessToken: data.accessToken,
+              accessToken: accessToken,
             });
-            
+            //originalRequest.headers.authorization = `${data.accessToken}`;
             return axios(originalRequest);
           }
         }
@@ -76,46 +70,6 @@ const AppInner: React.FC = () => {
       axios.interceptors.response.eject(interceptor);
     };
   }, [navigate, setUser]);
-
-  // useEffect(() => {
-  //   const requestVerifyRefreshToken = async () => {
-  //     const cookies_refreshToken = cookies.get('refresh');
-  //     console.log("cookies_refreshToken: " + cookies_refreshToken)
-
-  //     if (!cookies_refreshToken) {
-  //       setIsReady(true);
-  //       return;
-  //     }
-
-  //     try {
-  //       const {
-  //         data: { data },
-  //         } = await axios.post(
-  //          'api/auth/refresh',
-  //        );
-
-  //        const { refreshToken, accessToken, user } = data;
-  //        const id = user.user.id;
-  //        const name = user.user.name;
-  //        setUser({
-  //          id,
-  //          name,
-  //          accessToken,
-  //        });
-  //        cookies.set('refresh', refreshToken, { secure: false, path: '/'});
-  //        setIsReady(true);
-  //      } catch (error) {
-  //        //cookies.remove('refresh', { path: '/' });
-  //        setIsReady(true); 
-  //      }
-  //   };
-
-  //   if (location.pathname.startsWith('/admin')) {
-  //     requestVerifyRefreshToken();
-  //   } else {
-  //     setIsReady(true);
-  //   }
-  // }, [location.pathname, setUser]);
 
   useEffect(() => {
     if (location.pathname.startsWith('/admin') && !user.accessToken) {

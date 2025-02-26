@@ -1,6 +1,6 @@
 import React, { ButtonHTMLAttributes, ReactNode } from 'react';
 
-type Type = 'primary' | 'secondary' | 'admin';
+type Type = 'primary' | 'secondary' | 'admin' | 'error';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   theme?: Type;
@@ -11,7 +11,8 @@ const Button = ({ children, theme = 'primary', ...props }: Props) => {
   let filteredProps = {...props};
 
   const className = (() => {
-    let baseClasses = 'body2 px-8 py-[14px] rounded ';
+    let baseClasses = '';
+    baseClasses += 'body2';
 
     if (props.disabled) {
       baseClasses += ' bg-DeepGray text-White ';
@@ -23,11 +24,15 @@ const Button = ({ children, theme = 'primary', ...props }: Props) => {
         baseClasses += ' text-Primary border border-Primary';
       } else if (theme === 'admin') {
         baseClasses += ' text-White bg-Black';
+      } else if (theme === 'error') {
+        baseClasses += ' text-White bg-Error';
       }
     }
 
     if (props.className) {
       baseClasses += ` ${props.className}`;
+    } else {
+      baseClasses +=  ' px-8 py-[14px] rounded';
     }
 
     filteredProps = Object.fromEntries(

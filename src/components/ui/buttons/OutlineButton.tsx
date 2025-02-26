@@ -13,7 +13,7 @@ const OutlineButton = ({ children, theme = 'primary' , ...props }: Props) => {
   const className = (() => {
     let baseClasses = '';
     
-    baseClasses += ' body2 px-8 py-[14px] border-[1px]  bg-White';
+    baseClasses += 'body2 border-[1px] bg-White';
 
     if (props.disabled) {
       baseClasses += ' border-DeepGray text-Gray';
@@ -24,18 +24,25 @@ const OutlineButton = ({ children, theme = 'primary' , ...props }: Props) => {
       } else if (theme === 'secondary'){
         baseClasses += ' text-Primary border border-Primary';
       } else if (theme === 'admin') {
-        baseClasses += ' border-Black text-Black bg-White';
+        baseClasses += ' border-Black text-Black';
       }
     }
 
     if (props.className) {
       baseClasses += ` ${props.className}`;
+    } else {
+      baseClasses += ' px-8 py-[14px]';
+      
     }
+
+    filteredProps = Object.fromEntries(
+      Object.entries(props).filter(([key]) => key !== 'className')
+    );
 
     return baseClasses;
   })();
   return (
-    <button className={className} {...props}>
+    <button className={className} {...filteredProps}>
       {children}
     </button>
   );

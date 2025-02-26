@@ -9,7 +9,7 @@ const AdminMasterWriteForm: React.FC = () => {
     
 
     return (
-        <AdminCurrentLayout title='관리자 리스트'>
+        <AdminCurrentLayout title='관리자 등록'>
             <div>
                
             </div>

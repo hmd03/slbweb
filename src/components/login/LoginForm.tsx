@@ -69,6 +69,7 @@ const LoginForm = () => {
                         aria-label='관리자 아이디'
                         placeholder='관리자 아이디'
                         ref={idRef} 
+                        autoComplete='id'
                     />
                 </div>
                 <div className='pb-2 w-full'>
@@ -76,11 +77,12 @@ const LoginForm = () => {
                         aria-label='비밀번호' 
                         type='password' 
                         placeholder='비밀번호' 
-                        ref={passwordRef} 
+                        ref={passwordRef}
+                        autoComplete='password'
                     />
                 </div>
                 <div className='pb-2 w-full mb-2'>
-                    <Button theme='admin' className='w-full' type='submit'>
+                    <Button theme='admin' className='w-full px-8 py-[14px] rounded' type='submit'>
                         {loading ? '로딩 중...' : '로그인'}
                     </Button>
                 </div>

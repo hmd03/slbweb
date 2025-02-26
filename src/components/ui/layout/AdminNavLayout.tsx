@@ -13,11 +13,15 @@ const AdminNavLayout = ({ children, ...props }: Props) => {
   const location = useLocation();
   const isLoginRoute = location.pathname === '/admin/login';
 
+  const onMenuClick = () => {
+    setSidebarVisible(!isSidebarVisible);
+  }
+
   return (
     <div className="w-screen h-screen flex flex-col" {...props}>
-      <HeaderWrapper />
+      <HeaderWrapper onMenuClick={onMenuClick} />
       <div className="flex flex-1">
-        {isSidebarVisible && <SideBarWrapper />}
+        {isSidebarVisible && <SideBarWrapper isSidebarVisible={isSidebarVisible} />}
         <div className={`flex-1 ${isSidebarVisible && !isLoginRoute ? 'ml-[12rem]' : 'ml-0'}`}>
           {children}
         </div>
@@ -26,19 +30,27 @@ const AdminNavLayout = ({ children, ...props }: Props) => {
   );
 };
 
-const HeaderWrapper: React.FC = () => {
+interface HeaderWrapperProps {
+  onMenuClick: () => void;
+}
+
+const HeaderWrapper: React.FC<HeaderWrapperProps> = ({ onMenuClick }) => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
   const isLoginRoute = location.pathname === '/admin/login';
 
   return (
     <>
-      {isAdminRoute && !isLoginRoute && <AdminHeader />}
+      {isAdminRoute && !isLoginRoute && <AdminHeader onMenuClick={onMenuClick}/>}
     </>
   );
 };
 
-const SideBarWrapper: React.FC = () => {
+interface SideBarWrapperProps {
+  isSidebarVisible: boolean;
+}
+
+const SideBarWrapper: React.FC<SideBarWrapperProps> = ({ isSidebarVisible }) => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
   const isLoginRoute = location.pathname === '/admin/login';
@@ -58,7 +70,7 @@ const SideBarWrapper: React.FC = () => {
 
   return (
     <>
-      {isAdminRoute && !isLoginRoute && <AdminSideBar items={sidebarItem} />}
+      {isAdminRoute && !isLoginRoute && <AdminSideBar items={sidebarItem} visible={isSidebarVisible} />}
     </>
   );
 };

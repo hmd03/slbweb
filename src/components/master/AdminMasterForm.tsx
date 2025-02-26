@@ -5,67 +5,46 @@ import AdminPagination from '../ui/paging/AdminPagination';
 import AdminCurrentLayout from '../ui/layout/AdminCurrentLayout';
 import Button from '../ui/buttons/Button';
 import axios from 'axios';
+import { formatDate } from '../utils/dateUtils';
+import OutlineButton from '../ui/buttons/OutlineButton';
 
 const AdminMasterForm: React.FC = () => {
     const navigate = useNavigate();
     const [data, setData] = useState<any[]>([]);
     const [totalItems, setTotalItems] = useState<number>(0);
-    const [pageIndex, setPageIndex] = useState<number>(0);
+    const [pageIndex, setPageIndex] = useState<number>(1);
+
     let pageItems = 10;
 
-    // 예시 데이터 fetch (실제 API 호출로 대체 가능)
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(
-                  'api/users',
-                );
-
-                console.log(response);
-        
-                // const { refreshToken, accessToken, user } = data;
-                // const id = user.user.id;
-
-              } catch (error) {
-                console.log("error: " + error);
-              }
-
-
-            setTotalItems(4);
-            setPageIndex(1-1);
-            const result = [{
-                    'id': 'id1',
-                    'name': 'name1',
-                    'date': '2025-02-17 00:00:00'
-                },
-                {
-                    'id': 'id2',
-                    'name': 'name2',
-                    'date': '2025-02-17 00:00:00'
-                },
-                {
-                    'id': 'id3',
-                    'name': 'name3',
-                    'date': '2025-02-17 00:00:00'
-                },
-                {
-                    'id': 'id4',
-                    'name': 'name4',
-                    'date': '2025-02-17 00:00:00'
-                },
-            ]
-            setData(result);
-        };
-
         fetchData();
-    }, []);
+    }, [pageIndex]);
 
     const handlePageChange = (page: number) => {
         console.log(`현재 페이지: ${page}`);
+        setPageIndex(page);
+        if(page == pageIndex) {
+            fetchData();
+        }
     };
 
     const handleRegisterClick = () => {
         navigate('/admin/master/write');
+    };
+
+    const fetchData = async () => {
+        try {
+            console.log(pageIndex)
+            const response = await axios.get(
+              `api/users?page=${pageIndex}`,
+            );
+
+            console.log(response);
+            setData(response.data.userList);
+            setTotalItems(response.data.totalCount);
+          } catch (error) {
+            console.log("error: " + error);
+          }
     };
 
     return (
@@ -84,11 +63,14 @@ const AdminMasterForm: React.FC = () => {
                     <tbody className='bg-White text-diagram'>
                         {data.map((item, index) => (
                             <tr key={item.id}>
-                                <td className="border border-Black border-[2px] p-2 text-center">{totalItems - index - (pageIndex * pageItems)}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center">{item.id}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center">{item.name}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center">{item.date}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center">관리</td>
+                                <td className="border border-Black border-[2px] p-2 text-center w-[10%]">{totalItems - index - ((pageIndex-1) * pageItems)}</td>
+                                <td className="border border-Black border-[2px] p-2 text-center w-[20%]">{item.id}</td>
+                                <td className="border border-Black border-[2px] p-2 text-center w-[20%]">{item.name}</td>
+                                <td className="border border-Black border-[2px] p-2 text-center w-[25%]">{formatDate(item.createdAt)}</td>
+                                <td className="border border-Black border-[2px] p-2 text-center w-[25%]">
+                                    <OutlineButton theme='admin' className='w-[4rem] h-[2rem]'>수정</OutlineButton>
+                                    {!item.isSupervisor && <Button theme='error' className='ml-2 w-[4rem] h-[2rem] bolder'>삭제</Button>}
+                                </td>
                             </tr>
                         ))}
                     </tbody>

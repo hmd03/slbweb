@@ -35,5 +35,6 @@ export const AdminSideBarBase: Story = {
         path: '/profile',
       },
     ],
+    visible: true,
   },
 };
