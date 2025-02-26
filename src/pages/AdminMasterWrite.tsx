@@ -1,0 +1,12 @@
+import React from 'react';
+import AdminMasterWriteForm from '../components/master/AdminMasterWriteForm';
+
+const AdminMasterWrite = () => {
+  return (
+    <div className="w-full h-full flex items-center justify-center">
+      <AdminMasterWriteForm/>
+    </div>
+  );
+};
+
+export default AdminMasterWrite;
