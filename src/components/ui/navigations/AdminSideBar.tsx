@@ -11,7 +11,7 @@ type Props = {
   items: NavItem[];
 };
 
-const Sidebar = ({ items }: Props) => {
+const AdminSideBar = ({ items }: Props) => {
   const location = useLocation();
   const [selectIndex, setSelectIndex] = React.useState(0);
 
@@ -32,7 +32,7 @@ const Sidebar = ({ items }: Props) => {
   };
 
   return (
-    <div className='fixed w-[12rem] h-full bg-Black text-white flex flex-col top-0 left-0 z-50 mt-[4rem]'>
+    <div className='fixed w-[12rem] h-full bg-Black text-white flex flex-col'>
       {items.map((item, index) => (
         <Link
           to={item.path}
@@ -53,4 +53,4 @@ const Sidebar = ({ items }: Props) => {
   );
 };
 
-export default Sidebar;
+export default AdminSideBar;

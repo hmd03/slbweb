@@ -2,11 +2,10 @@ import React, { Suspense, useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import AdminHeader from './components/ui/headers/AdminHeader';
 import Loading from './components/ui/Loading';
-import SideBar from './components/ui/navigations/AdminSideBar';
 import { LoadingState, UserState } from './store/atom';
 import Cookies from 'js-cookie';
+import AdminNavLayout from './components/ui/layout/AdminNavLayout';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
@@ -20,6 +19,8 @@ const AppInner: React.FC = () => {
   const [isReady, setIsReady] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
   useEffect(() => {
     const interceptor = axios.interceptors.response.use(
@@ -110,7 +111,7 @@ const AppInner: React.FC = () => {
         Cookies.set('refreshToken', refreshToken, { secure: false, sameSite: 'Strict' });
         setIsReady(true);
       } catch (error) {
-        Cookies.remove('refreshToken');
+        Cookies.remove('refreshToken', { path: '/' }); 
         setIsReady(true); 
       }
     };
@@ -132,55 +133,24 @@ const AppInner: React.FC = () => {
     <>
       {isLoading && <Loading isLoading={isLoading} />}
       <div className="flex">
-        <SideBarWrapper />
-        <div className={`w-full h-screen ${location.pathname === '/admin/login' ? '' : 'flex-1  ml-[12rem] pt-[4rem] bg-LightGray'}`}>
           <Suspense fallback={<Loading isLoading={isLoading} />}>
-            <HeaderWrapper />
-            <Routes>
-              <Route path='/admin/login' element={<Login />} />
-              <Route path='/admin/master' element={<AdminMaster />} />
-              <Route path='/admin/master/write' element={<AdminMasterWrite />} />
-            </Routes>
+            {isAdminRoute ? (
+              <AdminNavLayout>
+                <Routes>
+                  <Route path='/admin/login' element={<Login />} />
+                  <Route path='/admin/master' element={<AdminMaster />} />
+                  <Route path='/admin/master/write' element={<AdminMasterWrite />} />
+                </Routes>
+              </AdminNavLayout>
+            ) : (
+              <div>
+                <Routes>
+                  <Route path='/test' element={<Login />} />
+                </Routes>
+              </div>
+            )}
           </Suspense>
-        </div>
       </div>
-    </>
-  );
-};
-
-const HeaderWrapper: React.FC = () => {
-  const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith('/admin');
-  const isLoginRoute = location.pathname === '/admin/login';
-
-  return (
-    <>
-      {isAdminRoute && !isLoginRoute && <AdminHeader />}
-    </>
-  );
-};
-
-const SideBarWrapper: React.FC = () => {
-  const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith('/admin');
-  const isLoginRoute = location.pathname === '/admin/login';
-
-  const sidebarItem = [
-    { label: '창업문의 관리', path: '/admin/inquiry' },
-    { label: '관리자 관리', path: '/admin/master' },
-    { label: '배너 관리',path: '/admin/banner ', },
-    { label: '팝업 관리', path: '/admin/popup', },
-    { label: '공지&뉴스', path: '/admin/board/notice', },
-    { label: '톡톡 이벤트', path: '/admin/board/event ', },
-    { label: '고객문의', path: '/admin/board/cs ', },
-    { label: '협력제안', path: '/admin/board/partner', },
-    { label: '매장관리', path: '/admin/store', },
-    { label: '설정', path: '/admin/config', },
-  ]
-
-  return (
-    <>
-      {isAdminRoute && !isLoginRoute && <SideBar items={sidebarItem} />}
     </>
   );
 };

@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { MemoryRouter } from 'react-router-dom';
 
-import SideBar from './AdminSideBar'; // Sidebar로 수정
+import AdminSideBar from './AdminSideBar'; // Sidebar로 수정
 
 const meta = {
   title: 'Design System/SideBar', // 제목 수정
-  component: SideBar,
+  component: AdminSideBar,
   tags: ['autodocs'],
   argTypes: {},
   decorators: [
@@ -15,7 +15,7 @@ const meta = {
       </MemoryRouter>
     ),
   ],
-} satisfies Meta<typeof SideBar>;
+} satisfies Meta<typeof AdminSideBar>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

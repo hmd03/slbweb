@@ -1,15 +1,18 @@
 import React from 'react';
-import { MdArrowBackIosNew } from 'react-icons/md';
+import { MdOutlineMenu } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { UserState } from '../../../store/atom';
 import OutlineButton from '../buttons/OutlineButton';
+import Cookies from 'js-cookie';
 
 interface Props {
   title?: string;
+  onMenuClick?: () => void;
 }
 
 const AdminHeader = (props: Props) => {
+  const { onMenuClick } = props;
   const navigate = useNavigate();
   const [_, setLogin] = useRecoilState(UserState);
 
@@ -18,7 +21,11 @@ const AdminHeader = (props: Props) => {
   };
 
   const handleLogout = () => {
-    //setLogin(null);
+    setLogin({
+      id: '',
+      accessToken: '',
+    });
+    Cookies.remove('refreshToken', { path: '/' }); 
     navigate('/admin/login');
   };
 
@@ -27,12 +34,19 @@ const AdminHeader = (props: Props) => {
   };
 
   return (
-    <div className='flex justify-between items-center w-full bg-Black fixed top-0 left-0 z-50 h-[4rem]'>
-      <div 
-        className='cursor-pointer w-[12rem]' 
-        onClick={handleLogoClick}
-      >
-       <img alt='adminLogo' src={`${process.env.PUBLIC_URL}/adminLogo.png`} className='h-[3rem] m-auto'/>
+    <div className='flex justify-between items-center w-full bg-Black h-[4rem]'>
+      <div className='h-full flex flex-row justify-center items-center'>
+        <div 
+          className='cursor-pointer w-[12rem] h-full flex justify-center items-center' 
+          onClick={handleLogoClick}
+        >
+          <img alt='adminLogo' src={`${process.env.PUBLIC_URL}/adminLogo.png`} className='h-[3rem] m-auto'/>
+        </div>
+        <MdOutlineMenu 
+          color='white'
+          className='cursor-pointer w-[2rem] h-[2rem]' 
+          onClick={onMenuClick}
+        />
       </div>
       <div className='m-[1rem]'>
         <OutlineButton theme='admin' onClick={handleHomePageRedirect}>
