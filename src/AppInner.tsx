@@ -12,6 +12,7 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 const Login = React.lazy(() => import('./pages/Login'));
 const AdminMaster = React.lazy(() => import('./pages/AdminMaster'));
+const AdminMasterWrite = React.lazy(() => import('./pages/AdminMasterWrite'));
 
 const AppInner: React.FC = () => {
   const isLoading = useRecoilValue(LoadingState);
@@ -138,6 +139,7 @@ const AppInner: React.FC = () => {
             <Routes>
               <Route path='/admin/login' element={<Login />} />
               <Route path='/admin/master' element={<AdminMaster />} />
+              <Route path='/admin/master/write' element={<AdminMasterWrite />} />
             </Routes>
           </Suspense>
         </div>
