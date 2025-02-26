@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { UserState } from '../../../store/atom';
 import OutlineButton from '../buttons/OutlineButton';
-import Cookies from 'js-cookie';
+import axios from 'axios';
 
 interface Props {
   title?: string;
@@ -20,13 +20,22 @@ const AdminHeader = (props: Props) => {
     navigate('/admin/inquiry');
   };
 
-  const handleLogout = () => {
-    setLogin({
-      id: '',
-      accessToken: '',
-    });
-    Cookies.remove('refreshToken', { path: '/' }); 
-    navigate('/admin/login');
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(
+        'api/auth/logout',
+      );
+
+      console.log(response);
+      setLogin({
+        id: '',
+        name: '',
+        accessToken: '',
+      });
+
+    } catch (error) {
+      console.log("error: " + error);
+    }
   };
 
   const handleHomePageRedirect = () => {

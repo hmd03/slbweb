@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { UserState, LoadingState } from '../../store/atom';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
 
 const LoginForm = () => {
     const idRef = useRef<HTMLInputElement>(null);
@@ -38,12 +37,14 @@ const LoginForm = () => {
                 if (response.status === 201) {
                     const { refreshToken, accessToken, user } = data;
                     const id = user.user.id;
+                    const name = user.user.name;
                     setUser({
                         id,
+                        name,
                         accessToken,
                     });
-                    Cookies.set('refreshToken', refreshToken, { secure: false, sameSite: 'Strict' });
-                    console.log(Cookies.get('refreshToken'))
+                    console.log(response);
+                    console.log(refreshToken);
                     navigate('/admin/inquiry');
                 } else {
                     alert(data.message);

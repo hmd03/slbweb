@@ -13,6 +13,7 @@ export const UserState = atom<User>({
   key: 'UserState',
   default: {
     id: '',
+    name: '',
     accessToken: '',
   },
   effects_UNSTABLE: [persistAtom],

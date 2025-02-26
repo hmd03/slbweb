@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import AdminPagination from '../ui/paging/AdminPagination';
 import AdminCurrentLayout from '../ui/layout/AdminCurrentLayout';
 import Button from '../ui/buttons/Button';
+import axios from 'axios';
 
 const AdminMasterForm: React.FC = () => {
     const navigate = useNavigate();
@@ -15,6 +16,21 @@ const AdminMasterForm: React.FC = () => {
     // 예시 데이터 fetch (실제 API 호출로 대체 가능)
     useEffect(() => {
         const fetchData = async () => {
+            try {
+                const response = await axios.get(
+                  'api/users',
+                );
+
+                console.log(response);
+        
+                // const { refreshToken, accessToken, user } = data;
+                // const id = user.user.id;
+
+              } catch (error) {
+                console.log("error: " + error);
+              }
+
+
             setTotalItems(4);
             setPageIndex(1-1);
             const result = [{
