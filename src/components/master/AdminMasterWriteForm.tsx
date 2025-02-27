@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import AdminCurrentLayout from '../ui/layout/AdminCurrentLayout';
 import Button from '../ui/buttons/Button';
 import OutlineButton from '../ui/buttons/OutlineButton';
@@ -12,16 +12,40 @@ import axios from 'axios';
 const AdminMasterWriteForm: React.FC = () => {
     const [loading, setLoading] = useRecoilState(LoadingState);
     const [isModalVisible, setModalVisible] = useState(false);
+    const [message, setMessage] = useState('');
     const navigate = useNavigate();
+    const { id, isv } = useParams<{ id?: string; isv?: string }>();
+
+    console.log(id);
+    console.log(isv);
     
     const idRef = useRef<HTMLInputElement>(null);
     const nameRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
     const chackPasswordRef = useRef<HTMLInputElement>(null);
+    const createdAtRef = useRef<HTMLInputElement>(null);
 
-    const onSignup = async () => {
+    useEffect(() => {
+        const fetchData = async () => {
+            // if (id) {
+            //     try {
+            //         const response = await axios.get(`/api/users/user?${id}`);
+
+            //         const data = response.data;
+            //         nameRef.current!.value = data.name;
+            //         idRef.current!.value = data.id;
+            //     } catch (error) {
+            //         console.log('사용자 정보를 가져오는 데 실패했습니다.');
+            //     }
+            // }
+        };
+
+        fetchData();
+    }, [id]);
+
+    const onSubmit = async () => {
         const name = nameRef.current?.value || '';
-        const id = idRef.current?.value || '';
+        const inputid = idRef.current?.value || '';
         const password = passwordRef.current?.value || '';
         const checkPassword = chackPasswordRef.current?.value || '';
 
@@ -32,7 +56,7 @@ const AdminMasterWriteForm: React.FC = () => {
             setLoading(false);
             return;
         }
-        if (!/^[a-zA-Z]{6,}$/.test(id)) {
+        if (!/^[a-zA-Z]{6,}$/.test(inputid)) {
             alert('이름은 영어로 최소 6자 이상이어야 합니다.');
             setLoading(false);
             return;
@@ -48,20 +72,37 @@ const AdminMasterWriteForm: React.FC = () => {
             return;
         }
 
+        setMessage(`${!id?'관리자를':'수정'} 등록 하시겠습니까?`);
+        onConfirm(handleConfirm);
+
         setModalVisible(true);
     }
 
     const handleConfirm = async () => {
         const name = nameRef.current?.value || '';
-        const id = idRef.current?.value || '';
+        const inputid = idRef.current?.value || '';
         const password = passwordRef.current?.value || '';
 
+        let url = '';
+        let arg = {};
+
+        if(!id){
+            url = '/api/auth/signup';
+            arg = {
+                id: inputid,
+                name: name,
+                password: password,
+            };
+        } else {
+            url = '/api/auth/signup';
+            arg = {
+                id: inputid,
+                password: password,
+            };
+        }
+
         try {
-            const response = await axios.post('/api/auth/signup', {
-                id,
-                name,
-                password,
-            });
+            const response = await axios.post(url, arg);
 
             const data = response.data;
 
@@ -77,6 +118,10 @@ const AdminMasterWriteForm: React.FC = () => {
             setLoading(false);
             setModalVisible(false);
         }
+    }
+
+    const onConfirm = (func: () => void) => {
+        func();
     }
 
     const handleCancel = () => {
@@ -96,29 +141,31 @@ const AdminMasterWriteForm: React.FC = () => {
                     </thead>
                     <tbody className='text-diagram'>
                         <tr>
-                            <th className="bg-LightGray border border-Black border-[2px] p-2">이름</th>
+                            <th className="bg-LightGray border border-Black border-[2px] p-2 text-left">이름</th>
                             <td className="bg-White border border-Black border-[2px] p-2 text-center w-[70%]">
                                 <InputField
                                     className=' py-1'
                                     placeholder='한글만 가능'
                                     ref={nameRef} 
                                     autoComplete='id'
+                                    readOnly={!!id}
                                 />
                             </td>
                         </tr>
                         <tr >
-                            <th className="bg-LightGray border border-Black border-[2px] p-2">아이디</th>
+                            <th className="bg-LightGray border border-Black border-[2px] p-2 text-left">아이디</th>
                             <td className="bg-White border border-Black border-[2px] p-2 text-center w-[70%]">
                                 <InputField
                                     className=' py-1'
                                     placeholder='영어(최소 6자 이상)'
                                     ref={idRef} 
                                     autoComplete='name'
+                                    readOnly={!!id}
                                 />
                             </td>
                         </tr>
                         <tr >
-                            <th className="bg-LightGray border border-Black border-[2px] p-2">비밀번호</th>
+                            <th className="bg-LightGray border border-Black border-[2px] p-2 text-left">비밀번호</th>
                             <td className="bg-White border border-Black border-[2px] p-2 text-center w-[70%]">
                                 <InputField
                                     className=' py-1'
@@ -129,7 +176,7 @@ const AdminMasterWriteForm: React.FC = () => {
                             </td>
                         </tr>
                         <tr >
-                            <th className="bg-LightGray border border-Black border-[2px] p-2">비밀번호 확인</th>
+                            <th className="bg-LightGray border border-Black border-[2px] p-2 text-left">비밀번호 확인</th>
                             <td className="bg-White border border-Black border-[2px] p-2 text-center w-[70%]">
                                 <InputField
                                     className=' py-1'
@@ -139,18 +186,30 @@ const AdminMasterWriteForm: React.FC = () => {
                                 />
                             </td>
                         </tr>
+                        {!!id && <tr >
+                            <th className="bg-LightGray border border-Black border-[2px] p-2 text-left">가입일</th>
+                            <td className="bg-White border border-Black border-[2px] p-2 text-center w-[70%]">
+                                <InputField
+                                    className=' py-1'
+                                    ref={createdAtRef} 
+                                    autoComplete='createdAt'
+                                    readOnly={!!id}
+                                />
+                            </td>
+                        </tr>}
                     </tbody>
                 </table>
                 <div className='flex w-full items-center justify-center h-fit mt-2'>
-                    <Button onClick={onSignup} theme='admin' className='px-8 py-[14px] border border-[2px]'>등록</Button>
+                    <Button onClick={onSubmit} theme='admin' className='px-8 py-[14px] border border-[2px]'>{!id?'등록':'수정'}</Button>
+                    {isv?.split('=')[1] === '0' && !!id && <Button onClick={onSubmit} theme='error' className='px-8 py-[14px] border border-[2px]'>삭제</Button>}
                     <OutlineButton onClick={onBackPage} theme='admin' className='px-8 py-[13px]'>← 목록</OutlineButton>
                 </div>
             </div>
             {isModalVisible && (
                 <AlterModal
-                    message="정말로 등록하시겠습니까?"
+                    message={message}
                     isCancelVisible={true}
-                    onConfirm={handleConfirm}
+                    onConfirm={() => onConfirm}
                     onCancel={handleCancel}
                 />
             )}

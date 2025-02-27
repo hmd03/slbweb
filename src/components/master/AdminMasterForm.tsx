@@ -32,6 +32,10 @@ const AdminMasterForm: React.FC = () => {
         navigate('/admin/master/write');
     };
 
+    const handleModClick = (id: string, isSupervisor: boolean) => {
+        navigate(`/admin/master/write/id=${id}/isv=${isSupervisor?1:0}`);
+    };
+
     const fetchData = async () => {
         try {
             console.log(pageIndex)
@@ -68,7 +72,7 @@ const AdminMasterForm: React.FC = () => {
                                 <td className="border border-Black border-[2px] p-2 text-center w-[20%]">{item.name}</td>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[25%]">{formatDate(item.createdAt)}</td>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[25%]">
-                                    <OutlineButton theme='admin' className='w-[4rem] h-[2rem]'>수정</OutlineButton>
+                                    <OutlineButton theme='admin' className='w-[4rem] h-[2rem]' onClick={() => handleModClick(item.id, item.isSupervisor)}  >수정</OutlineButton>
                                     {!item.isSupervisor && <Button theme='error' className='ml-2 w-[4rem] h-[2rem] bolder'>삭제</Button>}
                                 </td>
                             </tr>

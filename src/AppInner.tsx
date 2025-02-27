@@ -105,6 +105,7 @@ const AppInner: React.FC = () => {
                   <Route path='/admin/inquiry' element={<AdminInquiry />} />
                   <Route path='/admin/master' element={<AdminMaster />} />
                   <Route path='/admin/master/write' element={<AdminMasterWrite />} />
+                  <Route path='/admin/master/write/:id/:isv' element={<AdminMasterWrite />} />
                   <Route path='/admin/banner' element={<AdminBanner />} />
                   <Route path='/admin/popup' element={<AdminPopup />} />
                   <Route path='/admin/board/notice' element={<AdminBoardNotice />} />
