@@ -25,6 +25,8 @@ const InputField = forwardRef<HTMLInputElement, Props>(
 
       if (props.className) {
         baseClasses += ` ${props.className}`;
+      } else {
+        baseClasses += ` px-4 py-3`;
       }
 
       filteredProps = Object.fromEntries(

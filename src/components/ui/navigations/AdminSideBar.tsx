@@ -33,7 +33,7 @@ const AdminSideBar = ({ items, visible = true}: Props) => {
   };
 
   return (
-    <div className={`${visible ? 'fixed w-[12rem] h-full bg-Black text-white flex flex-col' : 'hidden'}`}>
+    <div className={`${visible ? 'w-[12rem] h-full bg-Black text-white flex flex-col' : 'hidden'}`}>
       {items.map((item, index) => (
         <Link
           to={item.path}

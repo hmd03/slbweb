@@ -27,9 +27,9 @@ const AdminNavLayout = ({ children, ...props }: Props) => {
   return (
     <div className="w-screen h-screen flex flex-col" {...props}>
       <HeaderWrapper onMenuClick={onMenuClick} />
-      <div className="flex flex-1">
+      <div className="flex w-full h-full">
         {isSidebarVisible && <SideBarWrapper isSidebarVisible={isSidebarVisible} />}
-        <div className={`flex-1 ${isSidebarVisible && !isLoginRoute ? 'ml-[12rem]' : 'ml-0'}`}>
+        <div className={`h-full w-full ${isSidebarVisible && !isLoginRoute ? 'ml-0' : 'ml-0'}`}>
           {children}
         </div>
       </div>
