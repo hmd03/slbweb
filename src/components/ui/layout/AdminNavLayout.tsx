@@ -1,7 +1,8 @@
-import React, { ReactNode, HTMLAttributes, useState } from 'react';
+import React, { ReactNode, HTMLAttributes, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import AdminHeader from '../headers/AdminHeader';
 import AdminSideBar from '../navigations/AdminSideBar';
+import useDeviceInfo from '../../../hooks/useDeviceInfo';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -13,9 +14,15 @@ const AdminNavLayout = ({ children, ...props }: Props) => {
   const location = useLocation();
   const isLoginRoute = location.pathname === '/admin/login';
 
+  const deviceInfo = useDeviceInfo();
+
   const onMenuClick = () => {
     setSidebarVisible(!isSidebarVisible);
   }
+
+  useEffect(() => {
+    setSidebarVisible(!deviceInfo.isSmallScreen);
+  }, [deviceInfo]);
 
   return (
     <div className="w-screen h-screen flex flex-col" {...props}>
