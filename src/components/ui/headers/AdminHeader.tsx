@@ -14,7 +14,7 @@ interface Props {
 const AdminHeader = (props: Props) => {
   const { onMenuClick } = props;
   const navigate = useNavigate();
-  const [_, setLogin] = useRecoilState(UserState);
+  const [_, setUser] = useRecoilState(UserState);
 
   const handleLogoClick = () => {
     navigate('/admin/inquiry');
@@ -27,9 +27,10 @@ const AdminHeader = (props: Props) => {
       );
 
       console.log(response);
-      setLogin({
+      setUser({
         id: '',
         name: '',
+        isSupervisor: false,
         accessToken: '',
       });
 

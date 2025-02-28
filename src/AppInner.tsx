@@ -53,6 +53,7 @@ const AppInner: React.FC = () => {
             setUser({
               id: '',
               name: '',
+              isSupervisor: false,
               accessToken: '',
             });
             alert('다시 로그인해주세요.');
@@ -67,6 +68,7 @@ const AppInner: React.FC = () => {
             setUser({
               id: user.id,
               name: user.name,
+              isSupervisor: user.isSupervisor,
               accessToken: accessToken,
             });
             return axios(originalRequest);
@@ -75,6 +77,7 @@ const AppInner: React.FC = () => {
           setUser({
             id: '',
             name: '',
+            isSupervisor: false,
             accessToken: '',
           });
         }

@@ -36,11 +36,14 @@ const LoginForm = () => {
 
                 if (response.status === 201) {
                     const { refreshToken, accessToken, user } = data;
+                    console.log(user.user);
                     const id = user.user.id;
                     const name = user.user.name;
+                    const isSupervisor = user.user.isSupervisor;
                     setUser({
                         id,
                         name,
+                        isSupervisor,
                         accessToken,
                     });
                     console.log(response);

@@ -1,4 +1,3 @@
-// src/AdminMasterForm.tsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminPagination from '../../ui/paging/AdminPagination';
@@ -7,12 +6,20 @@ import Button from '../../ui/buttons/Button';
 import axios from 'axios';
 import { formatDate } from '../../utils/dateUtils';
 import OutlineButton from '../../ui/buttons/OutlineButton';
+import AlterModal from '../../ui/alters/AlterModal';
+import { useRecoilValue } from 'recoil';
+import { UserState } from '../../../store/atom';
 
 const AdminMasterForm: React.FC = () => {
     const navigate = useNavigate();
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [isCancelVisible, setIsCancelVisible] = useState(true);
+    const [message, setMessage] = useState('');
     const [data, setData] = useState<any[]>([]);
     const [totalItems, setTotalItems] = useState<number>(0);
     const [pageIndex, setPageIndex] = useState<number>(1);
+    const { isSupervisor } = useRecoilValue(UserState);
+    const [onConfirm, setOnConfirm] = useState(() => () => {});
 
     let pageItems = 10;
 
@@ -32,8 +39,12 @@ const AdminMasterForm: React.FC = () => {
         navigate('/admin/master/write');
     };
 
-    const handleModClick = (id: string, isSupervisor: boolean) => {
-        navigate(`/admin/master/write/id=${id}/isv=${isSupervisor?1:0}`);
+    const handleModClick = (id: string, itemSupervisor: boolean) => {
+        if(!isSupervisor){
+            handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
+            return;
+        }
+        navigate(`/admin/master/write/id=${id}/isv=${itemSupervisor?1:0}`);
     };
 
     const fetchData = async () => {
@@ -50,6 +61,17 @@ const AdminMasterForm: React.FC = () => {
             console.log("error: " + error);
           }
     };
+
+    const handleOpenModal = (msg: string,  isCancel = true, confirmFunction: () => void) => {
+        setMessage(msg);
+        setIsCancelVisible(isCancel);
+        setOnConfirm(() => confirmFunction);
+        setModalVisible(true);
+      };
+
+    const handleCancel = () => {
+        setModalVisible(false);
+    }
 
     return (
         <AdminCurrentLayout title='관리자 리스트'>
@@ -82,6 +104,14 @@ const AdminMasterForm: React.FC = () => {
                 <AdminPagination totalItems={totalItems} itemsPerPage={pageItems} onPageChange={handlePageChange}/>
                 <Button theme='admin' onClick={handleRegisterClick}>등록</Button> 
             </div>
+            {isModalVisible && (
+                <AlterModal
+                    message={message}
+                    isCancelVisible={isCancelVisible}
+                    onConfirm={() => onConfirm}
+                    onCancel={handleCancel}
+                />
+            )}
         </AdminCurrentLayout>
     );
 };

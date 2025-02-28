@@ -12,9 +12,11 @@ import axios from 'axios';
 const AdminMasterWriteForm: React.FC = () => {
     const [loading, setLoading] = useRecoilState(LoadingState);
     const [isModalVisible, setModalVisible] = useState(false);
+    const [isCancelVisible, setIsCancelVisible] = useState(true);
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
     const { id, isv } = useParams<{ id?: string; isv?: string }>();
+    const [onConfirm, setOnConfirm] = useState(() => () => {});
 
     console.log(id);
     console.log(isv);
@@ -72,11 +74,19 @@ const AdminMasterWriteForm: React.FC = () => {
             return;
         }
 
+        handleOpenModal(`${!id?'관리자를':'수정'} 등록 하시겠습니까?`, true, handleConfirm)
+
         setMessage(`${!id?'관리자를':'수정'} 등록 하시겠습니까?`);
-        onConfirm(handleConfirm);
 
         setModalVisible(true);
     }
+
+    const handleOpenModal = (msg: string, isCancel = true, confirmFunction: () => void) => {
+        setMessage(msg);
+        setIsCancelVisible(isCancel)
+        setOnConfirm(() => confirmFunction);
+        setModalVisible(true);
+      };
 
     const handleConfirm = async () => {
         const name = nameRef.current?.value || '';
@@ -118,10 +128,6 @@ const AdminMasterWriteForm: React.FC = () => {
             setLoading(false);
             setModalVisible(false);
         }
-    }
-
-    const onConfirm = (func: () => void) => {
-        func();
     }
 
     const handleCancel = () => {
@@ -208,8 +214,8 @@ const AdminMasterWriteForm: React.FC = () => {
             {isModalVisible && (
                 <AlterModal
                     message={message}
-                    isCancelVisible={true}
-                    onConfirm={() => onConfirm}
+                    isCancelVisible={isCancelVisible}
+                    onConfirm={onConfirm}
                     onCancel={handleCancel}
                 />
             )}

@@ -14,6 +14,7 @@ export const UserState = atom<User>({
   default: {
     id: '',
     name: '',
+    isSupervisor: false,
     accessToken: '',
   },
   effects_UNSTABLE: [persistAtom],
