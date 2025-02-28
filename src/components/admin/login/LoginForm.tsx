@@ -17,10 +17,10 @@ const LoginForm = () => {
         async (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
 
-            const id = idRef.current?.value;
+            const inputid = idRef.current?.value;
             const password = passwordRef.current?.value;
 
-            if (!id || !password) {
+            if (!inputid || !password) {
                 return;
             }
 
@@ -28,8 +28,8 @@ const LoginForm = () => {
 
             try {
                 const response = await axios.post('/api/auth/login', {
-                    id,
-                    password,
+                    id: inputid,
+                    password: password,
                 });
 
                 const data = response.data;
