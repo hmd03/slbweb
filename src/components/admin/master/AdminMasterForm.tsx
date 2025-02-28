@@ -1,12 +1,12 @@
 // src/AdminMasterForm.tsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AdminPagination from '../ui/paging/AdminPagination';
-import AdminCurrentLayout from '../ui/layout/AdminCurrentLayout';
-import Button from '../ui/buttons/Button';
+import AdminPagination from '../../ui/paging/AdminPagination';
+import AdminCurrentLayout from '../../ui/layout/AdminCurrentLayout';
+import Button from '../../ui/buttons/Button';
 import axios from 'axios';
-import { formatDate } from '../utils/dateUtils';
-import OutlineButton from '../ui/buttons/OutlineButton';
+import { formatDate } from '../../utils/dateUtils';
+import OutlineButton from '../../ui/buttons/OutlineButton';
 
 const AdminMasterForm: React.FC = () => {
     const navigate = useNavigate();
