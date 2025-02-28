@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 import { UserState } from '../../../store/atom';
 import OutlineButton from '../buttons/OutlineButton';
 import axios from 'axios';
+import { IoHome, IoPowerSharp } from "react-icons/io5";
 
 interface Props {
   title?: string;
@@ -58,12 +59,18 @@ const AdminHeader = (props: Props) => {
           onClick={onMenuClick}
         />
       </div>
-      <div className='m-[1rem]'>
-        <OutlineButton theme='admin' onClick={handleHomePageRedirect}>
-          홈페이지 바로가기
+      <div className='m-[1rem] flex'>
+        <OutlineButton theme='admin' 
+          className='px-5  w-[11.375rem] h-[3rem] flex items-center' 
+          onClick={handleHomePageRedirect}>
+              홈페이지 바로가기
+              <IoHome color='black' className='ml-1 w-fit'/>
         </OutlineButton>
-        <OutlineButton theme='admin' onClick={handleLogout}>
-          로그아웃
+        <OutlineButton theme='admin' 
+          className='px-5 w-[7.5rem] h-[3rem] flex items-center' 
+          onClick={handleLogout}>
+              <IoPowerSharp color='black' className='mr-1 w-fit'/>
+              로그아웃
         </OutlineButton>
       </div>
     </div>
