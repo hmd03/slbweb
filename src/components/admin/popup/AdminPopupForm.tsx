@@ -9,6 +9,8 @@ import OutlineButton from '../../ui/buttons/OutlineButton';
 import AlterModal from '../../ui/alters/AlterModal';
 import { useRecoilValue } from 'recoil';
 import { UserState } from '../../../store/atom';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { FaPencilAlt } from 'react-icons/fa';
 
 const AdminPopupForm: React.FC = () => {
     const navigate = useNavigate();
@@ -98,8 +100,20 @@ const AdminPopupForm: React.FC = () => {
                                 <td className="border border-Black border-[2px] p-2 text-center w-[15%]">{formatDate(item.createdAt)}</td>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[15%]">{formatDate(item.createdAt)}</td>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[20%]">
-                                    <OutlineButton theme='admin' className='w-[4rem] h-[2rem]' onClick={() => handleModClick(item.id, item.isSupervisor)}  >수정</OutlineButton>
-                                    {!item.isSupervisor && <Button theme='error' className='ml-2 w-[4rem] h-[2rem] bolder'>삭제</Button>}
+                                    <div className='w-full flex items-center justify-center'>
+                                        <OutlineButton theme='admin' 
+                                            className='px-2  w-[4rem] h-[2rem] flex items-center' 
+                                            onClick={() => handleModClick(item.id, item.isSupervisor)}>
+                                                수정
+                                                <FaPencilAlt color='black' className='ml-1 w-fit'/>
+                                        </OutlineButton>
+                                        {!item.isSupervisor && 
+                                            <Button theme='error' className='ml-2 px-2 w-[4rem] h-[2rem] bolder flex items-center'>
+                                                삭제
+                                                <RiDeleteBin6Line color='white' className='ml-1 w-fit' />
+                                            </Button>
+                                        }
+                                    </div>
                                 </td>
                             </tr>
                         ))}
@@ -112,7 +126,7 @@ const AdminPopupForm: React.FC = () => {
                 <AlterModal
                     message={message}
                     isCancelVisible={isCancelVisible}
-                    onConfirm={() => onConfirm}
+                    onConfirm={onConfirm}
                     onCancel={handleCancel}
                 />
             )}

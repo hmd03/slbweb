@@ -9,6 +9,8 @@ import OutlineButton from '../../ui/buttons/OutlineButton';
 import AlterModal from '../../ui/alters/AlterModal';
 import { useRecoilValue } from 'recoil';
 import { UserState } from '../../../store/atom';
+import { FaRegEye } from 'react-icons/fa';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 const AdminBoardPartnerForm: React.FC = () => {
     const navigate = useNavigate();
@@ -96,8 +98,20 @@ const AdminBoardPartnerForm: React.FC = () => {
                                 <td className="border border-Black border-[2px] p-2 text-center w-[10%]">{item.name}</td>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[25%]">{formatDate(item.createdAt)}</td>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[25%]">
-                                    <OutlineButton theme='admin' className='w-[4rem] h-[2rem]' onClick={() => handleModClick(item.id, item.isSupervisor)}  >수정</OutlineButton>
-                                    {!item.isSupervisor && <Button theme='error' className='ml-2 w-[4rem] h-[2rem] bolder'>삭제</Button>}
+                                    <div className='w-full flex items-center justify-center'>
+                                        <OutlineButton theme='admin' 
+                                            className='px-2  w-[4rem] h-[2rem] flex items-center' 
+                                            onClick={() => handleModClick(item.id, item.isSupervisor)}>
+                                                <FaRegEye  color='black' className='mr-1 w-fit'/>
+                                                보기
+                                        </OutlineButton>
+                                        {!item.isSupervisor && 
+                                            <Button theme='error' className='ml-2 px-2 w-[4rem] h-[2rem] bolder flex items-center'>
+                                                삭제
+                                                <RiDeleteBin6Line color='white' className='ml-1 w-fit' />
+                                            </Button>
+                                        }
+                                    </div>
                                 </td>
                             </tr>
                         ))}
@@ -110,7 +124,7 @@ const AdminBoardPartnerForm: React.FC = () => {
                 <AlterModal
                     message={message}
                     isCancelVisible={isCancelVisible}
-                    onConfirm={() => onConfirm}
+                    onConfirm={onConfirm}
                     onCancel={handleCancel}
                 />
             )}
