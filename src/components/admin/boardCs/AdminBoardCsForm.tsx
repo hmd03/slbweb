@@ -10,7 +10,7 @@ import AlterModal from '../../ui/alters/AlterModal';
 import { useRecoilValue } from 'recoil';
 import { UserState } from '../../../store/atom';
 
-const AdminMasterForm: React.FC = () => {
+const AdminBoardCsForm: React.FC = () => {
     const navigate = useNavigate();
     const [isModalVisible, setModalVisible] = useState(false);
     const [isCancelVisible, setIsCancelVisible] = useState(true);
@@ -24,7 +24,7 @@ const AdminMasterForm: React.FC = () => {
     let pageItems = 10;
 
     useEffect(() => {
-        fetchData();
+        //fetchData();
     }, [pageIndex]);
 
     const handlePageChange = (page: number) => {
@@ -36,7 +36,7 @@ const AdminMasterForm: React.FC = () => {
     };
 
     const handleRegisterClick = () => {
-        navigate('/admin/master/write');
+        //navigate('/admin/master/write');
     };
 
     const handleModClick = (id: string, itemSupervisor: boolean) => {
@@ -74,25 +74,25 @@ const AdminMasterForm: React.FC = () => {
     }
 
     return (
-        <AdminCurrentLayout title='관리자 리스트'>
+        <AdminCurrentLayout title='고객문의의 리스트'>
             <div className='w-full h-fit p-5 border border-Black bg-White'>
                 <table className="min-w-full border-collapse border border-[2px] border-Black">
                     <thead className='bg-LightGray text-diagram'>
                         <tr>
+                            <th className="border border-Black border-[2px] p-2">체크</th>
                             <th className="border border-Black border-[2px] p-2">No</th>
-                            <th className="border border-Black border-[2px] p-2">아이디</th>
-                            <th className="border border-Black border-[2px] p-2">이름</th>
-                            <th className="border border-Black border-[2px] p-2">가입일</th>
+                            <th className="border border-Black border-[2px] p-2">작성자</th>
+                            <th className="border border-Black border-[2px] p-2">등록일</th>
                             <th className="border border-Black border-[2px] p-2">관리</th>
                         </tr>
                     </thead>
                     <tbody className='bg-White text-diagram'>
                         {data.map((item, index) => (
                             <tr key={item.id}>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[5%]">{totalItems - index - ((pageIndex-1) * pageItems)}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[20%]">{item.id}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[20%]">{item.name}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[25%]">{formatDate(item.createdAt)}</td>
+                                <td className="border border-Black border-[2px] p-2 text-center w-[5%]">체크</td>
+                                <td className="border border-Black border-[2px] p-2 text-center w-[10%]">{totalItems - index - ((pageIndex-1) * pageItems)}</td>
+                                <td className="border border-Black border-[2px] p-2 text-center w-[30%]">{item.name}</td>
+                                <td className="border border-Black border-[2px] p-2 text-center w-[30%]">{formatDate(item.createdAt)}</td>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[25%]">
                                     <OutlineButton theme='admin' className='w-[4rem] h-[2rem]' onClick={() => handleModClick(item.id, item.isSupervisor)}  >수정</OutlineButton>
                                     {!item.isSupervisor && <Button theme='error' className='ml-2 w-[4rem] h-[2rem] bolder'>삭제</Button>}
@@ -116,4 +116,4 @@ const AdminMasterForm: React.FC = () => {
     );
 };
 
-export default AdminMasterForm;
+export default AdminBoardCsForm;

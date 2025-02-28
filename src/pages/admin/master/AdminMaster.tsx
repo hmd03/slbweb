@@ -1,5 +1,5 @@
 import React from 'react';
-import AdminMasterForm from '../../components/admin/master/AdminMasterForm';
+import AdminMasterForm from '../../../components/admin/master/AdminMasterForm';
 
 const AdminMaster = () => {
   return (

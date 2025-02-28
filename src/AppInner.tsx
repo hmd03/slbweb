@@ -10,19 +10,19 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
 
 const Login = React.lazy(() => import('./pages/admin/Login'));
-const AdminInquiry = React.lazy(() => import('./pages/admin/AdminInquiry'));
+const AdminInquiry = React.lazy(() => import('./pages/admin/inquiry/AdminInquiry'));
 
-const AdminMaster = React.lazy(() => import('./pages/admin/AdminMaster'));
-const AdminMasterWrite = React.lazy(() => import('./pages/admin/AdminMasterWrite'));
+const AdminMaster = React.lazy(() => import('./pages/admin/master/AdminMaster'));
+const AdminMasterWrite = React.lazy(() => import('./pages/admin/master/AdminMasterWrite'));
 
-const AdminBanner = React.lazy(() => import('./pages/admin/AdminBanner'));
-const AdminPopup = React.lazy(() => import('./pages/admin/AdminPopup'));
-const AdminBoardNotice = React.lazy(() => import('./pages/admin/AdminBoardNotice'));
-const AdminBoardEvent = React.lazy(() => import('./pages/admin/AdminBoardEvent'));
-const AdminBoardCs = React.lazy(() => import('./pages/admin/AdminBoardCs'));
-const AdminBoardPartner = React.lazy(() => import('./pages/admin/AdminBoardPartner'));
-const AdminStore = React.lazy(() => import('./pages/admin/AdminStore'));
-const AdminConfig = React.lazy(() => import('./pages/admin/AdminConfig'));
+const AdminBanner = React.lazy(() => import('./pages/admin/banner/AdminBanner'));
+const AdminPopup = React.lazy(() => import('./pages/admin/popup/AdminPopup'));
+const AdminBoardNotice = React.lazy(() => import('./pages/admin/boardNotice/AdminBoardNotice'));
+const AdminBoardEvent = React.lazy(() => import('./pages/admin/boardEvent/AdminBoardEvent'));
+const AdminBoardCs = React.lazy(() => import('./pages/admin/boardCs/AdminBoardCs'));
+const AdminBoardPartner = React.lazy(() => import('./pages/admin/boardPartner/AdminBoardPartner'));
+const AdminStore = React.lazy(() => import('./pages/admin/store/AdminStore'));
+const AdminConfig = React.lazy(() => import('./pages/admin/config/AdminConfig'));
 
 const AppInner: React.FC = () => {
   const [isLoading, setIsLoading] = useRecoilState(LoadingState);

@@ -1,9 +1,9 @@
 import React, { useRef, useCallback } from 'react';
-import InputField from '../ui/inputs/InputField';
-import Button from '../ui/buttons/Button';
+import InputField from '../../ui/inputs/InputField';
+import Button from '../../ui/buttons/Button';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
-import { UserState, LoadingState } from '../../store/atom';
+import { UserState, LoadingState } from '../../../store/atom';
 import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
