@@ -7,6 +7,7 @@ import AlterModal from '../../ui/alters/AlterModal';
 import InputField from '../../ui/inputs/InputField';
 import { LoadingState } from '../../../store/atom';
 import { useRecoilState } from 'recoil';
+import { formatDate } from '../../utils/dateUtils';
 import axios from 'axios';
 
 const AdminMasterWriteForm: React.FC = () => {
@@ -29,17 +30,20 @@ const AdminMasterWriteForm: React.FC = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            // if (id) {
-            //     try {
-            //         const response = await axios.get(`/api/users/user?${id}`);
-
-            //         const data = response.data;
-            //         nameRef.current!.value = data.name;
-            //         idRef.current!.value = data.id;
-            //     } catch (error) {
-            //         console.log('사용자 정보를 가져오는 데 실패했습니다.');
-            //     }
-            // }
+            if (id) {
+                try {
+                    const response = await axios.get(`/api/users/${id.split('=')[1]}`);
+                    console.log(response);
+                    if (response.status === 200) {
+                        const data = response.data;
+                        nameRef.current!.value = data.name;
+                        idRef.current!.value = data.id;
+                        createdAtRef.current!.value = formatDate(data.createdAt);
+                    }
+                } catch (error) {
+                    console.log('사용자 정보를 가져오는 데 실패했습니다.');
+                }
+            }
         };
 
         fetchData();
@@ -54,12 +58,12 @@ const AdminMasterWriteForm: React.FC = () => {
         setLoading(true);
 
         if (!/^[가-힣]+$/.test(name)) {
-            alert('아이디는 한글만 가능합니다.');
+            alert('이름은 한글만 가능합니다.');
             setLoading(false);
             return;
         }
         if (!/^[a-zA-Z]{6,}$/.test(inputid)) {
-            alert('이름은 영어로 최소 6자 이상이어야 합니다.');
+            alert('아이디는 영어로 최소 6자 이상이어야 합니다.');
             setLoading(false);
             return;
         }
@@ -76,52 +80,77 @@ const AdminMasterWriteForm: React.FC = () => {
 
         handleOpenModal(`${!id?'관리자를':'수정'} 등록 하시겠습니까?`, true, handleConfirm)
 
-        setMessage(`${!id?'관리자를':'수정'} 등록 하시겠습니까?`);
-
         setModalVisible(true);
     }
+
+    const handleDelClick = () => {
+        handleOpenModal('삭제 하시겠습니까?', true, deleteId);
+    };
+
+    const deleteId = async () => {
+        try {
+            if(id){
+                const response = await axios.delete(
+                    `api/users/${id.split('=')[1]}`,
+                  );
+      
+                  console.log(response)
+                  const data = response.data;
+      
+                  if (response.status === 200) {
+                      navigate('/admin/master');
+                  } else {
+                      alert(data.message);
+                  }
+            }
+          } catch (error) {
+            console.log("error: " + error);
+          }
+    };
 
     const handleOpenModal = (msg: string, isCancel = true, confirmFunction: () => void) => {
         setMessage(msg);
         setIsCancelVisible(isCancel)
         setOnConfirm(() => confirmFunction);
         setModalVisible(true);
-      };
+    };
 
     const handleConfirm = async () => {
         const name = nameRef.current?.value || '';
         const inputid = idRef.current?.value || '';
         const password = passwordRef.current?.value || '';
 
-        let url = '';
-        let arg = {};
-
-        if(!id){
-            url = '/api/auth/signup';
-            arg = {
-                id: inputid,
-                name: name,
-                password: password,
-            };
-        } else {
-            url = '/api/auth/signup';
-            arg = {
-                id: inputid,
-                password: password,
-            };
-        }
-
         try {
-            const response = await axios.post(url, arg);
+            if(!id){
+                const response = await axios.post('/api/auth/signup', {
+                    id: inputid,
+                    name: name,
+                    password: password,
+                });
 
-            const data = response.data;
-
-            if (response.status === 201) {
-                console.log(response);
-                navigate('/admin/master');
+                const data = response.data;
+    
+                if (response.status === 201) {
+                    console.log(response);
+                    navigate('/admin/master');
+                } else {
+                    alert(data.message);
+                }
             } else {
-                alert(data.message);
+                const response = await axios.patch(`api/users/${id.split('=')[1]}/password`, {
+                    password: password,
+                });
+
+                const data = response.data;
+    
+                if (response.status === 200) {
+                    console.log(response);
+                    navigate('/admin/master');
+                } else {
+                    alert(data.message);
+                }
             }
+            
         } catch (error) {
             alert((error as Error).message);
         } finally {
@@ -207,7 +236,7 @@ const AdminMasterWriteForm: React.FC = () => {
                 </table>
                 <div className='flex w-full items-center justify-center h-fit mt-2'>
                     <Button onClick={onSubmit} theme='admin' className='px-8 py-[14px] border border-[2px]'>{!id?'등록':'수정'}</Button>
-                    {isv?.split('=')[1] === '0' && !!id && <Button onClick={onSubmit} theme='error' className='px-8 py-[14px] border border-[2px]'>삭제</Button>}
+                    {isv?.split('=')[1] === '0' && !!id && <Button onClick={handleDelClick} theme='error' className='px-8 py-[14px] border border-[2px]'>삭제</Button>}
                     <OutlineButton onClick={onBackPage} theme='admin' className='px-8 py-[13px]'>← 목록</OutlineButton>
                 </div>
             </div>

@@ -42,23 +42,50 @@ const AdminMasterForm: React.FC = () => {
     };
 
     const handleModClick = (id: string, itemSupervisor: boolean) => {
-        // if(!isSupervisor){
-        //     handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
-        //     return;
-        // }
+        if(!isSupervisor){
+            handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
+            return;
+        }
         navigate(`/admin/master/write/id=${id}/isv=${itemSupervisor?1:0}`);
+    };
+
+    const handleDelClick = (id: string) => {
+        if(!isSupervisor){
+            handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
+            return;
+        }
+        handleOpenModal('삭제 하시겠습니까?', false, () => deleteId(id));
     };
 
     const fetchData = async () => {
         try {
-            console.log(pageIndex)
             const response = await axios.get(
               `api/users?page=${pageIndex}`,
             );
 
-            console.log(response);
             setData(response.data.userList);
             setTotalItems(response.data.totalCount);
+          } catch (error) {
+            console.log("error: " + error);
+          }
+    };
+
+    const deleteId = async (id: string) => {
+        console.log(id);
+        try {
+            const response = await axios.delete(
+              `api/users/${id}`,
+            );
+
+            console.log(response)
+            const data = response.data;
+
+            if (response.status === 200) {
+                handleCancel();
+                fetchData();
+            } else {
+                alert(data.message);
+            }
           } catch (error) {
             console.log("error: " + error);
           }
@@ -69,7 +96,7 @@ const AdminMasterForm: React.FC = () => {
         setIsCancelVisible(isCancel);
         setOnConfirm(() => confirmFunction);
         setModalVisible(true);
-      };
+    };
 
     const handleCancel = () => {
         setModalVisible(false);
@@ -104,7 +131,9 @@ const AdminMasterForm: React.FC = () => {
                                                 <FaPencilAlt color='black' className='ml-1 w-fit'/>
                                         </OutlineButton>
                                         {!item.isSupervisor && 
-                                            <Button theme='error' className='ml-2 px-2 w-[4rem] h-[2rem] bolder flex items-center'>
+                                            <Button theme='error' 
+                                            className='ml-2 px-2 w-[4rem] h-[2rem] bolder flex items-center'
+                                            onClick={() => handleDelClick(item.id)}>
                                                 삭제
                                                 <RiDeleteBin6Line color='white' className='ml-1 w-fit' />
                                             </Button>
