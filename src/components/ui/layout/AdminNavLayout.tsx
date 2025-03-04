@@ -26,7 +26,7 @@ const AdminNavLayout = ({ children, ...props }: Props) => {
 
   return (
     <div className="w-screen h-screen flex flex-col" {...props}>
-      <HeaderWrapper onMenuClick={onMenuClick} />
+      <HeaderWrapper onMenuClick={onMenuClick} isSidebarVisible={isSidebarVisible}/>
       <div className="flex w-full h-full">
         {isSidebarVisible && <SideBarWrapper isSidebarVisible={isSidebarVisible} />}
         <div className={`h-full w-full ${isSidebarVisible && !isLoginRoute ? 'ml-0' : 'ml-0'}`}>
@@ -39,16 +39,17 @@ const AdminNavLayout = ({ children, ...props }: Props) => {
 
 interface HeaderWrapperProps {
   onMenuClick: () => void;
+  isSidebarVisible: boolean;
 }
 
-const HeaderWrapper: React.FC<HeaderWrapperProps> = ({ onMenuClick }) => {
+const HeaderWrapper: React.FC<HeaderWrapperProps> = ({ onMenuClick, isSidebarVisible }) => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
   const isLoginRoute = location.pathname === '/admin/login';
 
   return (
     <>
-      {isAdminRoute && !isLoginRoute && <AdminHeader onMenuClick={onMenuClick}/>}
+      {isAdminRoute && !isLoginRoute && <AdminHeader onMenuClick={onMenuClick} visible={isSidebarVisible}/>}
     </>
   );
 };

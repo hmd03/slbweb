@@ -8,11 +8,11 @@ import axios from 'axios';
 import { IoHome, IoPowerSharp } from "react-icons/io5";
 
 interface Props {
-  title?: string;
+  visible?: boolean;
   onMenuClick?: () => void;
 }
 
-const AdminHeader = (props: Props) => {
+const AdminHeader = ({visible = true, ...props}: Props) => {
   const { onMenuClick } = props;
   const navigate = useNavigate();
   const [_, setUser] = useRecoilState(UserState);
@@ -60,17 +60,20 @@ const AdminHeader = (props: Props) => {
         />
       </div>
       <div className='m-[1rem] flex'>
-        <OutlineButton theme='admin' 
-          className='px-5  w-[11.375rem] h-[3rem] flex items-center' 
+        <OutlineButton 
+          theme='admin' 
+          className={`h-[3rem] flex items-center ${visible ? 'w-[11.375rem] px-5 ' : 'w-[3rem] justify-center'}`} 
           onClick={handleHomePageRedirect}>
-              홈페이지 바로가기
-              <IoHome color='black' className='ml-1 w-fit'/>
+              {visible && <p className='mr-1'>홈페이지 바로가기</p>}
+              <IoHome color='black' className='w-fit'/>
         </OutlineButton>
-        <OutlineButton theme='admin' 
-          className='px-5 w-[7.5rem] h-[3rem] flex items-center' 
+
+        <OutlineButton 
+          theme='admin' 
+          className={`h-[3rem] flex items-center ${visible ? 'w-[7.5rem] px-5 ' : 'w-[3rem] justify-center'}`} 
           onClick={handleLogout}>
-              <IoPowerSharp color='black' className='mr-1 w-fit'/>
-              로그아웃
+              <IoPowerSharp color='black' className='w-fit'/>
+              {visible && <p className='ml-1'>로그아웃</p>}
         </OutlineButton>
       </div>
     </div>
