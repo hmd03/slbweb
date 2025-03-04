@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { UserState, LoadingState } from '../../../store/atom';
 import { useNavigate } from 'react-router-dom';
+import useDeviceInfo from '../../../hooks/useDeviceInfo';
 
 const LoginForm = () => {
     const idRef = useRef<HTMLInputElement>(null);
@@ -12,6 +13,8 @@ const LoginForm = () => {
     const [user, setUser] = useRecoilState(UserState);
     const [loading, setLoading] = useRecoilState(LoadingState);
     const navigate = useNavigate();
+
+    const deviceInfo = useDeviceInfo();
 
     const onSubmit = useCallback(
         async (event: React.FormEvent<HTMLFormElement>) => {
@@ -59,7 +62,7 @@ const LoginForm = () => {
     );
 
     return (
-        <form onSubmit={onSubmit} className='w-[40rem] h-[32rem] border-[2px] border-Black bg-LightGray px-16'>
+        <form onSubmit={onSubmit} className={`${deviceInfo.isMobile ? 'w-full h-full' : 'w-[40rem] h-[32rem]'}  border-[2px] border-Black bg-LightGray px-16`}>
             <div className='flex flex-col items-center h-full justify-center'>
                 <div className='w-full mb-10 mt-2'>
                     <img alt='adminLoginLogo' src={`${process.env.PUBLIC_URL}/adminLoginLogo.png`} className='h-[6rem] m-auto'/>
