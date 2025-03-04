@@ -11,6 +11,7 @@ import { useRecoilValue } from 'recoil';
 import { UserState } from '../../../store/atom';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { FaPencilAlt } from 'react-icons/fa';
+import useDeviceInfo from '../../../hooks/useDeviceInfo';
 
 const AdminMasterForm: React.FC = () => {
     const navigate = useNavigate();
@@ -22,6 +23,8 @@ const AdminMasterForm: React.FC = () => {
     const [pageIndex, setPageIndex] = useState<number>(1);
     const { isSupervisor } = useRecoilValue(UserState);
     const [onConfirm, setOnConfirm] = useState(() => () => {});
+
+    const deviceInfo = useDeviceInfo();
 
     let pageItems = 10;
 
@@ -104,7 +107,7 @@ const AdminMasterForm: React.FC = () => {
 
     return (
         <AdminCurrentLayout title='관리자 리스트'>
-            <div className='w-full h-fit p-5 border border-Black bg-White'>
+            <div className={`w-full h-fit border border-Black bg-White ${deviceInfo.isSmallScreen ? 'p-1' : 'p-5' }`}>
                 <table className="min-w-full border-collapse border border-[2px] border-Black">
                     <thead className='bg-LightGray text-diagram'>
                         <tr>
@@ -123,19 +126,19 @@ const AdminMasterForm: React.FC = () => {
                                 <td className="border border-Black border-[2px] p-2 text-center w-[20%]">{item.name}</td>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[25%]">{formatDate(item.createdAt)}</td>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[25%]">
-                                    <div className='w-full flex items-center justify-center'>
+                                    <div className={`w-full flex ${deviceInfo.isSmallScreen ? 'flex-col items-center justify-center' : 'items-center justify-center'}`}>
                                         <OutlineButton theme='admin' 
                                             className='px-2  w-[4rem] h-[2rem] flex items-center' 
                                             onClick={() => handleModClick(item.id, item.isSupervisor)}>
                                                 수정
-                                                <FaPencilAlt color='black' className='ml-1 w-fit'/>
+                                                <FaPencilAlt color='black' className='ml-[0.2rem] w-fit'/>
                                         </OutlineButton>
                                         {!item.isSupervisor && 
                                             <Button theme='error' 
-                                            className='ml-2 px-2 w-[4rem] h-[2rem] bolder flex items-center'
+                                            className={`${deviceInfo.isSmallScreen == false ? 'ml-2':''} px-2 w-[4rem] h-[2rem] bolder flex items-center`}
                                             onClick={() => handleDelClick(item.id)}>
                                                 삭제
-                                                <RiDeleteBin6Line color='white' className='ml-1 w-fit' />
+                                                <RiDeleteBin6Line color='white' className='ml-[0.2rem] w-fit' />
                                             </Button>
                                         }
                                     </div>
@@ -145,7 +148,7 @@ const AdminMasterForm: React.FC = () => {
                     </tbody>
                 </table>
                 <AdminPagination totalItems={totalItems} itemsPerPage={pageItems} onPageChange={handlePageChange}/>
-                <Button theme='admin' onClick={handleRegisterClick}>등록</Button> 
+                <Button theme='admin' onClick={handleRegisterClick}>등록</Button>
             </div>
             {isModalVisible && (
                 <AlterModal

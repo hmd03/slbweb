@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import useDeviceInfo from '../../../hooks/useDeviceInfo';
 
 type NavItem = {
   label?: string;
@@ -15,6 +16,8 @@ type Props = {
 const AdminSideBar = ({ items, visible = true}: Props) => {
   const location = useLocation();
   const [selectIndex, setSelectIndex] = React.useState(0);
+
+  const deviceInfo = useDeviceInfo();
 
   // 현재 경로에 포함된 항목의 인덱스를 찾는 함수
   const findSelectedIndex = () => {
@@ -33,18 +36,23 @@ const AdminSideBar = ({ items, visible = true}: Props) => {
   };
 
   return (
-    <div className={`${visible ? 'w-[12rem] h-full bg-Black text-white flex flex-col' : 'hidden'}`}>
+    <div 
+    className={`${visible ? `${deviceInfo.isSmallScreen ? 'w-full' : 'w-[12rem]'}  h-full bg-Black text-white flex flex-col` : 'hidden'}`}>
       {items.map((item, index) => (
         <Link
           to={item.path}
           key={index}
-          className={`flex items-center py-2 px-4 w-[100%] h-[4rem] text-center border-b border-b-White text-main font-bold ${
+          className={`flex items-center text-center py-2 px-4 w-[100%] border-b border-b-White text-main font-bold
+            ${deviceInfo.isSmallScreen ? '' : ' h-[4rem]'}
+            ${
             item.disabled
               ? 'text-gray-500 pointer-events-none'
               : selectIndex === index
               ? 'bg-White text-Black'
               : 'bg-Black text-White hover:bg-White hover:text-Black'
-          }`}
+          }
+          
+          `}
           onClick={() => handleChange(index)}
         >
           {item.label && <span className='m-auto'>{item.label}</span>}

@@ -16,6 +16,12 @@ const AdminNavLayout = ({ children, ...props }: Props) => {
 
   const deviceInfo = useDeviceInfo();
 
+  useEffect(()=>{
+    if(deviceInfo.isSmallScreen){
+      setSidebarVisible(false);
+    }
+  },[location.pathname]);
+
   const onMenuClick = () => {
     setSidebarVisible(!isSidebarVisible);
   }
@@ -25,13 +31,17 @@ const AdminNavLayout = ({ children, ...props }: Props) => {
   }, [deviceInfo]);
 
   return (
-    <div className="w-screen h-screen flex flex-col" {...props}>
-      <HeaderWrapper onMenuClick={onMenuClick} isSidebarVisible={isSidebarVisible}/>
+    <div className={`w-screen h-screen flex flex-col ${deviceInfo.isSmallScreen ? 'overflow-hidden' : ''} `} {...props}>
+      <HeaderWrapper onMenuClick={onMenuClick}/>
       <div className="flex w-full h-full">
-        {isSidebarVisible && <SideBarWrapper isSidebarVisible={isSidebarVisible} />}
-        <div className={`h-full w-full ${isSidebarVisible && !isLoginRoute ? 'ml-0' : 'ml-0'}`}>
-          {children}
-        </div>
+        { isSidebarVisible && <SideBarWrapper isSidebarVisible={isSidebarVisible} /> }
+        { !deviceInfo.isSmallScreen || (deviceInfo.isSmallScreen && !isSidebarVisible) ? (
+            <div className={`h-full w-full ${isSidebarVisible && !isLoginRoute ? 'ml-0' : 'ml-0'}`}>
+                {children}
+            </div>
+          ) : null }
+
+        
       </div>
     </div>
   );
@@ -39,17 +49,16 @@ const AdminNavLayout = ({ children, ...props }: Props) => {
 
 interface HeaderWrapperProps {
   onMenuClick: () => void;
-  isSidebarVisible: boolean;
 }
 
-const HeaderWrapper: React.FC<HeaderWrapperProps> = ({ onMenuClick, isSidebarVisible }) => {
+const HeaderWrapper: React.FC<HeaderWrapperProps> = ({ onMenuClick }) => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
   const isLoginRoute = location.pathname === '/admin/login';
 
   return (
     <>
-      {isAdminRoute && !isLoginRoute && <AdminHeader onMenuClick={onMenuClick} visible={isSidebarVisible}/>}
+      {isAdminRoute && !isLoginRoute && <AdminHeader onMenuClick={onMenuClick}/>}
     </>
   );
 };

@@ -6,16 +6,18 @@ import { UserState } from '../../../store/atom';
 import OutlineButton from '../buttons/OutlineButton';
 import axios from 'axios';
 import { IoHome, IoPowerSharp } from "react-icons/io5";
+import useDeviceInfo from '../../../hooks/useDeviceInfo';
 
 interface Props {
-  visible?: boolean;
   onMenuClick?: () => void;
 }
 
-const AdminHeader = ({visible = true, ...props}: Props) => {
+const AdminHeader = ({...props}: Props) => {
   const { onMenuClick } = props;
   const navigate = useNavigate();
   const [_, setUser] = useRecoilState(UserState);
+
+  const deviceInfo = useDeviceInfo();
 
   const handleLogoClick = () => {
     navigate('/admin/inquiry');
@@ -62,18 +64,18 @@ const AdminHeader = ({visible = true, ...props}: Props) => {
       <div className='m-[1rem] flex'>
         <OutlineButton 
           theme='admin' 
-          className={`h-[3rem] flex items-center ${visible ? 'w-[11.375rem] px-5 ' : 'w-[3rem] justify-center'}`} 
+          className={`h-[3rem] flex items-center ${!deviceInfo.isSmallScreen ? 'w-[11.375rem] px-5 ' : 'w-[3rem] justify-center'}`} 
           onClick={handleHomePageRedirect}>
-              {visible && <p className='mr-1'>홈페이지 바로가기</p>}
+              {!deviceInfo.isSmallScreen && <p className='mr-1'>홈페이지 바로가기</p>}
               <IoHome color='black' className='w-fit'/>
         </OutlineButton>
 
         <OutlineButton 
           theme='admin' 
-          className={`h-[3rem] flex items-center ${visible ? 'w-[7.5rem] px-5 ' : 'w-[3rem] justify-center'}`} 
+          className={`h-[3rem] flex items-center ${!deviceInfo.isSmallScreen ? 'w-[7.5rem] px-5 ' : 'w-[3rem] justify-center'}`} 
           onClick={handleLogout}>
               <IoPowerSharp color='black' className='w-fit'/>
-              {visible && <p className='ml-1'>로그아웃</p>}
+              {!deviceInfo.isSmallScreen && <p className='ml-1'>로그아웃</p>}
         </OutlineButton>
       </div>
     </div>
