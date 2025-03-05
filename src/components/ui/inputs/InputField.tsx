@@ -12,7 +12,7 @@ const InputField = forwardRef<HTMLInputElement, Props>(
 
     const className = (() => {
       let baseClasses =
-        'px-4 py-3 rounded body1 border-Black bg-White w-full border-[2px] focus:outline-none';
+        'px-4 py-3 rounded body1 border-Black bg-White focus:outline-none';
       if (isError) {
         baseClasses += ' border-Error focus:border-Error text-Error';
       } else {
@@ -26,7 +26,7 @@ const InputField = forwardRef<HTMLInputElement, Props>(
       if (props.className) {
         baseClasses += ` ${props.className}`;
       } else {
-        baseClasses += ` px-4 py-3`;
+        baseClasses += ` px-4 py-3 w-full border-[2px]`;
       }
 
       filteredProps = Object.fromEntries(
@@ -37,7 +37,7 @@ const InputField = forwardRef<HTMLInputElement, Props>(
     })();
 
     return (
-      <div className='w-full h-fit'>
+      <div className='w-fit h-fit'>
         <input ref={ref} className={className} {...filteredProps} />
         {isError && !!errorMessage && (
           <span className='flex items-center mt-2 body3 text-Error'>

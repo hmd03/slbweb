@@ -42,7 +42,8 @@ const AdminSideBar = ({ items, visible = true}: Props) => {
         <Link
           to={item.path}
           key={index}
-          className={`flex items-center text-center py-2 px-4 w-[100%] border-b border-b-White text-main font-bold
+          className={`flex items-center text-center py-2 px-4 w-[100%] text-main font-bold
+            ${index === 0 ? 'border-y border-y-White border-y-[2px]' : 'border-b border-b-White border-b-[2px]'}
             ${deviceInfo.isSmallScreen ? '' : ' h-[4rem]'}
             ${
             item.disabled

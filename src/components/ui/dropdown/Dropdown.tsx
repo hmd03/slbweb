@@ -11,6 +11,7 @@ interface Props {
   placeholder?: string;
   items: DropdownItem[];
   defaultValue?: string;
+  width?: string;
   onSelectItemHandler?: (label: string) => void;
 }
 
@@ -59,7 +60,7 @@ const Dropdown = ({
   return (
     <div className='dropdown-wrapper relative'>
       <button
-        className='border-[1px] border-Black px-4 py-3 flex justify-between w-[300px] rounded'
+        className='border-[1px] border-Black px-4 py-3 flex justify-between w-[200px] rounded'
         onClick={(event) => {
           event.stopPropagation();
           setIsOpen(!isOpen);
@@ -78,7 +79,7 @@ const Dropdown = ({
           {items.map((item) => (
             <button
               key={item.value}
-              className={`w-[300px] h-[48px] px-4 py-3 body1 flex justify-start ${
+              className={`w-[200px] h-[48px] px-4 py-3 body1 flex justify-start bg-White ${
                 currentItem === item.value
                   ? 'text-Black'
                   : item.disable
