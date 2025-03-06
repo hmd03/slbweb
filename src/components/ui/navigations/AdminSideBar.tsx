@@ -37,7 +37,7 @@ const AdminSideBar = ({ items, visible = true}: Props) => {
 
   return (
     <div 
-    className={`${visible ? `${deviceInfo.isSmallScreen ? 'w-full' : 'w-[12rem]'}  h-full bg-Black text-white flex flex-col` : 'hidden'}`}>
+    className={`${visible ? `${deviceInfo.isSmallScreen ? 'w-full' : 'min-w-[12rem]'}  h-full bg-Black text-white flex flex-col` : 'hidden'}`}>
       {items.map((item, index) => (
         <Link
           to={item.path}

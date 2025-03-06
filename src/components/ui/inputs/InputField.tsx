@@ -12,7 +12,7 @@ const InputField = forwardRef<HTMLInputElement, Props>(
 
     const className = (() => {
       let baseClasses =
-        'px-4 py-3 rounded body1 border-Black bg-White focus:outline-none';
+        'rounded body1 border-Black bg-White focus:outline-none';
       if (isError) {
         baseClasses += ' border-Error focus:border-Error text-Error';
       } else {
@@ -37,7 +37,7 @@ const InputField = forwardRef<HTMLInputElement, Props>(
     })();
 
     return (
-      <div className='w-fit h-fit'>
+      <div>
         <input ref={ref} className={className} {...filteredProps} />
         {isError && !!errorMessage && (
           <span className='flex items-center mt-2 body3 text-Error'>

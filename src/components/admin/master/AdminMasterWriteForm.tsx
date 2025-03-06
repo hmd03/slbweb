@@ -167,6 +167,9 @@ const AdminMasterWriteForm: React.FC = () => {
         navigate('/admin/master');
     }
 
+    const thClassName = 'bg-LightGray border border-Black border-[2px] p-2 text-left';
+    const tdClassName = 'bg-White border border-Black border-[2px] p-2 text-center w-[70%]';
+
     return (
         <AdminCurrentLayout title='관리자 등록'>
             <div className='w-full h-fit p-5 border border-Black bg-White flex flex-col items-center justify-center'>
@@ -176,10 +179,10 @@ const AdminMasterWriteForm: React.FC = () => {
                     </thead>
                     <tbody className='text-diagram'>
                         <tr>
-                            <th className="bg-LightGray border border-Black border-[2px] p-2 text-left">이름</th>
-                            <td className="bg-White border border-Black border-[2px] p-2 text-center w-[70%]">
+                            <th className={thClassName}>이름</th>
+                            <td className={tdClassName}>
                                 <InputField
-                                    className=' py-1'
+                                    className=' p-1 w-full border-[2px] '
                                     placeholder='한글만 가능'
                                     ref={nameRef} 
                                     autoComplete='id'
@@ -188,10 +191,10 @@ const AdminMasterWriteForm: React.FC = () => {
                             </td>
                         </tr>
                         <tr >
-                            <th className="bg-LightGray border border-Black border-[2px] p-2 text-left">아이디</th>
-                            <td className="bg-White border border-Black border-[2px] p-2 text-center w-[70%]">
+                            <th className={thClassName}>아이디</th>
+                            <td className={tdClassName}>
                                 <InputField
-                                    className=' py-1'
+                                    className=' p-1 w-full border-[2px] '
                                     placeholder='영어(최소 6자 이상)'
                                     ref={idRef} 
                                     autoComplete='name'
@@ -200,10 +203,10 @@ const AdminMasterWriteForm: React.FC = () => {
                             </td>
                         </tr>
                         <tr >
-                            <th className="bg-LightGray border border-Black border-[2px] p-2 text-left">비밀번호</th>
-                            <td className="bg-White border border-Black border-[2px] p-2 text-center w-[70%]">
+                            <th className={thClassName}>비밀번호</th>
+                            <td className={tdClassName}>
                                 <InputField
-                                    className=' py-1'
+                                    className=' p-1 w-full border-[2px] '
                                     placeholder='영어+숫자+특문(최소 6자 이상)'
                                     ref={passwordRef} 
                                     autoComplete='password'
@@ -211,10 +214,10 @@ const AdminMasterWriteForm: React.FC = () => {
                             </td>
                         </tr>
                         <tr >
-                            <th className="bg-LightGray border border-Black border-[2px] p-2 text-left">비밀번호 확인</th>
-                            <td className="bg-White border border-Black border-[2px] p-2 text-center w-[70%]">
+                            <th className={thClassName}>비밀번호 확인</th>
+                            <td className={tdClassName}>
                                 <InputField
-                                    className=' py-1'
+                                    className=' p-1 w-full border-[2px] '
                                     placeholder='영어+숫자+특문(최소 6자 이상)'
                                     ref={chackPasswordRef} 
                                     autoComplete='chackPassword'
@@ -222,10 +225,10 @@ const AdminMasterWriteForm: React.FC = () => {
                             </td>
                         </tr>
                         {!!id && <tr >
-                            <th className="bg-LightGray border border-Black border-[2px] p-2 text-left">가입일</th>
-                            <td className="bg-White border border-Black border-[2px] p-2 text-center w-[70%]">
+                            <th className={thClassName}>가입일</th>
+                            <td className={tdClassName}>
                                 <InputField
-                                    className=' py-1'
+                                    className=' p-1 w-full border-[2px] '
                                     ref={createdAtRef} 
                                     autoComplete='createdAt'
                                     readOnly={!!id}
@@ -234,7 +237,7 @@ const AdminMasterWriteForm: React.FC = () => {
                         </tr>}
                     </tbody>
                 </table>
-                <div className='flex w-full items-center justify-center h-fit mt-2'>
+                <div className='flex w-full items-center justify-center h-fit mt-2 gap-2'>
                     <Button onClick={onSubmit} theme='admin' className='px-8 py-[14px] border border-[2px]'>{!id?'등록':'수정'}</Button>
                     {isv?.split('=')[1] === '0' && !!id && <Button onClick={handleDelClick} theme='error' className='px-8 py-[14px] border border-[2px]'>삭제</Button>}
                     <OutlineButton onClick={onBackPage} theme='admin' className='px-8 py-[13px]'>← 목록</OutlineButton>

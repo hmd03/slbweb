@@ -49,7 +49,7 @@ const AdminMasterForm: React.FC = () => {
             handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
             return;
         }
-        navigate(`/admin/master/write/id=${id}/isv=${itemSupervisor?1:0}`);
+        navigate(`/admin/master/write/no/id=${id}/isv=${itemSupervisor?1:0}`);
     };
 
     const handleDelClick = (id: string) => {
@@ -105,27 +105,30 @@ const AdminMasterForm: React.FC = () => {
         setModalVisible(false);
     }
 
+    const thClassName = 'border border-Black border-[2px] p-2';
+    const tdClassName = 'border border-Black border-[2px] p-2 text-center';
+
     return (
         <AdminCurrentLayout title='관리자 리스트'>
             <div className={`w-full h-fit border border-Black bg-White ${deviceInfo.isSmallScreen ? 'p-1' : 'p-5' }`}>
                 <table className="min-w-full border-collapse border border-[2px] border-Black">
                     <thead className='bg-LightGray text-diagram'>
                         <tr>
-                            <th className="border border-Black border-[2px] p-2">No</th>
-                            <th className="border border-Black border-[2px] p-2">아이디</th>
-                            <th className="border border-Black border-[2px] p-2">이름</th>
-                            <th className="border border-Black border-[2px] p-2">가입일</th>
-                            <th className="border border-Black border-[2px] p-2">관리</th>
+                            <th className={thClassName}>No</th>
+                            <th className={thClassName}>아이디</th>
+                            <th className={thClassName}>이름</th>
+                            <th className={thClassName}>가입일</th>
+                            <th className={thClassName}>관리</th>
                         </tr>
                     </thead>
                     <tbody className='bg-White text-diagram'>
                         {data.map((item, index) => (
                             <tr key={item.id}>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[5%]">{totalItems - index - ((pageIndex-1) * pageItems)}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[20%]">{item.id}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[20%]">{item.name}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[25%]">{formatDate(item.createdAt)}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[25%]">
+                                <td className={`${tdClassName} w-[5%]`}>{totalItems - index - ((pageIndex-1) * pageItems)}</td>
+                                <td className={`${tdClassName} w-[20%]`}>{item.id}</td>
+                                <td className={`${tdClassName} w-[20%]`}>{item.name}</td>
+                                <td className={`${tdClassName} w-[25%]`}>{formatDate(item.createdAt)}</td>
+                                <td className={`${tdClassName} w-[25%]`}>
                                     <div className={`w-full flex ${deviceInfo.isSmallScreen ? 'flex-col items-center justify-center' : 'items-center justify-center'}`}>
                                         <OutlineButton theme='admin' 
                                             className='px-2  w-[4rem] h-[2rem] flex items-center' 
