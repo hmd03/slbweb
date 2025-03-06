@@ -73,6 +73,7 @@ const LoginForm = () => {
                         placeholder='관리자 아이디'
                         ref={idRef} 
                         autoComplete='id'
+                        className='px-4 py-3 w-full border-[2px] '
                     />
                 </div>
                 <div className='pb-2 w-full'>

@@ -11,9 +11,11 @@ axios.defaults.withCredentials = true;
 
 const Login = React.lazy(() => import('./pages/admin/Login'));
 const AdminInquiry = React.lazy(() => import('./pages/admin/inquiry/AdminInquiry'));
+const AdminInquiryView = React.lazy(() => import('./pages/admin/inquiry/AdminInquiryView'));
 const AdminMaster = React.lazy(() => import('./pages/admin/master/AdminMaster'));
 const AdminMasterWrite = React.lazy(() => import('./pages/admin/master/AdminMasterWrite'));
 const AdminBanner = React.lazy(() => import('./pages/admin/banner/AdminBanner'));
+const AdminBannerAddMod = React.lazy(() => import('./pages/admin/banner/AdminBannerAddMod'));
 const AdminPopup = React.lazy(() => import('./pages/admin/popup/AdminPopup'));
 const AdminBoardNotice = React.lazy(() => import('./pages/admin/boardNotice/AdminBoardNotice'));
 const AdminBoardEvent = React.lazy(() => import('./pages/admin/boardEvent/AdminBoardEvent'));
@@ -108,11 +110,18 @@ const AppInner: React.FC = () => {
             <AdminNavLayout>
               <Routes>
                 <Route path='/admin/login' element={<Login />} />
+
                 <Route path='/admin/inquiry' element={<AdminInquiry />} />
+                <Route path='/admin/inquiry/view/no/:id/:board' element={<AdminInquiryView />} />
+
                 <Route path='/admin/master' element={<AdminMaster />} />
                 <Route path='/admin/master/write' element={<AdminMasterWrite />} />
-                <Route path='/admin/master/write/:id/:isv' element={<AdminMasterWrite />} />
+                <Route path='/admin/master/write/no/:id/:isv' element={<AdminMasterWrite />} />
+                
                 <Route path='/admin/banner' element={<AdminBanner />} />
+                <Route path='/admin/banner/mode/add' element={<AdminBannerAddMod />} />
+                <Route path='/admin/banner/mode/add/no/:id' element={<AdminBannerAddMod />} />
+
                 <Route path='/admin/popup' element={<AdminPopup />} />
                 <Route path='/admin/board/notice' element={<AdminBoardNotice />} />
                 <Route path='/admin/board/event' element={<AdminBoardEvent />} />

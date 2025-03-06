@@ -11,6 +11,9 @@ import { useRecoilValue } from 'recoil';
 import { UserState } from '../../../store/atom';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaRegEye  } from 'react-icons/fa';
+import useDeviceInfo from '../../../hooks/useDeviceInfo';
+import Dropdown from '../../ui/dropdown/Dropdown';
+import InputField from '../../ui/inputs/InputField';
 
 const AdminInquiryForm: React.FC = () => {
     const navigate = useNavigate();
@@ -23,8 +26,21 @@ const AdminInquiryForm: React.FC = () => {
     const { isSupervisor } = useRecoilValue(UserState);
     const [onConfirm, setOnConfirm] = useState(() => () => {});
 
+    const deviceInfo = useDeviceInfo();
+
     let pageItems = 10;
 
+    const placeholder = '분류선택';
+    const items = [
+      {
+        label: 'item1',
+        value: 'item1',
+      },
+      {
+        label: 'item2',
+        value: 'item2',
+      },
+    ]
     useEffect(() => {
         //fetchData();
     }, [pageIndex]);
@@ -77,7 +93,17 @@ const AdminInquiryForm: React.FC = () => {
 
     return (
         <AdminCurrentLayout title='창업문의 리스트'>
-            <div className='w-full h-fit p-5 border border-Black bg-White'>
+            <div className={`w-full h-fit border border-Black bg-White ${deviceInfo.isSmallScreen ? 'p-1' : 'p-5' }`}>
+                <div className={`flex width-full pb-6 gap-2 items-center`}>
+                    <OutlineButton theme='admin' className='w-[5rem] h-[3rem] bg-LightGray'>검색</OutlineButton>
+                    <Dropdown items={items} placeholder={placeholder}></Dropdown>
+                    <Dropdown items={items} placeholder='이름'></Dropdown>
+                    <InputField
+                        className='width-[200px] border-[1px] px-4 py-3'
+                        placeholder='검색어 입력'
+                    />
+                    <OutlineButton theme='admin' className='w-[3.5rem] h-[2.5rem]'>검색</OutlineButton>
+                </div>
                 <table className="min-w-full border-collapse border border-[2px] border-Black">
                     <thead className='bg-LightGray text-diagram'>
                         <tr>
@@ -116,7 +142,6 @@ const AdminInquiryForm: React.FC = () => {
                     </tbody>
                 </table>
                 <AdminPagination totalItems={totalItems} itemsPerPage={pageItems} onPageChange={handlePageChange}/>
-                <Button theme='admin' onClick={handleRegisterClick}>등록</Button> 
             </div>
             {isModalVisible && (
                 <AlterModal
