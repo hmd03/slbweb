@@ -2,41 +2,43 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AdminCurrentLayout from '../../ui/layout/AdminCurrentLayout';
 import OutlineButton from '../../ui/buttons/OutlineButton';
-import { formatDate } from '../../utils/dateUtils';
 import axios from 'axios';
-import { UserState } from '../../../store/atom';
 
 const AdminInquiryViewForm: React.FC = () => {
     const navigate = useNavigate();
-    const { id, board } = useParams<{ id?: string; board?: string }>();
+    const params= useParams<{ id?: string;}>();
     const [item, setItem] = useState({
+        id:'',
         category: '',
         sender: '',
         senderContact: '',
         preferredRegion: '',
         ageGroup: '',
         discoveryRoute: '',
-        content: ''
+        content: '',
+        createdAt: ''
     });
 
-    console.log(id);
+    console.log(params.id);
 
     useEffect(() => {
         const fetchData = async () => {
-            if (id) {
+            if (params.id) {
                 try {
-                    const response = await axios.get(`/api/users/${id.split('=')[1]}`);
+                    const response = await axios.get(`/api/inquiries/${params.id.split('=')[1]}`);
                     console.log(response);
                     if (response.status === 200) {
                         const data = response.data;
                         setItem({
+                            id : data.id,
                             category : data.category,
-                            sender : data.sender,
-                            senderContact : data.senderContact,
+                            sender : data.sender.name,
+                            senderContact : data.sender.contact,
                             preferredRegion : data.preferredRegion,
                             ageGroup : data.ageGroup,
                             discoveryRoute : data.discoveryRoute,
                             content : data.content,
+                            createdAt : data.createdAt
                         })
                     }
                 } catch (error) {
@@ -46,14 +48,14 @@ const AdminInquiryViewForm: React.FC = () => {
         };
 
         fetchData();
-    }, [id]);
+    }, [params.id]);
 
     const onBackPage = () => {
         navigate('/admin/inquiry');
     }
 
     const thClassName = 'bg-LightGray border border-Black border-[2px] p-2 text-left text-center';
-    const tdClassName = 'bg-White border border-Black border-[2px] p-2 text-center w-[70%]';
+    const tdClassName = 'bg-White border border-Black border-[2px] p-2 w-[70%]';
 
     return (
         <AdminCurrentLayout title='창업문의 상세보기'>
@@ -81,7 +83,7 @@ const AdminInquiryViewForm: React.FC = () => {
                                 {item.senderContact}
                             </td>
                         </tr>
-                        {item.category === 'board_establish_online' && (
+                        {item.category === '온라인 창업 문의' && (
                             <>
                                 <tr>
                                     <th className={thClassName}>창업 희망 지역</th>
@@ -112,7 +114,7 @@ const AdminInquiryViewForm: React.FC = () => {
                         <tr >
                             <th className={thClassName}>신청일</th>
                             <td className={tdClassName}>
-                                {item.content}
+                                {item.createdAt}
                             </td>
                         </tr>
                     </tbody>

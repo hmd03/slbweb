@@ -112,7 +112,7 @@ const AppInner: React.FC = () => {
                 <Route path='/admin/login' element={<Login />} />
 
                 <Route path='/admin/inquiry' element={<AdminInquiry />} />
-                <Route path='/admin/inquiry/view/no/:id/:board' element={<AdminInquiryView />} />
+                <Route path='/admin/inquiry/view/no/:id' element={<AdminInquiryView />} />
 
                 <Route path='/admin/master' element={<AdminMaster />} />
                 <Route path='/admin/master/write' element={<AdminMasterWrite />} />

@@ -14,6 +14,7 @@ import { FaRegEye  } from 'react-icons/fa';
 import useDeviceInfo from '../../../hooks/useDeviceInfo';
 import Dropdown from '../../ui/dropdown/Dropdown';
 import InputField from '../../ui/inputs/InputField';
+import Editor from '../../ui/Editor';
 
 const AdminInquiryForm: React.FC = () => {
     const navigate = useNavigate();
@@ -23,7 +24,6 @@ const AdminInquiryForm: React.FC = () => {
     const [data, setData] = useState<any[]>([]);
     const [totalItems, setTotalItems] = useState<number>(0);
     const [pageIndex, setPageIndex] = useState<number>(1);
-    const { isSupervisor } = useRecoilValue(UserState);
     const [onConfirm, setOnConfirm] = useState(() => () => {});
 
     const deviceInfo = useDeviceInfo();
@@ -42,7 +42,7 @@ const AdminInquiryForm: React.FC = () => {
       },
     ]
     useEffect(() => {
-        //fetchData();
+        fetchData();
     }, [pageIndex]);
 
     const handlePageChange = (page: number) => {
@@ -53,27 +53,19 @@ const AdminInquiryForm: React.FC = () => {
         }
     };
 
-    const handleRegisterClick = () => {
-        //navigate('/admin/master/write');
-    };
-
-    const handleModClick = (id: string, itemSupervisor: boolean) => {
-        if(!isSupervisor){
-            handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
-            return;
-        }
-        navigate(`/admin/master/write/id=${id}/isv=${itemSupervisor?1:0}`);
+    const hanViewClick = (id: string) => {
+        navigate(`/admin/inquiry/view/no/id=${id}`);
     };
 
     const fetchData = async () => {
         try {
             console.log(pageIndex)
             const response = await axios.get(
-              `api/users?page=${pageIndex}`,
+              `api/inquiries?page=${pageIndex}`,
             );
 
             console.log(response);
-            setData(response.data.userList);
+            setData(response.data.inquiryList);
             setTotalItems(response.data.totalCount);
           } catch (error) {
             console.log("error: " + error);
@@ -118,19 +110,19 @@ const AdminInquiryForm: React.FC = () => {
                         {data.map((item, index) => (
                             <tr key={item.id}>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[5%]">{totalItems - index - ((pageIndex-1) * pageItems)}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[35%]">{item.id}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[20%]">{item.name}</td>
+                                <td className="border border-Black border-[2px] p-2 text-center w-[35%]">{item.title}</td>
+                                <td className="border border-Black border-[2px] p-2 text-center w-[20%]">{item.senderContact}</td>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[20%]">{formatDate(item.createdAt)}</td>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[20%]">
                                     <div className='w-full flex items-center justify-center'>
                                         <OutlineButton theme='admin' 
-                                            className='px-2  w-[4rem] h-[2rem] flex items-center' 
-                                            onClick={() => handleModClick(item.id, item.isSupervisor)}>
-                                                <FaRegEye  color='black' className='mr-1 w-fit'/>
+                                            className='p-2  w-[4rem] h-[2rem] flex items-center' 
+                                            onClick={() => hanViewClick(item.id)}>
+                                                <FaRegEye  color='black' className='mr-[0.125rem] w-fit'/>
                                                 보기
                                         </OutlineButton>
                                         {!item.isSupervisor && 
-                                            <Button theme='error' className='ml-2 px-2 w-[4rem] h-[2rem] bolder flex items-center'>
+                                            <Button theme='error' className='ml-2 p-2 w-[4rem] h-[2rem] bolder flex items-center'>
                                                 삭제
                                                 <RiDeleteBin6Line color='white' className='ml-1 w-fit' />
                                             </Button>
