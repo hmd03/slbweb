@@ -14,7 +14,6 @@ import { FaRegEye  } from 'react-icons/fa';
 import useDeviceInfo from '../../../hooks/useDeviceInfo';
 import Dropdown from '../../ui/dropdown/Dropdown';
 import InputField from '../../ui/inputs/InputField';
-import Editor from '../../ui/Editor';
 
 const AdminInquiryForm: React.FC = () => {
     const navigate = useNavigate();
@@ -25,6 +24,7 @@ const AdminInquiryForm: React.FC = () => {
     const [totalItems, setTotalItems] = useState<number>(0);
     const [pageIndex, setPageIndex] = useState<number>(1);
     const [onConfirm, setOnConfirm] = useState(() => () => {});
+    const { isSupervisor } = useRecoilValue(UserState);
 
     const deviceInfo = useDeviceInfo();
 
@@ -57,6 +57,14 @@ const AdminInquiryForm: React.FC = () => {
         navigate(`/admin/inquiry/view/no/id=${id}`);
     };
 
+    const handleDelClick = (id: string) => {
+        if(!isSupervisor){
+            handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
+            return;
+        }
+        handleOpenModal('삭제 하시겠습니까?', false, () => deleteId(id));
+    };
+
     const fetchData = async () => {
         try {
             console.log(pageIndex)
@@ -67,6 +75,27 @@ const AdminInquiryForm: React.FC = () => {
             console.log(response);
             setData(response.data.inquiryList);
             setTotalItems(response.data.totalCount);
+          } catch (error) {
+            console.log("error: " + error);
+          }
+    };
+
+    const deleteId = async (id: string) => {
+        console.log(id);
+        try {
+            const response = await axios.delete(
+              `api/inquiries/${id}`,
+            );
+
+            console.log(response)
+            const data = response.data;
+
+            if (response.status === 200) {
+                handleCancel();
+                fetchData();
+            } else {
+                alert(data.message);
+            }
           } catch (error) {
             console.log("error: " + error);
           }
@@ -86,15 +115,14 @@ const AdminInquiryForm: React.FC = () => {
     return (
         <AdminCurrentLayout title='창업문의 리스트'>
             <div className={`w-full h-fit border border-Black bg-White ${deviceInfo.isSmallScreen ? 'p-1' : 'p-5' }`}>
-                <div className={`flex width-full pb-6 gap-2 items-center`}>
-                    <OutlineButton theme='admin' className='w-[5rem] h-[3rem] bg-LightGray'>검색</OutlineButton>
-                    <Dropdown items={items} placeholder={placeholder}></Dropdown>
-                    <Dropdown items={items} placeholder='이름'></Dropdown>
+                <div className={`flex width-full pb-6 gap-2 ${deviceInfo.isSmallScreen ? 'flex-col' : 'items-center' }`}>
+                    <Dropdown items={items} placeholder={placeholder} width={`${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px]' }`}></Dropdown>
+                    <Dropdown items={items} placeholder='이름' width={`${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px]' }`}></Dropdown>
                     <InputField
-                        className='width-[200px] border-[1px] px-4 py-3'
+                        className={`border-[1px] px-4 py-3 ${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px] ' }`}
                         placeholder='검색어 입력'
                     />
-                    <OutlineButton theme='admin' className='w-[3.5rem] h-[2.5rem]'>검색</OutlineButton>
+                    <OutlineButton theme='admin' className={`h-[3rem] bg-LightGray ${deviceInfo.isSmallScreen ? 'w-full' : 'w-[5rem] ' }`}>검색</OutlineButton>
                 </div>
                 <table className="min-w-full border-collapse border border-[2px] border-Black">
                     <thead className='bg-LightGray text-diagram'>
@@ -122,7 +150,9 @@ const AdminInquiryForm: React.FC = () => {
                                                 보기
                                         </OutlineButton>
                                         {!item.isSupervisor && 
-                                            <Button theme='error' className='ml-2 p-2 w-[4rem] h-[2rem] bolder flex items-center'>
+                                            <Button theme='error' 
+                                            className='ml-2 p-2 w-[4rem] h-[2rem] bolder flex items-center'
+                                            onClick={() => handleDelClick(item.id)}>
                                                 삭제
                                                 <RiDeleteBin6Line color='white' className='ml-1 w-fit' />
                                             </Button>
