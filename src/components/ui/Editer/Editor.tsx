@@ -2,6 +2,8 @@ import React from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import ImageResize from 'quill-image-resize';
+import Toolbar from './Toolbar';
+
 Quill.register('modules/ImageResize', ImageResize);
 
 interface EditorProps {
@@ -10,15 +12,15 @@ interface EditorProps {
 }
 
 const Editor: React.FC<EditorProps> = ({ value, onChange }) => {
+  const fontSizeArr = ['8px', '9px', '10px', '12px', '14px', '16px', '20px', '24px', '32px', '42px', '54px', '68px', '84px', '98px'];
+  var Size = Quill.import("attributors/style/size");
+  Size.whitelist = fontSizeArr;
+  Quill.register(Size, true);
 
   const modules = {
-    toolbar: [
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-      ['link', 'image'],
-      [{ align: [] }, { color: [] }, { background: [] }],
-      ['clean']
-    ],
+    toolbar: {
+      container: "#toolbar",
+    },
     ImageResize: {
       parchment: Quill.import('parchment')
     }
@@ -26,6 +28,7 @@ const Editor: React.FC<EditorProps> = ({ value, onChange }) => {
 
   return (
     <div className="w-full max-w-3xl mx-auto p-4 bg-white rounded-lg shadow-md">
+      <Toolbar />
       <ReactQuill 
         className="h-[600px]"
         theme="snow" 
