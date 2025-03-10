@@ -18,10 +18,10 @@ const RadioButton = (props: Props) => {
       'flex items-center justify-center w-6 h-6  border-[1px] rounded-full';
 
     if (disabled) {
-      baseClasses += ' bg-Primary pointer-events-none border-Primary';
+      baseClasses += ' bg-DeepGray pointer-events-none border-DeepGray';
     } else {
       baseClasses += ` cursor-pointer ${
-        isChecked ? 'border-Primary' : 'border-Gray'
+        isChecked ? 'border-Info' : 'border-DeepGray'
       }`;
     }
     return baseClasses;
@@ -45,7 +45,7 @@ const RadioButton = (props: Props) => {
         {isChecked && (
           <span
             className={`w-3 h-3 rounded-full ${
-              disabled ? 'bg-Gray pointer-events-none' : 'bg-Primary'
+              disabled ? 'bg-DeepGray pointer-events-none' : 'bg-Info'
             } `}
           />
         )}

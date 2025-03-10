@@ -27,10 +27,10 @@ const Editor: React.FC<EditorProps> = ({ value, onChange }) => {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-4 bg-white rounded-lg shadow-md">
+    <div className="w-full p-4 bg-white rounded-lg shadow-md">
       <Toolbar />
       <ReactQuill 
-        className="h-[600px]"
+        className="h-[400px]"
         theme="snow" 
         modules={modules} 
         value={value} 
