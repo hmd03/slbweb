@@ -49,7 +49,7 @@ const AdminMasterForm: React.FC = () => {
             handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
             return;
         }
-        navigate(`/admin/master/write/no/id=${id}/isv=${itemSupervisor?1:0}`);
+        navigate(`/admin/master/write/no/${id}/${itemSupervisor?1:0}`);
     };
 
     const handleDelClick = (id: string) => {

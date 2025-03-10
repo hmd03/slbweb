@@ -32,7 +32,7 @@ const AdminMasterWriteForm: React.FC = () => {
         const fetchData = async () => {
             if (id) {
                 try {
-                    const response = await axios.get(`/api/users/${id.split('=')[1]}`);
+                    const response = await axios.get(`/api/users/${id}`);
                     console.log(response);
                     if (response.status === 200) {
                         const data = response.data;
@@ -91,7 +91,7 @@ const AdminMasterWriteForm: React.FC = () => {
         try {
             if(id){
                 const response = await axios.delete(
-                    `api/users/${id.split('=')[1]}`,
+                    `api/users/${id}`,
                   );
       
                   console.log(response)
@@ -239,7 +239,7 @@ const AdminMasterWriteForm: React.FC = () => {
                 </table>
                 <div className='flex w-full items-center justify-center h-fit mt-2 gap-2'>
                     <Button onClick={onSubmit} theme='admin' className='px-8 py-[14px] border border-[2px]'>{!id?'등록':'수정'}</Button>
-                    {isv?.split('=')[1] === '0' && !!id && <Button onClick={handleDelClick} theme='error' className='px-8 py-[14px] border border-[2px]'>삭제</Button>}
+                    {isv === '0' && !!id && <Button onClick={handleDelClick} theme='error' className='px-8 py-[14px] border border-[2px]'>삭제</Button>}
                     <OutlineButton onClick={onBackPage} theme='admin' className='px-8 py-[13px]'>← 목록</OutlineButton>
                 </div>
             </div>

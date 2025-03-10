@@ -12,6 +12,9 @@ import { UserState } from '../../../store/atom';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { FaPencilAlt } from 'react-icons/fa';
 import { CgLink } from "react-icons/cg";
+import Dropdown from '../../ui/dropdown/Dropdown';
+import InputField from '../../ui/inputs/InputField';
+import useDeviceInfo from '../../../hooks/useDeviceInfo';
 
 const AdminBoardEventForm: React.FC = () => {
     const navigate = useNavigate();
@@ -24,7 +27,20 @@ const AdminBoardEventForm: React.FC = () => {
     const { isSupervisor } = useRecoilValue(UserState);
     const [onConfirm, setOnConfirm] = useState(() => () => {});
 
+    const deviceInfo = useDeviceInfo();
+
     let pageItems = 10;
+
+    const items = [
+      {
+        label: 'item1',
+        value: 'item1',
+      },
+      {
+        label: 'item2',
+        value: 'item2',
+      },
+    ]
 
     useEffect(() => {
         //fetchData();
@@ -47,7 +63,15 @@ const AdminBoardEventForm: React.FC = () => {
             handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
             return;
         }
-        navigate(`/admin/master/write/id=${id}/isv=${itemSupervisor?1:0}`);
+        navigate(`/admin/master/write/${id}/${itemSupervisor?1:0}`);
+    };
+
+    const handleDelClick = (id: string) => {
+        if(!isSupervisor){
+            handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
+            return;
+        }
+        //handleOpenModal('삭제 하시겠습니까?', false, () => deleteId(id));
     };
 
     const fetchData = async () => {
@@ -78,9 +102,17 @@ const AdminBoardEventForm: React.FC = () => {
 
     return (
         <AdminCurrentLayout title='톡톡 이벤트 리스트'>
-            <div className='w-full h-fit p-5 border border-Black bg-White'>
+            <div className={`w-full h-fit border border-Black bg-White ${deviceInfo.isSmallScreen ? 'p-1' : 'p-5' }`}>
+                <div className={`flex width-full pb-6 gap-2 ${deviceInfo.isSmallScreen ? 'flex-col' : 'items-center' }`}>
+                    <Dropdown items={items} placeholder='이름' width={`${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px]' }`}></Dropdown>
+                    <InputField
+                        className={`border-[1px] px-4 py-3 ${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px] ' }`}
+                        placeholder='검색어 입력'
+                    />
+                    <OutlineButton theme='admin' className={`h-[3rem] bg-LightGray ${deviceInfo.isSmallScreen ? 'w-full' : 'w-[5rem] ' }`}>검색</OutlineButton>
+                </div>
                 <table className="min-w-full border-collapse border border-[2px] border-Black">
-                <thead className='bg-LightGray text-diagram'>
+                    <thead className='bg-LightGray text-diagram'>
                         <tr>
                             <th className="border border-Black border-[2px] p-2">No</th>
                             <th className="border border-Black border-[2px] p-2">제목</th>
@@ -93,29 +125,29 @@ const AdminBoardEventForm: React.FC = () => {
                         {data.map((item, index) => (
                             <tr key={item.id}>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[5%]">{totalItems - index - ((pageIndex-1) * pageItems)}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[35%]">{item.id}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[10%]">{item.name}</td>
+                                <td className="border border-Black border-[2px] p-2 text-center w-[35%]">{item.title}</td>
+                                <td className="border border-Black border-[2px] p-2 text-center w-[10%]">{item.viewCount}</td>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[25%]">{formatDate(item.createdAt)}</td>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[25%]">
-                                    <div className='w-full flex items-center justify-center'>
-                                        <OutlineButton theme='admin' 
+                                    <div className='w-full flex items-center justify-center gap-2'>
+                                    <OutlineButton theme='admin' 
                                             className='px-2  w-[6rem] h-[2rem] flex items-center' 
                                             onClick={() => handleModClick(item.id, item.isSupervisor)}>
                                                 <CgLink color='black' className='mr-1 w-fit rotate-90'/>
                                                 바로가기
                                         </OutlineButton>
                                         <OutlineButton theme='admin' 
-                                            className='ml-2 px-2  w-[4rem] h-[2rem] flex items-center' 
+                                            className='px-2  w-[4rem] h-[2rem] flex items-center' 
                                             onClick={() => handleModClick(item.id, item.isSupervisor)}>
                                                 수정
-                                                <FaPencilAlt color='black' className='ml-1 w-fit'/>
+                                                <FaPencilAlt color='black' className='ml-[0.2rem] w-fit'/>
                                         </OutlineButton>
-                                        {!item.isSupervisor && 
-                                            <Button theme='error' className='ml-2 px-2 w-[4rem] h-[2rem] bolder flex items-center'>
-                                                삭제
-                                                <RiDeleteBin6Line color='white' className='ml-1 w-fit' />
-                                            </Button>
-                                        }
+                                        <Button theme='error' 
+                                        className='p-2 w-[4rem] h-[2rem] bolder flex items-center'
+                                        onClick={() => handleDelClick(item.id)}>
+                                            삭제
+                                            <RiDeleteBin6Line color='white' className='ml-1 w-fit' />
+                                        </Button>
                                     </div>
                                 </td>
                             </tr>
@@ -123,7 +155,6 @@ const AdminBoardEventForm: React.FC = () => {
                     </tbody>
                 </table>
                 <AdminPagination totalItems={totalItems} itemsPerPage={pageItems} onPageChange={handlePageChange}/>
-                <Button theme='admin' onClick={handleRegisterClick}>등록</Button> 
             </div>
             {isModalVisible && (
                 <AlterModal

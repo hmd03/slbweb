@@ -19,6 +19,7 @@ const AdminBanner = React.lazy(() => import('./pages/admin/banner/AdminBanner'))
 const AdminBannerAddMod = React.lazy(() => import('./pages/admin/banner/AdminBannerAddMod'));
 const AdminPopup = React.lazy(() => import('./pages/admin/popup/AdminPopup'));
 const AdminBoardNotice = React.lazy(() => import('./pages/admin/boardNotice/AdminBoardNotice'));
+const AdminBoardNoticeWrite = React.lazy(() => import('./pages/admin/boardNotice/AdminBoardNoticeWrite'));
 const AdminBoardEvent = React.lazy(() => import('./pages/admin/boardEvent/AdminBoardEvent'));
 const AdminBoardCs = React.lazy(() => import('./pages/admin/boardCs/AdminBoardCs'));
 const AdminBoardPartner = React.lazy(() => import('./pages/admin/boardPartner/AdminBoardPartner'));
@@ -50,6 +51,9 @@ const AppInner: React.FC = () => {
         if (data.statusCode === 419 && location.pathname.startsWith('/admin')) {
           const type = error.response.data.type;
 
+          console.log(data);
+          setIsLoading(false);
+
           if (type === 'refresh') {
             if (!isLoading) {
               setUser({
@@ -65,7 +69,6 @@ const AppInner: React.FC = () => {
             }
           } else if (type === 'access') {
             const originalRequest = config;
-
             if (!isLoading) {
               setIsLoading(true);
               const response = await axios.post('api/auth/refresh');
@@ -76,6 +79,7 @@ const AppInner: React.FC = () => {
                 isSupervisor: user.isSupervisor,
                 accessToken: accessToken,
               });
+              console.log(accessToken);
               setIsLoading(false);
               return axios(originalRequest);
             }
@@ -124,7 +128,11 @@ const AppInner: React.FC = () => {
                 <Route path='/admin/banner/mode/add/no/:id' element={<AdminBannerAddMod />} />
 
                 <Route path='/admin/popup' element={<AdminPopup />} />
+
                 <Route path='/admin/board/notice' element={<AdminBoardNotice />} />
+                <Route path='/admin/board/notice/write' element={<AdminBoardNoticeWrite />} />
+                <Route path='/admin/board/notice/write/no/:id' element={<AdminBoardNoticeWrite />} />
+                
                 <Route path='/admin/board/event' element={<AdminBoardEvent />} />
                 <Route path='/admin/board/cs' element={<AdminBoardCs />} />
                 <Route path='/admin/board/partner' element={<AdminBoardPartner />} />

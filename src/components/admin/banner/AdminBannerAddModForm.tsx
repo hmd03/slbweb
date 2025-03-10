@@ -47,7 +47,7 @@ const AdminBannerAddModForm: React.FC = () => {
         const fetchData = async () => {
             if (id) {
                 try {
-                    const response = await axios.get(`/api/users/${id.split('=')[1]}`);
+                    const response = await axios.get(`/api/users/${id}`);
                     console.log(response);
                     if (response.status === 200) {
                         const data = response.data;
