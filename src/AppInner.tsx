@@ -9,6 +9,7 @@ import AdminNavLayout from './components/ui/layout/AdminNavLayout';
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
 
+const TestPage = React.lazy(() => import('./pages/test'));
 const Login = React.lazy(() => import('./pages/admin/Login'));
 const AdminInquiry = React.lazy(() => import('./pages/admin/inquiry/AdminInquiry'));
 const AdminInquiryView = React.lazy(() => import('./pages/admin/inquiry/AdminInquiryView'));
@@ -134,7 +135,7 @@ const AppInner: React.FC = () => {
           ) : (
             <div>
               <Routes>
-                <Route path='/test' element={<Login />} />
+                {true && <><Route path='/test' element={<TestPage />} /></>}
               </Routes>
             </div>
           )}

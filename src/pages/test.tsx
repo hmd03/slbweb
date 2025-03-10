@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Editor from '../components/ui/Editor';
+import Editor from '../components/ui/Editer/Editor';
 
-const test = () => {
+const Test = () => {
     const [editorContent, setEditorContent] = useState<string>('');
 
     const handleEditorChange = (content: string) => {
@@ -15,4 +15,4 @@ const test = () => {
   );
 };
 
-export default test;
+export default Test;
