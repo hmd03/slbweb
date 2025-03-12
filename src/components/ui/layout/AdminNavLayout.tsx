@@ -31,17 +31,15 @@ const AdminNavLayout = ({ children, ...props }: Props) => {
   }, [deviceInfo]);
 
   return (
-    <div className={`w-screen h-screen flex flex-col ${deviceInfo.isSmallScreen ? 'overflow-hidden' : ''} `} {...props}>
+    <div className={`w-full h-full flex flex-col ${deviceInfo.isSmallScreen ? 'overflow-hidden' : ''} `} {...props}>
       <HeaderWrapper onMenuClick={onMenuClick}/>
-      <div className="flex w-full h-full">
+      <div className="flex w-full h-full mt-[4rem]">
         { isSidebarVisible && <SideBarWrapper isSidebarVisible={isSidebarVisible} /> }
         { !deviceInfo.isSmallScreen || (deviceInfo.isSmallScreen && !isSidebarVisible) ? (
             <div className={`h-full w-full ${isSidebarVisible && !isLoginRoute ? 'ml-0' : 'ml-0'}`}>
                 {children}
             </div>
           ) : null }
-
-        
       </div>
     </div>
   );

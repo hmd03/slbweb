@@ -109,7 +109,7 @@ const AppInner: React.FC = () => {
 
   return (
     <>
-      <div className="flex">
+      <div className="flex w-screen h-screen">
         <Suspense fallback={<Loading isLoading={isLoading} />}>
           {isAdminRoute ? (
             <AdminNavLayout>

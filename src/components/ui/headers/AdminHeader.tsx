@@ -16,7 +16,6 @@ const AdminHeader = ({...props}: Props) => {
   const { onMenuClick } = props;
   const navigate = useNavigate();
   const [_, setUser] = useRecoilState(UserState);
-
   const deviceInfo = useDeviceInfo();
 
   const handleLogoClick = () => {
@@ -25,10 +24,7 @@ const AdminHeader = ({...props}: Props) => {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.post(
-        'api/auth/logout',
-      );
-
+      const response = await axios.post('api/auth/logout');
       console.log(response);
       setUser({
         id: '',
@@ -36,7 +32,6 @@ const AdminHeader = ({...props}: Props) => {
         isSupervisor: false,
         accessToken: '',
       });
-
     } catch (error) {
       console.log("error: " + error);
     }
@@ -47,7 +42,7 @@ const AdminHeader = ({...props}: Props) => {
   };
 
   return (
-    <div className='flex justify-between items-center w-full bg-Black h-[4rem]'>
+    <div className='flex justify-between items-center w-full bg-Black h-[4rem] fixed top-0 left-0 z-10'>
       <div className='h-full flex flex-row justify-center items-center'>
         <div 
           className='cursor-pointer w-[12rem] h-full flex justify-center items-center' 
