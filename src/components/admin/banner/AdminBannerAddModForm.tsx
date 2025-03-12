@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AdminCurrentLayout from '../../ui/layout/AdminCurrentLayout';
 import OutlineButton from '../../ui/buttons/OutlineButton';
-import { formatDate } from '../../utils/dateUtils';
 import axios from 'axios';
 import Button from '../../ui/buttons/Button';
 import InputField from '../../ui/inputs/InputField';
@@ -21,15 +20,22 @@ const AdminBannerAddModForm: React.FC = () => {
 
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [videoFile, setVideoFile] = useState<File | null>(null); 
-    const [thumbnail, setThumbnail] = useState<string>('a'); 
+    const [imageMsg, setImageMsg] = useState<string>('이미지 사이즈');
+    const [videoMsg, setVideoMsg] = useState<string>('동영상 사이즈');
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
             setImageFile(file);
+            const img = new Image();
+            img.src = URL.createObjectURL(file);
+            img.onload = () => {
+                setImageMsg(`이미지 사이즈: ${img.width}x${img.height}`);
+            };
             console.log('선택된 파일:', file);
         } else {
-            console.log('파일이 선택되지 않았습니다.');
+            setImageFile(null);
+            setImageMsg('파일이 선택되지 않았습니다.');
         }
     };
 
@@ -37,9 +43,15 @@ const AdminBannerAddModForm: React.FC = () => {
         const file = event.target.files?.[0];
         if (file) {
             setVideoFile(file);
+            const video = document.createElement('video');
+            video.src = URL.createObjectURL(file);
+            video.onloadedmetadata = () => {
+                setVideoMsg(`동영상 사이즈즈: ${video.videoWidth}x${video.videoHeight}`);
+            };
             console.log('선택된 파일:', file);
         } else {
-            console.log('파일이 선택되지 않았습니다.');
+            setVideoFile(null);
+            setVideoMsg('파일이 선택되지 않았습니다.');
         }
     };
 
@@ -74,11 +86,10 @@ const AdminBannerAddModForm: React.FC = () => {
     const tdClassName = 'bg-White border border-Black border-[2px] p-2 w-[70%]';
 
     return (
-        <AdminCurrentLayout title={`배너 ${id && '수정' } 등록`}>
+        <AdminCurrentLayout title={`배너 ${id !== undefined ? '수정' : '' } 등록`}>
             <div className='w-full h-fit p-5 border border-Black bg-White flex flex-col items-center justify-center'>
                 <table className="min-w-full border-collapse border border-[2px] border-Black">
                     <thead className='text-diagram'>
-                        
                     </thead>
                     <tbody className='text-diagram'>
                         <tr>
@@ -117,11 +128,11 @@ const AdminBannerAddModForm: React.FC = () => {
                                 <div className='w-full flex items-center'>
                                     <FileInput
                                         id='imgInput'
-                                        msg='이미지 사이즈 1904X650'
+                                        msg={imageMsg}
                                         accept='image/*'
                                         onChange={handleImageChange}
                                     />
-                                    {thumbnail !== '' && <img className='ml-10 w-[6.65rem] h-[2.25rem]' alt='thumbnail' src={`${process.env.PUBLIC_URL}/adminLoginLogo.png`} />}
+                                    {imageFile && <img className='ml-10 w-[6.65rem] h-[2.25rem]' id='thumbnail' alt='thumbnail' src={URL.createObjectURL(imageFile)} />}
                                 </div>
                             </td>
                         </tr>
@@ -130,7 +141,7 @@ const AdminBannerAddModForm: React.FC = () => {
                             <td className={`${tdClassName}`}>
                                 <FileInput
                                     id='videoInput'
-                                    msg='동영상 사이즈 1904X650'
+                                    msg={videoMsg}
                                     accept='video/*'
                                     onChange={handleVideoChange}
                                 />
