@@ -20,8 +20,8 @@ const AdminBannerAddModForm: React.FC = () => {
 
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [videoFile, setVideoFile] = useState<File | null>(null); 
-    const [imageMsg, setImageMsg] = useState<string>('이미지 사이즈');
-    const [videoMsg, setVideoMsg] = useState<string>('동영상 사이즈');
+    const [imageMsg, setImageMsg] = useState<string>('이미지 사이즈 1920X650');
+    const [videoMsg, setVideoMsg] = useState<string>('동영상 사이즈 1920X650');
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -30,12 +30,12 @@ const AdminBannerAddModForm: React.FC = () => {
             const img = new Image();
             img.src = URL.createObjectURL(file);
             img.onload = () => {
-                setImageMsg(`이미지 사이즈: ${img.width}x${img.height}`);
+                setImageMsg(`${imageMsg}<br>선택한 이미지 사이즈 ${img.width}X${img.height}`);
             };
             console.log('선택된 파일:', file);
         } else {
             setImageFile(null);
-            setImageMsg('파일이 선택되지 않았습니다.');
+            setImageMsg('이미지 사이즈 1920X650');
         }
     };
 
@@ -46,12 +46,12 @@ const AdminBannerAddModForm: React.FC = () => {
             const video = document.createElement('video');
             video.src = URL.createObjectURL(file);
             video.onloadedmetadata = () => {
-                setVideoMsg(`동영상 사이즈즈: ${video.videoWidth}x${video.videoHeight}`);
+                setVideoMsg(`${videoMsg}<br>선택한 동영상 사이즈 ${video.videoWidth}X${video.videoHeight}`);
             };
             console.log('선택된 파일:', file);
         } else {
             setVideoFile(null);
-            setVideoMsg('파일이 선택되지 않았습니다.');
+            setVideoMsg('동영상 사이즈 1920X650');
         }
     };
 

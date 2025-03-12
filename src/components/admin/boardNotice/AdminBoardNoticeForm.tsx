@@ -32,15 +32,15 @@ const AdminBoardNoticeForm: React.FC = () => {
     let pageItems = 10;
 
     const items = [
-      {
-        label: 'item1',
-        value: 'item1',
-      },
-      {
-        label: 'item2',
-        value: 'item2',
-      },
-    ]
+        {
+          label: '제목',
+          value: '제목',
+        },
+        {
+          label: '내용',
+          value: '내용',
+        },
+    ];
     
     useEffect(() => {
         fetchData();
@@ -125,7 +125,7 @@ const AdminBoardNoticeForm: React.FC = () => {
         <AdminCurrentLayout title='공지&뉴스 리스트'>
             <div className={`w-full h-fit border border-Black bg-White ${deviceInfo.isSmallScreen ? 'p-1' : 'p-5' }`}>
                 <div className={`flex width-full pb-6 gap-2 ${deviceInfo.isSmallScreen ? 'flex-col' : 'items-center' }`}>
-                    <Dropdown items={items} placeholder='이름' width={`${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px]' }`}></Dropdown>
+                    <Dropdown items={items} placeholder='' defaultValue='제목' width={`${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px]' }`}></Dropdown>
                     <InputField
                         className={`border-[1px] px-4 py-3 ${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px] ' }`}
                         placeholder='검색어 입력'

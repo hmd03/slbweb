@@ -11,19 +11,30 @@ axios.defaults.withCredentials = true;
 
 const TestPage = React.lazy(() => import('./pages/test'));
 const Login = React.lazy(() => import('./pages/admin/Login'));
+
 const AdminInquiry = React.lazy(() => import('./pages/admin/inquiry/AdminInquiry'));
-const AdminInquiryView = React.lazy(() => import('./pages/admin/inquiry/AdminInquiryView'));
+const AdminInquiryView = React.lazy(() => import('./pages/admin/inquiry/AdminInquiryView'))
+;
 const AdminMaster = React.lazy(() => import('./pages/admin/master/AdminMaster'));
 const AdminMasterWrite = React.lazy(() => import('./pages/admin/master/AdminMasterWrite'));
+
 const AdminBanner = React.lazy(() => import('./pages/admin/banner/AdminBanner'));
 const AdminBannerAddMod = React.lazy(() => import('./pages/admin/banner/AdminBannerAddMod'));
+
 const AdminPopup = React.lazy(() => import('./pages/admin/popup/AdminPopup'));
+
 const AdminBoardNotice = React.lazy(() => import('./pages/admin/boardNotice/AdminBoardNotice'));
 const AdminBoardNoticeWrite = React.lazy(() => import('./pages/admin/boardNotice/AdminBoardNoticeWrite'));
+
 const AdminBoardEvent = React.lazy(() => import('./pages/admin/boardEvent/AdminBoardEvent'));
+const AdminBoardEventWrite = React.lazy(() => import('./pages/admin/boardEvent/AdminBoardEventWrite'));
+
 const AdminBoardCs = React.lazy(() => import('./pages/admin/boardCs/AdminBoardCs'));
+
 const AdminBoardPartner = React.lazy(() => import('./pages/admin/boardPartner/AdminBoardPartner'));
+
 const AdminStore = React.lazy(() => import('./pages/admin/store/AdminStore'));
+
 const AdminConfig = React.lazy(() => import('./pages/admin/config/AdminConfig'));
 
 const AppInner: React.FC = () => {
@@ -134,6 +145,9 @@ const AppInner: React.FC = () => {
                 <Route path='/admin/board/notice/write/no/:id' element={<AdminBoardNoticeWrite />} />
                 
                 <Route path='/admin/board/event' element={<AdminBoardEvent />} />
+                <Route path='/admin/board/event/write' element={<AdminBoardEventWrite />} />
+                <Route path='/admin/board/event/write/no/:id' element={<AdminBoardEventWrite />} />
+
                 <Route path='/admin/board/cs' element={<AdminBoardCs />} />
                 <Route path='/admin/board/partner' element={<AdminBoardPartner />} />
                 <Route path='/admin/store' element={<AdminStore />} />

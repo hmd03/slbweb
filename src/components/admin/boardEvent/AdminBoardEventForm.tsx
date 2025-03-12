@@ -9,12 +9,12 @@ import OutlineButton from '../../ui/buttons/OutlineButton';
 import AlterModal from '../../ui/alters/AlterModal';
 import { useRecoilValue } from 'recoil';
 import { UserState } from '../../../store/atom';
-import { RiDeleteBin6Line } from 'react-icons/ri';
-import { FaPencilAlt } from 'react-icons/fa';
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FaPencilAlt  } from 'react-icons/fa';
 import { CgLink } from "react-icons/cg";
+import useDeviceInfo from '../../../hooks/useDeviceInfo';
 import Dropdown from '../../ui/dropdown/Dropdown';
 import InputField from '../../ui/inputs/InputField';
-import useDeviceInfo from '../../../hooks/useDeviceInfo';
 
 const AdminBoardEventForm: React.FC = () => {
     const navigate = useNavigate();
@@ -24,26 +24,26 @@ const AdminBoardEventForm: React.FC = () => {
     const [data, setData] = useState<any[]>([]);
     const [totalItems, setTotalItems] = useState<number>(0);
     const [pageIndex, setPageIndex] = useState<number>(1);
-    const { isSupervisor } = useRecoilValue(UserState);
     const [onConfirm, setOnConfirm] = useState(() => () => {});
+    const { isSupervisor } = useRecoilValue(UserState);
 
     const deviceInfo = useDeviceInfo();
 
     let pageItems = 10;
 
     const items = [
-      {
-        label: 'item1',
-        value: 'item1',
-      },
-      {
-        label: 'item2',
-        value: 'item2',
-      },
-    ]
-
+        {
+            label: '제목',
+            value: '제목',
+        },
+        {
+            label: '내용',
+            value: '내용',
+        },
+    ];
+    
     useEffect(() => {
-        //fetchData();
+        fetchData();
     }, [pageIndex]);
 
     const handlePageChange = (page: number) => {
@@ -55,7 +55,7 @@ const AdminBoardEventForm: React.FC = () => {
     };
 
     const handleRegisterClick = () => {
-        //navigate('/admin/master/write');
+        navigate('/admin/board/event/write');
     };
 
     const handleModClick = (id: string, itemSupervisor: boolean) => {
@@ -63,7 +63,7 @@ const AdminBoardEventForm: React.FC = () => {
             handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
             return;
         }
-        navigate(`/admin/master/write/${id}/${itemSupervisor?1:0}`);
+        navigate(`/admin/board/event/write/no/${id}`);
     };
 
     const handleDelClick = (id: string) => {
@@ -71,19 +71,40 @@ const AdminBoardEventForm: React.FC = () => {
             handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
             return;
         }
-        //handleOpenModal('삭제 하시겠습니까?', false, () => deleteId(id));
+        handleOpenModal('삭제 하시겠습니까?', false, () => deleteId(id));
     };
 
     const fetchData = async () => {
         try {
             console.log(pageIndex)
             const response = await axios.get(
-              `api/users?page=${pageIndex}`,
+              `api/event?page=${pageIndex}`,
             );
 
             console.log(response);
-            setData(response.data.userList);
+            setData(response.data.noticeList);
             setTotalItems(response.data.totalCount);
+          } catch (error) {
+            console.log("error: " + error);
+          }
+    };
+
+    const deleteId = async (id: string) => {
+        console.log(id);
+        try {
+            const response = await axios.delete(
+              `api/event/${id}`,
+            );
+
+            console.log(response)
+            const data = response.data;
+
+            if (response.status === 200) {
+                handleCancel();
+                fetchData();
+            } else {
+                alert(data.message);
+            }
           } catch (error) {
             console.log("error: " + error);
           }
@@ -104,7 +125,7 @@ const AdminBoardEventForm: React.FC = () => {
         <AdminCurrentLayout title='톡톡 이벤트 리스트'>
             <div className={`w-full h-fit border border-Black bg-White ${deviceInfo.isSmallScreen ? 'p-1' : 'p-5' }`}>
                 <div className={`flex width-full pb-6 gap-2 ${deviceInfo.isSmallScreen ? 'flex-col' : 'items-center' }`}>
-                    <Dropdown items={items} placeholder='이름' width={`${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px]' }`}></Dropdown>
+                    <Dropdown items={items} placeholder='' defaultValue='제목' width={`${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px]' }`}></Dropdown>
                     <InputField
                         className={`border-[1px] px-4 py-3 ${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px] ' }`}
                         placeholder='검색어 입력'
@@ -155,6 +176,7 @@ const AdminBoardEventForm: React.FC = () => {
                     </tbody>
                 </table>
                 <AdminPagination totalItems={totalItems} itemsPerPage={pageItems} onPageChange={handlePageChange}/>
+                <Button theme='admin' onClick={handleRegisterClick}>등록</Button>
             </div>
             {isModalVisible && (
                 <AlterModal
