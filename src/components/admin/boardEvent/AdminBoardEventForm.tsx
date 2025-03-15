@@ -78,11 +78,10 @@ const AdminBoardEventForm: React.FC = () => {
         try {
             console.log(pageIndex)
             const response = await axios.get(
-              `api/event?page=${pageIndex}`,
+              `api/events?page=${pageIndex}`,
             );
 
-            console.log(response);
-            setData(response.data.noticeList);
+            setData(response.data.eventList);
             setTotalItems(response.data.totalCount);
           } catch (error) {
             console.log("error: " + error);
@@ -93,7 +92,7 @@ const AdminBoardEventForm: React.FC = () => {
         console.log(id);
         try {
             const response = await axios.delete(
-              `api/event/${id}`,
+              `api/events/${id}`,
             );
 
             console.log(response)

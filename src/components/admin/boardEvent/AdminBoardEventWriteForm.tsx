@@ -11,6 +11,7 @@ import axios from 'axios';
 import Editor from '../../ui/Editer/Editor';
 import RadioButtonGroup from '../../ui/radio/RadioButtonGroup';
 import FileInput from '../../ui/inputs/FileInput';
+import { formatDateYYYYMMDD } from '../../utils/dateUtils';
 
 const AdminBoardEventWriteForm: React.FC = () => {
     const [loading, setLoading] = useRecoilState(LoadingState);
@@ -27,13 +28,14 @@ const AdminBoardEventWriteForm: React.FC = () => {
 
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [imageMsg, setImageMsg] = useState<string>('이미지 권장 사이즈 282X201');
+    const [thumbnailPath, setThumbnailPath] = useState<string>('');
 
     const [startDate, setStartDate] = useState<string>('');
     const [endDate, setEndDate] = useState<string>('');
 
     const options = [
-        { id: 'option1', name: 'group1', value: '1', label: '공지' },
-        { id: 'option2', name: 'group1', value: '0', label: '일반' },
+        { id: 'option1', name: 'group1', value: '0', label: '종료' },
+        { id: 'option2', name: 'group1', value: '1', label: '진행' },
     ];
 
     const handleChange = (value: React.SetStateAction<string>) => {
@@ -45,16 +47,34 @@ const AdminBoardEventWriteForm: React.FC = () => {
         setEditorContent(content);
     };
 
+    const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newStartDate = e.target.value;
+        setStartDate(newStartDate);
+        if (endDate < newStartDate) {
+            setEndDate(newStartDate);
+        }
+    };
+    
+    const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newEndDate = e.target.value;
+    
+        if (newEndDate >= startDate) {
+            setEndDate(newEndDate);
+        }
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             if (id) {
                 try {
-                    const response = await axios.get(`/api/event/${id}`);
-                    console.log(response);
+                    const response = await axios.get(`/api/events/${id}`);
                     if (response.status === 200) {
                         const data = response.data;
                         titleRef.current!.value = data.title;
                         setSelectedOption( data.isNotice == true ? '1' : '0' );
+                        setStartDate(formatDateYYYYMMDD(data.startDate));
+                        setEndDate(formatDateYYYYMMDD(data.endDate));
+                        setThumbnailPath(data.thumbnailPath);
                         setEditorContent(data.content);
                     }
                 } catch (error) {
@@ -67,9 +87,6 @@ const AdminBoardEventWriteForm: React.FC = () => {
     }, [id]);
 
     const onSubmit = async () => {
-
-        setLoading(true);
-
         handleOpenModal(`등록 하시겠습니까?`, true, handleConfirm)
 
         setModalVisible(true);
@@ -79,6 +96,7 @@ const AdminBoardEventWriteForm: React.FC = () => {
             const file = event.target.files?.[0];
             if (file) {
                 setImageFile(file);
+                setThumbnailPath(URL.createObjectURL(file));
                 const img = new Image();
                 img.src = URL.createObjectURL(file);
                 img.onload = () => {
@@ -87,6 +105,7 @@ const AdminBoardEventWriteForm: React.FC = () => {
                 console.log('선택된 파일:', file);
             } else {
                 setImageFile(null);
+                setThumbnailPath('');
                 setImageMsg('이미지 권장 사이즈 282X201');
             }
         };
@@ -125,18 +144,32 @@ const AdminBoardEventWriteForm: React.FC = () => {
 
     const handleConfirm = async () => {
         const title = titleRef.current?.value || '';
-        const isNotice = selectedOption === '1';
+        const isContinued = selectedOption === '1' ? 'true' : 'false';
+        const media = imageFile;
         const content = editorContent;
 
         try {
+            const formData = new FormData();
+                formData.append('title', title);
+                formData.append('isContinued', isContinued);
+                formData.append('startDate', startDate);
+                formData.append('endDate', endDate);
+                formData.append('content', content);
+
+                if (media) {
+                    formData.append('media', media);
+                }
+
+                for (const [key, value] of formData.entries()) {
+                    console.log(`${key}: ${value}`);
+                }
+
             if(!id){
-                const response = await axios.post('/api/event', {
-                    title: title,
-                    isNotice: isNotice,
-                    content: content
-                });
+                setLoading(true);
+                const response = await axios.post(`/api/events`, formData);
 
                 const data = response.data;
+                setLoading(false);
     
                 if (response.status === 201) {
                     navigate('/admin/board/event');
@@ -144,14 +177,12 @@ const AdminBoardEventWriteForm: React.FC = () => {
                     alert(data.message);
                 }
             } else {
-                const response = await axios.put(`api/event/${id}`, {
-                    title: title,
-                    isNotice: isNotice,
-                    content: content
-                });
+                setLoading(true);
+                const response = await axios.put(`api/events/${id}`, formData);
 
                 const data = response.data;
-    
+                setLoading(false);
+
                 if (response.status === 200) {
                     console.log(response);
                     navigate('/admin/board/event');
@@ -195,7 +226,6 @@ const AdminBoardEventWriteForm: React.FC = () => {
                                     placeholder='제목'
                                     ref={titleRef} 
                                     autoComplete='id'
-                                    readOnly={!!id}
                                 />
                             </td>
                         </tr>
@@ -217,14 +247,14 @@ const AdminBoardEventWriteForm: React.FC = () => {
                                     <InputField
                                         type='date'
                                         value={startDate}
-                                        onChange={(e) => setStartDate(e.target.value)}
+                                        onChange={handleStartDateChange}
                                         className='border-[2px] p-1'
                                     />
                                     <span>~</span>
                                     <InputField
                                         type='date'
                                         value={endDate}
-                                        onChange={(e) => setEndDate(e.target.value)}
+                                        onChange={handleEndDateChange}
                                         className='border-[2px] p-1'
                                     />
                                 </div>
@@ -240,7 +270,7 @@ const AdminBoardEventWriteForm: React.FC = () => {
                                         accept='image/*'
                                         onChange={handleImageChange}
                                     />
-                                    {imageFile && <img className='ml-10 w-[6.65rem] h-[2.25rem]' id='thumbnail' alt='thumbnail' src={URL.createObjectURL(imageFile)} />}
+                                    {imageFile && <img className='ml-10 w-[3.156rem] h-[2.25rem]' id='thumbnail' alt='thumbnail' src={thumbnailPath} />}
                                 </div>
                             </td>
                         </tr>

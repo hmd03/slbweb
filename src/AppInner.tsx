@@ -90,7 +90,6 @@ const AppInner: React.FC = () => {
                 isSupervisor: user.isSupervisor,
                 accessToken: accessToken,
               });
-              console.log(accessToken);
               setIsLoading(false);
               return axios(originalRequest);
             }

@@ -60,9 +60,6 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
     }, [id]);
 
     const onSubmit = async () => {
-
-        setLoading(true);
-
         handleOpenModal(`등록 하시겠습니까?`, true, handleConfirm)
 
         setModalVisible(true);
@@ -107,6 +104,7 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
 
         try {
             if(!id){
+                setLoading(true);
                 const response = await axios.post('/api/notices', {
                     title: title,
                     isNotice: isNotice,
@@ -114,13 +112,15 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
                 });
 
                 const data = response.data;
-    
+                setLoading(false);
+
                 if (response.status === 201) {
                     navigate('/admin/board/notice');
                 } else {
                     alert(data.message);
                 }
             } else {
+                setLoading(true);
                 const response = await axios.put(`api/notices/${id}`, {
                     title: title,
                     isNotice: isNotice,
@@ -128,7 +128,8 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
                 });
 
                 const data = response.data;
-    
+                setLoading(false);
+                
                 if (response.status === 200) {
                     console.log(response);
                     navigate('/admin/board/notice');
