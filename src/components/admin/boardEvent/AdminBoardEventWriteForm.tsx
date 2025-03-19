@@ -70,11 +70,12 @@ const AdminBoardEventWriteForm: React.FC = () => {
                     const response = await axios.get(`/api/events/${id}`);
                     if (response.status === 200) {
                         const data = response.data;
+                        console.log(data);
                         titleRef.current!.value = data.title;
                         setSelectedOption( data.isNotice == true ? '1' : '0' );
                         setStartDate(formatDateYYYYMMDD(data.startDate));
                         setEndDate(formatDateYYYYMMDD(data.endDate));
-                        setThumbnailPath(data.thumbnailPath);
+                        setThumbnailPath(`${process.env.PUBLIC_URL}/${data.thumbnailPath.replace(/\\/g, '/')}`);
                         setEditorContent(data.content);
                     }
                 } catch (error) {
@@ -87,28 +88,34 @@ const AdminBoardEventWriteForm: React.FC = () => {
     }, [id]);
 
     const onSubmit = async () => {
-        handleOpenModal(`등록 하시겠습니까?`, true, handleConfirm)
+        const title = titleRef.current?.value || '';
+        const media = imageFile;
+        const content = editorContent;
 
-        setModalVisible(true);
+        if(title == '' || startDate == '' || endDate == '' || imageFile == null || content == '' || content == '<p></p>' || content == '<p><br></p>'){
+            handleOpenModal(`제목, 이벤트 기간, 썸네일, 이벤트 내용을 확인해 주세요.`, false, handleCancel);
+        } else {
+            handleOpenModal(`등록 하시겠습니까?`, true, handleConfirm);
+        }
     }
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-            const file = event.target.files?.[0];
-            if (file) {
-                setImageFile(file);
-                setThumbnailPath(URL.createObjectURL(file));
-                const img = new Image();
-                img.src = URL.createObjectURL(file);
-                img.onload = () => {
-                    setImageMsg(`이미지 권장 사이즈 282X201<br>이미지 사이즈 ${img.width}X${img.height}`);
-                };
-                console.log('선택된 파일:', file);
-            } else {
-                setImageFile(null);
-                setThumbnailPath('');
-                setImageMsg('이미지 권장 사이즈 282X201');
-            }
-        };
+        const file = event.target.files?.[0];
+        if (file) {
+            setImageFile(file);
+            setThumbnailPath(URL.createObjectURL(file));
+            const img = new Image();
+            img.src = URL.createObjectURL(file);
+            img.onload = () => {
+                setImageMsg(`이미지 권장 사이즈 282X201<br>이미지 사이즈 ${img.width}X${img.height}`);
+            };
+            console.log('선택된 파일:', file);
+        } else {
+            setImageFile(null);
+            setThumbnailPath('');
+            setImageMsg('이미지 권장 사이즈 282X201');
+        }
+    };
 
     const handleDelClick = () => {
         handleOpenModal('삭제 하시겠습니까?', true, deleteId);
@@ -270,7 +277,7 @@ const AdminBoardEventWriteForm: React.FC = () => {
                                         accept='image/*'
                                         onChange={handleImageChange}
                                     />
-                                    {imageFile && <img className='ml-10 w-[3.156rem] h-[2.25rem]' id='thumbnail' alt='thumbnail' src={thumbnailPath} />}
+                                    {thumbnailPath != '' && <img className='ml-10 w-[3.156rem] h-[2.25rem]' id='thumbnail' alt='thumbnail' src={thumbnailPath} />}
                                 </div>
                             </td>
                         </tr>

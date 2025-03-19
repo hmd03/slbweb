@@ -60,9 +60,14 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
     }, [id]);
 
     const onSubmit = async () => {
-        handleOpenModal(`등록 하시겠습니까?`, true, handleConfirm)
+        const title = titleRef.current?.value || '';
+        const content = editorContent;
 
-        setModalVisible(true);
+        if(title == '' || content == '' || content == '<p></p>' || content == '<p><br></p>'){
+            handleOpenModal(`제목, 공지 내용을 확인해 주세요.`, false, handleCancel);
+        } else {
+            handleOpenModal(`등록 하시겠습니까?`, true, handleConfirm);
+        }
     }
 
     const handleDelClick = () => {

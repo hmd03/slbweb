@@ -58,22 +58,22 @@ const AdminMasterWriteForm: React.FC = () => {
         setLoading(true);
 
         if (!/^[가-힣]+$/.test(name)) {
-            alert('이름은 한글만 가능합니다.');
+            handleOpenModal('이름은 한글만 가능합니다.', false, handleCancel);
             setLoading(false);
             return;
         }
         if (!/^[a-zA-Z]{6,}$/.test(inputid)) {
-            alert('아이디는 영어로 최소 6자 이상이어야 합니다.');
+            handleOpenModal('아이디는 영어로 최소 6자 이상이어야 합니다.', false, handleCancel);
             setLoading(false);
             return;
         }
         if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{6,}$/.test(password)) {
-            alert('비밀번호는 영어, 숫자, 특수문자를 포함하여 최소 6자 이상이어야 합니다.');
+            handleOpenModal('비밀번호는 영어, 숫자, 특수문자를 포함하여 최소 6자 이상이어야 합니다.', false, handleCancel);
             setLoading(false);
             return;
         }
         if (password !== checkPassword) {
-            alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+            handleOpenModal('비밀번호와 비밀번호 확인이 일치하지 않습니다.', false, handleCancel);
             setLoading(false);
             return;
         }
