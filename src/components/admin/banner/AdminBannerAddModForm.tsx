@@ -54,7 +54,7 @@ const AdminBannerAddModForm: React.FC = () => {
                 const img = new Image();
                 img.src = URL.createObjectURL(file);
                 img.onload = () => {
-                    setImageMsg(`${imageMsg}<br>선택한 이미지 사이즈 ${img.width}X${img.height}`);
+                    setImageMsg(`선택한 이미지 사이즈 ${img.width}X${img.height}`);
                 };
                 console.log('선택된 파일:', file);
             } else {
@@ -72,7 +72,7 @@ const AdminBannerAddModForm: React.FC = () => {
                     const video = document.createElement('video');
                     video.src = URL.createObjectURL(file);
                     video.onloadedmetadata = () => {
-                        setVideoMsg(`${videoMsg}<br>선택한 동영상 사이즈 ${video.videoWidth}X${video.videoHeight}`);
+                        setVideoMsg(`선택한 동영상 사이즈 ${video.videoWidth}X${video.videoHeight}`);
                     };
                     console.log('선택된 파일:', file);
                 } else {
@@ -193,24 +193,24 @@ const AdminBannerAddModForm: React.FC = () => {
     };
 
     const deleteId = async () => {
-        // try {
-        //     if(id){
-        //         const response = await axios.delete(
-        //             `api/event/${id}`,
-        //           );
+        try {
+            if(id){
+                const response = await axios.delete(
+                    `api/banners/${id}`,
+                  );
       
-        //           console.log(response)
-        //           const data = response.data;
+                  console.log(response)
+                  const data = response.data;
       
-        //           if (response.status === 200) {
-        //               navigate('/admin/board/event');
-        //           } else {
-        //               alert(data.message);
-        //           }
-        //     }
-        //   } catch (error) {
-        //     console.log("error: " + error);
-        //   }
+                  if (response.status === 200) {
+                      navigate('/admin/banner');
+                  } else {
+                      alert(data.message);
+                  }
+            }
+          } catch (error) {
+            console.log("error: " + error);
+          }
     };
 
     const handleOpenModal = (msg: string, isCancel = true, confirmFunction: () => void) => {

@@ -26,7 +26,7 @@ const AdminBannerForm: React.FC = () => {
     let pageItems = 10;
 
     useEffect(() => {
-        //fetchData();
+        fetchData();
     }, [pageIndex]);
 
     const handlePageChange = (page: number) => {
@@ -42,22 +42,18 @@ const AdminBannerForm: React.FC = () => {
     };
 
     const handleModClick = (id: string, itemSupervisor: boolean) => {
-        if(!isSupervisor){
-            handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
-            return;
-        }
-        navigate(`/admin/master/write/${id}/${itemSupervisor?1:0}`);
+        navigate(`/admin/banner/mode/add/no/${id}`);
     };
 
     const fetchData = async () => {
         try {
             console.log(pageIndex)
             const response = await axios.get(
-              `api/users?page=${pageIndex}`,
+              `api/banners?page=${pageIndex}`,
             );
 
             console.log(response);
-            setData(response.data.userList);
+            setData(response.data.bannerList);
             setTotalItems(response.data.totalCount);
           } catch (error) {
             console.log("error: " + error);
@@ -74,6 +70,30 @@ const AdminBannerForm: React.FC = () => {
     const handleCancel = () => {
         setModalVisible(false);
     }
+
+    const handleDelClick = (id:string) => {
+        handleOpenModal('삭제 하시겠습니까?', true, () => deleteItem(id));
+    };
+
+    const deleteItem = async (id:string) => {
+        try {
+            console.log(id);
+            const response = await axios.delete(
+                `api/banners/${id}`,
+                );
+    
+                console.log(response)
+                const data = response.data;
+    
+                if (response.status === 200) {
+                    fetchData();
+                } else {
+                    alert(data.message);
+                }
+          } catch (error) {
+            console.log("error: " + error);
+          }
+    };
 
     const thClassName = 'border border-Black border-[2px] p-2';
     const tdClassName = 'border border-Black border-[2px] p-2 text-center';
@@ -103,8 +123,8 @@ const AdminBannerForm: React.FC = () => {
                             <tr key={item.id}>
                                 <td className={`${tdClassName} w-[5%]`}>{totalItems - index - ((pageIndex-1) * pageItems)}</td>
                                 <td className={`${tdClassName} w-[5%]`}>{item.id}</td>
-                                <td className={`${tdClassName} w-[30%]`}>{item.name}</td>
-                                <td className={`${tdClassName} w-[20%]`}>{item.name}</td>
+                                <td className={`${tdClassName} w-[30%]`}>{`${item.title}${item.isMobile && '(모바일)'}`}</td>
+                                <td className={`${tdClassName} w-[20%]`}>{item.media}</td>
                                 <td className={`${tdClassName} w-[20%]`}>{formatDate(item.createdAt)}</td>
                                 <td className={`${tdClassName} w-[20%]`}>
                                     <div className='w-full flex items-center justify-center'>
@@ -114,7 +134,9 @@ const AdminBannerForm: React.FC = () => {
                                                 수정
                                                 <FaPencilAlt color='black' className='ml-1 w-fit'/>
                                         </OutlineButton>
-                                        <Button theme='error' className='ml-2 px-2 w-[4rem] h-[2rem] bolder flex items-center'>
+                                        <Button theme='error' 
+                                            className='ml-2 px-2 w-[4rem] h-[2rem] bolder flex items-center'
+                                            onClick={() => handleDelClick(item.id)}>
                                             삭제
                                             <RiDeleteBin6Line color='white' className='ml-1 w-fit' />
                                         </Button>
