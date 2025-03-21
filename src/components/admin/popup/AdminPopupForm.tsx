@@ -26,7 +26,7 @@ const AdminPopupForm: React.FC = () => {
     let pageItems = 10;
 
     useEffect(() => {
-        //fetchData();
+        fetchData();
     }, [pageIndex]);
 
     const handlePageChange = (page: number) => {
@@ -38,26 +38,22 @@ const AdminPopupForm: React.FC = () => {
     };
 
     const handleRegisterClick = () => {
-        //navigate('/admin/master/write');
+        navigate('/admin/banner/mode/add');
     };
 
     const handleModClick = (id: string, itemSupervisor: boolean) => {
-        if(!isSupervisor){
-            handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
-            return;
-        }
-        navigate(`/admin/master/write/${id}/${itemSupervisor?1:0}`);
+        navigate(`/admin/banner/mode/add/no/${id}`);
     };
 
     const fetchData = async () => {
         try {
             console.log(pageIndex)
             const response = await axios.get(
-              `api/users?page=${pageIndex}`,
+              `api/banners?page=${pageIndex}`,
             );
 
             console.log(response);
-            setData(response.data.userList);
+            setData(response.data.bannerList);
             setTotalItems(response.data.totalCount);
           } catch (error) {
             console.log("error: " + error);
@@ -75,31 +71,62 @@ const AdminPopupForm: React.FC = () => {
         setModalVisible(false);
     }
 
+    const handleDelClick = (id:string) => {
+        handleOpenModal('삭제 하시겠습니까?', true, () => deleteItem(id));
+    };
+
+    const deleteItem = async (id:string) => {
+        try {
+            console.log(id);
+            const response = await axios.delete(
+                `api/banners/${id}`,
+                );
+    
+                console.log(response)
+                const data = response.data;
+    
+                if (response.status === 200) {
+                    fetchData();
+                } else {
+                    alert(data.message);
+                }
+          } catch (error) {
+            console.log("error: " + error);
+          }
+    };
+
+    const thClassName = 'border border-Black border-[2px] p-2';
+    const tdClassName = 'border border-Black border-[2px] p-2 text-center';
+
     return (
         <AdminCurrentLayout title='팝업 관리 리스트'>
             <div className='w-full h-fit p-5 border border-Black bg-White'>
+            <div className={`flex width-full pb-6 gap-2 items-center`}>
+                    <Button theme='admin' className='w-[5rem] h-[3rem] '>전체</Button>
+                    <Button theme='admin' className='w-[5rem] h-[3rem] '>PC</Button>
+                    <Button theme='admin' className='w-[5rem] h-[3rem] '>모바일</Button>
+                    <Button theme='admin' className='w-[5rem] h-[3rem] ' onClick={handleRegisterClick}>등록</Button>
+                </div>
                 <table className="min-w-full border-collapse border border-[2px] border-Black">
                     <thead className='bg-LightGray text-diagram'>
                         <tr>
-                            <th className="border border-Black border-[2px] p-2">No</th>
-                            <th className="border border-Black border-[2px] p-2">사용여부</th>
-                            <th className="border border-Black border-[2px] p-2">팝업 제목</th>
-                            <th className="border border-Black border-[2px] p-2">팝업 이미지</th>
-                            <th className="border border-Black border-[2px] p-2">팝업 게시일</th>
-                            <th className="border border-Black border-[2px] p-2">등록일</th>
-                            <th className="border border-Black border-[2px] p-2">관리</th>
+                            <th className={thClassName}>No</th>
+                            <th className={thClassName}>구분</th>
+                            <th className={thClassName}>배너 제목</th>
+                            <th className={thClassName}>배너 이미지</th>
+                            <th className={thClassName}>등록일</th>
+                            <th className={thClassName}>관리</th>
                         </tr>
                     </thead>
                     <tbody className='bg-White text-diagram'>
                         {data.map((item, index) => (
                             <tr key={item.id}>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[5%]">{totalItems - index - ((pageIndex-1) * pageItems)}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[5%]">{item.id}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[25%]">{item.id}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[15%]">{item.name}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[15%]">{formatDate(item.createdAt)}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[15%]">{formatDate(item.createdAt)}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[20%]">
+                                <td className={`${tdClassName} w-[5%]`}>{totalItems - index - ((pageIndex-1) * pageItems)}</td>
+                                <td className={`${tdClassName} w-[5%]`}>{item.id}</td>
+                                <td className={`${tdClassName} w-[30%]`}>{`${item.title}${item.isMobile && '(모바일)'}`}</td>
+                                <td className={`${tdClassName} w-[20%]`}>{item.media}</td>
+                                <td className={`${tdClassName} w-[20%]`}>{formatDate(item.createdAt)}</td>
+                                <td className={`${tdClassName} w-[20%]`}>
                                     <div className='w-full flex items-center justify-center'>
                                         <OutlineButton theme='admin' 
                                             className='px-2  w-[4rem] h-[2rem] flex items-center' 
@@ -107,12 +134,12 @@ const AdminPopupForm: React.FC = () => {
                                                 수정
                                                 <FaPencilAlt color='black' className='ml-1 w-fit'/>
                                         </OutlineButton>
-                                        {!item.isSupervisor && 
-                                            <Button theme='error' className='ml-2 px-2 w-[4rem] h-[2rem] bolder flex items-center'>
-                                                삭제
-                                                <RiDeleteBin6Line color='white' className='ml-1 w-fit' />
-                                            </Button>
-                                        }
+                                        <Button theme='error' 
+                                            className='ml-2 px-2 w-[4rem] h-[2rem] bolder flex items-center'
+                                            onClick={() => handleDelClick(item.id)}>
+                                            삭제
+                                            <RiDeleteBin6Line color='white' className='ml-1 w-fit' />
+                                        </Button>
                                     </div>
                                 </td>
                             </tr>
@@ -120,7 +147,6 @@ const AdminPopupForm: React.FC = () => {
                     </tbody>
                 </table>
                 <AdminPagination totalItems={totalItems} itemsPerPage={pageItems} onPageChange={handlePageChange}/>
-                <Button theme='admin' onClick={handleRegisterClick}>등록</Button> 
             </div>
             {isModalVisible && (
                 <AlterModal

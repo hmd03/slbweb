@@ -20,6 +20,18 @@ module.exports = {
         detail: '14px',
         diagram: '14px',
       },
+      fontFamily: {
+        primary: 'Blacksword SCDream1 SCDream2 SCDream3 SCDream4 SCDream5 SCDream6 SCDream7 SCDream8 SCDream9 sans-serif',
+        bold: 'SUIT-Bold',
+        extraBold: 'SUIT-ExtraBold',
+        extraLight: 'SUIT-ExtraLight',
+        heavy: 'SUIT-Heavy',
+        light: 'SUIT-Light',
+        medium: 'SUIT-Medium',
+        regular: 'SUIT-Regular',
+        semiBold: 'SUIT-SemiBold',
+        thin: 'SUIT-Thin',
+      }
     },
   },
   plugins: [
