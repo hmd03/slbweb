@@ -6,6 +6,7 @@ import { useRecoilState } from 'recoil';
 import { UserState, LoadingState } from '../../../store/atom';
 import { useNavigate } from 'react-router-dom';
 import useDeviceInfo from '../../../hooks/useDeviceInfo';
+import Cookies from 'js-cookie';
 
 const LoginForm = () => {
     const idRef = useRef<HTMLInputElement>(null);
@@ -36,12 +37,16 @@ const LoginForm = () => {
                 });
 
                 const data = response.data;
+                console.log(data);
 
                 if (response.status === 201) {
                     const { accessToken, user } = data;
                     const id = user.id;
                     const name = user.name;
                     const isSupervisor = user.isSupervisor;
+                    const refreshToken = response.data.refreshToken;
+
+                    Cookies.set('refreshToken', refreshToken, { expires: 4 / 24 });
                     setUser({
                         id,
                         name,

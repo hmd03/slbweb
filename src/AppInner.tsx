@@ -5,6 +5,7 @@ import axios from 'axios';
 import Loading from './components/ui/Loading';
 import { LoadingState, UserState } from './store/atom';
 import AdminNavLayout from './components/ui/layout/AdminNavLayout';
+import Cookies from 'js-cookie';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
@@ -22,6 +23,7 @@ const AdminBanner = React.lazy(() => import('./pages/admin/banner/AdminBanner'))
 const AdminBannerAddMod = React.lazy(() => import('./pages/admin/banner/AdminBannerAddMod'));
 
 const AdminPopup = React.lazy(() => import('./pages/admin/popup/AdminPopup'));
+const AdminPopupAddMod = React.lazy(() => import('./pages/admin/popup/AdminPopupAddMod'));
 
 const AdminBoardNotice = React.lazy(() => import('./pages/admin/boardNotice/AdminBoardNotice'));
 const AdminBoardNoticeWrite = React.lazy(() => import('./pages/admin/boardNotice/AdminBoardNoticeWrite'));
@@ -75,6 +77,7 @@ const AppInner: React.FC = () => {
               });
               alert('다시 로그인해주세요.');
               setIsLoading(false);
+              Cookies.set('refreshToken', '', { expires: -1 });
               navigate('/admin/login');
               return;
             }
@@ -84,6 +87,10 @@ const AppInner: React.FC = () => {
               setIsLoading(true);
               const response = await axios.post('api/auth/refresh');
               const accessToken = response.data.accessToken;
+              const refreshToken = response.data.refreshToken;
+
+              Cookies.set('refreshToken', refreshToken, { expires: 4 / 24 });
+
               setUser({
                 id: user.id,
                 name: user.name,
@@ -112,10 +119,11 @@ const AppInner: React.FC = () => {
   }, [location.pathname, navigate, setIsLoading, setUser, user.id, user.name, isLoading]);
 
   useEffect(() => {
-    if (location.pathname.startsWith('/admin') && !user.accessToken) {
+    const refreshToken = Cookies.get('refreshToken');
+    if (location.pathname.startsWith('/admin') && !refreshToken) {
       navigate('/admin/login');
     }
-  }, [location.pathname, user.accessToken, navigate, isLoading]);
+  }, [location.pathname, Cookies.get('refreshToken'), navigate, isLoading]);
 
   return (
     <>
@@ -138,6 +146,8 @@ const AppInner: React.FC = () => {
                 <Route path='/admin/banner/mode/add/no/:id' element={<AdminBannerAddMod />} />
 
                 <Route path='/admin/popup' element={<AdminPopup />} />
+                <Route path='/admin/popup/mode/add' element={<AdminPopupAddMod />} />
+                <Route path='/admin/popup/mode/add/no/:id' element={<AdminPopupAddMod />} />
 
                 <Route path='/admin/board/notice' element={<AdminBoardNotice />} />
                 <Route path='/admin/board/notice/write' element={<AdminBoardNoticeWrite />} />
