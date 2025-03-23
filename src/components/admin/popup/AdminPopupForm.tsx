@@ -38,22 +38,22 @@ const AdminPopupForm: React.FC = () => {
     };
 
     const handleRegisterClick = () => {
-        navigate('/admin/banner/mode/add');
+        navigate('/admin/popup/mode/add');
     };
 
     const handleModClick = (id: string, itemSupervisor: boolean) => {
-        navigate(`/admin/banner/mode/add/no/${id}`);
+        navigate(`/admin/popup/mode/add/no/${id}`);
     };
 
     const fetchData = async () => {
         try {
             console.log(pageIndex)
             const response = await axios.get(
-              `api/banners?page=${pageIndex}`,
+              `api/popups?page=${pageIndex}`,
             );
 
             console.log(response);
-            setData(response.data.bannerList);
+            setData(response.data.popupList);
             setTotalItems(response.data.totalCount);
           } catch (error) {
             console.log("error: " + error);
@@ -79,13 +79,14 @@ const AdminPopupForm: React.FC = () => {
         try {
             console.log(id);
             const response = await axios.delete(
-                `api/banners/${id}`,
+                `api/popups/${id}`,
                 );
     
                 console.log(response)
                 const data = response.data;
     
                 if (response.status === 200) {
+                    handleCancel();
                     fetchData();
                 } else {
                     alert(data.message);
@@ -111,9 +112,10 @@ const AdminPopupForm: React.FC = () => {
                     <thead className='bg-LightGray text-diagram'>
                         <tr>
                             <th className={thClassName}>No</th>
-                            <th className={thClassName}>구분</th>
-                            <th className={thClassName}>배너 제목</th>
-                            <th className={thClassName}>배너 이미지</th>
+                            <th className={thClassName}>사용여부</th>
+                            <th className={thClassName}>팝업 제목</th>
+                            <th className={thClassName}>팝업 이미지</th>
+                            <th className={thClassName}>팝업게시일</th>
                             <th className={thClassName}>등록일</th>
                             <th className={thClassName}>관리</th>
                         </tr>
@@ -122,10 +124,15 @@ const AdminPopupForm: React.FC = () => {
                         {data.map((item, index) => (
                             <tr key={item.id}>
                                 <td className={`${tdClassName} w-[5%]`}>{totalItems - index - ((pageIndex-1) * pageItems)}</td>
-                                <td className={`${tdClassName} w-[5%]`}>{item.id}</td>
-                                <td className={`${tdClassName} w-[30%]`}>{`${item.title}${item.isMobile && '(모바일)'}`}</td>
+                                <td className={`${tdClassName} w-[10%]`}>{`${item.isExposed ? '사용' : '사용중지'}`}</td>
+                                <td className={`${tdClassName} w-[25%]`}>{item.title}</td>
                                 <td className={`${tdClassName} w-[20%]`}>{item.media}</td>
-                                <td className={`${tdClassName} w-[20%]`}>{formatDate(item.createdAt)}</td>
+                                <td className={`${tdClassName} w-[15%]`}>
+                                    {formatDate(item.startDate)}<br />
+                                    ~<br />
+                                    {formatDate(item.endDate)}
+                                </td>
+                                <td className={`${tdClassName} w-[15%]`}>{formatDate(item.createdAt)}</td>
                                 <td className={`${tdClassName} w-[20%]`}>
                                     <div className='w-full flex items-center justify-center'>
                                         <OutlineButton theme='admin' 
@@ -137,7 +144,7 @@ const AdminPopupForm: React.FC = () => {
                                         <Button theme='error' 
                                             className='ml-2 px-2 w-[4rem] h-[2rem] bolder flex items-center'
                                             onClick={() => handleDelClick(item.id)}>
-                                            삭제
+                                                삭제
                                             <RiDeleteBin6Line color='white' className='ml-1 w-fit' />
                                         </Button>
                                     </div>

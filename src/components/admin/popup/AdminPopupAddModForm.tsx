@@ -10,6 +10,8 @@ import RadioButtonGroup from '../../ui/radio/RadioButtonGroup';
 import AlterModal from '../../ui/alters/AlterModal';
 import { useRecoilState } from 'recoil';
 import { LoadingState } from '../../../store/atom';
+import Dropdown from '../../ui/dropdown/Dropdown';
+import { formatDateYYYYMMDD } from '../../utils/dateUtils';
 
 const AdminPopupAddModForm: React.FC = () => {
     const navigate = useNavigate();
@@ -25,76 +27,82 @@ const AdminPopupAddModForm: React.FC = () => {
     
     const titleRef = useRef<HTMLInputElement>(null);
     const linkRef = useRef<HTMLInputElement>(null);
-    const priorityRef = useRef<HTMLInputElement>(null);
-    const durationRef = useRef<HTMLInputElement>(null);
+    const locationXRef = useRef<HTMLInputElement>(null);
+    const locationYRef = useRef<HTMLInputElement>(null);
+    const widthRef = useRef<HTMLInputElement>(null);
+    const heightRef = useRef<HTMLInputElement>(null);
 
     const [imageFile, setImageFile] = useState<File | null>(null);
-    const [videoFile, setVideoFile] = useState<File | null>(null); 
     const [imageMsg, setImageMsg] = useState<string>('이미지 사이즈 1920X650');
-    const [videoMsg, setVideoMsg] = useState<string>('동영상 사이즈 1920X650');
-
     const [imagePath, setImagePath] = useState<string>('');
 
-    const [selectedOption, setSelectedOption] = useState('0');
+    const [startDate, setStartDate] = useState<string>('');
+    const [endDate, setEndDate] = useState<string>('');
 
-    const options = [
-            { id: 'option1', name: 'group1', value: '0', label: 'PC' },
-            { id: 'option2', name: 'group1', value: '1', label: 'MO' },
-        ];
+    const [selectedOption, setSelectedOption] = useState('사용');
+
+    const items = [
+        { label: '사용', value: '사용' },
+        { label: '사용 안함', value: '사용 안함'},
+      ];
     
-        const handleChange = (value: React.SetStateAction<string>) => {
-            setSelectedOption(value);
-        };
+      const handleSelectItem = (value: string) => {
+        setSelectedOption(value);
+      };
 
-        const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-            const file = event.target.files?.[0];
-            if (file) {
-                setImageFile(file);
-                setImagePath(URL.createObjectURL(file));
-                const img = new Image();
-                img.src = URL.createObjectURL(file);
-                img.onload = () => {
-                    setImageMsg(`선택한 이미지 사이즈 ${img.width}X${img.height}`);
-                };
-                console.log('선택된 파일:', file);
-            } else {
-                setImageFile(null);
-                setImagePath('');
-                setImageMsg('이미지 사이즈 1920X650');
-            }
-        };
-            
-            
-            const handleVideoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-                const file = event.target.files?.[0];
-                if (file) {
-                    setVideoFile(file);
-                    const video = document.createElement('video');
-                    video.src = URL.createObjectURL(file);
-                    video.onloadedmetadata = () => {
-                        setVideoMsg(`선택한 동영상 사이즈 ${video.videoWidth}X${video.videoHeight}`);
-                    };
-                    console.log('선택된 파일:', file);
-                } else {
-                    setVideoFile(null);
-                    setVideoMsg('동영상 사이즈 1920X650');
-                }
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            setImageFile(file);
+            setImagePath(URL.createObjectURL(file));
+            const img = new Image();
+            img.src = URL.createObjectURL(file);
+            img.onload = () => {
+                setImageMsg(`선택한 이미지 사이즈 ${img.width}X${img.height}`);
             };
-        
+            console.log('선택된 파일:', file);
+        } else {
+            setImageFile(null);
+            setImagePath('');
+            setImageMsg('이미지 사이즈 1920X650');
+        }
+    };
+
+    const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newStartDate = e.target.value;
+        setStartDate(newStartDate);
+        if (endDate < newStartDate) {
+            setEndDate(newStartDate);
+        }
+    };
+    
+    const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newEndDate = e.target.value;
+    
+        if (newEndDate >= startDate) {
+            setEndDate(newEndDate);
+        }
+    };
 
     useEffect(() => {
         const fetchData = async () => {
             if (id) {
                 try {
-                    const response = await axios.get(`/api/banners/${id}`);
+                    const response = await axios.get(`/api/popups/${id}`);
                     console.log(response);
                     if (response.status === 200) {
                         const data = response.data;
 
                         titleRef.current!.value = data.title;
+                        setStartDate(formatDateYYYYMMDD(data.startDate));
+                        setEndDate(formatDateYYYYMMDD(data.endDate));
                         linkRef.current!.value = data.link;
-                        priorityRef.current!.value = data.priority;
-                        durationRef.current!.value = data.duration;
+                        locationXRef.current!.value = data.locationX;
+                        locationYRef.current!.value = data.locationY;
+                        widthRef.current!.value = data.width;
+                        heightRef.current!.value = data.height;
+                        setSelectedOption(data.isExposed ? '사용' : '사용 안함');
+                        setImagePath(data.filePath)
                     }
                 } catch (error) {
                     console.log('사용자 정보를 가져오는 데 실패했습니다.');
@@ -108,21 +116,21 @@ const AdminPopupAddModForm: React.FC = () => {
     const onSubmit = async () => {
         const title = titleRef.current?.value || '';
         const link = linkRef.current?.value || '';
-        const priority = priorityRef.current?.value || '';
-        const duration = durationRef.current?.value || '';
-    
-        const isImageSelected = imageFile != null;
-        const isVideoSelected = videoFile != null;
+        const locationX = locationXRef.current?.value || '';
+        const locationY = locationYRef.current?.value || '';
+        const width = widthRef.current?.value || '';
+        const height = heightRef.current?.value || '';
     
         if (
             title === '' || 
-            (isImageSelected && isVideoSelected) ||
-            (!isImageSelected && !isVideoSelected) ||
             link === '' || 
-            priority === '' || 
-            duration === ''
+            locationX === '' || 
+            locationY === '' ||
+            width === '' || 
+            height === '' ||
+            imageFile == null
         ) {
-            handleOpenModal(`이미지와 영상 중 하나만 등록 가능, 제목, 우선순위, 재생시간을 다시 확인해주세요.`, false, handleCancel);
+            handleOpenModal(`팝업 제목, 팝업 크기, 팝업 이미지 팝업 시작일/종료일을 확인해 주세요.`, false, handleCancel);
         } else {
             handleOpenModal(`등록 하시겠습니까?`, true, handleConfirm);
         }
@@ -132,18 +140,24 @@ const AdminPopupAddModForm: React.FC = () => {
     const handleConfirm = async () => {
         const title = titleRef.current?.value || '';
         const link = linkRef.current?.value || '';
-        const priority = priorityRef.current?.value || '';
-        const duration = durationRef.current?.value || '';
-        const isMobile = selectedOption === '1' ? 'true' : 'false';
-        const media = imageFile != null ? imageFile : videoFile;
+        const locationX = locationXRef.current?.value || '';
+        const locationY = locationYRef.current?.value || '';
+        const width = widthRef.current?.value || '';
+        const height = heightRef.current?.value || '';
+        const isExposed = selectedOption === '사용' ? 'true' : 'false';
+        const media = imageFile;
 
         try {
             const formData = new FormData();
                 formData.append('title', title);
-                formData.append('isMobile', isMobile);
+                formData.append('startDate', startDate);
+                formData.append('endDate', endDate);
                 formData.append('link', link);
-                formData.append('priority', priority);
-                formData.append('duration', duration);
+                formData.append('width', width);
+                formData.append('height', height);
+                formData.append('locationX', locationX);
+                formData.append('locationY', locationY);
+                formData.append('isExposed', isExposed);
 
                 if (media) {
                     formData.append('media', media);
@@ -155,26 +169,26 @@ const AdminPopupAddModForm: React.FC = () => {
 
             if(!id){
                 setLoading(true);
-                const response = await axios.post(`/api/banners`, formData);
+                const response = await axios.post(`/api/popups`, formData);
 
                 const data = response.data;
                 setLoading(false);
     
                 if (response.status === 201) {
-                    navigate('/admin/banner');
+                    navigate('/admin/popup');
                 } else {
                     alert(data.message);
                 }
             } else {
                 setLoading(true);
-                const response = await axios.put(`api/banners/${id}`, formData);
+                const response = await axios.put(`api/popups/${id}`, formData);
 
                 const data = response.data;
                 setLoading(false);
 
                 if (response.status === 200) {
                     console.log(response);
-                    navigate('/admin/banner');
+                    navigate('/admin/popup');
                 } else {
                     alert(data.message);
                 }
@@ -196,14 +210,14 @@ const AdminPopupAddModForm: React.FC = () => {
         try {
             if(id){
                 const response = await axios.delete(
-                    `api/banners/${id}`,
+                    `api/popups/${id}`,
                   );
       
                   console.log(response)
                   const data = response.data;
       
                   if (response.status === 200) {
-                      navigate('/admin/banner');
+                      navigate('/admin/popup');
                   } else {
                       alert(data.message);
                   }
@@ -225,7 +239,7 @@ const AdminPopupAddModForm: React.FC = () => {
     }
 
     const onBackPage = () => {
-        navigate('/admin/banner');
+        navigate('/admin/popup');
     }
 
     const thClassName = 'bg-LightGray border border-Black border-[2px] p-2 text-left text-center';
@@ -259,22 +273,102 @@ const AdminPopupAddModForm: React.FC = () => {
                             </td>
                         </tr>
                         <tr >
-                            <th className={thClassName}>팝업 이미지</th>
+                            <th className={thClassName}>팝업 위치</th>
                             <td className={`${tdClassName}`}>
-                                <div className='w-full flex items-center'>
+                                <div>
+                                    <div className='w-full flex items-center pl-1 mb-1'>
+                                        <p className='whitespace-nowrap'>X좌표</p>
+                                        <input
+                                            className='rounded body1 border-Black bg-White focus:outline-none p-1 w-full border-[2px] ml-4'
+                                            placeholder='화면 왼쪽 모서리 가로 기준'
+                                            ref={locationXRef}
+                                        />
+                                    </div>
+                                    <div className='w-full flex items-center pl-1'>
+                                        <p className='whitespace-nowrap'>Y좌표</p>
+                                        <input
+                                            className='rounded body1 border-Black bg-White focus:outline-none p-1 w-full border-[2px] ml-4'
+                                            placeholder='화면 왼쪽 모서리 세로 기준'
+                                            ref={locationYRef}
+                                        />
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr >
+                            <th className={thClassName}>팝업 크기</th>
+                            <td className={`${tdClassName}`}>
+                                <div>
+                                    <div className='w-full flex items-center pl-1 mb-1'>
+                                        <p className='whitespace-nowrap'>가로</p>
+                                        <input
+                                            className='rounded body1 border-Black bg-White focus:outline-none p-1 w-full border-[2px] ml-6'
+                                            placeholder='가로 이미지 사이즈를 넣어주세요'
+                                            ref={widthRef}
+                                        />
+                                    </div>
+                                    <div className='w-full flex items-center pl-1'>
+                                        <p className='whitespace-nowrap'>세로</p>
+                                        <input
+                                            className='rounded body1 border-Black bg-White focus:outline-none p-1 w-full border-[2px] ml-6'
+                                            placeholder='세로 이미지 사이즈를 넣어주세요'
+                                            ref={heightRef}
+                                        />
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr >
+                            <th className={thClassName}>팝업 이미지</th>
+                            <td className={`${tdClassName} h-[15rem]`}>
+                                <div className='w-full h-full flex items-end justify-between'>
                                     <FileInput
                                         id='imgInput'
                                         msg={imageMsg}
                                         accept='image/*'
                                         onChange={handleImageChange}
                                     />
-                                    {imagePath != '' && <img className='ml-10 w-[6.65rem] h-[2.25rem]' id='thumbnail' alt='thumbnail' src={imagePath} />}
+                                    {imagePath != '' && <img className='ml-10 w-[12rem] h-[14rem] mr-1' id='thumbnail' alt='thumbnail' src={imagePath} />}
                                 </div>
+                            </td>
+                        </tr>
+                        <tr >
+                            <th className={thClassName}>팝업 시작일</th>
+                            <td className={tdClassName}>
+                                <InputField
+                                    type='date'
+                                    value={startDate}
+                                    onChange={handleStartDateChange}
+                                    className='border-[2px] p-1 w-full'
+                                />
+                            </td>
+                        </tr>
+                        <tr >
+                            <th className={thClassName}>팝업 종료일</th>
+                            <td className={tdClassName}>
+                                <InputField
+                                    type='date'
+                                    value={endDate}
+                                    onChange={handleEndDateChange}
+                                    className='border-[2px] p-1 w-full'
+                                />
+                            </td>
+                        </tr>
+                        <tr >
+                            <th className={thClassName}>팝업 사용 여부</th>
+                            <td className={tdClassName}>
+                                <Dropdown
+                                    placeholder="Select an option"
+                                    items={items}
+                                    defaultValue={selectedOption}
+                                    width="w-full"
+                                    onSelectItemHandler={handleSelectItem}
+                                />
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <div className='flex w-full items-center h-fit mt-2 gap-2'>
+                <div className='flex w-full items-center justify-center h-fit mt-2 gap-2'>
                     <Button onClick={onSubmit} theme='admin' className='px-8 py-[14px] border border-[2px]'>{!id?'등록':'수정'}</Button>
                     {!!id && <Button onClick={handleDelClick} theme='error' className='px-8 py-[14px] border border-[2px]'>삭제</Button>}
                     <OutlineButton onClick={onBackPage} theme='admin' className='px-8 py-[13px]'>← 목록</OutlineButton>
