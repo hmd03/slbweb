@@ -318,7 +318,7 @@ const AdminBannerAddModForm: React.FC = () => {
                         </tr>
                     </tbody>
                 </table>
-                <div className='flex w-full items-center h-fit mt-2 gap-2'>
+                <div className='flex w-full items-center justify-center h-fit mt-2 gap-2'>
                     <Button onClick={onSubmit} theme='admin' className='px-8 py-[14px] border border-[2px]'>{!id?'등록':'수정'}</Button>
                     {!!id && <Button onClick={handleDelClick} theme='error' className='px-8 py-[14px] border border-[2px]'>삭제</Button>}
                     <OutlineButton onClick={onBackPage} theme='admin' className='px-8 py-[13px]'>← 목록</OutlineButton>
