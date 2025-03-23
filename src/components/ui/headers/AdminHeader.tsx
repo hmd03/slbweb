@@ -7,6 +7,7 @@ import OutlineButton from '../buttons/OutlineButton';
 import axios from 'axios';
 import { IoHome, IoPowerSharp } from "react-icons/io5";
 import useDeviceInfo from '../../../hooks/useDeviceInfo';
+import Cookies from 'js-cookie';
 
 interface Props {
   onMenuClick?: () => void;
@@ -26,6 +27,7 @@ const AdminHeader = ({...props}: Props) => {
     try {
       const response = await axios.post('api/auth/logout');
       console.log(response);
+      Cookies.set('refreshToken', '', { expires: -1 });
       setUser({
         id: '',
         name: '',
