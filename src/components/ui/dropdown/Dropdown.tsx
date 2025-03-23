@@ -61,7 +61,7 @@ const Dropdown = ({
   return (
     <div className='dropdown-wrapper relative'>
       <button
-        className={`border-[1px] border-Black px-4 py-3 flex justify-between ${width} rounded`}
+        className={`border-[2px] px-2 py-1 border-Black flex justify-between ${width} rounded`}
         onClick={(event) => {
           event.stopPropagation();
           setIsOpen(!isOpen);
@@ -76,11 +76,11 @@ const Dropdown = ({
         />
       </button>
       {isOpen && (
-        <div className='my-3 absolute w-fit max-h-[240px] overflow-y-scroll z-10 rounded shadow-[0_4px_8px_1px_rgba(0,0,0,0.1)]'>
+        <div className={`my-3 absolute ${width} max-h-[240px] overflow-y-scroll z-10 rounded shadow-[0_4px_8px_1px_rgba(0,0,0,0.1)]`}>
           {items.map((item) => (
             <button
               key={item.value}
-              className={`${width} h-[48px] px-4 py-3 body1 flex justify-start bg-White ${
+              className={`w-full h-[48px] px-4 py-3 body1 flex justify-start bg-White ${
                 currentItem === item.value
                   ? 'text-Black'
                   : item.disable
