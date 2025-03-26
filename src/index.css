@@ -2,3 +2,141 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@font-face {
+    font-family: 'SCDream1';
+    src: url('./styles/fonts/SCDream1.otf') format('opentype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SCDream2';
+    src: url('./styles/fonts/SCDream2.otf') format('opentype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SCDream3';
+    src: url('./styles/fonts/SCDream3.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SCDream4';
+    src: url('./styles/fonts/SCDream4.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SCDream5';
+    src: url('./styles/fonts/SCDream5.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SCDream6';
+    src: url('./styles/fonts/SCDream6.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SCDream7';
+    src: url('./styles/fonts/SCDream7.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SCDream8';
+    src: url('./styles/fonts/SCDream8.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SCDream9';
+    src: url('./styles/fonts/SCDream9.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+}
+  
+
+/* SUIT 폰트 적용 */
+@font-face {
+    font-family: 'SUIT-Thin';
+    src: url('./styles/fonts/SUIT-Thin.otf') format('opentype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-ExtraLight';
+    src: url('./styles/fonts/SUIT-ExtraLight.otf') format('opentype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-Light';
+    src: url('./styles/fonts/SUIT-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('./styles/fonts/SUIT-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-Medium';
+    src: url('./styles/fonts/SUIT-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-SemiBold';
+    src: url('./styles/fonts/SUIT-SemiBold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-Bold';
+    src: url('./styles/fonts/SUIT-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-ExtraBold';
+    src: url('./styles/fonts/SUIT-ExtraBold.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-Heavy';
+    src: url('./styles/fonts/SUIT-Heavy.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+  font-family: 'Blacksword';
+  src: url('./styles/fonts/Blacksword.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  @apply font-suit;
+}

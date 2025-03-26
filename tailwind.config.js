@@ -13,59 +13,52 @@ module.exports = {
         White: '#ffffff',
         Info: '#456CB5',
         Black: '#000000',
+        Point: '#ff331f',
+        Storke: '#58595b',
       },
       fontSize: {
         title: '32px',
         main: '20px',
+        sub: '18px',
         detail: '14px',
         diagram: '14px',
       },
       fontFamily: {
-        primary: 'Blacksword SCDream1 SCDream2 SCDream3 SCDream4 SCDream5 SCDream6 SCDream7 SCDream8 SCDream9 sans-serif',
-        bold: 'SUIT-Bold',
-        extraBold: 'SUIT-ExtraBold',
-        extraLight: 'SUIT-ExtraLight',
-        heavy: 'SUIT-Heavy',
-        light: 'SUIT-Light',
-        medium: 'SUIT-Medium',
-        regular: 'SUIT-Regular',
-        semiBold: 'SUIT-SemiBold',
-        thin: 'SUIT-Thin',
-      }
+        scdream: [
+          'SCDream1', 'SCDream2', 'SCDream3', 'SCDream4', 
+          'SCDream5', 'SCDream6', 'SCDream7', 'SCDream8', 'SCDream9',
+          'sans-serif'
+        ],
+        suit: [
+          'SUIT-Regular', 'SUIT-Medium', 'SUIT-SemiBold', 'SUIT-Bold', 
+          'SUIT-ExtraBold', 'SUIT-Light', 'SUIT-ExtraLight', 'SUIT-Thin', 
+          'SUIT-Heavy', 'sans-serif'
+        ],
+        cursive: ['Blacksword', 'cursive'],
+      },
     },
   },
   plugins: [
     ({ addUtilities }) => {
       addUtilities({
-        '.headline1': {
-          '@apply font-semibold text-2xl leading-8': '',
-        },
-        '.headline2': {
-          '@apply font-semibold text-xl leading-6': '',
-        },
-        '.headline3': {
-          '@apply font-semibold text-lg leading-6': '',
-        },
-        '.headline4': {
-          '@apply font-semibold text-base leading-5': '',
-        },
-        '.body1': {
-          '@apply font-normal text-base leading-6': '',
-        },
-        '.body2': {
-          '@apply font-normal text-sm leading-5': '',
-        },
-        '.body3': {
-          '@apply font-normal text-xs leading-4': '',
-        },
-        '.normal': {
-          '@apply font-medium text-lg leading-6': '',
-        },
-        '.medium': {
-          '@apply font-medium text-base leading-5': '',
-        },
-        '.small': {
-          '@apply font-medium text-sm leading-4': '',
+        '.headline1': { '@apply font-semibold text-2xl leading-8': '' },
+        '.headline2': { '@apply font-semibold text-xl leading-6': '' },
+        '.headline3': { '@apply font-semibold text-lg leading-6': '' },
+        '.headline4': { '@apply font-semibold text-base leading-5': '' },
+        '.body1': { '@apply font-normal text-base leading-6': '' },
+        '.body2': { '@apply font-normal text-sm leading-5': '' },
+        '.body3': { '@apply font-normal text-xs leading-4': '' },
+        '.normal': { '@apply font-medium text-lg leading-6': '' },
+        '.medium': { '@apply font-medium text-base leading-5': '' },
+        '.small': { '@apply font-medium text-sm leading-4': '' },
+      });
+    },
+    ({ addComponents }) => {
+      addComponents({
+        '.a-reset': {
+          all: 'unset',
+          display: 'inline',
+          cursor: 'pointer',
         },
       });
     },
