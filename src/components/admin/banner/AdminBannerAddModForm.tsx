@@ -113,19 +113,28 @@ const AdminBannerAddModForm: React.FC = () => {
     
         const isImageSelected = imageFile != null;
         const isVideoSelected = videoFile != null;
-    
+
+        const isTitleEmpty = title === '';
+        const isIdUndefined = id === undefined;
+        const isLinkEmpty = link === '';
+        const isPriorityEmpty = priority === '';
+        const isDurationEmpty = duration === '';
+        const isImageAndVideoSelected = isImageSelected && isVideoSelected;
+        const isNeitherImageNorVideoSelected = !isImageSelected && !isVideoSelected;
+
         if (
-            title === '' || 
-            (isImageSelected && isVideoSelected) ||
-            (!isImageSelected && !isVideoSelected) ||
-            link === '' || 
-            priority === '' || 
-            duration === ''
+            isTitleEmpty || 
+            (isIdUndefined && (isImageAndVideoSelected || isNeitherImageNorVideoSelected)) ||
+            isLinkEmpty || 
+            isPriorityEmpty || 
+            isDurationEmpty
         ) {
-            handleOpenModal(`이미지와 영상 중 하나만 등록 가능, 제목, 우선순위, 재생시간을 다시 확인해주세요.`, false, handleCancel);
+            const errorMessage = `${isIdUndefined ? '이미지와 영상 중 하나만 등록 가능, ' : ''}제목, 우선순위, 재생시간을 다시 확인해주세요.`;
+            handleOpenModal(errorMessage, false, handleCancel);
         } else {
             handleOpenModal(`등록 하시겠습니까?`, true, handleConfirm);
         }
+
     };
     
 
