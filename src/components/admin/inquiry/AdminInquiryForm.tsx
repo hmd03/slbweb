@@ -26,23 +26,30 @@ const AdminInquiryForm: React.FC = () => {
     const [onConfirm, setOnConfirm] = useState(() => () => {});
     const { isSupervisor } = useRecoilValue(UserState);
 
+    const [searchCategoryData, setSearchCategoryData] = useState<any[]>([]);
+    const [searchCategory, setSearchCategory] = useState('-1');
+
     const deviceInfo = useDeviceInfo();
 
     let pageItems = 10;
 
     const placeholder = '분류선택';
-    const items = [
-      {
-        label: 'item1',
-        value: 'item1',
-      },
-      {
-        label: 'item2',
-        value: 'item2',
-      },
-    ]
+    
+
+    const searchSender = [
+        {
+          label: '이름',
+          value: '이름',
+        },
+        {
+          label: '연락처',
+          value: '연락처처',
+        },
+      ]
+
     useEffect(() => {
         fetchData();
+        fetchCategoryData();
     }, [pageIndex]);
 
     const handlePageChange = (page: number) => {
@@ -67,14 +74,46 @@ const AdminInquiryForm: React.FC = () => {
 
     const fetchData = async () => {
         try {
-            console.log(pageIndex)
+            let url = `api/inquiries?page=${pageIndex}`;
+            if(searchCategory != '-1'){
+                url += `&searchCategory=${searchCategory}`;
+            }
+            console.log(pageIndex);
+            console.log(url);
             const response = await axios.get(
-              `api/inquiries?page=${pageIndex}`,
+              url,
             );
 
             console.log(response);
             setData(response.data.inquiryList);
             setTotalItems(response.data.totalCount);
+          } catch (error) {
+            console.log("error: " + error);
+          }
+    };
+
+    const fetchCategoryData = async () => {
+        try {
+            console.log(pageIndex)
+            const response = await axios.get(
+              `api/inquiries/categories`,
+            );
+
+            console.log(response);
+            const category = response.data.map((v: { name: string; id: number }) => {
+                const obj = {
+                    label: v.name,
+                    value: v.id
+                };
+                return obj;
+            });
+
+            category.unshift({
+                label: '분류선택',
+                value: -1
+            })
+            
+            setSearchCategoryData(category);
           } catch (error) {
             console.log("error: " + error);
           }
@@ -112,17 +151,21 @@ const AdminInquiryForm: React.FC = () => {
         setModalVisible(false);
     }
 
+    const onSelectItemHandler = (value:string) => {
+        setSearchCategory(value);
+    }
+
     return (
         <AdminCurrentLayout title='창업문의 리스트'>
             <div className={`w-full h-fit border border-Black bg-White ${deviceInfo.isSmallScreen ? 'p-1' : 'p-5' }`}>
                 <div className={`flex width-full pb-6 gap-2 ${deviceInfo.isSmallScreen ? 'flex-col' : 'items-center' }`}>
-                    <Dropdown items={items} placeholder={placeholder} width={`${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px]' }`}></Dropdown>
-                    <Dropdown items={items} placeholder='이름' width={`${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px]' }`}></Dropdown>
+                    <Dropdown onSelectItemHandler={onSelectItemHandler} items={searchCategoryData} placeholder={placeholder} width={`${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px]' }`}></Dropdown>
+                    <Dropdown items={searchSender} placeholder='이름' width={`${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px]' }`}></Dropdown>
                     <InputField
                         className={`border-[1px] px-4 py-3 ${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px] ' }`}
                         placeholder='검색어 입력'
                     />
-                    <OutlineButton theme='admin' className={`h-[3rem] bg-LightGray ${deviceInfo.isSmallScreen ? 'w-full' : 'w-[5rem] ' }`}>검색</OutlineButton>
+                    <OutlineButton onClick={fetchData} theme='admin' className={`h-[3rem] bg-LightGray ${deviceInfo.isSmallScreen ? 'w-full' : 'w-[5rem] ' }`}>검색</OutlineButton>
                 </div>
                 <table className="min-w-full border-collapse border border-[2px] border-Black">
                     <thead className='bg-LightGray text-diagram'>

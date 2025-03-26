@@ -50,11 +50,11 @@ const Dropdown = ({
     return () => document.removeEventListener('click', closeDropdown);
   }, [isOpen]);
 
-  const handleItemClick = (value: string) => {
-    setCurrentItem(value);
+  const handleItemClick = (item: { value: string; label: string }) => {
+    setCurrentItem(item.label);
     setIsOpen(false);
     if (onSelectItemHandler) {
-      onSelectItemHandler(value);
+      onSelectItemHandler(item.value);
     }
   };
 
@@ -87,7 +87,7 @@ const Dropdown = ({
                   ? 'text-Gray pointer-events-none'
                   : 'text-Secondary'
               } `}
-              onClick={() => handleItemClick(item.value)}
+              onClick={() => handleItemClick(item)}
             >
               {item.label}
             </button>
