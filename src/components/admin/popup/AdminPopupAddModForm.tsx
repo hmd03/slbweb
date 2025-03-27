@@ -15,7 +15,7 @@ import { formatDateYYYYMMDD } from '../../utils/dateUtils';
 
 const AdminPopupAddModForm: React.FC = () => {
     const navigate = useNavigate();
-    const { id } = useParams<{ id?: string;}>();
+    const { id } = useParams<{ id?: string }>();
 
     console.log(id);
 
@@ -24,7 +24,7 @@ const AdminPopupAddModForm: React.FC = () => {
     const [isCancelVisible, setIsCancelVisible] = useState(true);
     const [message, setMessage] = useState('');
     const [onConfirm, setOnConfirm] = useState(() => () => {});
-    
+
     const titleRef = useRef<HTMLInputElement>(null);
     const linkRef = useRef<HTMLInputElement>(null);
     const locationXRef = useRef<HTMLInputElement>(null);
@@ -43,12 +43,12 @@ const AdminPopupAddModForm: React.FC = () => {
 
     const items = [
         { label: '사용', value: '사용' },
-        { label: '사용 안함', value: '사용 안함'},
-      ];
-    
-      const handleSelectItem = (value: string) => {
+        { label: '사용 안함', value: '사용 안함' },
+    ];
+
+    const handleSelectItem = (value: string) => {
         setSelectedOption(value);
-      };
+    };
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -75,10 +75,10 @@ const AdminPopupAddModForm: React.FC = () => {
             setEndDate(newStartDate);
         }
     };
-    
+
     const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newEndDate = e.target.value;
-    
+
         if (newEndDate >= startDate) {
             setEndDate(newEndDate);
         }
@@ -101,8 +101,10 @@ const AdminPopupAddModForm: React.FC = () => {
                         locationYRef.current!.value = data.locationY;
                         widthRef.current!.value = data.width;
                         heightRef.current!.value = data.height;
-                        setSelectedOption(data.isExposed ? '사용' : '사용 안함');
-                        setImagePath(data.filePath)
+                        setSelectedOption(
+                            data.isExposed ? '사용' : '사용 안함'
+                        );
+                        setImagePath(data.filePath);
                     }
                 } catch (error) {
                     console.log('사용자 정보를 가져오는 데 실패했습니다.');
@@ -120,22 +122,25 @@ const AdminPopupAddModForm: React.FC = () => {
         const locationY = locationYRef.current?.value || '';
         const width = widthRef.current?.value || '';
         const height = heightRef.current?.value || '';
-    
+
         if (
-            title === '' || 
-            link === '' || 
-            locationX === '' || 
+            title === '' ||
+            link === '' ||
+            locationX === '' ||
             locationY === '' ||
-            width === '' || 
+            width === '' ||
             height === '' ||
-            imageFile == null
+            (!id && imageFile === null)
         ) {
-            handleOpenModal(`팝업 제목, 팝업 크기, 팝업 이미지 팝업 시작일/종료일을 확인해 주세요.`, false, handleCancel);
+            handleOpenModal(
+                `팝업 제목, 팝업 크기, 팝업 이미지 팝업 시작일/종료일을 확인해 주세요.`,
+                false,
+                handleCancel
+            );
         } else {
             handleOpenModal(`등록 하시겠습니까?`, true, handleConfirm);
         }
     };
-    
 
     const handleConfirm = async () => {
         const title = titleRef.current?.value || '';
@@ -149,31 +154,31 @@ const AdminPopupAddModForm: React.FC = () => {
 
         try {
             const formData = new FormData();
-                formData.append('title', title);
-                formData.append('startDate', startDate);
-                formData.append('endDate', endDate);
-                formData.append('link', link);
-                formData.append('width', width);
-                formData.append('height', height);
-                formData.append('locationX', locationX);
-                formData.append('locationY', locationY);
-                formData.append('isExposed', isExposed);
+            formData.append('title', title);
+            formData.append('startDate', startDate);
+            formData.append('endDate', endDate);
+            formData.append('link', link);
+            formData.append('width', width);
+            formData.append('height', height);
+            formData.append('locationX', locationX);
+            formData.append('locationY', locationY);
+            formData.append('isExposed', isExposed);
 
-                if (media) {
-                    formData.append('media', media);
-                }
+            if (media) {
+                formData.append('media', media);
+            }
 
-                for (const [key, value] of formData.entries()) {
-                    console.log(`${key}: ${value}`);
-                }
+            for (const [key, value] of formData.entries()) {
+                console.log(`${key}: ${value}`);
+            }
 
-            if(!id){
+            if (!id) {
                 setLoading(true);
                 const response = await axios.post(`/api/popups`, formData);
 
                 const data = response.data;
                 setLoading(false);
-    
+
                 if (response.status === 201) {
                     navigate('/admin/popup');
                 } else {
@@ -193,14 +198,13 @@ const AdminPopupAddModForm: React.FC = () => {
                     alert(data.message);
                 }
             }
-            
         } catch (error) {
             alert((error as Error).message);
         } finally {
             setLoading(false);
             setModalVisible(false);
         }
-    }
+    };
 
     const handleDelClick = () => {
         handleOpenModal('삭제 하시겠습니까?', true, deleteId);
@@ -208,49 +212,52 @@ const AdminPopupAddModForm: React.FC = () => {
 
     const deleteId = async () => {
         try {
-            if(id){
-                const response = await axios.delete(
-                    `api/popups/${id}`,
-                  );
-      
-                  console.log(response)
-                  const data = response.data;
-      
-                  if (response.status === 200) {
-                      navigate('/admin/popup');
-                  } else {
-                      alert(data.message);
-                  }
+            if (id) {
+                const response = await axios.delete(`api/popups/${id}`);
+
+                const data = response.data;
+
+                if (response.status === 200) {
+                    navigate('/admin/popup');
+                } else {
+                    alert(data.message);
+                }
             }
-          } catch (error) {
-            console.log("error: " + error);
-          }
+        } catch (error) {
+            console.log('error: ' + error);
+        }
     };
 
-    const handleOpenModal = (msg: string, isCancel = true, confirmFunction: () => void) => {
+    const handleOpenModal = (
+        msg: string,
+        isCancel = true,
+        confirmFunction: () => void
+    ) => {
         setMessage(msg);
-        setIsCancelVisible(isCancel)
+        setIsCancelVisible(isCancel);
         setOnConfirm(() => confirmFunction);
         setModalVisible(true);
     };
 
     const handleCancel = () => {
         setModalVisible(false);
-    }
+    };
 
     const onBackPage = () => {
         navigate('/admin/popup');
-    }
+    };
 
-    const thClassName = 'bg-LightGray border border-Black border-[2px] p-2 text-left text-center';
+    const thClassName =
+        'bg-LightGray border border-Black border-[2px] p-2 text-left text-center';
     const tdClassName = 'bg-White border border-Black border-[2px] p-2 w-[70%]';
 
     return (
-        <AdminCurrentLayout title={`팝업 ${id !== undefined ? '수정' : '' } 등록`}>
+        <AdminCurrentLayout
+            title={`팝업 ${id !== undefined ? '수정' : ''} 등록`}
+        >
             <div className='w-full h-fit p-5 border border-Black bg-White flex flex-col items-center justify-center'>
-                <table className="min-w-full border-collapse border border-[2px] border-Black">
-                    <thead className='text-diagram'>
-                    </thead>
+                <table className='min-w-full border-collapse border border-[2px] border-Black'>
+                    <thead className='text-diagram'></thead>
                     <tbody className='text-diagram'>
                         <tr>
                             <th className={thClassName}>팝업 제목</th>
@@ -258,11 +265,11 @@ const AdminPopupAddModForm: React.FC = () => {
                                 <InputField
                                     className=' p-1 w-full border-[2px] '
                                     placeholder='제목을 입력해 주세요.'
-                                    ref={titleRef} 
+                                    ref={titleRef}
                                 />
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <th className={thClassName}>팝업 링크</th>
                             <td className={`${tdClassName} text-center`}>
                                 <InputField
@@ -272,12 +279,14 @@ const AdminPopupAddModForm: React.FC = () => {
                                 />
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <th className={thClassName}>팝업 위치</th>
                             <td className={`${tdClassName}`}>
                                 <div>
                                     <div className='w-full flex items-center pl-1 mb-1'>
-                                        <p className='whitespace-nowrap'>X좌표</p>
+                                        <p className='whitespace-nowrap'>
+                                            X좌표
+                                        </p>
                                         <input
                                             className='rounded body1 border-Black bg-White focus:outline-none p-1 w-full border-[2px] ml-4'
                                             placeholder='화면 왼쪽 모서리 가로 기준'
@@ -285,7 +294,9 @@ const AdminPopupAddModForm: React.FC = () => {
                                         />
                                     </div>
                                     <div className='w-full flex items-center pl-1'>
-                                        <p className='whitespace-nowrap'>Y좌표</p>
+                                        <p className='whitespace-nowrap'>
+                                            Y좌표
+                                        </p>
                                         <input
                                             className='rounded body1 border-Black bg-White focus:outline-none p-1 w-full border-[2px] ml-4'
                                             placeholder='화면 왼쪽 모서리 세로 기준'
@@ -295,12 +306,14 @@ const AdminPopupAddModForm: React.FC = () => {
                                 </div>
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <th className={thClassName}>팝업 크기</th>
                             <td className={`${tdClassName}`}>
                                 <div>
                                     <div className='w-full flex items-center pl-1 mb-1'>
-                                        <p className='whitespace-nowrap'>가로</p>
+                                        <p className='whitespace-nowrap'>
+                                            가로
+                                        </p>
                                         <input
                                             className='rounded body1 border-Black bg-White focus:outline-none p-1 w-full border-[2px] ml-6'
                                             placeholder='가로 이미지 사이즈를 넣어주세요'
@@ -308,7 +321,9 @@ const AdminPopupAddModForm: React.FC = () => {
                                         />
                                     </div>
                                     <div className='w-full flex items-center pl-1'>
-                                        <p className='whitespace-nowrap'>세로</p>
+                                        <p className='whitespace-nowrap'>
+                                            세로
+                                        </p>
                                         <input
                                             className='rounded body1 border-Black bg-White focus:outline-none p-1 w-full border-[2px] ml-6'
                                             placeholder='세로 이미지 사이즈를 넣어주세요'
@@ -318,7 +333,7 @@ const AdminPopupAddModForm: React.FC = () => {
                                 </div>
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <th className={thClassName}>팝업 이미지</th>
                             <td className={`${tdClassName} h-[15rem]`}>
                                 <div className='w-full h-full flex items-end justify-between'>
@@ -328,11 +343,18 @@ const AdminPopupAddModForm: React.FC = () => {
                                         accept='image/*'
                                         onChange={handleImageChange}
                                     />
-                                    {imagePath != '' && <img className='ml-10 w-[12rem] h-[14rem] mr-1' id='thumbnail' alt='thumbnail' src={imagePath} />}
+                                    {imagePath !== '' && (
+                                        <img
+                                            className='ml-10 w-[12rem] h-[14rem] mr-1'
+                                            id='thumbnail'
+                                            alt='thumbnail'
+                                            src={imagePath}
+                                        />
+                                    )}
                                 </div>
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <th className={thClassName}>팝업 시작일</th>
                             <td className={tdClassName}>
                                 <InputField
@@ -343,7 +365,7 @@ const AdminPopupAddModForm: React.FC = () => {
                                 />
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <th className={thClassName}>팝업 종료일</th>
                             <td className={tdClassName}>
                                 <InputField
@@ -354,14 +376,14 @@ const AdminPopupAddModForm: React.FC = () => {
                                 />
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <th className={thClassName}>팝업 사용 여부</th>
                             <td className={tdClassName}>
                                 <Dropdown
-                                    placeholder="Select an option"
+                                    placeholder='Select an option'
                                     items={items}
                                     defaultValue={selectedOption}
-                                    width="w-full"
+                                    width='w-full'
                                     onSelectItemHandler={handleSelectItem}
                                 />
                             </td>
@@ -369,9 +391,29 @@ const AdminPopupAddModForm: React.FC = () => {
                     </tbody>
                 </table>
                 <div className='flex w-full items-center justify-center h-fit mt-2 gap-2'>
-                    <Button onClick={onSubmit} theme='admin' className='px-8 py-[14px] border border-[2px]'>{!id?'등록':'수정'}</Button>
-                    {!!id && <Button onClick={handleDelClick} theme='error' className='px-8 py-[14px] border border-[2px]'>삭제</Button>}
-                    <OutlineButton onClick={onBackPage} theme='admin' className='px-8 py-[13px]'>← 목록</OutlineButton>
+                    <Button
+                        onClick={onSubmit}
+                        theme='admin'
+                        className='px-8 py-[14px] border border-[2px]'
+                    >
+                        {!id ? '등록' : '수정'}
+                    </Button>
+                    {!!id && (
+                        <Button
+                            onClick={handleDelClick}
+                            theme='error'
+                            className='px-8 py-[14px] border border-[2px]'
+                        >
+                            삭제
+                        </Button>
+                    )}
+                    <OutlineButton
+                        onClick={onBackPage}
+                        theme='admin'
+                        className='px-8 py-[13px]'
+                    >
+                        ← 목록
+                    </OutlineButton>
                 </div>
             </div>
             {isModalVisible && (

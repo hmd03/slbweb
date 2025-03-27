@@ -19,15 +19,16 @@ const AdminBoardEventWriteForm: React.FC = () => {
     const [isCancelVisible, setIsCancelVisible] = useState(true);
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-    const { id } = useParams<{ id?: string;}>();
+    const { id } = useParams<{ id?: string }>();
     const [onConfirm, setOnConfirm] = useState(() => () => {});
-    
+
     const titleRef = useRef<HTMLInputElement>(null);
     const [selectedOption, setSelectedOption] = useState('1');
     const [editorContent, setEditorContent] = useState<string>('');
 
     const [imageFile, setImageFile] = useState<File | null>(null);
-    const [imageMsg, setImageMsg] = useState<string>('이미지 권장 사이즈 282X201');
+    const [imageMsg, setImageMsg] =
+        useState<string>('이미지 권장 사이즈 282X201');
     const [thumbnailPath, setThumbnailPath] = useState<string>('');
 
     const [startDate, setStartDate] = useState<string>('');
@@ -54,10 +55,10 @@ const AdminBoardEventWriteForm: React.FC = () => {
             setEndDate(newStartDate);
         }
     };
-    
+
     const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newEndDate = e.target.value;
-    
+
         if (newEndDate >= startDate) {
             setEndDate(newEndDate);
         }
@@ -72,13 +73,21 @@ const AdminBoardEventWriteForm: React.FC = () => {
                         const data = response.data;
                         console.log(data);
                         titleRef.current!.value = data.title;
-                        setSelectedOption( data.isNotice == true ? '1' : '0' );
+
+                        const thumbnail = await axios.get(
+                            `api/files/${data.thumbnail.id}`,
+                            {
+                                responseType: 'blob',
+                            }
+                        );
+                        setSelectedOption(data.isNotice === true ? '1' : '0');
                         setStartDate(formatDateYYYYMMDD(data.startDate));
                         setEndDate(formatDateYYYYMMDD(data.endDate));
-                        setThumbnailPath(`${process.env.PUBLIC_URL}/${data.thumbnailPath.replace(/\\/g, '/')}`);
+                        setThumbnailPath(URL.createObjectURL(thumbnail.data));
                         setEditorContent(data.content);
                     }
                 } catch (error) {
+                    console.log(error);
                     console.log('사용자 정보를 가져오는 데 실패했습니다.');
                 }
             }
@@ -92,12 +101,24 @@ const AdminBoardEventWriteForm: React.FC = () => {
         const media = imageFile;
         const content = editorContent;
 
-        if(title == '' || startDate == '' || endDate == '' || imageFile == null || content == '' || content == '<p></p>' || content == '<p><br></p>'){
-            handleOpenModal(`제목, 이벤트 기간, 썸네일, 이벤트 내용을 확인해 주세요.`, false, handleCancel);
+        if (
+            title === '' ||
+            startDate === '' ||
+            endDate === '' ||
+            (!id && imageFile === null) ||
+            content === '' ||
+            content === '<p></p>' ||
+            content === '<p><br></p>'
+        ) {
+            handleOpenModal(
+                `제목, 이벤트 기간, 썸네일, 이벤트 내용을 확인해 주세요.`,
+                false,
+                handleCancel
+            );
         } else {
             handleOpenModal(`등록 하시겠습니까?`, true, handleConfirm);
         }
-    }
+    };
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -107,7 +128,9 @@ const AdminBoardEventWriteForm: React.FC = () => {
             const img = new Image();
             img.src = URL.createObjectURL(file);
             img.onload = () => {
-                setImageMsg(`이미지 권장 사이즈 282X201<br>이미지 사이즈 ${img.width}X${img.height}`);
+                setImageMsg(
+                    `이미지 권장 사이즈 282X201<br>이미지 사이즈 ${img.width}X${img.height}`
+                );
             };
             console.log('선택된 파일:', file);
         } else {
@@ -123,28 +146,30 @@ const AdminBoardEventWriteForm: React.FC = () => {
 
     const deleteId = async () => {
         try {
-            if(id){
-                const response = await axios.delete(
-                    `api/event/${id}`,
-                  );
-      
-                  console.log(response)
-                  const data = response.data;
-      
-                  if (response.status === 200) {
-                      navigate('/admin/board/event');
-                  } else {
-                      alert(data.message);
-                  }
+            if (id) {
+                const response = await axios.delete(`api/events/${id}`);
+
+                console.log(response);
+                const data = response.data;
+
+                if (response.status === 200) {
+                    navigate('/admin/board/event');
+                } else {
+                    alert(data.message);
+                }
             }
-          } catch (error) {
-            console.log("error: " + error);
-          }
+        } catch (error) {
+            console.log('error: ' + error);
+        }
     };
 
-    const handleOpenModal = (msg: string, isCancel = true, confirmFunction: () => void) => {
+    const handleOpenModal = (
+        msg: string,
+        isCancel = true,
+        confirmFunction: () => void
+    ) => {
         setMessage(msg);
-        setIsCancelVisible(isCancel)
+        setIsCancelVisible(isCancel);
         setOnConfirm(() => confirmFunction);
         setModalVisible(true);
     };
@@ -157,27 +182,27 @@ const AdminBoardEventWriteForm: React.FC = () => {
 
         try {
             const formData = new FormData();
-                formData.append('title', title);
-                formData.append('isContinued', isContinued);
-                formData.append('startDate', startDate);
-                formData.append('endDate', endDate);
-                formData.append('content', content);
+            formData.append('title', title);
+            formData.append('isContinued', isContinued);
+            formData.append('startDate', startDate);
+            formData.append('endDate', endDate);
+            formData.append('content', content);
 
-                if (media) {
-                    formData.append('media', media);
-                }
+            if (media) {
+                formData.append('media', media);
+            }
 
-                for (const [key, value] of formData.entries()) {
-                    console.log(`${key}: ${value}`);
-                }
+            for (const [key, value] of formData.entries()) {
+                console.log(`${key}: ${value}`);
+            }
 
-            if(!id){
+            if (!id) {
                 setLoading(true);
                 const response = await axios.post(`/api/events`, formData);
 
                 const data = response.data;
                 setLoading(false);
-    
+
                 if (response.status === 201) {
                     navigate('/admin/board/event');
                 } else {
@@ -197,33 +222,32 @@ const AdminBoardEventWriteForm: React.FC = () => {
                     alert(data.message);
                 }
             }
-            
         } catch (error) {
             alert((error as Error).message);
         } finally {
             setLoading(false);
             setModalVisible(false);
         }
-    }
+    };
 
     const handleCancel = () => {
         setModalVisible(false);
-    }
+    };
 
     const onBackPage = () => {
         navigate('/admin/board/event');
-    }
+    };
 
-    const thClassName = 'bg-LightGray border border-Black border-[2px] p-2 text-left text-center w-[30%]';
-    const tdClassName = 'bg-White border border-Black border-[2px] p-2 text-center w-full';
+    const thClassName =
+        'bg-LightGray border border-Black border-[2px] p-2 text-left text-center w-[30%]';
+    const tdClassName =
+        'bg-White border border-Black border-[2px] p-2 text-center w-full';
 
     return (
         <AdminCurrentLayout title='톡톡 이벤트 등록'>
             <div className='w-full h-fit p-5 border border-Black bg-White flex flex-col items-center justify-center'>
-                <table className="min-w-full border-collapse border border-[2px] border-Black">
-                    <thead className='text-diagram'>
-                        
-                    </thead>
+                <table className='min-w-full border-collapse border border-[2px] border-Black'>
+                    <thead className='text-diagram'></thead>
                     <tbody className='text-diagram'>
                         <tr>
                             <th className={thClassName}>제목</th>
@@ -231,26 +255,26 @@ const AdminBoardEventWriteForm: React.FC = () => {
                                 <InputField
                                     className=' p-1 w-full border-[2px] '
                                     placeholder='제목'
-                                    ref={titleRef} 
+                                    ref={titleRef}
                                     autoComplete='id'
                                 />
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <th className={thClassName}>운영 상태</th>
                             <td className={tdClassName}>
                                 <RadioButtonGroup
                                     options={options}
                                     selectedOption={selectedOption}
                                     onChange={handleChange}
-                                    className="radio-group flex gap-2"
+                                    className='radio-group flex gap-2'
                                 />
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <th className={thClassName}>이벤트 기간</th>
                             <td className={tdClassName}>
-                            <div className='flex gap-2'>
+                                <div className='flex gap-2'>
                                     <InputField
                                         type='date'
                                         value={startDate}
@@ -267,7 +291,7 @@ const AdminBoardEventWriteForm: React.FC = () => {
                                 </div>
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <th className={thClassName}>썸네일</th>
                             <td className={`${tdClassName}`}>
                                 <div className='w-full flex items-center'>
@@ -277,22 +301,52 @@ const AdminBoardEventWriteForm: React.FC = () => {
                                         accept='image/*'
                                         onChange={handleImageChange}
                                     />
-                                    {thumbnailPath != '' && <img className='ml-10 w-[3.156rem] h-[2.25rem]' id='thumbnail' alt='thumbnail' src={thumbnailPath} />}
+                                    {thumbnailPath !== '' && (
+                                        <img
+                                            className='ml-10 w-[3.156rem] h-[2.25rem]'
+                                            id='thumbnail'
+                                            alt='thumbnail'
+                                            src={thumbnailPath}
+                                        />
+                                    )}
                                 </div>
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <th className={thClassName}>내용</th>
                             <td className={`${tdClassName}`}>
-                                <Editor value={editorContent} onChange={handleEditorChange} /> 
+                                <Editor
+                                    value={editorContent}
+                                    onChange={handleEditorChange}
+                                />
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <div className='flex w-full items-center justify-center h-fit mt-2 gap-2'>
-                    <Button onClick={onSubmit} theme='admin' className='px-8 py-[14px] border border-[2px]'>{!id?'등록':'수정'}</Button>
-                    {!!id && <Button onClick={handleDelClick} theme='error' className='px-8 py-[14px] border border-[2px]'>삭제</Button>}
-                    <OutlineButton onClick={onBackPage} theme='admin' className='px-8 py-[13px]'>← 목록</OutlineButton>
+                    <Button
+                        onClick={onSubmit}
+                        theme='admin'
+                        className='px-8 py-[14px] border border-[2px]'
+                    >
+                        {!id ? '등록' : '수정'}
+                    </Button>
+                    {!!id && (
+                        <Button
+                            onClick={handleDelClick}
+                            theme='error'
+                            className='px-8 py-[14px] border border-[2px]'
+                        >
+                            삭제
+                        </Button>
+                    )}
+                    <OutlineButton
+                        onClick={onBackPage}
+                        theme='admin'
+                        className='px-8 py-[13px]'
+                    >
+                        ← 목록
+                    </OutlineButton>
                 </div>
             </div>
             {isModalVisible && (

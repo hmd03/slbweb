@@ -9,8 +9,8 @@ import OutlineButton from '../../ui/buttons/OutlineButton';
 import AlterModal from '../../ui/alters/AlterModal';
 import { useRecoilValue } from 'recoil';
 import { UserState } from '../../../store/atom';
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaRegEye  } from 'react-icons/fa';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { FaRegEye } from 'react-icons/fa';
 import useDeviceInfo from '../../../hooks/useDeviceInfo';
 import Dropdown from '../../ui/dropdown/Dropdown';
 import InputField from '../../ui/inputs/InputField';
@@ -29,23 +29,26 @@ const AdminInquiryForm: React.FC = () => {
     const [searchCategoryData, setSearchCategoryData] = useState<any[]>([]);
     const [searchCategory, setSearchCategory] = useState('-1');
 
+    const [selectedSenderDropdownItem, setSelectedSenderDropdownItem] =
+        useState('');
+    const [searchSender, setSearchSender] = useState('');
+
     const deviceInfo = useDeviceInfo();
 
     let pageItems = 10;
 
     const placeholder = '분류선택';
-    
 
-    const searchSender = [
+    const senderDropdownItem = [
         {
-          label: '이름',
-          value: '이름',
+            label: '이름',
+            value: 'searchSenderName',
         },
         {
-          label: '연락처',
-          value: '연락처처',
+            label: '연락처',
+            value: 'searchSenderContact',
         },
-      ]
+    ];
 
     useEffect(() => {
         fetchData();
@@ -55,7 +58,7 @@ const AdminInquiryForm: React.FC = () => {
     const handlePageChange = (page: number) => {
         console.log(`현재 페이지: ${page}`);
         setPageIndex(page);
-        if(page == pageIndex) {
+        if (page === pageIndex) {
             fetchData();
         }
     };
@@ -65,7 +68,7 @@ const AdminInquiryForm: React.FC = () => {
     };
 
     const handleDelClick = (id: string) => {
-        if(!isSupervisor){
+        if (!isSupervisor) {
             handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
             return;
         }
@@ -75,58 +78,59 @@ const AdminInquiryForm: React.FC = () => {
     const fetchData = async () => {
         try {
             let url = `api/inquiries?page=${pageIndex}`;
-            if(searchCategory != '-1'){
+
+            if (searchCategory !== '-1') {
                 url += `&searchCategory=${searchCategory}`;
             }
+            if (selectedSenderDropdownItem !== '') {
+                url += `&searchSender=${searchSender}`;
+            }
+
             console.log(pageIndex);
             console.log(url);
-            const response = await axios.get(
-              url,
-            );
+            const response = await axios.get(url);
 
             console.log(response);
             setData(response.data.inquiryList);
             setTotalItems(response.data.totalCount);
-          } catch (error) {
-            console.log("error: " + error);
-          }
+        } catch (error) {
+            console.log('error: ' + error);
+        }
     };
 
     const fetchCategoryData = async () => {
         try {
-            console.log(pageIndex)
-            const response = await axios.get(
-              `api/inquiries/categories`,
-            );
+            console.log(pageIndex);
+            const response = await axios.get(`api/inquiries/categories`);
 
             console.log(response);
-            const category = response.data.map((v: { name: string; id: number }) => {
-                const obj = {
-                    label: v.name,
-                    value: v.id
-                };
-                return obj;
-            });
+            const category = response.data.map(
+                (v: { name: string; id: number }) => {
+                    const obj = {
+                        label: v.name,
+                        value: v.id,
+                    };
+                    return obj;
+                }
+            );
 
             category.unshift({
                 label: '분류선택',
-                value: -1
-            })
-            
+                value: -1,
+            });
+
             setSearchCategoryData(category);
-          } catch (error) {
-            console.log("error: " + error);
-          }
+        } catch (error) {
+            console.log('error: ' + error);
+        }
     };
 
     const deleteId = async (id: string) => {
         console.log(id);
         try {
-            const response = await axios.delete(
-              `api/inquiries/${id}`,
-            );
+            const response = await axios.delete(`api/inquiries/${id}`);
 
-            console.log(response)
+            console.log(response);
             const data = response.data;
 
             if (response.status === 200) {
@@ -135,78 +139,153 @@ const AdminInquiryForm: React.FC = () => {
             } else {
                 alert(data.message);
             }
-          } catch (error) {
-            console.log("error: " + error);
-          }
+        } catch (error) {
+            console.log('error: ' + error);
+        }
     };
 
-    const handleOpenModal = (msg: string,  isCancel = true, confirmFunction: () => void) => {
+    const handleOpenModal = (
+        msg: string,
+        isCancel = true,
+        confirmFunction: () => void
+    ) => {
         setMessage(msg);
         setIsCancelVisible(isCancel);
         setOnConfirm(() => confirmFunction);
         setModalVisible(true);
-      };
+    };
 
     const handleCancel = () => {
         setModalVisible(false);
-    }
+    };
 
-    const onSelectItemHandler = (value:string) => {
+    const onSelectItemHandler = (value: string) => {
         setSearchCategory(value);
-    }
+    };
 
     return (
         <AdminCurrentLayout title='창업문의 리스트'>
-            <div className={`w-full h-fit border border-Black bg-White ${deviceInfo.isSmallScreen ? 'p-1' : 'p-5' }`}>
-                <div className={`flex width-full pb-6 gap-2 ${deviceInfo.isSmallScreen ? 'flex-col' : 'items-center' }`}>
-                    <Dropdown onSelectItemHandler={onSelectItemHandler} items={searchCategoryData} placeholder={placeholder} width={`${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px]' }`}></Dropdown>
-                    <Dropdown items={searchSender} placeholder='이름' width={`${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px]' }`}></Dropdown>
+            <div
+                className={`w-full h-fit border border-Black bg-White ${
+                    deviceInfo.isSmallScreen ? 'p-1' : 'p-5'
+                }`}
+            >
+                <div
+                    className={`flex width-full pb-6 gap-2 ${
+                        deviceInfo.isSmallScreen ? 'flex-col' : 'items-center'
+                    }`}
+                >
+                    <Dropdown
+                        onSelectItemHandler={onSelectItemHandler}
+                        items={searchCategoryData}
+                        placeholder={placeholder}
+                        width={`${
+                            deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px]'
+                        }`}
+                    ></Dropdown>
+                    <Dropdown
+                        onSelectItemHandler={setSelectedSenderDropdownItem}
+                        items={senderDropdownItem}
+                        placeholder='이름'
+                        width={`${
+                            deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px]'
+                        }`}
+                    ></Dropdown>
                     <InputField
-                        className={`border-[1px] px-4 py-3 ${deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px] ' }`}
+                        className={`border-[1px] px-4 py-3 ${
+                            deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px] '
+                        }`}
                         placeholder='검색어 입력'
+                        onChange={(e) => setSearchSender(e.target.value)}
                     />
-                    <OutlineButton onClick={fetchData} theme='admin' className={`h-[3rem] bg-LightGray ${deviceInfo.isSmallScreen ? 'w-full' : 'w-[5rem] ' }`}>검색</OutlineButton>
+                    <OutlineButton
+                        onClick={fetchData}
+                        theme='admin'
+                        className={`h-[3rem] bg-LightGray ${
+                            deviceInfo.isSmallScreen ? 'w-full' : 'w-[5rem] '
+                        }`}
+                    >
+                        검색
+                    </OutlineButton>
                 </div>
-                <table className="min-w-full border-collapse border border-[2px] border-Black">
+                <table className='min-w-full border-collapse border border-[2px] border-Black'>
                     <thead className='bg-LightGray text-diagram'>
                         <tr>
-                            <th className="border border-Black border-[2px] p-2">No</th>
-                            <th className="border border-Black border-[2px] p-2">제목</th>
-                            <th className="border border-Black border-[2px] p-2">연락처</th>
-                            <th className="border border-Black border-[2px] p-2">등록일</th>
-                            <th className="border border-Black border-[2px] p-2">관리</th>
+                            <th className='border border-Black border-[2px] p-2'>
+                                No
+                            </th>
+                            <th className='border border-Black border-[2px] p-2'>
+                                제목
+                            </th>
+                            <th className='border border-Black border-[2px] p-2'>
+                                연락처
+                            </th>
+                            <th className='border border-Black border-[2px] p-2'>
+                                등록일
+                            </th>
+                            <th className='border border-Black border-[2px] p-2'>
+                                관리
+                            </th>
                         </tr>
                     </thead>
                     <tbody className='bg-White text-diagram'>
                         {data.map((item, index) => (
                             <tr key={item.id}>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[5%]">{totalItems - index - ((pageIndex-1) * pageItems)}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[35%]">{item.title}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[20%]">{item.senderContact}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[20%]">{formatDate(item.createdAt)}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[20%]">
+                                <td className='border border-Black border-[2px] p-2 text-center w-[5%]'>
+                                    {totalItems -
+                                        index -
+                                        (pageIndex - 1) * pageItems}
+                                </td>
+                                <td className='border border-Black border-[2px] p-2 text-center w-[35%]'>
+                                    {item.title}
+                                </td>
+                                <td className='border border-Black border-[2px] p-2 text-center w-[20%]'>
+                                    {item.senderContact}
+                                </td>
+                                <td className='border border-Black border-[2px] p-2 text-center w-[20%]'>
+                                    {formatDate(item.createdAt)}
+                                </td>
+                                <td className='border border-Black border-[2px] p-2 text-center w-[20%]'>
                                     <div className='w-full flex items-center justify-center'>
-                                        <OutlineButton theme='admin' 
-                                            className='p-2  w-[4rem] h-[2rem] flex items-center' 
-                                            onClick={() => hanViewClick(item.id)}>
-                                                <FaRegEye  color='black' className='mr-[0.125rem] w-fit'/>
-                                                보기
+                                        <OutlineButton
+                                            theme='admin'
+                                            className='p-2  w-[4rem] h-[2rem] flex items-center'
+                                            onClick={() =>
+                                                hanViewClick(item.id)
+                                            }
+                                        >
+                                            <FaRegEye
+                                                color='black'
+                                                className='mr-[0.125rem] w-fit'
+                                            />
+                                            보기
                                         </OutlineButton>
-                                        {!item.isSupervisor && 
-                                            <Button theme='error' 
-                                            className='ml-2 p-2 w-[4rem] h-[2rem] bolder flex items-center'
-                                            onClick={() => handleDelClick(item.id)}>
+                                        {!item.isSupervisor && (
+                                            <Button
+                                                theme='error'
+                                                className='ml-2 p-2 w-[4rem] h-[2rem] bolder flex items-center'
+                                                onClick={() =>
+                                                    handleDelClick(item.id)
+                                                }
+                                            >
                                                 삭제
-                                                <RiDeleteBin6Line color='white' className='ml-1 w-fit' />
+                                                <RiDeleteBin6Line
+                                                    color='white'
+                                                    className='ml-1 w-fit'
+                                                />
                                             </Button>
-                                        }
+                                        )}
                                     </div>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
-                <AdminPagination totalItems={totalItems} itemsPerPage={pageItems} onPageChange={handlePageChange}/>
+                <AdminPagination
+                    totalItems={totalItems}
+                    itemsPerPage={pageItems}
+                    onPageChange={handlePageChange}
+                />
             </div>
             {isModalVisible && (
                 <AlterModal
