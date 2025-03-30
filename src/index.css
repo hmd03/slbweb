@@ -65,8 +65,6 @@
     font-style: normal;
 }
   
-
-/* SUIT 폰트 적용 */
 @font-face {
     font-family: 'SUIT-Thin';
     src: url('./styles/fonts/SUIT-Thin.otf') format('opentype');
