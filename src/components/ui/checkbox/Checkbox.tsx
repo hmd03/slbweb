@@ -20,14 +20,12 @@ const Checkbox = (props: Props) => {
 
   const className = (() => {
     let baseClasses =
-      'w-6 h-6 flex items-center justify-center border-[1px] border-Gray rounded relative cursor-pointer';
+      'w-5 h-5 flex items-center justify-center border-[1px] border-Black rounded relative cursor-pointer';
 
     if (disabled) {
       baseClasses += ` pointer-events-none ${
         isChecked ? 'bg-LightGray' : 'bg-Gray'
       }`;
-    } else {
-      baseClasses += isChecked ? ' bg-Primary border-Primary' : '';
     }
     return baseClasses;
   })();
@@ -43,13 +41,13 @@ const Checkbox = (props: Props) => {
         {isChecked && (
           <MdCheck
             size={16}
-            className={`text-base ${disabled ? 'text-DeepGray' : 'text-White'}`}
+            className={`text-base ${disabled ? 'text-DeepGray' : 'text-black'}`}
           />
         )}
       </div>
       {children && (
         <div
-          className={`ml-2 body3 cursor-pointer ${
+          className={`ml-2 text-sub cursor-pointer ${
             disabled ? 'pointer-events-none' : ''
           }`}
         >
