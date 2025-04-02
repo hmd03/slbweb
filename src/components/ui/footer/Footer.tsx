@@ -4,6 +4,8 @@ import { LoadingState } from '../../../store/atom';
 import { useRecoilState } from 'recoil';
 import Checkbox from '../checkbox/Checkbox';
 import Button from '../buttons/Button';
+import useDeviceInfo from '../../../hooks/useDeviceInfo';
+import AlterModal from '../alters/AlterModal';
 
 const Footer = () => {
     const senderRef = useRef<HTMLInputElement>(null);
@@ -11,6 +13,12 @@ const Footer = () => {
     const contactRef = useRef<HTMLInputElement>(null);
     const [loading, setLoading] = useRecoilState(LoadingState);
     const [isChecked, setIsChecked] = useState(false);
+    const deviceInfo = useDeviceInfo();
+
+    const [isModalVisible, setModalVisible] = useState(false);
+        const [isCancelVisible, setIsCancelVisible] = useState(true);
+        const [message, setMessage] = useState('');
+        const [onConfirm, setOnConfirm] = useState(() => () => {});
 
     const footerContent = [ `COMPANY : 주식회사 시크릿케이 CEO : 박찬호 TEL : 1533-0516`,
                             `BUSINESS LICENSE : 617-88-02240 CFO : <a href="mailto:secretk_master@naver.com">김예원(secretk_master@naver.com)</a>`,
@@ -21,10 +29,12 @@ const Footer = () => {
         setIsChecked(checked);
     };
 
+    const handleSubmitClick = () => {
+        handleOpenModal(`등록 하시겠습니까?`, true, () => onSubmit());
+    };
+
     const onSubmit = useCallback(
-        async (event: React.FormEvent<HTMLFormElement>) => {
-            event.preventDefault();
-    
+        async () => {
             const sender = senderRef.current?.value;
             const preferredRegion = preferredRegionRef.current?.value;
             const contact = contactRef.current?.value;
@@ -41,10 +51,15 @@ const Footer = () => {
                     senderName: sender,
                     preferredRegion: preferredRegion,
                     senderContact: contact,
+                    isMobile: deviceInfo.isMobile,
+                    category: 1
                 });
     
                 const data = response.data;
                 if (response.status === 201) {
+                    console.log(data);
+                    handleCancel();
+                    window.location.reload();
                 } else {
                     alert(data.message);
                 }
@@ -66,6 +81,17 @@ const Footer = () => {
     window.open('https://www.instagram.com/slb_official_/', '_blank');
     };
 
+    const handleOpenModal = (msg: string, isCancel = true, confirmFunction: () => void) => {
+        setMessage(msg);
+        setIsCancelVisible(isCancel)
+        setOnConfirm(() => confirmFunction);
+        setModalVisible(true);
+    };
+
+    const handleCancel = () => {
+        setModalVisible(false);
+    }
+
     return (
         <div className='flex flex-col w-full justify-center items-center bg-[#F1F2F2]'>
             <div className='flex justify-between max-w-[1300px] w-full py-10'>
@@ -74,7 +100,7 @@ const Footer = () => {
                     <div className='text-[5rem] font-black leading-none'>1533-0616</div>
                 </div>
                 <div className='w-[50%] ml-16'>
-                    <form onSubmit={onSubmit} className={`w-full flex justify-between items-center`}>
+                    <form className={`w-full flex justify-between items-center`}>
                         <div>
                             <div className='flex w-full mb-2'>
                                 <input 
@@ -115,7 +141,8 @@ const Footer = () => {
                         </div>
                         <div className='mb-auto'>
                             <button 
-                                type='submit'
+                                type='button'
+                                onClick={handleSubmitClick}
                                 className='p-4 w-[6.5rem] h-[6rem] text-title text-White bg-[#FF331F] border-[1px] border-Black rounded-xl flex flex-col items-center justify-center'
                             >
                                 <p className='leading-none'>문의</p>
@@ -143,6 +170,14 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
+            {isModalVisible && (
+                <AlterModal
+                    message={message}
+                    isCancelVisible={isCancelVisible}
+                    onConfirm={onConfirm}
+                    onCancel={handleCancel}
+                />
+            )}
         </div>
     );
 };
