@@ -7,7 +7,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Header = ({ children, ...props }: Props) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuWidth, setMenuWidth] = useState<number[]>([]);
   const menuRefs = useRef<(HTMLLIElement | null)[]>([]);
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Header = ({ children, ...props }: Props) => {
   };
 
   const handleMouseLeave = () => {
-    setIsMenuOpen(true);
+    setIsMenuOpen(false);
   };
 
   useEffect(() => {
@@ -80,11 +80,11 @@ const Header = ({ children, ...props }: Props) => {
   };
 
   return (
-    <div className={`w-full h-full flex flex-col items-center`} {...props}>
+    <div className={`w-full flex flex-col items-center`} {...props}>
       <header className="bg-white shadow w-full">
         <div className="flex-col justify-between items-center px-4 w-full border-b-[2px] border-black">
-          <div className="flex-1 text-center mt-10 cursor-pointer" onClick={handleLogoClick}>
-            <img alt='Logo' src={`${process.env.PUBLIC_URL}/adminLoginLogo.png`} className='h-[6rem] m-auto' />
+          <div className="flex-1 text-center mt-10">
+            <img alt='Logo' onClick={handleLogoClick} src={`${process.env.PUBLIC_URL}/adminLoginLogo.png`} className='h-[6rem] m-auto cursor-pointer select-none' />
           </div>
           <div className="flex justify-between items-center max-w-[1300px] mt-3 mb-6 text-main mx-auto">
             <a href="tel:15330516" className="flex a-reset items-center" style={{ visibility: 'hidden' }}>
@@ -135,7 +135,7 @@ const Header = ({ children, ...props }: Props) => {
           )}
         </nav>
       </header>
-      <div className='flex flex-col justify-center w-full h-full'>
+      <div className='flex flex-col justify-center w-full border-t'>
         {children}
       </div>
     </div>
