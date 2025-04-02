@@ -13,7 +13,6 @@ const CurrentLayout = ({ children, ...props }: Props) => {
     <div className={`w-full h-full flex flex-col items-center`} {...props}>
       <Header>
           {children}
-          <div className='h-[4000px]'></div>
       </Header>
       <Footer />
     </div>
