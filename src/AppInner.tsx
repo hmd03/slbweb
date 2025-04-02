@@ -6,6 +6,7 @@ import Loading from './components/ui/Loading';
 import { LoadingState, UserState } from './store/atom';
 import AdminNavLayout from './components/ui/layout/AdminNavLayout';
 import Cookies from 'js-cookie';
+import CurrentLayout from './components/ui/layout/CurrentLayout';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
@@ -38,6 +39,8 @@ const AdminBoardPartner = React.lazy(() => import('./pages/admin/boardPartner/Ad
 const AdminStore = React.lazy(() => import('./pages/admin/store/AdminStore'));
 
 const AdminConfig = React.lazy(() => import('./pages/admin/config/AdminConfig'));
+
+const Main = React.lazy(() => import('./pages/Main'));
 
 const AppInner: React.FC = () => {
   const [isLoading, setIsLoading] = useRecoilState(LoadingState);
@@ -127,7 +130,7 @@ const AppInner: React.FC = () => {
 
   return (
     <>
-      <div className="flex w-screen h-screen">
+      <div className="flex w-full h-screen">
         <Suspense fallback={<Loading isLoading={isLoading} />}>
           {isAdminRoute ? (
             <AdminNavLayout>
@@ -164,10 +167,27 @@ const AppInner: React.FC = () => {
               </Routes>
             </AdminNavLayout>
           ) : (
-            <div>
-              <Routes>
-                {true && <><Route path='/test' element={<TestPage />} /></>}
-              </Routes>
+            <div className='flex col w-full'>
+              <CurrentLayout>
+                <Routes>
+                  {true && <><Route path='/test' element={<TestPage />} /></>}
+                  <Route path='/' element={<Main />} />
+                  <Route path='/sub_1/:page' element={<></>} />
+                  <Route path='/sub_2/:page' element={<></>} />
+                  <Route path='/sub_3/:page' element={<></>} />
+                  <Route path='/sub_4/:page' element={<></>} />
+
+                  <Route path='/inquiry' element={<></>} />
+                  <Route path='/board/cs' element={<></>} />
+                  <Route path='/board/partner' element={<></>} />
+                  <Route path='/map' element={<></>} />
+
+                  <Route path='/story' element={<></>} />
+                  <Route path='/board/notice' element={<></>} />
+                  <Route path='/board/event' element={<></>} />
+                  <Route path='/store' element={<></>} />
+                </Routes>
+              </CurrentLayout>
             </div>
           )}
         </Suspense>
