@@ -167,7 +167,7 @@ const AppInner: React.FC = () => {
               </Routes>
             </AdminNavLayout>
           ) : (
-            <div className='flex col w-full'>
+            <div className='flex col w-full h-full'>
               <CurrentLayout>
                 <Routes>
                   {true && <><Route path='/test' element={<TestPage />} /></>}
