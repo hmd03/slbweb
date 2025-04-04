@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import useDeviceInfo from '../../../hooks/useDeviceInfo';
 
 interface BannerItem {
   media: string;
@@ -14,32 +15,39 @@ interface RollingBannerProps {
 const RollingBanner: React.FC<RollingBannerProps> = ({ items }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [bannerHeight, setBannerHeight] = useState(0);
+  const deviceInfo = useDeviceInfo();
 
-  useEffect(() => {
-    if (items.length > 0) {
-        setCurrentIndex(0);
-    }
-  }, [items]);
+  const widthRatio = deviceInfo.isSmallScreen ? 1 : 65;
+  const heightRatio = deviceInfo.isSmallScreen ? 1 : 192;
 
   useEffect(() => {
     const updateHeight = () => {
       const width = window.innerWidth;
-      const height = (width * 65) / 192;
+      const height = (width * widthRatio) / heightRatio;
       setBannerHeight(height);
     };
 
     updateHeight();
-    window.addEventListener('resize', updateHeight); 
+    window.addEventListener('resize', updateHeight);
 
     return () => {
       window.removeEventListener('resize', updateHeight);
     };
-  }, []);
+  }, [widthRatio, heightRatio]); 
 
   useEffect(() => {
+    if (items.length > 0) {
+      setCurrentIndex(0);
+    }
+  }, [items]);
+
+  useEffect(() => {
+    if (items.length === 0) return;
+
+    const durationSec = items[currentIndex]?.duration ?? 5;
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length);
-    }, items[currentIndex]?.duration * 1000);
+    }, durationSec * 1000);
 
     return () => clearInterval(interval);
   }, [currentIndex, items]);
@@ -55,7 +63,7 @@ const RollingBanner: React.FC<RollingBannerProps> = ({ items }) => {
           key={index}
           className={`absolute inset-0 transition-opacity duration-500 ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
         >
-          {item.fileType == 'video' ? (
+          {item.fileType === 'video' ? (
             <video
               style={{ height: `${bannerHeight}px` }}
               className="w-full object-fill"
@@ -81,8 +89,8 @@ const RollingBanner: React.FC<RollingBannerProps> = ({ items }) => {
           <div
             key={index}
             onClick={() => handleDotClick(index)}
-            className={`w-3 h-3 rounded-full border-[1px] border-[#231F20] cursor-pointer 
-            ${ index === currentIndex ? 'bg-Point' : 'bg-white'}`}
+            className={`w-3 h-3 rounded-full border border-[#231F20] cursor-pointer 
+              ${index === currentIndex ? 'bg-Point' : 'bg-white'}`}
           />
         ))}
       </div>
