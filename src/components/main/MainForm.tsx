@@ -13,21 +13,24 @@ const MainForm: React.FC = () => {
             link: string;
         }>
     >([]);
-    
+
     useEffect(() => {
-        fetchData();
-    }, []);
+        if (deviceInfo.isSmallScreen !== undefined) {
+            const mobile = deviceInfo.isSmallScreen ? 'true' : 'false';
+            fetchData(mobile);
+        }
+    }, [deviceInfo.isSmallScreen]);
 
-    const fetchData = async () => {
+    const fetchData = async (searchIsMobile: string) => {
         try {
-            let url = `api/banners?page=1`;
-            if (deviceInfo.isMobile) {
-                url += `&searchIsMobile=true`;
-            }
-            const response = await axios.get(url);
+            setBannerList([]);
+            const url = `api/banners?page=1&searchIsMobile=${searchIsMobile}`;
+            console.log('요청 URL:', url);
 
-            console.log(response);
+            const response = await axios.get(url);
             const bannerList = response.data.bannerList;
+
+            console.log('응답 데이터:', response.data);
 
             const updatedBannerList = await Promise.all(
                 bannerList.map(
@@ -37,7 +40,6 @@ const MainForm: React.FC = () => {
                         media: { id: string; fileType: string };
                     }) => {
                         const fileType = banner.media.fileType.split('/')[0];
-                        console.log(fileType);
                         const imgSrc = await getFile(banner.media.id);
 
                         return {
@@ -50,9 +52,7 @@ const MainForm: React.FC = () => {
                 )
             );
 
-            console.log(updatedBannerList);
             setBannerList(updatedBannerList);
-
         } catch (error) {
             console.log('error: ' + error);
         }
@@ -64,8 +64,6 @@ const MainForm: React.FC = () => {
                 responseType: 'arraybuffer',
             });
 
-            console.log(response);
-
             const base64String = btoa(
                 new Uint8Array(response.data).reduce(
                     (data, byte) => data + String.fromCharCode(byte),
@@ -73,14 +71,13 @@ const MainForm: React.FC = () => {
                 )
             );
 
-            const imgSrc = `data:image/png;base64,${base64String}`;
-
-            return imgSrc;
+            return `data:image/png;base64,${base64String}`;
         } catch (error) {
             console.log('error: ' + error);
             return '';
         }
     };
+
     return (
         <div className='flex flex-col w-full h-full'>
             <RollingBanner items={bannerList} />
