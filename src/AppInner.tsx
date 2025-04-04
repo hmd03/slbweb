@@ -36,6 +36,7 @@ const AdminBoardCs = React.lazy(() => import('./pages/admin/boardCs/AdminBoardCs
 const AdminBoardCsView = React.lazy(() => import('./pages/admin/boardCs/AdminBoardCsView'));
 
 const AdminBoardPartner = React.lazy(() => import('./pages/admin/boardPartner/AdminBoardPartner'));
+const AdminBoardPartnerView = React.lazy(() => import('./pages/admin/boardPartner/AdminBoardPartnerView'));
 
 const AdminStore = React.lazy(() => import('./pages/admin/store/AdminStore'));
 
@@ -165,6 +166,8 @@ const AppInner: React.FC = () => {
                 <Route path='/admin/board/cs/view/no/:id' element={<AdminBoardCsView />} />
 
                 <Route path='/admin/board/partner' element={<AdminBoardPartner />} />
+                <Route path='/admin/board/partner/view/no/:id' element={<AdminBoardPartnerView />} />
+
                 <Route path='/admin/store' element={<AdminStore />} />
                 <Route path='/admin/config' element={<AdminConfig />} />
               </Routes>
