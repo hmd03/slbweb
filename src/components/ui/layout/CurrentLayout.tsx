@@ -2,6 +2,8 @@ import React, { ReactNode, HTMLAttributes } from 'react';
 import useDeviceInfo from '../../../hooks/useDeviceInfo';
 import Header from '../headers/Header';
 import Footer from '../footer/Footer';
+import MobileHeader from '../headers/MobileHeader';
+import QuickBar from '../QuickBar/QuickBar';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -11,9 +13,17 @@ const CurrentLayout = ({ children, ...props }: Props) => {
   const deviceInfo = useDeviceInfo();
   return (
     <div className={`w-full h-full flex flex-col items-center`} {...props}>
-      <Header>
+      {deviceInfo.isSmallScreen 
+      ? <>
+        <MobileHeader>
           {children}
-      </Header>
+        </MobileHeader>
+        
+        </>
+      : <Header>
+          {children}
+      </Header>}
+      <QuickBar />
       <Footer />
     </div>
   );
