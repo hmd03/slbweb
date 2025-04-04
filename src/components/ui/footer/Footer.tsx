@@ -93,7 +93,7 @@ const Footer = () => {
     }
 
     return (
-        <footer className='flex flex-col w-full justify-center items-center bg-[#F1F2F2]'>
+        <div id='footer' className='flex flex-col w-full justify-center items-center bg-[#F1F2F2]'>
             <div className={`flex w-full ${deviceInfo.isSmallScreen ? 'flex-col justify-center items-center max-w-[80%] py-5' : 'max-w-[1300px] justify-between py-10'}`}>
                 <div className={`${deviceInfo.isSmallScreen ? 'flex w-full justify-between items-center':''}`}>
                     <div className={`flex font-semibold ${deviceInfo.isSmallScreen ? 'text-title' :'text-[2.4rem] '}`}>
@@ -186,7 +186,7 @@ const Footer = () => {
                     onCancel={handleCancel}
                 />
             )}
-        </footer>
+        </div>
     );
 };
 
