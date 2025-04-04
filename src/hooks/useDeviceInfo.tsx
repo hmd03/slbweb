@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
+import debounce from "lodash/debounce";
 
 interface DeviceInfo {
-    isMobile: boolean;
-    isTouchDevice: boolean;
-    isSmallScreen: boolean;
+    isMobile?: boolean;
+    isTouchDevice?: boolean;
+    isSmallScreen?: boolean;
 }
 
 const useDeviceInfo = (): DeviceInfo => {
-    const [deviceInfo, setDeviceInfo] = useState<DeviceInfo>({
-        isMobile: false,
-        isTouchDevice: false,
-        isSmallScreen: false,
-    });
-  
+    const [deviceInfo, setDeviceInfo] = useState<DeviceInfo>({});
+
     useEffect(() => {
         const checkDeviceInfo = () => {
             const userAgent = typeof window.navigator === 'undefined' ? '' : navigator.userAgent;
@@ -21,17 +18,23 @@ const useDeviceInfo = (): DeviceInfo => {
             const isSmallScreen = window.innerWidth <= 950;
 
             setDeviceInfo({
-                isMobile: isMobile,
-                isTouchDevice: isTouchDevice,
-                isSmallScreen: isSmallScreen,
+                isMobile,
+                isTouchDevice,
+                isSmallScreen,
             });
         };
-  
+
+        const debouncedCheck = debounce(checkDeviceInfo, 200);
+
         checkDeviceInfo();
-        window.addEventListener('resize', checkDeviceInfo);
-        return () => window.removeEventListener('resize', checkDeviceInfo);
+        window.addEventListener('resize', debouncedCheck);
+
+        return () => {
+            window.removeEventListener('resize', debouncedCheck);
+            debouncedCheck.cancel();
+        };
     }, []);
-  
+
     return deviceInfo;
 };
 
