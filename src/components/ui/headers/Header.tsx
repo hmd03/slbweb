@@ -41,7 +41,7 @@ const Header = ({ children, ...props }: Props) => {
       { title: '맛에 대한 고집이/n남다른 특별함을 만든다', link: '/sub_1/1' },
       { title: '아쉬움에 항상 고민합니다', link: '/sub_1/2' },
       { title: '동상이몽 창업?', link: '/sub_1/3' },
-      { title: '배달부터 홀 운영까지/n해본 사람들이 함계합니다', link: '/sub_1/4' },
+      { title: '배달부터 홀 운영까지/n해본 사람들이 함께합니다', link: '/sub_1/4' },
     ],
     [
       { title: '성장하는 시장/n성장하는 아이템 SLB', link: '/sub_2/1' },
