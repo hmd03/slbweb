@@ -7,30 +7,28 @@ const QuickBar: React.FC = () => {
   const footerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    footerRef.current = document.querySelector('footer');
+    footerRef.current = document.querySelector('#footer');
     if (!footerRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          const viewportHeight = window.innerHeight;
-          const footerTop = entry.boundingClientRect.top;
-          const overlap = Math.max(0, viewportHeight - footerTop);
-          setBottomOffset(overlap + 8);
-        } else {
-          setBottomOffset(8);
-        }
-      },
-      {
-        root: null,
-        threshold: [0, 1],
-      }
-    );
-
-    observer.observe(footerRef.current);
-
-    return () => observer.disconnect();
+  
+    const handleScroll = () => {
+      const footerRect = footerRef.current!.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const footerTop = footerRect.top;
+  
+      const overlap = Math.max(0, viewportHeight - footerTop);
+      setBottomOffset(overlap + 8);
+    };
+  
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+    handleScroll();
+  
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
   }, []);
+  
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
