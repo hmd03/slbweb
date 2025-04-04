@@ -7,10 +7,9 @@ import axios from 'axios';
 import { formatDate } from '../../utils/dateUtils';
 import OutlineButton from '../../ui/buttons/OutlineButton';
 import AlterModal from '../../ui/alters/AlterModal';
-import { useRecoilValue } from 'recoil';
-import { UserState } from '../../../store/atom';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { FaRegEye } from 'react-icons/fa';
+import Checkbox from '../../ui/checkbox/Checkbox';
 
 const AdminBoardCsForm: React.FC = () => {
     const navigate = useNavigate();
@@ -20,13 +19,13 @@ const AdminBoardCsForm: React.FC = () => {
     const [data, setData] = useState<any[]>([]);
     const [totalItems, setTotalItems] = useState<number>(0);
     const [pageIndex, setPageIndex] = useState<number>(1);
-    const { isSupervisor } = useRecoilValue(UserState);
+    const [selectedIds, setSelectedIds] = useState<string[]>([]);
     const [onConfirm, setOnConfirm] = useState(() => () => {});
 
     let pageItems = 10;
 
     useEffect(() => {
-        //fetchData();
+        fetchData();
     }, [pageIndex]);
 
     const handlePageChange = (page: number) => {
@@ -37,31 +36,63 @@ const AdminBoardCsForm: React.FC = () => {
         }
     };
 
-    const handleRegisterClick = () => {
-        //navigate('/admin/master/write');
-    };
-
-    const handleModClick = (id: string, itemSupervisor: boolean) => {
-        if(!isSupervisor){
-            handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
-            return;
-        }
-        navigate(`/admin/master/write/${id}/${itemSupervisor?1:0}`);
-    };
-
     const fetchData = async () => {
         try {
             console.log(pageIndex)
             const response = await axios.get(
-              `api/users?page=${pageIndex}`,
+              `api/customer/inquiries?page=${pageIndex}`,
             );
 
             console.log(response);
-            setData(response.data.userList);
+            setData(response.data.inquiryList);
             setTotalItems(response.data.totalCount);
           } catch (error) {
             console.log("error: " + error);
           }
+    };
+
+    const handleDelClick = (id: string) => {
+        handleOpenModal('삭제 하시겠습니까?', false, () => deleteId(id));
+    };
+
+    const deleteId = async (id: string) => {
+        console.log(id);
+        try {
+            const response = await axios.delete(`api/customer/inquiries/${id}`);
+
+            console.log(response);
+            const data = response.data;
+
+            if (response.status === 200) {
+                handleCancel();
+                fetchData();
+            } else {
+                alert(data.message);
+            }
+        } catch (error) {
+            console.log('error: ' + error);
+        }
+    };
+
+    const handleCheckboxChange = (id: string, isChecked: boolean) => {
+        setSelectedIds(prev =>
+            isChecked ? [...prev, id] : prev.filter(selectedId => selectedId !== id)
+        );
+    };
+
+    const handleBulkDelete = () => {
+        if (selectedIds.length === 0) {
+            handleOpenModal('선택된 항목이 없습니다.', false, handleCancel);
+            return;
+        }
+    
+        handleOpenModal('선택된 항목을 모두 삭제하시겠습니까?', true, async () => {
+            for (const id of selectedIds) {
+                await deleteId(id);
+            }
+            setSelectedIds([]);
+            fetchData();
+        });
     };
 
     const handleOpenModal = (msg: string,  isCancel = true, confirmFunction: () => void) => {
@@ -91,24 +122,37 @@ const AdminBoardCsForm: React.FC = () => {
                     <tbody className='bg-White text-diagram'>
                         {data.map((item, index) => (
                             <tr key={item.id}>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[5%]">체크</td>
+                                <td className="border border-Black border-[2px] p-2 w-[5%]">
+                                    <div className="flex justify-center items-center">
+                                        <Checkbox
+                                            isChecked={selectedIds.includes(item.id)}
+                                            onValueChangeHandler={(checked: boolean) => handleCheckboxChange(item.id, checked)}
+                                            disabled={false}
+                                        >
+                                            <></>
+                                        </Checkbox>
+                                    </div>
+                                </td>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[10%]">{totalItems - index - ((pageIndex-1) * pageItems)}</td>
-                                <td className="border border-Black border-[2px] p-2 text-center w-[30%]">{item.name}</td>
+                                <td className="border border-Black border-[2px] p-2 text-center w-[30%]">{item.sender.name}</td>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[30%]">{formatDate(item.createdAt)}</td>
                                 <td className="border border-Black border-[2px] p-2 text-center w-[25%]">
                                     <div className='w-full flex items-center justify-center'>
                                         <OutlineButton theme='admin' 
                                             className='px-2  w-[4rem] h-[2rem] flex items-center' 
-                                            onClick={() => handleModClick(item.id, item.isSupervisor)}>
+                                            onClick={() => navigate(`/admin/board/cs/view/no/${item.id}`)}>
                                                 <FaRegEye color='black' className='mr-1 w-fit'/>
                                                 보기
                                         </OutlineButton>
-                                        {!item.isSupervisor && 
-                                            <Button theme='error' className='ml-2 px-2 w-[4rem] h-[2rem] bolder flex items-center'>
-                                                삭제
-                                                <RiDeleteBin6Line color='white' className='ml-1 w-fit' />
-                                            </Button>
-                                        }
+                                        <Button 
+                                            theme='error' 
+                                            className='ml-2 px-2 w-[4rem] h-[2rem] bolder flex items-center'
+                                            onClick={() =>
+                                                handleDelClick(item.id)
+                                            }>
+                                            삭제
+                                            <RiDeleteBin6Line color='white' className='ml-1 w-fit' />
+                                        </Button>
                                     </div>
                                 </td>
                             </tr>
@@ -116,7 +160,7 @@ const AdminBoardCsForm: React.FC = () => {
                     </tbody>
                 </table>
                 <AdminPagination totalItems={totalItems} itemsPerPage={pageItems} onPageChange={handlePageChange}/>
-                <Button theme='admin' onClick={handleRegisterClick}>등록</Button> 
+                <Button theme='error' onClick={handleBulkDelete} >선택 삭제</Button> 
             </div>
             {isModalVisible && (
                 <AlterModal
