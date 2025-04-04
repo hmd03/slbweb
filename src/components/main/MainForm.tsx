@@ -40,13 +40,13 @@ const MainForm: React.FC = () => {
                         media: { id: string; fileType: string };
                     }) => {
                         const fileType = banner.media.fileType.split('/')[0];
-                        const imgSrc = await getFile(banner.media.id);
+                        const fileSrc = await getFile(banner.media.id);
 
                         return {
                             link: banner.link,
                             duration: banner.duration,
                             fileType: fileType,
-                            media: imgSrc,
+                            media: fileSrc,
                         };
                     }
                 )
@@ -64,6 +64,7 @@ const MainForm: React.FC = () => {
                 responseType: 'arraybuffer',
             });
 
+            const contentType = response.headers['content-type'];
             const base64String = btoa(
                 new Uint8Array(response.data).reduce(
                     (data, byte) => data + String.fromCharCode(byte),
@@ -71,7 +72,7 @@ const MainForm: React.FC = () => {
                 )
             );
 
-            return `data:image/png;base64,${base64String}`;
+            return `data:${contentType};base64,${base64String}`;
         } catch (error) {
             console.log('error: ' + error);
             return '';
