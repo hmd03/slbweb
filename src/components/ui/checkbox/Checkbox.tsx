@@ -32,7 +32,7 @@ const Checkbox = (props: Props) => {
 
   return (
     <div
-      className={`flex items-center cursor-pointer ${
+      className={`flex gap-1 items-center cursor-pointer ${
         disabled ? 'pointer-events-none' : ''
       }`}
       onClick={onClickHandler}
@@ -47,7 +47,7 @@ const Checkbox = (props: Props) => {
       </div>
       {children && (
         <div
-          className={`ml-2 text-sub cursor-pointer ${
+          className={`text-sub cursor-pointer ${
             disabled ? 'pointer-events-none' : ''
           }`}
         >
