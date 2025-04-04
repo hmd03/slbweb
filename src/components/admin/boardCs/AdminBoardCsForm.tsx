@@ -107,7 +107,7 @@ const AdminBoardCsForm: React.FC = () => {
     }
 
     return (
-        <AdminCurrentLayout title='고객문의의 리스트'>
+        <AdminCurrentLayout title='고객문의 리스트'>
             <div className='w-full h-fit p-5 border border-Black bg-White'>
                 <table className="min-w-full border-collapse border border-[2px] border-Black">
                     <thead className='bg-LightGray text-diagram'>

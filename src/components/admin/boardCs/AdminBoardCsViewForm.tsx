@@ -39,8 +39,10 @@ const AdminBoardCsViewForm: React.FC = () => {
                     console.log(response);
                     if (response.status === 200) {
                         const data = response.data;
+                        let fileName = '';
                         if(data.media !== null) {
                             const fileId = data.media.id;
+                            fileName = data.media.fileName;
                             const fileitem = await getFile(fileId);
                             setFileBase64(fileitem);
                         }
@@ -53,7 +55,7 @@ const AdminBoardCsViewForm: React.FC = () => {
                             senderEmail : data.sender.email,
                             content : data.content,
                             createdAt : formatDate(data.createdAt),
-                            fileName : data.media.fileName
+                            fileName : fileName
                         })
                     }
                 } catch (error) {
