@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AdminCurrentLayout from '../../ui/layout/AdminCurrentLayout';
 import OutlineButton from '../../ui/buttons/OutlineButton';
@@ -26,7 +26,7 @@ const AdminInquiryViewForm: React.FC = () => {
         const fetchData = async () => {
             if (params.id) {
                 try {
-                    const response = await axios.get(`/api/inquiries/${params.id.split('=')[1]}`);
+                    const response = await axios.get(`/api/inquiries/${params.id}`);
                     console.log(response);
                     if (response.status === 200) {
                         const data = response.data;

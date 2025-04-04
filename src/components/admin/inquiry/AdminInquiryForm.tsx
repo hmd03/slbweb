@@ -64,7 +64,7 @@ const AdminInquiryForm: React.FC = () => {
     };
 
     const hanViewClick = (id: string) => {
-        navigate(`/admin/inquiry/view/no/id=${id}`);
+        navigate(`/admin/inquiry/view/no/${id}`);
     };
 
     const handleDelClick = (id: string) => {
