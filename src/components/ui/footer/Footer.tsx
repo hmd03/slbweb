@@ -93,14 +93,22 @@ const Footer = () => {
     }
 
     return (
-        <div className='flex flex-col w-full justify-center items-center bg-[#F1F2F2]'>
-            <div className='flex justify-between max-w-[1300px] w-full py-10'>
-                <div>
-                    <div className='flex text-[2.4rem] font-semibold'><p className='font-black'>창업 문의</p> | 빠른 상담 가능</div>
-                    <div className='text-[5rem] font-black leading-none'>1533-0616</div>
+        <footer className='flex flex-col w-full justify-center items-center bg-[#F1F2F2]'>
+            <div className={`flex w-full ${deviceInfo.isSmallScreen ? 'flex-col justify-center items-center max-w-[80%] py-5' : 'max-w-[1300px] justify-between py-10'}`}>
+                <div className={`${deviceInfo.isSmallScreen ? 'flex w-full justify-between items-center':''}`}>
+                    <div className={`flex font-semibold ${deviceInfo.isSmallScreen ? 'text-title' :'text-[2.4rem] '}`}>
+                        {deviceInfo.isSmallScreen 
+                        ?   <div className='flex flex-col items-center'>
+                                <p className='font-black text-main'>창업 문의</p><span className='w-full border border-b-[1px] border-black' />
+                                <p className='text-detail'>빠른 상담 가능</p>
+                            </div>
+                        :   <><p className='font-black'>창업 문의</p>| 빠른 상담 가능</>}
+                        
+                        </div>
+                    <div className={`font-black leading-none ${deviceInfo.isSmallScreen ?'text-[2.4rem] ':'text-[5rem] '}`}>1533-0616</div>
                 </div>
-                <div className='w-[50%] ml-16'>
-                    <form className={`w-full flex justify-between items-center`}>
+                <div className={`${deviceInfo.isSmallScreen ? 'w-full': 'w-[50%] ml-16'}`}>
+                    <div className={`w-full flex justify-between items-center`}>
                         <div>
                             <div className='flex w-full mb-2'>
                                 <input 
@@ -109,7 +117,7 @@ const Footer = () => {
                                     placeholder='이름' 
                                     ref={senderRef}
                                     autoComplete='name'
-                                    className={`border-[2px] border-black px-4 py-3 w-full mr-2`}
+                                    className={`${deviceInfo.isSmallScreen ?'h-[2.5rem] px-1 py-1':'px-4 py-3'} border-[2px] border-black w-full mr-2`}
                                 />
                                 <input 
                                     aria-label='창업희망지역' 
@@ -117,7 +125,7 @@ const Footer = () => {
                                     placeholder='창업희망지역' 
                                     ref={preferredRegionRef}
                                     autoComplete='preferredRegion'
-                                    className={`border-[2px] border-black px-4 py-3 w-full`}
+                                    className={`${deviceInfo.isSmallScreen ?'h-[2.5rem] px-1 py-1':'px-4 py-3'} border-[2px] border-black w-full`}
                                 />
                             </div>
                             <input 
@@ -126,20 +134,10 @@ const Footer = () => {
                                 placeholder='연락처' 
                                 ref={contactRef}
                                 autoComplete='contact'
-                                className={`border-[2px] border-black px-4 py-3 w-full mb-1`}
+                                className={`${deviceInfo.isSmallScreen ?'h-[2.5rem] px-1 py-1':'px-4 py-3'} border-[2px] border-black w-full`}
                             />
-                            <div className='flex w-full'>
-                                <Checkbox
-                                    isChecked={isChecked}
-                                    onValueChangeHandler={handleCheckboxChange}
-                                    disabled={false}
-                                >
-                                    위와 같이 개인정보를 수집ㆍ이용하는데 동의합니다.
-                                </Checkbox>
-                                <Button theme='admin' className='px-2 py-0'>내용보기</Button>
-                            </div>
                         </div>
-                        <div className='mb-auto'>
+                        <div className={`${deviceInfo.isSmallScreen ? 'ml-2' : 'mb-auto'}`}>
                             <button 
                                 type='button'
                                 onClick={handleSubmitClick}
@@ -149,20 +147,30 @@ const Footer = () => {
                                 <p className='leading-none'>하기</p>
                             </button>
                         </div>
-                    </form>
+                    </div>
+                    <div className={`flex w-full mt-2 ${deviceInfo.isSmallScreen ? 'justify-between ' : ''}`}>
+                                <Checkbox
+                                    isChecked={isChecked}
+                                    onValueChangeHandler={handleCheckboxChange}
+                                    disabled={false}
+                                >
+                                    <p className={`${deviceInfo.isSmallScreen ? 'text-[0.6rem]' : ''}`}>위와 같이 개인정보를 수집ㆍ이용하는데 동의합니다.</p>
+                                </Checkbox>
+                                <button className={`px-2 py-0 bg-Black text-White ${deviceInfo.isSmallScreen ? 'text-[0.6rem] whitespace-nowrap':' ml-2'}`}>내용보기</button>
+                            </div>
                 </div>
             </div>
             
-            <div className='w-full bg-Black text-[#E6E7E8] flex w-full justify-center items-center py-10'>
-                <div className='max-w-[1300px] flex w-full justify-center items-center'>
-                    <div className='flex flex-col w-full'>
+            <div className={`w-full bg-Black text-[#E6E7E8] flex w-full justify-center items-center ${deviceInfo.isSmallScreen ? 'py-5' : 'py-10 '}`}>
+                <div className={`${deviceInfo.isSmallScreen ? 'max-w-[90%]' : 'max-w-[1300px]'} flex w-full justify-center items-center`}>
+                    <div className={`flex w-full flex-col ${deviceInfo.isSmallScreen ? 'text-[0.5rem]' : ''}`}>
                         {footerContent.map((item, index) => (
                             <span key={index} dangerouslySetInnerHTML={{ __html: item }} />
                         ))}
                     </div>
-                    <div className='flex h-full mb-auto'>
-                        <button className='mr-2' onClick={handleNaverBlogRedirect}>
-                            <img alt='naverblog' src={`${process.env.PUBLIC_URL}/naverblog.png`} className='h-[2rem] m-auto'/>
+                    <div className={`flex h-full gap-1 ${deviceInfo.isSmallScreen ? 'flex-col' : 'mb-auto'}`}>
+                        <button className='' onClick={handleNaverBlogRedirect}>
+                            <img alt='naverblog' src={`${process.env.PUBLIC_URL}/naverblog.png`} className={`h-[2rem] m-auto`}/>
                         </button>
                         <button onClick={handleInstargramRedirect}>
                             <img alt='instargram' src={`${process.env.PUBLIC_URL}/instargram.png`} className='h-[2rem] m-auto'/>
@@ -178,7 +186,7 @@ const Footer = () => {
                     onCancel={handleCancel}
                 />
             )}
-        </div>
+        </footer>
     );
 };
 
