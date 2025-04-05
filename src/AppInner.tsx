@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/jsx-pascal-case */
 import React, { Suspense, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
@@ -42,7 +44,22 @@ const AdminStore = React.lazy(() => import('./pages/admin/store/AdminStore'));
 
 const AdminConfig = React.lazy(() => import('./pages/admin/config/AdminConfig'));
 
-const Main = React.lazy(() => import('./pages/Main'));
+const Main = React.lazy(() => import('./pages/main/Main'));
+
+const Sub_1 = React.lazy(() => import('./pages/main/sub/sub_1'));
+const Sub_2 = React.lazy(() => import('./pages/main/sub/sub_2'));
+const Sub_3 = React.lazy(() => import('./pages/main/sub/sub_3'));
+const Sub_4 = React.lazy(() => import('./pages/main/sub/sub_4'));
+
+const Inquiry = React.lazy(() => import('./pages/main/sub/inquiry'));
+const BoardCs = React.lazy(() => import('./pages/main/sub/boardCs'));
+const BoardPartner = React.lazy(() => import('./pages/main/sub/boardPartner'));
+const Map = React.lazy(() => import('./pages/main/sub/map'));
+
+const Story = React.lazy(() => import('./pages/main/sub/story'));
+const BoardNotice = React.lazy(() => import('./pages/main/sub/boardNotice'));
+const BoardEvent = React.lazy(() => import('./pages/main/sub/boardEvent'));
+const Store = React.lazy(() => import('./pages/main/sub/store'));
 
 const AppInner: React.FC = () => {
   const [isLoading, setIsLoading] = useRecoilState(LoadingState);
@@ -178,20 +195,20 @@ const AppInner: React.FC = () => {
                 <Routes>
                   {true && <><Route path='/test' element={<TestPage />} /></>}
                   <Route path='/' element={<Main />} />
-                  <Route path='/sub_1/:page' element={<></>} />
-                  <Route path='/sub_2/:page' element={<></>} />
-                  <Route path='/sub_3/:page' element={<></>} />
-                  <Route path='/sub_4/:page' element={<></>} />
+                  <Route path='/sub_1/:page' element={<Sub_1 />} />
+                  <Route path='/sub_2/:page' element={<Sub_2 />} />
+                  <Route path='/sub_3/:page' element={<Sub_3 />} />
+                  <Route path='/sub_4/:page' element={<Sub_4 />} />
 
-                  <Route path='/inquiry' element={<></>} />
-                  <Route path='/board/cs' element={<></>} />
-                  <Route path='/board/partner' element={<></>} />
-                  <Route path='/map' element={<></>} />
+                  <Route path='/inquiry' element={<Inquiry />} />
+                  <Route path='/board/cs' element={<BoardCs />} />
+                  <Route path='/board/partner' element={<BoardPartner/>} /> 
+                  <Route path='/map' element={<Map />} /> 
 
-                  <Route path='/story' element={<></>} />
-                  <Route path='/board/notice' element={<></>} />
-                  <Route path='/board/event' element={<></>} />
-                  <Route path='/store' element={<></>} />
+                  <Route path='/story' element={<Story />} />
+                  <Route path='/board/notice' element={<BoardNotice />} />
+                  <Route path='/board/event' element={<BoardEvent /> } />
+                  <Route path='/store' element={<Store />} />
                 </Routes>
               </CurrentLayout>
             </div>

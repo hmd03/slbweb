@@ -42,45 +42,45 @@ const AdminBannerAddModForm: React.FC = () => {
             { id: 'option2', name: 'group1', value: '1', label: 'MO' },
         ];
     
-        const handleChange = (value: React.SetStateAction<string>) => {
-            setSelectedOption(value);
-        };
+    const handleChange = (value: React.SetStateAction<string>) => {
+        setSelectedOption(value);
+    };
 
-        const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-            const file = event.target.files?.[0];
-            if (file) {
-                setImageFile(file);
-                setImagePath(URL.createObjectURL(file));
-                const img = new Image();
-                img.src = URL.createObjectURL(file);
-                img.onload = () => {
-                    setImageMsg(`선택한 이미지 사이즈 ${img.width}X${img.height}`);
-                };
-                console.log('선택된 파일:', file);
-            } else {
-                setImageFile(null);
-                setImagePath('');
-                setImageMsg('이미지 사이즈 1920X650');
-            }
-        };
-            
-            
-            const handleVideoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-                const file = event.target.files?.[0];
-                if (file) {
-                    setVideoFile(file);
-                    const video = document.createElement('video');
-                    video.src = URL.createObjectURL(file);
-                    video.onloadedmetadata = () => {
-                        setVideoMsg(`선택한 동영상 사이즈 ${video.videoWidth}X${video.videoHeight}`);
-                    };
-                    console.log('선택된 파일:', file);
-                } else {
-                    setVideoFile(null);
-                    setVideoMsg('동영상 사이즈 1920X650');
-                }
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            setImageFile(file);
+            setImagePath(URL.createObjectURL(file));
+            const img = new Image();
+            img.src = URL.createObjectURL(file);
+            img.onload = () => {
+                setImageMsg(`선택한 이미지 사이즈 ${img.width}X${img.height}`);
             };
+            console.log('선택된 파일:', file);
+        } else {
+            setImageFile(null);
+            setImagePath('');
+            setImageMsg('이미지 사이즈 1920X650');
+        }
+    };
         
+        
+    const handleVideoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            setVideoFile(file);
+            const video = document.createElement('video');
+            video.src = URL.createObjectURL(file);
+            video.onloadedmetadata = () => {
+                setVideoMsg(`선택한 동영상 사이즈 ${video.videoWidth}X${video.videoHeight}`);
+            };
+            console.log('선택된 파일:', file);
+        } else {
+            setVideoFile(null);
+            setVideoMsg('동영상 사이즈 1920X650');
+        }
+    };
+    
 
     useEffect(() => {
         const fetchData = async () => {
