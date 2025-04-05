@@ -23,7 +23,6 @@ const Header = ({ children, ...props }: Props) => {
   useEffect(() => {
     const widths = menuRefs.current.map(ref => ref ? ref.getBoundingClientRect().width : 0);
     setMenuWidth(widths);
-    console.log(widths);
 }, [isMenuOpen]);
 
 
