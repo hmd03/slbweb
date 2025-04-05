@@ -197,7 +197,7 @@ const AdminBoardCsViewForm: React.FC = () => {
                         </tr>
                         <tr >
                             <th className={thClassName}>제안 내용</th>
-                            <td className={`${tdClassName} h-[500px]`}>
+                            <td className={`${tdClassName} h-[300px]`}>
                                 {item.content}
                             </td>
                         </tr>
