@@ -117,7 +117,7 @@ const Footer = () => {
                                     placeholder='이름' 
                                     ref={senderRef}
                                     autoComplete='name'
-                                    className={`${deviceInfo.isSmallScreen ?'h-[2.5rem] px-1 py-1':'px-4 py-3'} border-[2px] border-black w-full mr-2`}
+                                    className={`${deviceInfo.isSmallScreen ?'h-[2.5rem] px-1 py-1 text-[12px]':'px-4 py-3'} border-[2px] border-black w-full mr-2`}
                                 />
                                 <input 
                                     aria-label='창업희망지역' 
@@ -125,7 +125,7 @@ const Footer = () => {
                                     placeholder='창업희망지역' 
                                     ref={preferredRegionRef}
                                     autoComplete='preferredRegion'
-                                    className={`${deviceInfo.isSmallScreen ?'h-[2.5rem] px-1 py-1':'px-4 py-3'} border-[2px] border-black w-full`}
+                                    className={`${deviceInfo.isSmallScreen ?'h-[2.5rem] px-1 py-1 text-[12px]':'px-4 py-3'} border-[2px] border-black w-full`}
                                 />
                             </div>
                             <input 
@@ -134,7 +134,7 @@ const Footer = () => {
                                 placeholder='연락처' 
                                 ref={contactRef}
                                 autoComplete='contact'
-                                className={`${deviceInfo.isSmallScreen ?'h-[2.5rem] px-1 py-1':'px-4 py-3'} border-[2px] border-black w-full`}
+                                className={`${deviceInfo.isSmallScreen ?'h-[2.5rem] px-1 py-1 text-[12px]':'px-4 py-3'} border-[2px] border-black w-full`}
                             />
                         </div>
                         <div className={`${deviceInfo.isSmallScreen ? 'ml-2' : 'mb-auto'}`}>

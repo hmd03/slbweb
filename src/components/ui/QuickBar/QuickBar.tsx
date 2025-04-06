@@ -64,7 +64,7 @@ const QuickBar: React.FC = () => {
 
         <button
             onClick={scrollToTop}
-            className="w-[4.5rem] h-[4.5rem] mt-4 mb-1 border border-black rounded-full flex items-center justify-center"
+            className={`${deviceInfo.isSmallScreen?'w-[2.5rem] h-[2.5rem]':'w-[4.5rem] h-[4.5rem]'} mt-4 mb-1 border border-black rounded-full flex items-center justify-center`}
         >
             <svg
             className="w-6 h-6 text-black"
