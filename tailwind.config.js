@@ -17,8 +17,9 @@ module.exports = {
         Storke: '#58595b',
       },
       fontSize: {
-        mainContent: '40px',
-        mainPoint: '48px',
+        mainContent: '52px',
+        subContent: '40px',
+        mainPoint: '64px',
         title: '32px',
         main: '20px',
         sub: '18px',
