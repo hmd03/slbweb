@@ -95,7 +95,7 @@ const LoginForm = () => {
                         {loading ? '로딩 중...' : '로그인'}
                     </Button>
                 </div>
-                <p className='text-main'>본 화면은 관리지 전용 페이지입니다.</p>
+                <p className='text-main'>본 화면은 관리자 전용 페이지입니다.</p>
             </div>
         </form>
     );
