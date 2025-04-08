@@ -1,5 +1,5 @@
 import React from 'react';
-import MainForm from '../../../components/main/MainForm';
+import MainForm from '../main/MainForm';
 const sub_2 = () => {
     return (
         <>
