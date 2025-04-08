@@ -10,8 +10,10 @@ import RadioButtonGroup from '../../ui/radio/RadioButtonGroup';
 import AlterModal from '../../ui/alters/AlterModal';
 import { useRecoilState } from 'recoil';
 import { LoadingState } from '../../../store/atom';
+import useDeviceInfo from '../../../hooks/useDeviceInfo';
 
 const AdminBannerAddModForm: React.FC = () => {
+    const deviceInfo = useDeviceInfo();
     const navigate = useNavigate();
     const { id } = useParams<{ id?: string;}>();
 
@@ -81,6 +83,48 @@ const AdminBannerAddModForm: React.FC = () => {
         }
     };
     
+    const getFile = async (id: string, fileName: string) => {
+      try {
+        const response = await axios.get(`api/files/${id}`, {
+          responseType: "arraybuffer",
+        });
+
+        const contentType = response.headers["content-type"];
+        const base64String = btoa(
+          new Uint8Array(response.data).reduce(
+            (data, byte) => data + String.fromCharCode(byte),
+            ""
+          )
+        );
+
+        const strbase64 = `data:${contentType};base64,${base64String}`;
+
+        setImagePath(strbase64);
+
+        const img = new Image();
+        img.src = strbase64;
+        img.onload = () => {
+          setImageMsg(`불러온 이미지 사이즈 ${img.width}X${img.height}`);
+        };
+
+        const byteString = atob(base64String);
+        const mimeString = contentType;
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+        const blob = new Blob([ab], { type: mimeString });
+        const file = new File([blob], fileName, { type: mimeString });
+
+        setImageFile(file);
+
+        return strbase64;
+      } catch (error) {
+        console.log("error: " + error);
+        return "";
+      }
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -95,6 +139,7 @@ const AdminBannerAddModForm: React.FC = () => {
                         linkRef.current!.value = data.link;
                         priorityRef.current!.value = data.priority;
                         durationRef.current!.value = data.duration;
+                        getFile(data.media.id, data.media.fileName);
                     }
                 } catch (error) {
                     console.log('사용자 정보를 가져오는 데 실패했습니다.');
@@ -241,107 +286,139 @@ const AdminBannerAddModForm: React.FC = () => {
     const tdClassName = 'bg-White border border-Black border-[2px] p-2 w-[70%]';
 
     return (
-        <AdminCurrentLayout title={`배너 ${id !== undefined ? '수정' : '' } 등록`}>
-            <div className='w-full h-fit p-5 border border-Black bg-White flex flex-col items-center justify-center'>
-                <table className="min-w-full border-collapse border border-[2px] border-Black">
-                    <thead className='text-diagram'>
-                    </thead>
-                    <tbody className='text-diagram'>
-                        <tr>
-                            <th className={thClassName}>배너 제목</th>
-                            <td className={`${tdClassName} text-center`}>
-                                <InputField
-                                    className=' p-1 w-full border-[2px] '
-                                    placeholder='제목을 입력해 주세요.'
-                                    ref={titleRef} 
-                                />
-                            </td>
-                        </tr>
-                        <tr >
-                            <th className={thClassName}>구분</th>
-                            <td className={tdClassName}>
-                                <RadioButtonGroup
-                                    options={options}
-                                    selectedOption={selectedOption}
-                                    onChange={handleChange}
-                                    className="radio-group flex gap-2"
-                                />
-                            </td>
-                        </tr>
-                        <tr >
-                            <th className={thClassName}>배너 링크</th>
-                            <td className={`${tdClassName} text-center`}>
-                                <InputField
-                                    className=' p-1 w-full border-[2px] '
-                                    placeholder='연결 링크를 넣어주세요.'
-                                    ref={linkRef}
-                                />
-                            </td>
-                        </tr>
-                        <tr >
-                            <th className={thClassName}>배너 우선순위</th>
-                            <td className={`${tdClassName} text-center`}>
-                                <InputField
-                                    type='number'
-                                    className=' p-1 w-full border-[2px] '
-                                    placeholder='숫자가 작을수록 노출 순서가 빠릅니다.'
-                                    ref={priorityRef}
-                                />
-                            </td>
-                        </tr>
-                        <tr >
-                            <th className={thClassName}>배너 이미지</th>
-                            <td className={`${tdClassName}`}>
-                                <div className='w-full flex items-center'>
-                                    <FileInput
-                                        id='imgInput'
-                                        msg={imageMsg}
-                                        accept='image/*'
-                                        onChange={handleImageChange}
-                                    />
-                                    {imagePath != '' && <img className='ml-10 w-[6.65rem] h-[2.25rem]' id='thumbnail' alt='thumbnail' src={imagePath} />}
-                                </div>
-                            </td>
-                        </tr>
-                        <tr >
-                            <th className={thClassName}>동영상</th>
-                            <td className={`${tdClassName}`}>
-                                <FileInput
-                                    id='videoInput'
-                                    msg={videoMsg}
-                                    accept='video/*'
-                                    onChange={handleVideoChange}
-                                />
-                            </td>
-                        </tr>
-                        <tr >
-                            <th className={thClassName}>재생시간(초)</th>
-                            <td className={`${tdClassName} text-center`}>
-                                <InputField
-                                    type='number'
-                                    className=' p-1 w-full border-[2px] '
-                                    placeholder='재생시간을 설정해 주세요.'
-                                    ref={durationRef}
-                                />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div className='flex w-full items-center justify-center h-fit mt-2 gap-2'>
-                    <Button onClick={onSubmit} theme='admin' className='px-8 py-[14px] border border-[2px]'>{!id?'등록':'수정'}</Button>
-                    {!!id && <Button onClick={handleDelClick} theme='error' className='px-8 py-[14px] border border-[2px]'>삭제</Button>}
-                    <OutlineButton onClick={onBackPage} theme='admin' className='px-8 py-[13px]'>← 목록</OutlineButton>
-                </div>
-            </div>
-            {isModalVisible && (
-                <AlterModal
-                    message={message}
-                    isCancelVisible={isCancelVisible}
-                    onConfirm={onConfirm}
-                    onCancel={handleCancel}
-                />
+      <AdminCurrentLayout title={`배너 ${id !== undefined ? "수정" : ""} 등록`}>
+        <div className="w-full h-fit p-5 border border-Black bg-White flex flex-col items-center justify-center">
+          <table className="min-w-full border-collapse border border-[2px] border-Black">
+            <thead className="text-diagram"></thead>
+            <tbody className="text-diagram">
+              <tr>
+                <th className={thClassName}>배너 제목</th>
+                <td className={`${tdClassName} text-center`}>
+                  <InputField
+                    className=" p-1 w-full border-[2px] "
+                    placeholder="제목을 입력해 주세요."
+                    ref={titleRef}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <th className={thClassName}>구분</th>
+                <td className={tdClassName}>
+                  <RadioButtonGroup
+                    options={options}
+                    selectedOption={selectedOption}
+                    onChange={handleChange}
+                    className="radio-group flex gap-2"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <th className={thClassName}>배너 링크</th>
+                <td className={`${tdClassName} text-center`}>
+                  <InputField
+                    className=" p-1 w-full border-[2px] "
+                    placeholder="연결 링크를 넣어주세요."
+                    ref={linkRef}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <th className={thClassName}>배너 우선순위</th>
+                <td className={`${tdClassName} text-center`}>
+                  <InputField
+                    type="number"
+                    className=" p-1 w-full border-[2px] "
+                    placeholder="숫자가 작을수록 노출 순서가 빠릅니다."
+                    ref={priorityRef}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <th className={thClassName}>배너 이미지</th>
+                <td className={`${tdClassName}`}>
+                  <div
+                    className={`w-full flex ${
+                      deviceInfo.isSmallScreen
+                        ? "flex-col"
+                        : "flex-row items-center "
+                    }`}
+                  >
+                    <FileInput
+                      id="imgInput"
+                      msg={imageMsg}
+                      accept="image/*"
+                      onChange={handleImageChange}
+                    />
+                    {imagePath != "" && (
+                      <img
+                        className="ml-10 w-[6.65rem] h-[2.25rem]"
+                        id="thumbnail"
+                        alt="thumbnail"
+                        src={imagePath}
+                      />
+                    )}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th className={thClassName}>동영상</th>
+                <td className={`${tdClassName}`}>
+                  <FileInput
+                    id="videoInput"
+                    msg={videoMsg}
+                    accept="video/*"
+                    onChange={handleVideoChange}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <th className={thClassName}>재생시간(초)</th>
+                <td className={`${tdClassName} text-center`}>
+                  <InputField
+                    type="number"
+                    className=" p-1 w-full border-[2px] "
+                    placeholder="재생시간을 설정해 주세요."
+                    ref={durationRef}
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div className="flex w-full items-center justify-center h-fit mt-2 gap-2">
+            <Button
+              onClick={onSubmit}
+              theme="admin"
+              className="px-8 py-[14px] border border-[2px]"
+            >
+              {!id ? "등록" : "수정"}
+            </Button>
+            {!!id && (
+              <Button
+                onClick={handleDelClick}
+                theme="error"
+                className="px-8 py-[14px] border border-[2px]"
+              >
+                삭제
+              </Button>
             )}
-        </AdminCurrentLayout>
+            <OutlineButton
+              onClick={onBackPage}
+              theme="admin"
+              className="px-8 py-[13px]"
+            >
+              ← 목록
+            </OutlineButton>
+          </div>
+        </div>
+        {isModalVisible && (
+          <AlterModal
+            message={message}
+            isCancelVisible={isCancelVisible}
+            onConfirm={onConfirm}
+            onCancel={handleCancel}
+          />
+        )}
+      </AdminCurrentLayout>
     );
 };
 

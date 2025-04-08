@@ -60,6 +60,9 @@ const AdminBannerForm: React.FC = () => {
                     async (banner: {
                         media: { id: string; fileType: string };
                     }) => {
+                        if (banner.media == null) {
+                          return banner;
+                        }
                         const fileType = banner.media.fileType.split('/')[0];
                         console.log(fileType);
                         const imgSrc = await getFile(banner.media.id);
@@ -82,29 +85,27 @@ const AdminBannerForm: React.FC = () => {
     };
 
     const getFile = async (id: string) => {
-        try {
-            const response = await axios.get(`api/files/${id}`, {
-                responseType: 'arraybuffer',
-            });
+      try {
+        const response = await axios.get(`api/files/${id}`, {
+          responseType: "arraybuffer",
+        });
 
-            console.log(response);
+        console.log(response);
+        const contentType = response.headers["content-type"];
+        const base64String = btoa(
+          new Uint8Array(response.data).reduce(
+            (data, byte) => data + String.fromCharCode(byte),
+            ""
+          )
+        );
 
-            const base64String = btoa(
-                new Uint8Array(response.data).reduce(
-                    (data, byte) => data + String.fromCharCode(byte),
-                    ''
-                )
-            );
+        const strbase64 = `data:${contentType};base64,${base64String}`;
 
-            console.log(base64String);
-
-            const imgSrc = `data:image/png;base64,${base64String}`;
-
-            return imgSrc;
-        } catch (error) {
-            console.log('error: ' + error);
-            return '';
-        }
+        return strbase64;
+      } catch (error) {
+        console.log("error: " + error);
+        return "";
+      }
     };
 
     const handleOpenModal = (

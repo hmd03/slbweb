@@ -104,7 +104,7 @@ const AdminPopupAddModForm: React.FC = () => {
                         setSelectedOption(
                             data.isExposed ? '사용' : '사용 안함'
                         );
-                        setImagePath(data.filePath);
+                        getFile(data.media.id, data.media.fileName);
                     }
                 } catch (error) {
                     console.log('사용자 정보를 가져오는 데 실패했습니다.');
@@ -114,6 +114,49 @@ const AdminPopupAddModForm: React.FC = () => {
 
         fetchData();
     }, [id]);
+
+    const getFile = async (id: string, fileName: string) => {
+      try {
+        const response = await axios.get(`api/files/${id}`, {
+          responseType: "arraybuffer",
+        });
+
+        const contentType = response.headers["content-type"];
+        const base64String = btoa(
+          new Uint8Array(response.data).reduce(
+            (data, byte) => data + String.fromCharCode(byte),
+            ""
+          )
+        );
+
+        const strbase64 = `data:${contentType};base64,${base64String}`;
+
+        setImagePath(strbase64);
+
+        const img = new Image();
+        img.src = strbase64;
+        img.onload = () => {
+          setImageMsg(`불러온 이미지 사이즈 ${img.width}X${img.height}`);
+        };
+
+        const byteString = atob(base64String);
+        const mimeString = contentType;
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+        const blob = new Blob([ab], { type: mimeString });
+        const file = new File([blob], fileName, { type: mimeString });
+
+        setImageFile(file);
+
+        return strbase64;
+      } catch (error) {
+        console.log("error: " + error);
+        return "";
+      }
+    };
 
     const onSubmit = async () => {
         const title = titleRef.current?.value || '';

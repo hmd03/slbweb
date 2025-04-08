@@ -27,7 +27,7 @@ const AdminBoardEventForm: React.FC = () => {
     const [onConfirm, setOnConfirm] = useState(() => () => {});
     const { isSupervisor } = useRecoilValue(UserState);
 
-    const [dropdownValue, setDropdownValue] = useState('');
+    const [dropdownValue, setDropdownValue] = useState("searchTitle");
     const [searchValue, setSearchValue] = useState('');
 
     const deviceInfo = useDeviceInfo();

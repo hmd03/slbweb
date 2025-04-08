@@ -30,7 +30,7 @@ const AdminInquiryForm: React.FC = () => {
     const [searchCategory, setSearchCategory] = useState('-1');
 
     const [selectedSenderDropdownItem, setSelectedSenderDropdownItem] =
-        useState('');
+      useState("searchSender");
     const [searchSender, setSearchSender] = useState('');
 
     const deviceInfo = useDeviceInfo();
@@ -40,14 +40,14 @@ const AdminInquiryForm: React.FC = () => {
     const placeholder = '분류선택';
 
     const senderDropdownItem = [
-        {
-            label: '이름',
-            value: 'searchSenderName',
-        },
-        {
-            label: '연락처',
-            value: 'searchSenderContact',
-        },
+      {
+        label: "이름",
+        value: "searchSender",
+      },
+      {
+        label: "연락처",
+        value: "searchSenderContact",
+      },
     ];
 
     useEffect(() => {
