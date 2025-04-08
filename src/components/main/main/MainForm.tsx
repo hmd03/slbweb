@@ -121,7 +121,7 @@ const MainForm: React.FC = () => {
           <p
             className="px-4 pt-2 pb-5 text-center text-[#FF331F] font-black text-mainPoint leading-none bg-no-repeat bg-bottom"
             style={{
-              backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_1_line.svg)`,
+              backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_1_line.webp)`,
               backgroundSize: "contain",
               textShadow: "0 0 1px white, 0 0 1px white, 0 0 1px white",
             }}
@@ -135,7 +135,7 @@ const MainForm: React.FC = () => {
           <p
             className="px-4 pt-2 pb-5 text-center text-[#FF331F] font-black text-mainPoint leading-none bg-no-repeat bg-center"
             style={{
-              backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_1_circle.svg)`,
+              backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_1_circle.webp)`,
               backgroundSize: "contain",
               textShadow: "0 0 1px white, 0 0 1px white, 0 0 1px white",
             }}
@@ -153,7 +153,7 @@ const MainForm: React.FC = () => {
       <div
         className="mt-40 bg-no-repeat bg-center w-full flex flex-col items-center"
         style={{
-          backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_2_background.svg)`,
+          backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_2_background.webp)`,
           backgroundSize: "cover",
         }}
       >
@@ -249,9 +249,9 @@ const MainForm: React.FC = () => {
         />
       </div>
       <div
-        className="bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-full text-mainContent font-semibold"
+        className="bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-fit text-mainContent font-semibold"
         style={{
-          backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_3_background_2.svg)`,
+          backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_3_background_2.webp)`,
         }}
       >
         <div className="flex items-end leading-none mb-10 mt-40">
