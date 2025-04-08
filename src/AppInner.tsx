@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-pascal-case */
 import React, { Suspense, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Loading from './components/ui/Loading';
-import { LoadingState, UserState } from './store/atom';
+import { LoadingState, siteSettingState, UserState } from './store/atom';
 import AdminNavLayout from './components/ui/layout/AdminNavLayout';
 import Cookies from 'js-cookie';
 import CurrentLayout from './components/ui/layout/CurrentLayout';
@@ -69,6 +69,21 @@ const AppInner: React.FC = () => {
   const location = useLocation();
 
   const isAdminRoute = location.pathname.startsWith('/admin');
+
+  const setSetting = useSetRecoilState(siteSettingState);
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      const res = await axios.get("/api/setting");
+      if (res.status === 200) {
+        const { name, title, description, privacyPolicy, termsOfService } =
+          res.data;
+        setSetting({ name, title, description, privacyPolicy, termsOfService });
+      }
+    };
+
+    fetchSettings();
+  }, []);
 
   useEffect(() => {
     const interceptor = axios.interceptors.response.use(

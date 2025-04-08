@@ -4,6 +4,7 @@ import Header from '../headers/Header';
 import Footer from '../footer/Footer';
 import MobileHeader from '../headers/MobileHeader';
 import QuickBar from '../QuickBar/QuickBar';
+import SeoHelmet from '../../common/SeoHelmet';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -13,16 +14,14 @@ const CurrentLayout = ({ children, ...props }: Props) => {
   const deviceInfo = useDeviceInfo();
   return (
     <div className={`w-full h-full flex flex-col items-center`} {...props}>
-      {deviceInfo.isSmallScreen 
-      ? <>
-        <MobileHeader>
-          {children}
-        </MobileHeader>
-        
+      <SeoHelmet />
+      {deviceInfo.isSmallScreen ? (
+        <>
+          <MobileHeader>{children}</MobileHeader>
         </>
-      : <Header>
-          {children}
-      </Header>}
+      ) : (
+        <Header>{children}</Header>
+      )}
       <QuickBar />
       <Footer />
     </div>

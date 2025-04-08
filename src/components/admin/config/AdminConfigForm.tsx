@@ -2,14 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import AdminCurrentLayout from "../../ui/layout/AdminCurrentLayout";
 import Button from "../../ui/buttons/Button";
 import InputField from "../../ui/inputs/InputField";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import axios from "axios";
 import Editor from "../../ui/Editer/Editor";
 import AlterModal from "../../ui/alters/AlterModal";
-import { LoadingState } from "../../../store/atom";
+import { LoadingState, siteSettingState } from "../../../store/atom";
 
 const AdminConfigForm: React.FC = () => {
   const [loading, setLoading] = useRecoilState(LoadingState);
+  const setSetting = useSetRecoilState(siteSettingState);
+  
   const [isModalVisible, setModalVisible] = useState(false);
   const [isCancelVisible, setIsCancelVisible] = useState(true);
   const [message, setMessage] = useState("");
@@ -80,28 +82,29 @@ const AdminConfigForm: React.FC = () => {
   };
 
   const handleConfirm = async () => {
-    const siteName = siteNameRef.current?.value || "";
-    const siteTitle = siteTitleRef.current?.value || "";
-    const siteDesc = siteDescRef.current?.value || "";
+    const name = siteNameRef.current?.value || "";
+    const title = siteTitleRef.current?.value || "";
+    const description = siteDescRef.current?.value || "";
     const contactList = smsRef.current?.value || "";
     const privacyPolicy = editorPrivacy;
-    const terms = editorTerms;
+    const termsOfService = editorTerms;
 
     try {
       setLoading(true);
       const response = await axios.put(`api/setting`, {
-        name: siteName,
-        title: siteTitle,
+        name,
+        title,
         contactList: contactList.split(","),
-        description: siteDesc,
-        privacyPolicy: privacyPolicy,
-        termsOfService: terms,
+        description,
+        privacyPolicy,
+        termsOfService,
       });
 
       const data = response.data;
       setLoading(false);
 
       if (response.status === 200) {
+        setSetting({ name, title, description, privacyPolicy, termsOfService });
         console.log(response);
         alert(data.message);
       } else {

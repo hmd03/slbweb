@@ -19,3 +19,14 @@ export const UserState = atom<User>({
   },
   effects_UNSTABLE: [persistAtom],
 });
+
+export const siteSettingState = atom({
+  key: "siteSettingState",
+  default: {
+    name: "",
+    title: "",
+    description: "",
+    privacyPolicy: "",
+    termsOfService: "",
+  },
+});

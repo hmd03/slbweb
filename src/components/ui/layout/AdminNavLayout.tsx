@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import AdminHeader from '../headers/AdminHeader';
 import AdminSideBar from '../navigations/AdminSideBar';
 import useDeviceInfo from '../../../hooks/useDeviceInfo';
+import SeoHelmet from '../../common/SeoHelmet';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -31,15 +32,28 @@ const AdminNavLayout = ({ children, ...props }: Props) => {
   }, [deviceInfo]);
 
   return (
-    <div className={`w-full h-full flex flex-col ${deviceInfo.isSmallScreen ? 'overflow-hidden' : ''} `} {...props}>
-      <HeaderWrapper onMenuClick={onMenuClick}/>
+    <div
+      className={`w-full h-full flex flex-col ${
+        deviceInfo.isSmallScreen ? "overflow-hidden" : ""
+      } `}
+      {...props}
+    >
+      <SeoHelmet />
+      <HeaderWrapper onMenuClick={onMenuClick} />
       <div className="flex w-full h-full mt-[4rem]">
-        { isSidebarVisible && <SideBarWrapper isSidebarVisible={isSidebarVisible} /> }
-        { !deviceInfo.isSmallScreen || (deviceInfo.isSmallScreen && !isSidebarVisible) ? (
-            <div className={`h-full w-full ${isSidebarVisible && !isLoginRoute ? 'ml-0' : 'ml-0'}`}>
-                {children}
-            </div>
-          ) : null }
+        {isSidebarVisible && (
+          <SideBarWrapper isSidebarVisible={isSidebarVisible} />
+        )}
+        {!deviceInfo.isSmallScreen ||
+        (deviceInfo.isSmallScreen && !isSidebarVisible) ? (
+          <div
+            className={`h-full w-full ${
+              isSidebarVisible && !isLoginRoute ? "ml-0" : "ml-0"
+            }`}
+          >
+            {children}
+          </div>
+        ) : null}
       </div>
     </div>
   );
@@ -56,7 +70,9 @@ const HeaderWrapper: React.FC<HeaderWrapperProps> = ({ onMenuClick }) => {
 
   return (
     <>
-      {isAdminRoute && !isLoginRoute && <AdminHeader onMenuClick={onMenuClick}/>}
+      {isAdminRoute && !isLoginRoute && (
+        <AdminHeader onMenuClick={onMenuClick} />
+      )}
     </>
   );
 };
