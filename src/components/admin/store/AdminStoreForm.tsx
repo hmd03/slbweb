@@ -38,7 +38,7 @@ const AdminStoreForm: React.FC = () => {
     };
 
     const handleRegisterClick = () => {
-        //navigate('/admin/master/write');
+        navigate('/admin/store/add');
     };
 
     const handleModClick = (id: string, itemSupervisor: boolean) => {

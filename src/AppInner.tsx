@@ -41,6 +41,7 @@ const AdminBoardPartner = React.lazy(() => import('./pages/admin/boardPartner/Ad
 const AdminBoardPartnerView = React.lazy(() => import('./pages/admin/boardPartner/AdminBoardPartnerView'));
 
 const AdminStore = React.lazy(() => import('./pages/admin/store/AdminStore'));
+const AdminStoreAddMod = React.lazy(() => import('./pages/admin/store/AdminStoreAddMod'));
 
 const AdminConfig = React.lazy(() => import('./pages/admin/config/AdminConfig'));
 
@@ -186,6 +187,9 @@ const AppInner: React.FC = () => {
                 <Route path='/admin/board/partner/view/no/:id' element={<AdminBoardPartnerView />} />
 
                 <Route path='/admin/store' element={<AdminStore />} />
+                <Route path='/admin/store/add' element={<AdminStoreAddMod />} />
+                <Route path='/admin/store/modify/no/:id' element={<AdminStoreAddMod />} />
+
                 <Route path='/admin/config' element={<AdminConfig />} />
               </Routes>
             </AdminNavLayout>
