@@ -39,6 +39,20 @@ module.exports = {
         ],
         cursive: ['cursive', 'Blacksword'],
       },
+      keyframes: {
+        "slide-left": {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0%)" },
+        },
+        "slide-right": {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(0%)" },
+        },
+      },
+      animation: {
+        "slide-left": "slide-left 0.5s ease-in-out",
+        "slide-right": "slide-right 0.5s ease-in-out",
+      },
     },
   },
   plugins: [
