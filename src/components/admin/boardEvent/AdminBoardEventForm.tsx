@@ -127,150 +127,138 @@ const AdminBoardEventForm: React.FC = () => {
     };
 
     return (
-        <AdminCurrentLayout title='톡톡 이벤트 리스트'>
-            <div
-                className={`w-full h-fit border border-Black bg-White ${
-                    deviceInfo.isSmallScreen ? 'p-1' : 'p-5'
-                }`}
+      <AdminCurrentLayout title="톡톡 이벤트 리스트">
+        <div
+          className={`w-full h-fit border border-Black bg-White ${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile ? "p-1" : "p-5"
+          }`}
+        >
+          <div
+            className={`flex width-full pb-6 gap-2 ${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "flex-col"
+                : "items-center"
+            }`}
+          >
+            <Dropdown
+              items={items}
+              onSelectItemHandler={setDropdownValue}
+              placeholder=""
+              defaultValue="제목"
+              width={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? "w-full"
+                  : "w-[200px]"
+              }`}
+            ></Dropdown>
+            <InputField
+              className={`border-[1px] px-4 py-3 ${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? "w-full"
+                  : "w-[200px] "
+              }`}
+              onChange={(e) => setSearchValue(e.target.value)}
+              placeholder="검색어 입력"
+            />
+            <OutlineButton
+              theme="admin"
+              className={`h-[3rem] bg-LightGray ${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? "w-full"
+                  : "w-[5rem] "
+              }`}
             >
-                <div
-                    className={`flex width-full pb-6 gap-2 ${
-                        deviceInfo.isSmallScreen ? 'flex-col' : 'items-center'
-                    }`}
-                >
-                    <Dropdown
-                        items={items}
-                        onSelectItemHandler={setDropdownValue}
-                        placeholder=''
-                        defaultValue='제목'
-                        width={`${
-                            deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px]'
-                        }`}
-                    ></Dropdown>
-                    <InputField
-                        className={`border-[1px] px-4 py-3 ${
-                            deviceInfo.isSmallScreen ? 'w-full' : 'w-[200px] '
-                        }`}
-                        onChange={(e) => setSearchValue(e.target.value)}
-                        placeholder='검색어 입력'
-                    />
-                    <OutlineButton
-                        theme='admin'
-                        className={`h-[3rem] bg-LightGray ${
-                            deviceInfo.isSmallScreen ? 'w-full' : 'w-[5rem] '
-                        }`}
-                    >
-                        검색
-                    </OutlineButton>
-                </div>
-                <table className='min-w-full border-collapse border border-[2px] border-Black'>
-                    <thead className='bg-LightGray text-diagram'>
-                        <tr>
-                            <th className='border border-Black border-[2px] p-2'>
-                                No
-                            </th>
-                            <th className='border border-Black border-[2px] p-2'>
-                                제목
-                            </th>
-                            <th className='border border-Black border-[2px] p-2'>
-                                조회수
-                            </th>
-                            <th className='border border-Black border-[2px] p-2'>
-                                등록일
-                            </th>
-                            <th className='border border-Black border-[2px] p-2'>
-                                관리
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody className='bg-White text-diagram'>
-                        {data.map((item, index) => (
-                            <tr key={item.id}>
-                                <td className='border border-Black border-[2px] p-2 text-center w-[5%]'>
-                                    {totalItems -
-                                        index -
-                                        (pageIndex - 1) * pageItems}
-                                </td>
-                                <td className='border border-Black border-[2px] p-2 text-center w-[35%]'>
-                                    {item.title}
-                                </td>
-                                <td className='border border-Black border-[2px] p-2 text-center w-[10%]'>
-                                    {item.viewCount}
-                                </td>
-                                <td className='border border-Black border-[2px] p-2 text-center w-[25%]'>
-                                    {formatDate(item.createdAt)}
-                                </td>
-                                <td className='border border-Black border-[2px] p-2 text-center w-[25%]'>
-                                    <div className='w-full flex items-center justify-center gap-2'>
-                                        <OutlineButton
-                                            theme='admin'
-                                            className='px-2  w-[6rem] h-[2rem] flex items-center'
-                                            onClick={() =>
-                                                handleModClick(
-                                                    item.id,
-                                                    item.isSupervisor
-                                                )
-                                            }
-                                        >
-                                            <CgLink
-                                                color='black'
-                                                className='mr-1 w-fit rotate-90'
-                                            />
-                                            바로가기
-                                        </OutlineButton>
-                                        <OutlineButton
-                                            theme='admin'
-                                            className='px-2  w-[4rem] h-[2rem] flex items-center'
-                                            onClick={() =>
-                                                handleModClick(
-                                                    item.id,
-                                                    item.isSupervisor
-                                                )
-                                            }
-                                        >
-                                            수정
-                                            <FaPencilAlt
-                                                color='black'
-                                                className='ml-[0.2rem] w-fit'
-                                            />
-                                        </OutlineButton>
-                                        <Button
-                                            theme='error'
-                                            className='p-2 w-[4rem] h-[2rem] bolder flex items-center'
-                                            onClick={() =>
-                                                handleDelClick(item.id)
-                                            }
-                                        >
-                                            삭제
-                                            <RiDeleteBin6Line
-                                                color='white'
-                                                className='ml-1 w-fit'
-                                            />
-                                        </Button>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                <AdminPagination
-                    totalItems={totalItems}
-                    itemsPerPage={pageItems}
-                    onPageChange={handlePageChange}
-                />
-                <Button theme='admin' onClick={handleRegisterClick}>
-                    등록
-                </Button>
-            </div>
-            {isModalVisible && (
-                <AlterModal
-                    message={message}
-                    isCancelVisible={isCancelVisible}
-                    onConfirm={onConfirm}
-                    onCancel={handleCancel}
-                />
-            )}
-        </AdminCurrentLayout>
+              검색
+            </OutlineButton>
+          </div>
+          <table className="min-w-full border-collapse border border-[2px] border-Black">
+            <thead className="bg-LightGray text-diagram">
+              <tr>
+                <th className="border border-Black border-[2px] p-2">No</th>
+                <th className="border border-Black border-[2px] p-2">제목</th>
+                <th className="border border-Black border-[2px] p-2">조회수</th>
+                <th className="border border-Black border-[2px] p-2">등록일</th>
+                <th className="border border-Black border-[2px] p-2">관리</th>
+              </tr>
+            </thead>
+            <tbody className="bg-White text-diagram">
+              {data.map((item, index) => (
+                <tr key={item.id}>
+                  <td className="border border-Black border-[2px] p-2 text-center w-[5%]">
+                    {totalItems - index - (pageIndex - 1) * pageItems}
+                  </td>
+                  <td className="border border-Black border-[2px] p-2 text-center w-[35%]">
+                    {item.title}
+                  </td>
+                  <td className="border border-Black border-[2px] p-2 text-center w-[10%]">
+                    {item.viewCount}
+                  </td>
+                  <td className="border border-Black border-[2px] p-2 text-center w-[25%]">
+                    {formatDate(item.createdAt)}
+                  </td>
+                  <td className="border border-Black border-[2px] p-2 text-center w-[25%]">
+                    <div className="w-full flex items-center justify-center gap-2">
+                      <OutlineButton
+                        theme="admin"
+                        className="px-2  w-[6rem] h-[2rem] flex items-center"
+                        onClick={() =>
+                          handleModClick(item.id, item.isSupervisor)
+                        }
+                      >
+                        <CgLink
+                          color="black"
+                          className="mr-1 w-fit rotate-90"
+                        />
+                        바로가기
+                      </OutlineButton>
+                      <OutlineButton
+                        theme="admin"
+                        className="px-2  w-[4rem] h-[2rem] flex items-center"
+                        onClick={() =>
+                          handleModClick(item.id, item.isSupervisor)
+                        }
+                      >
+                        수정
+                        <FaPencilAlt
+                          color="black"
+                          className="ml-[0.2rem] w-fit"
+                        />
+                      </OutlineButton>
+                      <Button
+                        theme="error"
+                        className="p-2 w-[4rem] h-[2rem] bolder flex items-center"
+                        onClick={() => handleDelClick(item.id)}
+                      >
+                        삭제
+                        <RiDeleteBin6Line
+                          color="white"
+                          className="ml-1 w-fit"
+                        />
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <AdminPagination
+            totalItems={totalItems}
+            itemsPerPage={pageItems}
+            onPageChange={handlePageChange}
+          />
+          <Button theme="admin" onClick={handleRegisterClick}>
+            등록
+          </Button>
+        </div>
+        {isModalVisible && (
+          <AlterModal
+            message={message}
+            isCancelVisible={isCancelVisible}
+            onConfirm={onConfirm}
+            onCancel={handleCancel}
+          />
+        )}
+      </AdminCurrentLayout>
     );
 };
 

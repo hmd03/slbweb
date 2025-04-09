@@ -338,7 +338,7 @@ const AdminBannerAddModForm: React.FC = () => {
                 <td className={`${tdClassName}`}>
                   <div
                     className={`w-full flex ${
-                      deviceInfo.isSmallScreen
+                      deviceInfo.isSmallScreen || deviceInfo.isMobile
                         ? "flex-col"
                         : "flex-row items-center "
                     }`}

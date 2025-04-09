@@ -37,14 +37,14 @@ const AdminSideBar = ({ items, visible = true}: Props) => {
 
   return (
     <div 
-    className={`${visible ? `${deviceInfo.isSmallScreen ? 'w-full' : 'min-w-[12rem]'}  h-full bg-Black text-white flex flex-col` : 'hidden'}`}>
+    className={`${visible ? `${deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'w-full' : 'min-w-[12rem]'}  h-full bg-Black text-white flex flex-col` : 'hidden'}`}>
       {items.map((item, index) => (
         <Link
           to={item.path}
           key={index}
           className={`flex items-center text-center py-2 px-4 w-[100%] text-main font-bold
             ${index === 0 ? 'border-y border-y-White border-y-[2px]' : 'border-b border-b-White border-b-[2px]'}
-            ${deviceInfo.isSmallScreen ? '' : ' h-[4rem]'}
+            ${deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ' h-[4rem]'}
             ${
             item.disabled
               ? 'text-gray-500 pointer-events-none'

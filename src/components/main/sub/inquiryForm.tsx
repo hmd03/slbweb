@@ -88,8 +88,8 @@ const InquiryForm: React.FC = () => {
 
   const handleCancel = () => setModalVisible(false);
 
-  const tableCellStyle = `border border-black align-top ${deviceInfo.isSmallScreen ? 'text-[12px]' : 'text-detail p-2'}`;
-  const tableHeadStyle = `bg-LightGray font-semibold text-left break-keep w-[40%] ${deviceInfo.isSmallScreen ? 'text-[14px] pt-2 pl-1' : 'text-detail'}`;
+  const tableCellStyle = `border border-black align-top ${deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'text-[12px]' : 'text-detail p-2'}`;
+  const tableHeadStyle = `bg-LightGray font-semibold text-left break-keep w-[40%] ${deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'text-[14px] pt-2 pl-1' : 'text-detail'}`;
 
   const sources = [
     '검색광고(네이버, 다음, 구글 등)',
@@ -108,7 +108,7 @@ const InquiryForm: React.FC = () => {
       <div className="w-full max-w-[1300px]">
         <div className="flex flex-col items-center justify-center mb-6">
           <p className="text-title font-bold">온라인 창업 문의</p>
-          <div className={`w-[1px]  border-r border-black  ${deviceInfo.isSmallScreen ? 'h-5 my-2' : 'h-10 my-5'}`} />
+          <div className={`w-[1px]  border-r border-black  ${deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'h-5 my-2' : 'h-10 my-5'}`} />
           <p className="text-main font-semibold">끝까지 함께하는 프랜차이즈의 시작!</p>
           <p className="text-main font-bold text-Point">SLB와 함께하세요</p>
           <p className="text-detail mt-2">SLB 가맹 상담을 신청하실 수 있는 곳입니다.</p>
@@ -227,10 +227,10 @@ const InquiryForm: React.FC = () => {
 
         {/* 개인정보 동의 */}
         <div className="mt-4">
-          <label className={`flex items-center ${deviceInfo.isSmallScreen ? 'text-[10px]' : 'text-detail'}`}>
+          <label className={`flex items-center ${deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'text-[10px]' : 'text-detail'}`}>
             <input ref={agreeRef} type="checkbox" className="mr-2" />
               개인정보 수집 및 이용에 관한 사항(필수)에 동의합니다.
-            <button className={`px-2 py-0 bg-Black text-White ${deviceInfo.isSmallScreen ? 'text-[0.6rem] whitespace-nowrap' : ' ml-2'}`}>내용보기</button>
+            <button className={`px-2 py-0 bg-Black text-White ${deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'text-[0.6rem] whitespace-nowrap' : ' ml-2'}`}>내용보기</button>
           </label>
         </div>
 

@@ -8,7 +8,7 @@ interface RollingCardProps {
 
 const RollingCard: React.FC<RollingCardProps> = ({ images }) => {
   const deviceInfo = useDeviceInfo();
-  const visibleCount = deviceInfo.isSmallScreen ? 1 : 3;
+  const visibleCount = deviceInfo.isSmallScreen || deviceInfo.isMobile ? 1 : 3;
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState<"left" | "right">("left");
 
@@ -49,7 +49,7 @@ const RollingCard: React.FC<RollingCardProps> = ({ images }) => {
           <div
             key={index}
             className={`flex-1 box-border shadow-lg rounded-xl ${
-              deviceInfo.isSmallScreen ? "w-full" : "min-w-[30%] max-w-[33%]"
+              deviceInfo.isSmallScreen || deviceInfo.isMobile ? "w-full" : "min-w-[30%] max-w-[33%]"
             }`}
           >
             <img

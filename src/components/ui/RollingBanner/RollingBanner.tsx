@@ -17,8 +17,8 @@ const RollingBanner: React.FC<RollingBannerProps> = ({ items }) => {
   const [bannerHeight, setBannerHeight] = useState(0);
   const deviceInfo = useDeviceInfo();
 
-  const widthRatio = deviceInfo.isSmallScreen ? 1 : 65;
-  const heightRatio = deviceInfo.isSmallScreen ? 1 : 192;
+  const widthRatio = deviceInfo.isSmallScreen || deviceInfo.isMobile ? 1 : 65;
+  const heightRatio = deviceInfo.isSmallScreen || deviceInfo.isMobile ? 1 : 192;
 
   useEffect(() => {
     const updateHeight = () => {

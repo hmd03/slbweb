@@ -127,15 +127,15 @@ const BoardPartnerForm: React.FC = () => {
 
   const handleCancel = () => setModalVisible(false);
 
-  const tableCellStyle = `border border-black align-top ${deviceInfo.isSmallScreen ? 'text-[12px]' : 'text-detail p-2'}`;
-  const tableHeadStyle = `bg-LightGray font-semibold text-left break-keep ${deviceInfo.isSmallScreen ? 'text-[12px] pt-2 pl-1' : 'text-detail'} w-[30%]`;
+  const tableCellStyle = `border border-black align-top ${deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'text-[12px]' : 'text-detail p-2'}`;
+  const tableHeadStyle = `bg-LightGray font-semibold text-left break-keep ${deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'text-[12px] pt-2 pl-1' : 'text-detail'} w-[30%]`;
 
   return (
     <div className="w-full flex justify-center px-4 py-8 bg-white">
       <div className="w-full max-w-[1300px]">
         <div className="flex flex-col items-center justify-center mb-6">
           <p className="text-title font-bold">협력제안</p>
-          <div className={`w-[1px]  border-r border-black  ${deviceInfo.isSmallScreen ? 'h-5 my-2' : 'h-10 my-5'}`} />
+          <div className={`w-[1px]  border-r border-black  ${deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'h-5 my-2' : 'h-10 my-5'}`} />
           <p className="text-main font-semibold">SLB와의 <span className="text-Point">협력, 제안 사항</span>은</p>
           <p className="text-main font-semibold">이곳에 남겨 주시면 빠르게 연락 드리겠습니다</p>
         </div>
@@ -189,7 +189,7 @@ const BoardPartnerForm: React.FC = () => {
                     />
                     <select
                     onChange={handleEmailDomainSelect}
-                    className={`w-full border border-gray-300 p-2 ${deviceInfo.isSmallScreen ? 'text-[8px] py-3' : ''}`}
+                    className={`w-full border border-gray-300 p-2 ${deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'text-[8px] py-3' : ''}`}
                   >
                     <option value="">직접 입력</option>
                     <option value="naver.com">naver.com</option>
@@ -216,10 +216,10 @@ const BoardPartnerForm: React.FC = () => {
         </table>
 
         <div className="mt-4">
-          <label className={`flex items-center ${deviceInfo.isSmallScreen ? 'text-[10px]' : 'text-detail'}`}>
+          <label className={`flex items-center ${deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'text-[10px]' : 'text-detail'}`}>
             <input ref={agreeRef} type="checkbox" className="mr-2" />
             개인정보 수집 및 이용에 관한 사항(필수)에 동의합니다.
-            <button className={`px-2 py-0 bg-Black text-White ${deviceInfo.isSmallScreen ? 'text-[0.6rem] whitespace-nowrap' : ' ml-2'}`}>내용보기</button>
+            <button className={`px-2 py-0 bg-Black text-White ${deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'text-[0.6rem] whitespace-nowrap' : ' ml-2'}`}>내용보기</button>
           </label>
         </div>
 

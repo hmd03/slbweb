@@ -18,8 +18,9 @@ const MainForm: React.FC = () => {
   >([]);
 
   useEffect(() => {
-    if (deviceInfo.isSmallScreen !== undefined) {
-      const mobile = deviceInfo.isSmallScreen ? "true" : "false";
+    console.log(deviceInfo);
+    if (Object.keys(deviceInfo).length > 0) {
+      const mobile = deviceInfo.isSmallScreen || deviceInfo.isMobile ? "true" : "false";
       fetchData(mobile);
     }
   }, [deviceInfo.isSmallScreen]);
@@ -100,7 +101,13 @@ const MainForm: React.FC = () => {
         <RollingBanner items={bannerList} />
       </div>
       {/* Point 1 */}
-      <div className="flex flex-col items-center w-[1300px] pt-40 text-mainContent font-semibold">
+      <div
+        className={`${
+          deviceInfo.isSmallScreen || deviceInfo.isMobile
+            ? "w-full"
+            : "w-[1300px]"
+        } flex flex-col items-center  pt-40 text-mainContent font-semibold`}
+      >
         <Chip text="Point 1" type="black" />
         <div className="mt-2">샐러드 & 포케 창업 지금이 적기,</div>
         <div className="flex items-end leading-none mb-20">
@@ -270,7 +277,9 @@ const MainForm: React.FC = () => {
 
         <div
           className={`w-[1px]  border-r border-black  ${
-            deviceInfo.isSmallScreen ? "h-5 my-2" : "h-20 my-10"
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "h-5 my-2"
+              : "h-20 my-10"
           }`}
         />
 
@@ -314,7 +323,9 @@ const MainForm: React.FC = () => {
 
           <div
             className={`w-[1px]  border-r border-White  ${
-              deviceInfo.isSmallScreen ? "h-5 my-2" : "h-12 my-8 ml-4"
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "h-5 my-2"
+                : "h-12 my-8 ml-4"
             }`}
           />
 

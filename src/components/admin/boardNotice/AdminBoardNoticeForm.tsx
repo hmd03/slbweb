@@ -131,12 +131,14 @@ const AdminBoardNoticeForm: React.FC = () => {
       <AdminCurrentLayout title="공지&뉴스 리스트">
         <div
           className={`w-full h-fit border border-Black bg-White ${
-            deviceInfo.isSmallScreen ? "p-1" : "p-5"
+            deviceInfo.isSmallScreen || deviceInfo.isMobile ? "p-1" : "p-5"
           }`}
         >
           <div
             className={`flex width-full pb-6 gap-2 ${
-              deviceInfo.isSmallScreen ? "flex-col" : "items-center"
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "flex-col"
+                : "items-center"
             }`}
           >
             <Dropdown
@@ -144,11 +146,17 @@ const AdminBoardNoticeForm: React.FC = () => {
               onSelectItemHandler={setDropdownValue}
               placeholder=""
               defaultValue="제목"
-              width={`${deviceInfo.isSmallScreen ? "w-full" : "w-[200px]"}`}
+              width={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? "w-full"
+                  : "w-[200px]"
+              }`}
             ></Dropdown>
             <InputField
               className={`border-[1px] px-4 py-3 ${
-                deviceInfo.isSmallScreen ? "w-full" : "w-[200px] "
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? "w-full"
+                  : "w-[200px] "
               }`}
               placeholder="검색어 입력"
               onChange={(e) => setSearchValue(e.target.value)}
@@ -156,7 +164,9 @@ const AdminBoardNoticeForm: React.FC = () => {
             <OutlineButton
               theme="admin"
               className={`h-[3rem] bg-LightGray ${
-                deviceInfo.isSmallScreen ? "w-full" : "w-[5rem] "
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? "w-full"
+                  : "w-[5rem] "
               }`}
               onClick={fetchData}
             >

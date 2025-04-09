@@ -18,7 +18,7 @@ const AdminNavLayout = ({ children, ...props }: Props) => {
   const deviceInfo = useDeviceInfo();
 
   useEffect(()=>{
-    if(deviceInfo.isSmallScreen){
+    if(deviceInfo.isSmallScreen || deviceInfo.isMobile){
       setSidebarVisible(false);
     }
   },[location.pathname]);
@@ -28,13 +28,13 @@ const AdminNavLayout = ({ children, ...props }: Props) => {
   }
 
   useEffect(() => {
-    setSidebarVisible(!deviceInfo.isSmallScreen);
+    setSidebarVisible(!deviceInfo.isSmallScreen || !deviceInfo.isMobile);
   }, [deviceInfo]);
 
   return (
     <div
       className={`w-full h-full flex flex-col ${
-        deviceInfo.isSmallScreen ? "overflow-hidden" : ""
+        deviceInfo.isSmallScreen || deviceInfo.isMobile ? "overflow-hidden" : ""
       } `}
       {...props}
     >

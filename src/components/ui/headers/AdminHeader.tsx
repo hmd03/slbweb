@@ -61,18 +61,18 @@ const AdminHeader = ({...props}: Props) => {
       <div className='m-[1rem] flex'>
         <OutlineButton 
           theme='admin' 
-          className={`h-[3rem] flex items-center bg-White ${!deviceInfo.isSmallScreen ? 'w-[11.375rem] px-5 ' : 'w-[3rem] justify-center'}`} 
+          className={`h-[3rem] flex items-center bg-White ${!deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'w-[11.375rem] px-5 ' : 'w-[3rem] justify-center'}`} 
           onClick={handleHomePageRedirect}>
-              {!deviceInfo.isSmallScreen && <p className='mr-1'>홈페이지 바로가기</p>}
+              {!deviceInfo.isSmallScreen || deviceInfo.isMobile && <p className='mr-1'>홈페이지 바로가기</p>}
               <IoHome color='black' className='w-fit'/>
         </OutlineButton>
 
         <OutlineButton 
           theme='admin' 
-          className={`h-[3rem] flex items-center bg-White ${!deviceInfo.isSmallScreen ? 'w-[7.5rem] px-5 ' : 'w-[3rem] justify-center'}`} 
+          className={`h-[3rem] flex items-center bg-White ${!deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'w-[7.5rem] px-5 ' : 'w-[3rem] justify-center'}`} 
           onClick={handleLogout}>
               <IoPowerSharp color='black' className='w-fit'/>
-              {!deviceInfo.isSmallScreen && <p className='ml-1'>로그아웃</p>}
+              {!deviceInfo.isSmallScreen || deviceInfo.isMobile && <p className='ml-1'>로그아웃</p>}
         </OutlineButton>
       </div>
     </div>

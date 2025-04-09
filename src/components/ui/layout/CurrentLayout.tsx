@@ -15,7 +15,7 @@ const CurrentLayout = ({ children, ...props }: Props) => {
   return (
     <div className={`w-full h-full flex flex-col items-center`} {...props}>
       <SeoHelmet />
-      {deviceInfo.isSmallScreen ? (
+      {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
         <>
           <MobileHeader>{children}</MobileHeader>
         </>
