@@ -18,7 +18,6 @@ const MainForm: React.FC = () => {
   >([]);
 
   useEffect(() => {
-    console.log(deviceInfo);
     if (Object.keys(deviceInfo).length > 0) {
       const mobile = deviceInfo.isSmallScreen || deviceInfo.isMobile ? "true" : "false";
       fetchData(mobile);
@@ -104,14 +103,20 @@ const MainForm: React.FC = () => {
       <div
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? "w-full"
-            : "w-[1300px]"
-        } flex flex-col items-center  pt-40 text-mainContent font-semibold`}
+            ? "w-full text-m_mainContent"
+            : "w-[1300px] text-mainContent"
+        } flex flex-col items-center  pt-40 font-semibold`}
       >
         <Chip text="Point 1" type="black" />
         <div className="mt-2">샐러드 & 포케 창업 지금이 적기,</div>
         <div className="flex items-end leading-none mb-20">
-          <p className="text-[#FF331F] font-black text-mainPoint leading-none">
+          <p
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-m_mainPoint"
+                : "text-mainPoint"
+            } text-[#FF331F] font-black leading-none`}
+          >
             고민하지 말고 선점
           </p>
           하세요!
@@ -126,7 +131,12 @@ const MainForm: React.FC = () => {
         <DividerWithLabel label="Q. 식사 메뉴를 정할 때 고객은?" />
         <div className="flex items-center leading-none text-title mt-8">
           <p
-            className="px-4 pt-2 pb-5 text-center text-[#FF331F] font-black text-mainPoint leading-none bg-no-repeat bg-bottom"
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-m_mainPoint"
+                : "text-mainPoint"
+            } 
+            px-4 pt-2 pb-5 text-center text-[#FF331F] font-black leading-none bg-no-repeat bg-bottom`}
             style={{
               backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_1_line.webp)`,
               backgroundSize: "contain",
@@ -140,7 +150,11 @@ const MainForm: React.FC = () => {
         <div className="flex items-center leading-none text-title mb-20 mt-5 font-bold">
           가격이 아닌
           <p
-            className="px-4 pt-2 pb-5 text-center text-[#FF331F] font-black text-mainPoint leading-none bg-no-repeat bg-center"
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-m_mainPoint"
+                : "text-mainPoint"
+            } px-4 pt-2 pb-5 text-center text-[#FF331F] font-black leading-none bg-no-repeat bg-center`}
             style={{
               backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_1_circle.webp)`,
               backgroundSize: "contain",
@@ -151,7 +165,13 @@ const MainForm: React.FC = () => {
           </p>
           이 더 중요!
         </div>
-        <div className="text-[24px] font-normal flex">
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "text-detail"
+              : "text-m_mainPoint"
+          } font-normal flex`}
+        >
           고객들의 외식 선택 요소의 변화로 '샐러드&포케' 시장{" "}
           <p className="font-bold ml-2">지속 성장 중!</p>
         </div>
@@ -164,15 +184,33 @@ const MainForm: React.FC = () => {
           backgroundSize: "cover",
         }}
       >
-        <div className="flex flex-col items-center w-[1300px] h-full pt-20 text-mainContent font-semibold">
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "w-full"
+              : "w-[1300px]"
+          } flex flex-col items-center h-full pt-20 text-main font-semibold`}
+        >
           <Chip text="Point 2" type="white" />
           <div className="text-[#FDF8EA] font-black leading-none my-4">
             어떤 상권에도 매출 걱정 없는 SLB
           </div>
-          <div className="text-White text-subContent font-black leading-none">
+          <div
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-main"
+                : "text-subContent"
+            } text-White font-black leading-none`}
+          >
             매력적인 브랜드는 고객이 찾아오게 만든다!
           </div>
-          <div className="mt-20 w-[1000px] mx-auto flex justify-around">
+          <div
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "w-full"
+                : "w-[1000px]"
+            } mt-20 w-[1000px] mx-auto flex justify-around`}
+          >
             <div className="w-[31%]">
               <img
                 loading="lazy"
@@ -207,21 +245,45 @@ const MainForm: React.FC = () => {
         </div>
       </div>
       {/* Point 3 */}
-      <div className="flex flex-col items-center w-full text-mainContent font-semibold">
-        <div className="flex flex-col items-center w-full text-mainContent font-semibold bg-[#F6F6F6]">
-          <div className="flex flex-col items-center w-[1300px] pt-20 text-mainContent font-semibold">
+      <div
+        className={`${
+          deviceInfo.isSmallScreen || deviceInfo.isMobile
+            ? "text-m_mainContent"
+            : "text-mainContent"
+        } flex flex-col items-center w-full font-semibold`}
+      >
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "text-m_mainContent"
+              : "text-mainContent"
+          } flex flex-col items-center w-full font-semibold bg-[#F6F6F6]`}
+        >
+          <div
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "w-full text-m_mainContent"
+                : "w-[1300px] text-mainContent"
+            } flex flex-col items-center pt-20 font-semibold`}
+          >
             <Chip text="Point 3" type="black" />
             <div className="mt-2">SLB는 고객이 만든 #맛집</div>
             <div className="flex items-end leading-none mb-10">
-              <p className="text-[#FF331F] font-black text-mainPoint leading-none">
+              <p
+                className={`${
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile
+                    ? "text-m_mainPoint"
+                    : "text-mainPoint"
+                } text-[#FF331F] font-black leading-none`}
+              >
                 고객들의 후기
               </p>
               를 확인하세요!
             </div>
-            <div className="text-[24px] font-normal flex">
+            <div className="text-m_mainPoint font-normal flex">
               특별한 광고 없이도 매출이 높을 수 밖에 없는 이유는 고객!
             </div>
-            <div className="text-[24px] font-normal flex mb-[8rem]">
+            <div className="text-m_mainPoint font-normal flex mb-[8rem]">
               예비창업자님들의
               <p className="font-bold ml-2">창업문의가 끊이지 않는 이유</p>
               이기도 합니다.
@@ -237,8 +299,20 @@ const MainForm: React.FC = () => {
           backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_3_background_1.webp)`,
         }}
       />
-      <div className="flex flex-col items-center w-full text-mainContent font-semibold bg-[#231F20] text-White">
-        <div className="flex flex-col items-center w-[1300px] pt-20 pb-10 text-mainContent font-semibold">
+      <div
+        className={`${
+          deviceInfo.isSmallScreen || deviceInfo.isMobile
+            ? "text-m_mainContent"
+            : "text-mainContent"
+        } flex flex-col items-center w-full font-semibold bg-[#231F20] text-White`}
+      >
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "w-full text-m_mainContent"
+              : "w-[1300px] text-mainContent"
+          } flex flex-col items-center pt-20 pb-10 font-semibold`}
+        >
           <div className="flex items-center leading-none text-title mb-3">
             블루오션, 샐러드 & 포케 시장에서 남다른 고집으로
           </div>
@@ -256,13 +330,23 @@ const MainForm: React.FC = () => {
         />
       </div>
       <div
-        className="bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-fit text-mainContent font-semibold"
+        className={`${
+          deviceInfo.isSmallScreen || deviceInfo.isMobile
+            ? "text-m_mainContent"
+            : "text-mainContent"
+        } bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-fit font-semibold`}
         style={{
           backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_3_background_2.webp)`,
         }}
       >
         <div className="flex items-end leading-none mb-10 mt-40">
-          <p className="text-[#FF331F] font-black text-mainPoint leading-none mr-2">
+          <p
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-m_mainPoint"
+                : "text-mainPoint"
+            } text-[#FF331F] font-black leading-none mr-2`}
+          >
             더 나은 삶,
           </p>
           더 맛있는 경험
@@ -285,7 +369,13 @@ const MainForm: React.FC = () => {
 
         <div className="flex items-end leading-none mb-10">
           더 나은 삶,
-          <p className="text-[#FF331F] font-black text-mainPoint leading-none ml-2">
+          <p
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-m_mainPoint"
+                : "text-mainPoint"
+            } text-[#FF331F] font-black leading-none ml-2`}
+          >
             더 맛있는 경험
           </p>
         </div>
@@ -300,23 +390,43 @@ const MainForm: React.FC = () => {
           loading="lazy"
           alt="고객을 제대로 대접하겠다는 의지를 담아 정성껏 준비한 SLB만의 특별한 `한상차림` 마음까지 든든해지는 기분 좋은 경험이 시작됩니다"
           src={`${process.env.PUBLIC_URL}/main/point_3_salad.webp`}
-          className="max-w-[1300px] h-[50%] mb-40 ml-[16rem] mt-40 transition-opacity duration-500 opacity-0"
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? ""
+              : "max-w-[1300px] ml-[16rem]"
+          } h-[50%] mb-40  mt-40 transition-opacity duration-500 opacity-0`}
           onLoad={(e) => e.currentTarget.classList.add("opacity-100")}
         />
       </div>
       <div
-        className="bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-full text-mainContent font-semibold text-White"
+        className={`${
+          deviceInfo.isSmallScreen || deviceInfo.isMobile
+            ? "text-m_mainContent"
+            : "text-mainContent"
+        } bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-full font-semibold text-White`}
         style={{
           backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_3_footer.webp)`,
         }}
       >
-        <div className="w-[1200px] flex flex-col">
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "w-full"
+              : "w-[1200px]"
+          } flex flex-col`}
+        >
           <div className="flex items-end leading-none mt-[12rem]">
             메뉴 개발에 노력한 결과!
           </div>
           <div className="flex items-end leading-none mt-1">
             SLB 가맹점 고객
-            <p className="bg-[#FF331F] font-black text-mainPoint leading-none ml-2 p-1">
+            <p
+              className={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? "text-m_mainPoint"
+                  : "text-mainPoint"
+              } bg-[#FF331F] font-black leading-none ml-2 p-1`}
+            >
               재방문율 86%
             </p>
           </div>
@@ -341,12 +451,30 @@ const MainForm: React.FC = () => {
         </div>
       </div>
       {/* Point 4 */}
-      <div className="flex flex-col items-center w-[1300px] pt-40 text-mainContent font-semibold">
+      <div
+        className={`${
+          deviceInfo.isSmallScreen || deviceInfo.isMobile
+            ? "w-full text-m_mainContent"
+            : "w-[1300px] text-mainContent"
+        } flex flex-col items-center pt-40 font-semibold`}
+      >
         <Chip text="Point 4" type="black" />
-        <div className="mt-2 text-subContent  font-black">
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "text-main"
+              : "text-subContent"
+          } mt-2  font-black`}
+        >
           성공한 맛집 = 인테리어도 좋다!
         </div>
-        <div className="flex items-end leading-none mb-20 text-mainPoint">
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "text-m_mainPoint"
+              : "text-mainPoint"
+          } flex items-end leading-none mb-20`}
+        >
           고객이 트렌디하다고 말하는
           <p className="text-[#FF331F] font-black leading-none ml-2">
             SLB 인테리어
@@ -364,30 +492,64 @@ const MainForm: React.FC = () => {
         </div>
         <div className="bg-[#F1F2F2] py-10 px-8 w-[35%] mt-auto mb-40 text-right mr-[30%] break-keep">
           SLB의 수익형 인테리어
-          <p className="text-[28px] font-normal break-keep">
+          <p
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-third"
+                : "text-[28px]"
+            } font-normal break-keep`}
+          >
             오랜 기간 고객 동선과
           </p>
-          <p className="text-[28px] font-normal break-keep">
+          <p
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-third"
+                : "text-[28px]"
+            } font-normal break-keep`}
+          >
             서비스 동선까지 고려한 과학적 설계와
           </p>
-          <p className="text-[28px] font-normal break-keep">
+          <p
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-third"
+                : "text-[28px]"
+            } font-normal break-keep`}
+          >
             우리민족 고유의 절제와 비움에 미학을 반영한
           </p>
-          <p className="text-[28px] font-normal break-keep">
+          <p
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-third"
+                : "text-[28px]"
+            } font-normal break-keep`}
+          >
             모던하고 감각적인 인테리어 디자인으로
           </p>
-          <p className="text-[28px] font-normal break-keep">
+          <p
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-third"
+                : "text-[28px]"
+            } font-normal break-keep`}
+          >
             SLB만의 수익형 인테리어를 완성하였습니다.
           </p>
         </div>
       </div>
       <DividerWithLabel label="Q. 상권선점을 위해서는?" />
       <div className="flex flex-col items-center leading-none text-title mt-8 mb-40 font-black">
-        <div className="mt-2 text-subContent mb-2">
+        <div className="mt-2 text-[18px] mb-2">
           좋은 상권은 기다려주지 않습니다. 놓치지 마세요!
         </div>
         <p
-          className="px-4 pt-2 pb-5 text-center text-[#FF331F] font-black text-mainPoint leading-none bg-no-repeat bg-bottom"
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "text-m_mainPoint"
+              : "text-mainPoint"
+          } px-4 pt-2 pb-5 text-center text-[#FF331F] font-black leading-none bg-no-repeat bg-bottom`}
           style={{
             backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_4_line.webp)`,
             backgroundSize: "contain",
@@ -398,26 +560,62 @@ const MainForm: React.FC = () => {
         </p>
       </div>
       {/* Point 5 6 */}
-      <div className="flex flex-col items-center w-full text-mainContent font-semibold">
-        <div className="flex flex-col items-center w-full text-mainContent font-semibold bg-[#F6F6F6]">
+      <div
+        className={`${
+          deviceInfo.isSmallScreen || deviceInfo.isMobile
+            ? "text-m_mainContent"
+            : "text-mainContent"
+        } flex flex-col items-center w-full font-semibold`}
+      >
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "text-m_mainContent"
+              : "text-mainContent"
+          } flex flex-col items-center w-full font-semibold bg-[#F6F6F6]`}
+        >
           {/* Point 5*/}
-          <div className="flex flex-col items-center w-[1300px] pt-20 text-mainContent font-semibold">
+          <div
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "w-full"
+                : "w-[1300px]"
+            } flex flex-col items-center pt-20 text-[22px] font-semibold`}
+          >
             <Chip text="Point 5" type="black" />
             <div className="mt-2">각 분야 10년 이상의 전문가가</div>
-            <div className="flex items-end leading-none mb-10 text-mainPoint">
+            <div className="flex items-end leading-none mb-10 text-[26px]">
               <p className="text-[#FF331F] font-black leading-none">
                 창업부터 운영까지 지원
               </p>
               하는 SLB
             </div>
-            <div className="text-[24px] font-normal flex">
+            <div
+              className={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? "text-detail"
+                  : "text-m_mainPoint"
+              } font-normal flex`}
+            >
               매장을 직접 운영 했던 경험 보유자부터 홀, 배달 등
             </div>
-            <div className="text-[24px] font-normal flex">
+            <div
+              className={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? "text-detail"
+                  : "text-m_mainPoint"
+              } font-normal flex`}
+            >
               다양한 외식아이템을 경험한
               <p className="font-bold ml-2">10년 이상의</p>
             </div>
-            <div className="text-[24px] font-normal flex mb-[8rem]">
+            <div
+              className={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? "text-detail"
+                  : "text-m_mainPoint"
+              } font-normal flex mb-[8rem]`}
+            >
               <p className="font-bold mr-2">
                 각 분야 전문가들이 예비 가맹점주님의 고충을 해결
               </p>
@@ -450,10 +648,22 @@ const MainForm: React.FC = () => {
           </div>
 
           {/* Point 6 */}
-          <div className="flex flex-col items-center w-[1300px] pt-20 text-mainContent font-semibold">
+          <div
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "w-full text-m_mainContent"
+                : "w-[1300px] text-mainContent"
+            } flex flex-col items-center pt-20 font-semibold`}
+          >
             <Chip text="Point 6" type="black" />
             <div className="mt-2">SLB만의 슈퍼바이징 시스템으로</div>
-            <div className="flex items-end leading-none mb-20 text-mainPoint">
+            <div
+              className={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? "text-m_mainPoint"
+                  : "text-mainPoint"
+              } flex items-end leading-none mb-20`}
+            >
               오픈 이후에도
               <p className="text-[#FF331F] font-black leading-none ml-2">
                 체계적으로 관리
@@ -519,18 +729,42 @@ const MainForm: React.FC = () => {
         </div>
       </div>
       {/* Point 7 */}
-      <div className="flex flex-col items-center w-[1300px] pt-40 text-mainContent font-semibold">
+      <div
+        className={`${
+          deviceInfo.isSmallScreen || deviceInfo.isMobile
+            ? "w-full text-m_mainContent"
+            : "w-[1300px] text-mainContent"
+        } flex flex-col items-center pt-40 font-semibold`}
+      >
         <Chip text="Point 1" type="black" />
         <div className="mt-2">창업 및 운영 비용은 DOWN</div>
         <div className="flex items-end leading-none mb-20">
-          <p className="text-[#FF331F] font-black text-mainPoint leading-none">
+          <p
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-m_mainPoint"
+                : "text-mainPoint"
+            } text-[#FF331F] font-black leading-none`}
+          >
             수익률은 UP 시키는 SLB의 노력!
           </p>
         </div>
-        <div className="text-[24px] font-normal flex">
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "text-detail"
+              : "text-m_mainPoint"
+          } font-normal flex`}
+        >
           예비 창업자들의 최대 고민? 창업 비용!
         </div>
-        <div className="text-[24px] font-normal flex mb-20">
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "text-detail"
+              : "text-m_mainPoint"
+          } font-normal flex mb-20`}
+        >
           SLB는 초기 창업 비용을 줄이기 위해
           <p className="font-bold ml-2">'인테리어 직거래 시스템' 도입</p>
         </div>
@@ -545,16 +779,34 @@ const MainForm: React.FC = () => {
         <Chip text="Point 8" type="black" />
         <div className="mt-2">물가상승으로 힘들어 하는</div>
         <div className="">가맹점주님들을 위해 매년 물류 비용</div>
-        <div className="flex items-end leading-none mb-20 text-mainPoint">
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "text-m_mainPoint"
+              : "text-mainPoint"
+          } flex items-end leading-none mb-20 `}
+        >
           <p className="text-[#FF331F] font-black leading-none">
             유지 또는 낮추기 위해 SLB는 노력
           </p>
           합니다!
         </div>
-        <div className="text-[24px] font-normal flex">
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "text-detail"
+              : "text-m_mainPoint"
+          } font-normal flex`}
+        >
           채소의 안정된 공급과 수익률을 높이기 위해
         </div>
-        <div className="text-[24px] font-normal flex mb-20">
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "text-detail"
+              : "text-m_mainPoint"
+          } font-normal flex mb-20`}
+        >
           지속적인
           <p className="font-bold ml-2">무농약 인증 신규 농가 발굴</p>
         </div>
@@ -568,16 +820,22 @@ const MainForm: React.FC = () => {
         {/* Point 9 */}
         <Chip text="Point 9" type="black" />
         <div className="mt-2">누구나 쉽게 쉽게!</div>
-        <div className="flex items-end leading-none mb-20 text-mainPoint">
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "text-m_mainPoint"
+              : "text-mainPoint"
+          } flex items-end leading-none mb-20`}
+        >
           <p className="text-[#FF331F] font-black leading-none mr-2">
             요리를 전혀 못해도
           </p>
           창업 가능
         </div>
-        <div className="text-[24px] font-normal flex">
+        <div className="text-m_mainPoint font-normal flex">
           예비 창업자들의 최대 고민? 창업 비용!
         </div>
-        <div className="text-[24px] font-normal flex mb-20">
+        <div className="text-m_mainPoint font-normal flex mb-20">
           SLB는 초기 창업 비용을 줄이기 위해
           <p className="font-bold ml-2">'인테리어 직거래 시스템' 도입</p>
         </div>
