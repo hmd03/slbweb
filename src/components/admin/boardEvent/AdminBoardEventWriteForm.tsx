@@ -12,6 +12,8 @@ import Editor from '../../ui/Editer/Editor';
 import RadioButtonGroup from '../../ui/radio/RadioButtonGroup';
 import FileInput from '../../ui/inputs/FileInput';
 import { formatDateYYYYMMDD } from '../../utils/dateUtils';
+import DatePicker from '../../ui/inputs/DatePicker';
+import dayjs from 'dayjs';
 
 const AdminBoardEventWriteForm: React.FC = () => {
     const [loading, setLoading] = useRecoilState(LoadingState);
@@ -34,6 +36,13 @@ const AdminBoardEventWriteForm: React.FC = () => {
     const [startDate, setStartDate] = useState<string>('');
     const [endDate, setEndDate] = useState<string>('');
 
+    const [startDateObj, setStartDateObj] = useState<dayjs.Dayjs | null>(
+        startDate ? dayjs(startDate) : null
+    );
+    const [endDateObj, setEndDateObj] = useState<dayjs.Dayjs | null>(
+        endDate ? dayjs(endDate) : null
+    );
+
     const options = [
         { id: 'option1', name: 'group1', value: '0', label: '종료' },
         { id: 'option2', name: 'group1', value: '1', label: '진행' },
@@ -48,20 +57,19 @@ const AdminBoardEventWriteForm: React.FC = () => {
         setEditorContent(content);
     };
 
-    const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newStartDate = e.target.value;
-        setStartDate(newStartDate);
-        if (endDate < newStartDate) {
-            setEndDate(newStartDate);
+    const handleCustomStartDateChange = (date: dayjs.Dayjs) => {
+        setStartDateObj(date);
+        setStartDate(date.format('YYYY-MM-DD'));
+        if (endDateObj && date.isAfter(endDateObj)) {
+            setEndDateObj(date);
+            setEndDate(date.format('YYYY-MM-DD'));
         }
     };
-
-    const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newEndDate = e.target.value;
-
-        if (newEndDate >= startDate) {
-            setEndDate(newEndDate);
-        }
+    
+    const handleCustomEndDateChange = (date: dayjs.Dayjs) => {
+        if (startDateObj && date.isBefore(startDateObj)) return;
+        setEndDateObj(date);
+        setEndDate(date.format('YYYY-MM-DD'));
     };
 
     useEffect(() => {
@@ -274,21 +282,11 @@ const AdminBoardEventWriteForm: React.FC = () => {
                         <tr>
                             <th className={thClassName}>이벤트 기간</th>
                             <td className={tdClassName}>
-                                <div className='flex gap-2'>
-                                    <InputField
-                                        type='date'
-                                        value={startDate}
-                                        onChange={handleStartDateChange}
-                                        className='border-[2px] p-1'
-                                    />
-                                    <span>~</span>
-                                    <InputField
-                                        type='date'
-                                        value={endDate}
-                                        onChange={handleEndDateChange}
-                                        className='border-[2px] p-1'
-                                    />
-                                </div>
+                            <div className='flex gap-2'>
+                                <DatePicker value={startDateObj} onChange={handleCustomStartDateChange} />
+                            <span>~</span>
+                                <DatePicker value={endDateObj} onChange={handleCustomEndDateChange} />
+                            </div>
                             </td>
                         </tr>
                         <tr>
