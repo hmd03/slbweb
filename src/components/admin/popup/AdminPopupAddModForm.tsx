@@ -6,12 +6,13 @@ import axios from 'axios';
 import Button from '../../ui/buttons/Button';
 import InputField from '../../ui/inputs/InputField';
 import FileInput from '../../ui/inputs/FileInput';
-import RadioButtonGroup from '../../ui/radio/RadioButtonGroup';
 import AlterModal from '../../ui/alters/AlterModal';
 import { useRecoilState } from 'recoil';
 import { LoadingState } from '../../../store/atom';
 import Dropdown from '../../ui/dropdown/Dropdown';
 import { formatDateYYYYMMDD } from '../../utils/dateUtils';
+import DatePicker from '../../ui/inputs/DatePicker';
+import dayjs from 'dayjs';
 
 const AdminPopupAddModForm: React.FC = () => {
     const navigate = useNavigate();
@@ -38,6 +39,13 @@ const AdminPopupAddModForm: React.FC = () => {
 
     const [startDate, setStartDate] = useState<string>('');
     const [endDate, setEndDate] = useState<string>('');
+
+    const [startDateObj, setStartDateObj] = useState<dayjs.Dayjs | null>(
+        startDate ? dayjs(startDate) : null
+    );
+    const [endDateObj, setEndDateObj] = useState<dayjs.Dayjs | null>(
+        endDate ? dayjs(endDate) : null
+    );
 
     const [selectedOption, setSelectedOption] = useState('사용');
 
@@ -68,20 +76,19 @@ const AdminPopupAddModForm: React.FC = () => {
         }
     };
 
-    const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newStartDate = e.target.value;
-        setStartDate(newStartDate);
-        if (endDate < newStartDate) {
-            setEndDate(newStartDate);
+    const handleCustomStartDateChange = (date: dayjs.Dayjs) => {
+        setStartDateObj(date);
+        setStartDate(date.format('YYYY-MM-DD'));
+        if (endDateObj && date.isAfter(endDateObj)) {
+            setEndDateObj(date);
+            setEndDate(date.format('YYYY-MM-DD'));
         }
     };
-
-    const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newEndDate = e.target.value;
-
-        if (newEndDate >= startDate) {
-            setEndDate(newEndDate);
-        }
+    
+    const handleCustomEndDateChange = (date: dayjs.Dayjs) => {
+        if (startDateObj && date.isBefore(startDateObj)) return;
+        setEndDateObj(date);
+        setEndDate(date.format('YYYY-MM-DD'));
     };
 
     useEffect(() => {
@@ -400,23 +407,13 @@ const AdminPopupAddModForm: React.FC = () => {
                         <tr>
                             <th className={thClassName}>팝업 시작일</th>
                             <td className={tdClassName}>
-                                <InputField
-                                    type='date'
-                                    value={startDate}
-                                    onChange={handleStartDateChange}
-                                    className='border-[2px] p-1 w-full'
-                                />
+                                <DatePicker value={startDateObj} onChange={handleCustomStartDateChange} />
                             </td>
                         </tr>
                         <tr>
                             <th className={thClassName}>팝업 종료일</th>
                             <td className={tdClassName}>
-                                <InputField
-                                    type='date'
-                                    value={endDate}
-                                    onChange={handleEndDateChange}
-                                    className='border-[2px] p-1 w-full'
-                                />
+                                <DatePicker value={endDateObj} onChange={handleCustomEndDateChange} />
                             </td>
                         </tr>
                         <tr>
