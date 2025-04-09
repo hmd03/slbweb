@@ -14,6 +14,7 @@
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.4.0",
     "date-fns": "^4.1.0",
+    "dayjs": "^1.11.13",
     "framer-motion": "^10.12.18",
     "http-proxy-middleware": "^2.0.6",
     "js-cookie": "^3.0.5",
