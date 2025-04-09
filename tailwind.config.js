@@ -37,7 +37,7 @@ module.exports = {
           'SUIT-ExtraBold', 'SUIT-Light', 'SUIT-ExtraLight', 'SUIT-Thin', 
           'SUIT-Heavy', 'sans-serif'
         ],
-        cursive: ['Blacksword', 'cursive'],
+        cursive: ['cursive', 'Blacksword'],
       },
     },
   },
