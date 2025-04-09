@@ -39,7 +39,7 @@ const QuickBar: React.FC = () => {
       className={`fixed right-4 z-50 transition-all duration-300 ease-in-out flex flex-col items-center `}
       style={{ bottom: `${bottomOffset}px` }}
     >
-      {!deviceInfo.isSmallScreen || deviceInfo.isMobile && (
+      {!deviceInfo.isSmallScreen || !deviceInfo.isMobile && (
         <div className="overflow-hidden flex flex-col items-center shadow-md border border-black rounded-[40px]">
           <div className="bg-white px-4 pt-4 pb-2 text-center">
             <p className="text-[1rem] font-bold leading-tight">
