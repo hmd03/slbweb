@@ -33,18 +33,18 @@ const DatePicker: React.FC<DatePickerProps> = ({ value, onChange }) => {
   }, []);
 
   return (
-    <div className="relative w-64" ref={calendarRef}>
+    <div className="relative w-full" ref={calendarRef}>
       <input
         type="text"
         readOnly
         value={value ? value.format('YYYY-MM-DD') : ''}
         onClick={() => setShowCalendar(!showCalendar)}
-        className="w-full px-4 py-2 border rounded-lg cursor-pointer"
+        className="rounded body1 border-Black bg-White focus:outline-none px-2 py-1 w-full border-[2px]"
         placeholder="날짜 선택"
       />
 
       {showCalendar && (
-        <div className="absolute top-12 z-10 w-full bg-white border rounded-lg shadow p-4">
+        <div className="absolute top-12 z-10 w-64 bg-white border rounded-lg shadow p-4">
           <div className="flex justify-between items-center mb-2">
             <button onClick={() => setCurrentMonth(currentMonth.subtract(1, 'month'))}>
               <ChevronLeft className="w-5 h-5" />
