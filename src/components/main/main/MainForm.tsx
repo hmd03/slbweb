@@ -103,9 +103,9 @@ const MainForm: React.FC = () => {
       <div
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? "w-full text-m_mainContent"
-            : "w-[1300px] text-mainContent"
-        } flex flex-col items-center  pt-40 font-semibold`}
+            ? "w-full text-m_mainContent pt-20"
+            : "w-[1300px] text-mainContent pt-40"
+        } flex flex-col items-center font-semibold`}
       >
         <Chip text="Point 1" type="black" />
         <div className="mt-2">샐러드 & 포케 창업 지금이 적기,</div>
@@ -121,22 +121,38 @@ const MainForm: React.FC = () => {
           </p>
           하세요!
         </div>
-        <img
+        {deviceInfo.isSmallScreen || deviceInfo.isMobile 
+        ?<div className="flex flex-col w-full h-full items-center">
+          {/* 모바일 통합 이미지 추출 해야함 */}
+          <img
+            loading="lazy"
+            className="mb-20 px-10 transition-opacity duration-500 opacity-0"
+            onLoad={(e) => e.currentTarget.classList.add("opacity-100")}
+            alt="대한민국 국민 신체·정신 건강 우려도 1.8배 증가"
+            src={`${process.env.PUBLIC_URL}/main/point_1_salad.webp`}
+          ></img>
+        </div> 
+        :<img
           loading="lazy"
           className="mb-40 transition-opacity duration-500 opacity-0"
           onLoad={(e) => e.currentTarget.classList.add("opacity-100")}
           alt="대한민국 국민 신체·정신 건강 우려도 1.8배 증가"
           src={`${process.env.PUBLIC_URL}/main/point_1_img.webp`}
         ></img>
+        }
         <DividerWithLabel label="Q. 식사 메뉴를 정할 때 고객은?" />
-        <div className="flex items-center leading-none text-title mt-8">
+        <div className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-sub"
+                : "text-title"
+            } flex items-center leading-none  mt-8`}>
           <p
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? "text-m_mainPoint"
-                : "text-mainPoint"
+                ? "text-m_mainPoint pb-2 px-2"
+                : "text-mainPoint px-4 pt-2 pb-5"
             } 
-            px-4 pt-2 pb-5 text-center text-[#FF331F] font-black leading-none bg-no-repeat bg-bottom`}
+             text-center text-[#FF331F] font-black leading-none bg-no-repeat bg-bottom`}
             style={{
               backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_1_line.webp)`,
               backgroundSize: "contain",
@@ -147,14 +163,18 @@ const MainForm: React.FC = () => {
           </p>
           다음은
         </div>
-        <div className="flex items-center leading-none text-title mb-20 mt-5 font-bold">
+        <div className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-sub mb-4"
+                : "text-title mb-20"
+            } flex items-center leading-none mt-5 font-bold`}>
           가격이 아닌
           <p
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? "text-m_mainPoint"
-                : "text-mainPoint"
-            } px-4 pt-2 pb-5 text-center text-[#FF331F] font-black leading-none bg-no-repeat bg-center`}
+                ? "text-m_mainPoint pb-3 pt-2 px-4"
+                : "text-mainPoint px-4 pt-2 pb-5"
+            } text-center text-[#FF331F] font-black leading-none bg-no-repeat bg-center`}
             style={{
               backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_1_circle.webp)`,
               backgroundSize: "contain",
@@ -172,13 +192,26 @@ const MainForm: React.FC = () => {
               : "text-m_mainPoint"
           } font-normal flex`}
         >
-          고객들의 외식 선택 요소의 변화로 '샐러드&포케' 시장{" "}
+          고객들의 외식 선택 요소의 변화로
+        </div>
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "text-detail"
+              : "text-m_mainPoint"
+          } font-normal flex`}
+        >
+          '샐러드&포케' 시장
           <p className="font-bold ml-2">지속 성장 중!</p>
         </div>
       </div>
       {/* Point 2 */}
       <div
-        className="mt-40 bg-no-repeat bg-center w-full flex flex-col items-center"
+        className={`${
+          deviceInfo.isSmallScreen || deviceInfo.isMobile
+            ? "mt-10"
+            : "mt-40"
+        }  bg-no-repeat bg-center w-full flex flex-col items-center`}
         style={{
           backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_2_background.webp)`,
           backgroundSize: "cover",
@@ -187,13 +220,13 @@ const MainForm: React.FC = () => {
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? "w-full"
-              : "w-[1300px]"
-          } flex flex-col items-center h-full pt-20 text-main font-semibold`}
+              ? "w-full  pt-10 text-m_mainContent"
+              : "w-[1300px]  pt-20 text-main"
+          } flex flex-col items-center h-full font-semibold`}
         >
           <Chip text="Point 2" type="white" />
-          <div className="text-[#FDF8EA] font-black leading-none my-4">
-            어떤 상권에도 매출 걱정 없는 SLB
+          <div className="flex items-end text-[#FDF8EA] font-black leading-none my-4">
+            어떤 상권에도 <p className={`${deviceInfo.isSmallScreen || deviceInfo.isMobile? 'ml-2 text-[28px]':''}`}>매출 걱정 없는 SLB</p>
           </div>
           <div
             className={`${
@@ -204,44 +237,79 @@ const MainForm: React.FC = () => {
           >
             매력적인 브랜드는 고객이 찾아오게 만든다!
           </div>
-          <div
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? "w-full"
-                : "w-[1000px]"
-            } mt-20 w-[1000px] mx-auto flex justify-around`}
-          >
-            <div className="w-[31%]">
-              <img
-                loading="lazy"
-                className="w-full rounded-t transition-opacity duration-500 opacity-0"
-                onLoad={(e) => e.currentTarget.classList.add("opacity-100")}
-                alt="평균매출 7,350만원 9천4백 최고매출"
-                src={`${process.env.PUBLIC_URL}/main/point_2_store_1.webp`}
-              />
-            </div>
-            <div className="w-[31%]">
-              <img
-                loading="lazy"
-                className="w-full rounded-t transition-opacity duration-500 opacity-0"
-                onLoad={(e) => e.currentTarget.classList.add("opacity-100")}
-                alt="평균매출 4,700만원 8천9백 최고매출"
-                src={`${process.env.PUBLIC_URL}/main/point_2_store_2.webp`}
-              />
-            </div>
-            <div className="w-[31%]">
-              <img
-                loading="lazy"
-                className="w-full rounded-t transition-opacity duration-500 opacity-0"
-                onLoad={(e) => e.currentTarget.classList.add("opacity-100")}
-                alt="평균매출 7,960만원 7천9백 최고매출"
-                src={`${process.env.PUBLIC_URL}/main/point_2_store_3.webp`}
-              />
-            </div>
+          { deviceInfo.isSmallScreen || deviceInfo.isMobile
+          ?<div
+          className={`w-full mt-20 mb-10 flex flex-col justify-around items-center`}
+        >
+          <div className="">
+            <img
+              loading="lazy"
+              className="w-full rounded-t transition-opacity duration-500 opacity-0"
+              onLoad={(e) => e.currentTarget.classList.add("opacity-100")}
+              alt="평균매출 7,350만원 9천4백 최고매출"
+              src={`${process.env.PUBLIC_URL}/main/point_2_store_1.webp`}
+            />
           </div>
-          <button className="rounded-[4rem] bg-Point text-White text-title font-normal border border-black px-4 mt-10 mb-[8rem]">
-            SLB 수익률 확인하기
-          </button>
+          <div className="">
+            <img
+              loading="lazy"
+              className="w-full rounded-t transition-opacity duration-500 opacity-0"
+              onLoad={(e) => e.currentTarget.classList.add("opacity-100")}
+              alt="평균매출 4,700만원 8천9백 최고매출"
+              src={`${process.env.PUBLIC_URL}/main/point_2_store_2.webp`}
+            />
+          </div>
+          <div className="">
+            <img
+              loading="lazy"
+              className="w-full rounded-t transition-opacity duration-500 opacity-0"
+              onLoad={(e) => e.currentTarget.classList.add("opacity-100")}
+              alt="평균매출 7,960만원 7천9백 최고매출"
+              src={`${process.env.PUBLIC_URL}/main/point_2_store_3.webp`}
+            />
+          </div>
+        </div>
+          :<div
+          className={`w-[1000px] mt-20 mx-auto flex justify-around`}
+        >
+          <div className="w-[31%]">
+            <img
+              loading="lazy"
+              className="w-full rounded-t transition-opacity duration-500 opacity-0"
+              onLoad={(e) => e.currentTarget.classList.add("opacity-100")}
+              alt="평균매출 7,350만원 9천4백 최고매출"
+              src={`${process.env.PUBLIC_URL}/main/point_2_store_1.webp`}
+            />
+          </div>
+          <div className="w-[31%]">
+            <img
+              loading="lazy"
+              className="w-full rounded-t transition-opacity duration-500 opacity-0"
+              onLoad={(e) => e.currentTarget.classList.add("opacity-100")}
+              alt="평균매출 4,700만원 8천9백 최고매출"
+              src={`${process.env.PUBLIC_URL}/main/point_2_store_2.webp`}
+            />
+          </div>
+          <div className="w-[31%]">
+            <img
+              loading="lazy"
+              className="w-full rounded-t transition-opacity duration-500 opacity-0"
+              onLoad={(e) => e.currentTarget.classList.add("opacity-100")}
+              alt="평균매출 7,960만원 7천9백 최고매출"
+              src={`${process.env.PUBLIC_URL}/main/point_2_store_3.webp`}
+            />
+          </div>
+        </div>
+          }
+          { deviceInfo.isSmallScreen || deviceInfo.isMobile ? <></>
+          :<button className={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? "text-sub"
+                  : "text-title"
+              } rounded-[4rem] bg-Point text-White font-normal border border-black px-4 mt-10 mb-[8rem]`}>
+              SLB 수익률 확인하기
+            </button>
+          }
         </div>
       </div>
       {/* Point 3 */}
@@ -313,10 +381,18 @@ const MainForm: React.FC = () => {
               : "w-[1300px] text-mainContent"
           } flex flex-col items-center pt-20 pb-10 font-semibold`}
         >
-          <div className="flex items-center leading-none text-title mb-3">
+          <div className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-sub"
+                : "text-title"
+            } flex items-center leading-none mb-3`}>
             블루오션, 샐러드 & 포케 시장에서 남다른 고집으로
           </div>
-          <div className="flex items-center leading-none text-title">
+          <div className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-sub"
+                : "text-title"
+            } flex items-center leading-none `}>
             <p className="font-bold">특별한 브랜드</p>, 직원도 점주가 되는
             <p className="font-bold">힙한 브랜드</p>
           </div>
@@ -352,10 +428,18 @@ const MainForm: React.FC = () => {
           더 맛있는 경험
         </div>
 
-        <div className="text-title font-normal flex">
+        <div className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-sub"
+                : "text-title"
+            } font-normal flex`}>
           더 나은 음식 '맛'을 내기위해해
         </div>
-        <div className="text-title font-normal flex">
+        <div className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-sub"
+                : "text-title"
+            } font-normal flex`}>
           식재료 선택부터 진심을 담다!
         </div>
 
@@ -380,10 +464,18 @@ const MainForm: React.FC = () => {
           </p>
         </div>
 
-        <div className="text-title font-normal flex">
+        <div className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-sub"
+                : "text-title"
+            } font-normal flex`}>
           고객이 더 맛있는 경험을 할 수 있도록
         </div>
-        <div className="text-title font-normal flex">
+        <div className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-sub"
+                : "text-title"
+            } font-normal flex`}>
           한식의 익숙함을 담아 특별한 샐러드&포케를 완성했습니다
         </div>
         <img
@@ -439,13 +531,25 @@ const MainForm: React.FC = () => {
             }`}
           />
 
-          <div className="flex items-center leading-none text-title font-normal mb-3">
+          <div className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-sub"
+                : "text-title"
+            } flex items-center leading-none font-normal mb-3`}>
             현재에 안주하지 않고 한식의 익숙함에
           </div>
-          <div className="flex items-center leading-none text-title font-normal mb-3">
+          <div className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-sub"
+                : "text-title"
+            } flex items-center leading-none font-normal mb-3`}>
             샐러드&포케의 새로움을 더하기 위해 지금 이 순간에도도
           </div>
-          <div className="flex items-center leading-none text-title font-normal mb-[10rem]">
+          <div className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-sub"
+                : "text-title"
+            } flex items-center leading-none font-normal mb-[10rem]`}>
             SLB R&D부서 전문가들은 연구에 연구를 거듭하고 있습니다
           </div>
         </div>
@@ -482,7 +586,11 @@ const MainForm: React.FC = () => {
         </div>
       </div>
       <div
-        className="bg-no-repeat bg-center bg-cover flex flex-col items-center w-full text-title font-semibold aspect-[15/10] py-40 px-40 mb-40"
+        className={`${
+          deviceInfo.isSmallScreen || deviceInfo.isMobile
+            ? "text-sub"
+            : "text-title"
+        } bg-no-repeat bg-center bg-cover flex flex-col items-center w-full font-semibold aspect-[15/10] py-40 px-40 mb-40`}
         style={{
           backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_4_background.webp)`,
         }}
@@ -540,7 +648,11 @@ const MainForm: React.FC = () => {
         </div>
       </div>
       <DividerWithLabel label="Q. 상권선점을 위해서는?" />
-      <div className="flex flex-col items-center leading-none text-title mt-8 mb-40 font-black">
+      <div className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? "text-sub"
+                : "text-title"
+            } flex flex-col items-center leading-none mt-8 mb-40 font-black`}>
         <div className="mt-2 text-[18px] mb-2">
           좋은 상권은 기다려주지 않습니다. 놓치지 마세요!
         </div>
