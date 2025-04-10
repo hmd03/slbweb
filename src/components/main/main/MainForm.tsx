@@ -218,7 +218,7 @@ const MainForm: React.FC = () => {
         style={{
           backgroundImage: `url(${
             process.env.PUBLIC_URL
-          }/main/point_2${"_mo"}_background.webp)`,
+          }/main/point_2${ deviceInfo.isSmallScreen || deviceInfo.isMobile?"_mo":''}_background.webp)`,
           backgroundSize: "cover",
         }}
       >
@@ -1247,10 +1247,10 @@ const MainForm: React.FC = () => {
                 유지 또는 낮추기 위해
               </p>
               <p className="flex items-end">
-                <p className="text-[#FF331F] font-black leading-none">
+                <span className="text-[#FF331F] font-black leading-none">
                   SLB는 노력
-                </p>
-                <p className="leading-none text-main">합니다!</p>
+                </span>
+                <span className="leading-none text-main">합니다!</span>
               </p>
             </div>
           ) : (

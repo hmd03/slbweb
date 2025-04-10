@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { useRecoilValue } from "recoil";
 import { siteSettingState } from "../../store/atom";
 
