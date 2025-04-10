@@ -105,24 +105,27 @@ const RollingCard: React.FC<RollingCardProps> = ({ images }) => {
           </div>
         ))}
       </div>
+      <button
+        onClick={prevSlide}
+        className={`${
+          deviceInfo.isSmallScreen || deviceInfo.isMobile
+            ? "-left-4 "
+            : "-left-12 "
+        } absolute top-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white rounded-full z-10`}
+      >
+        <ChevronLeft />
+      </button>
 
-      {deviceInfo.isSmallScreen || deviceInfo.isMobile || (
-        <>
-          <button
-            onClick={prevSlide}
-            className="absolute -left-12 top-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white rounded-full z-10"
-          >
-            <ChevronLeft />
-          </button>
-
-          <button
-            onClick={nextSlide}
-            className="absolute -right-12 top-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white rounded-full z-10"
-          >
-            <ChevronRight />
-          </button>
-        </>
-      )}
+      <button
+        onClick={nextSlide}
+        className={`${
+          deviceInfo.isSmallScreen || deviceInfo.isMobile
+            ? "-right-4 "
+            : "-right-12 "
+        } absolute top-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white rounded-full z-10`}
+      >
+        <ChevronRight />
+      </button>
     </div>
   );
 };

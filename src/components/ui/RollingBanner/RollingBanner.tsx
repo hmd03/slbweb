@@ -58,17 +58,17 @@ const RollingBanner: React.FC<RollingBannerProps> = ({ items }) => {
 
   return (
     <div
-      className={`relative w-full overflow-hidden ${
-        deviceInfo.isSmallScreen || deviceInfo.isMobile ? "aspect-[1/1]" : ""
-      }`}
+      className={`relative w-full overflow-hidden`}
       style={{ height: `${bannerHeight}px` }}
     >
       {items.map((item, index) => (
         <div
           key={index}
           className={`absolute inset-0 transition-opacity duration-500 ${
-            index === currentIndex ? "opacity-100" : "opacity-0"
-          }`}
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? "aspect-[1/1]"
+              : ""
+          } ${index === currentIndex ? "opacity-100" : "opacity-0"}`}
         >
           {item.fileType === "video" ? (
             <video
@@ -96,7 +96,11 @@ const RollingBanner: React.FC<RollingBannerProps> = ({ items }) => {
           <div
             key={index}
             onClick={() => handleDotClick(index)}
-            className={`w-3 h-3 rounded-full border border-[#231F20] cursor-pointer 
+            className={`${
+              deviceInfo.isMobile || deviceInfo.isSmallScreen
+                ? "w-1 h-1"
+                : "w-3 h-3 border border-[#231F20]"
+            } rounded-full cursor-pointer 
               ${index === currentIndex ? "bg-Point" : "bg-white"}`}
           />
         ))}

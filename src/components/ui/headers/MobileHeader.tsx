@@ -116,7 +116,7 @@ const MobileHeader = ({ children, ...props }: Props) => {
         <div className="fixed top-0 left-0 w-full h-full z-50 bg-black bg-opacity-10">
           <div
             ref={menuRef}
-            className="absolute top-0 left-0 w-[40%] h-full bg-black bg-opacity-80 z-50 flex flex-col justify-between"
+            className="absolute top-0 left-0 w-[80%] h-full bg-black bg-opacity-80 z-50 flex flex-col justify-between"
           >
             <div className="text-white overflow-y-auto mt-2">
               <ul className="flex flex-col divide-y divide-gray-700">

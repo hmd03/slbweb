@@ -1,4 +1,5 @@
 import React from "react";
+import useDeviceInfo from "../../../hooks/useDeviceInfo";
 
 interface ChipProps {
   text: string;
@@ -6,8 +7,17 @@ interface ChipProps {
 }
 
 const Chip: React.FC<ChipProps> = ({ text, type = 'black' }) => {
+  const deviceInfo = useDeviceInfo();
   return (
-    <div className={`inline-block text-main font-bold px-4 rounded-tr-[1rem] rounded-bl-[1rem] w-fit ${type === 'black' ? 'bg-Black text-White ' : 'bg-White text-Black'} `}>
+    <div
+      className={`${
+        deviceInfo.isMobile || deviceInfo.isSmallScreen
+          ? "text-detail rounded-tr-[0.75rem] rounded-bl-[0.75rem] px-3"
+          : "text-main rounded-tr-[1rem] rounded-bl-[1rem] px-4 "
+      } inline-block font-black w-fit ${
+        type === "black" ? "bg-Black text-White " : "bg-White text-Black"
+      } `}
+    >
       {text}
     </div>
   );
