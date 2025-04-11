@@ -58,14 +58,18 @@ const AdminBannerForm: React.FC = () => {
             const updatedBannerList = await Promise.all(
                 bannerList.map(
                     async (banner: {
-                        media: { id: string; fileType: string };
+                        media: { id: string; fileType: string;};
                     }) => {
                         if (banner.media == null) {
                           return banner;
                         }
                         const fileType = banner.media.fileType.split('/')[0];
-                        console.log(fileType);
-                        const imgSrc = await getFile(banner.media.id);
+                        
+                        let imgSrc = '';
+                        if (fileType == 'image') {
+                            imgSrc = await getFile(banner.media.id);
+                        }
+                        
                         return {
                             ...banner,
                             fileType: fileType,

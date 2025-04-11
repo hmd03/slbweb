@@ -40,13 +40,19 @@ const MainForm: React.FC = () => {
           async (banner: {
             duration: number;
             link: string;
-            media: { id: string; fileType: string };
+            media: { id: string; fileType: string; filePath: string; };
           }) => {
             if (banner.media == null) {
               return banner;
             }
             const fileType = banner.media.fileType.split("/")[0];
-            const fileSrc = await getFile(banner.media.id);
+
+            let fileSrc = '';
+            if (fileType == ' image') {
+              fileSrc = await getFile(banner.media.id);
+            } else {
+              fileSrc = banner.media.filePath;
+            }
 
             return {
               link: banner.link,
