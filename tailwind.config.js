@@ -30,17 +30,9 @@ module.exports = {
         diagram: '14px',
       },
       fontFamily: {
-        scdream: [
-          'SCDream1', 'SCDream2', 'SCDream3', 'SCDream4', 
-          'SCDream5', 'SCDream6', 'SCDream7', 'SCDream8', 'SCDream9',
-          'sans-serif'
-        ],
-        suit: [
-          'SUIT-Regular', 'SUIT-Medium', 'SUIT-SemiBold', 'SUIT-Bold', 
-          'SUIT-ExtraBold', 'SUIT-Light', 'SUIT-ExtraLight', 'SUIT-Thin', 
-          'SUIT-Heavy', 'sans-serif'
-        ],
-        cursive: ['cursive', 'Blacksword'],
+        suit: ['SUIT', 'sans-serif'],
+        scdream: ['SCDream', 'sans-serif'],
+        cursive: ['Blacksword', 'cursive'],
       },
       keyframes: {
         "slide-left": {
