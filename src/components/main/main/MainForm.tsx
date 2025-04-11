@@ -48,7 +48,7 @@ const MainForm: React.FC = () => {
             const fileType = banner.media.fileType.split("/")[0];
 
             let fileSrc = '';
-            if (fileType == ' image') {
+            if (fileType == 'image') {
               fileSrc = await getFile(banner.media.id);
             } else {
               fileSrc = banner.media.filePath;

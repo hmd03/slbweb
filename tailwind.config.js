@@ -21,6 +21,7 @@ module.exports = {
         subContent: '40px',
         mainPoint: '64px',
         title: '32px',
+        m_title: '32px',
         m_mainContent: '22px',
         m_mainPoint: '24px',
         main: '20px',
