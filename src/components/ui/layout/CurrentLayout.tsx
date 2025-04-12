@@ -1,10 +1,11 @@
 import React, { ReactNode, HTMLAttributes } from 'react';
 import useDeviceInfo from '../../../hooks/useDeviceInfo';
 import Header from '../headers/Header';
-import Footer from '../footer/Footer';
 import MobileHeader from '../headers/MobileHeader';
 import QuickBar from '../QuickBar/QuickBar';
 import SeoHelmet from '../../common/SeoHelmet';
+import InqueryFooter from '../footer/InqueryFooter';
+import CompanyFooter from '../footer/CompanyFooter';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -23,7 +24,8 @@ const CurrentLayout = ({ children, ...props }: Props) => {
         <Header>{children}</Header>
       )}
       <QuickBar />
-      <Footer />
+      <InqueryFooter />
+      <CompanyFooter />
     </div>
   );
 };
