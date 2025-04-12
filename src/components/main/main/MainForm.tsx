@@ -107,7 +107,7 @@ const MainForm: React.FC = () => {
         <RollingBanner items={bannerList} />
       </div>
       {/* Point 1 */}
-      <div
+      <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'w-full text-m_mainContent pt-20'
@@ -210,9 +210,9 @@ const MainForm: React.FC = () => {
           고객들의 외식 선택 요소의 변화로 '샐러드&포케' 시장
           <p className='font-medium ml-2'>지속 성장 중!</p>
         </div>
-      </div>
+      </section>
       {/* Point 2 */}
-      <div
+      <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'mt-10' : 'mt-40'
         }  bg-no-repeat bg-center w-full flex flex-col items-center`}
@@ -326,9 +326,9 @@ const MainForm: React.FC = () => {
             </button>
           )}
         </div>
-      </div>
+      </section>
       {/* Point 3 */}
-      <div
+      <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'text-m_mainContent'
@@ -394,8 +394,8 @@ const MainForm: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div
+      </section>
+      <section
         className='bg-no-repeat bg-center bg-cover w-full'
         style={{
           backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_3_background_1.webp)`,
@@ -447,8 +447,8 @@ const MainForm: React.FC = () => {
             onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
           />
         </div>
-      </div>
-      <div
+      </section>
+      <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'text-m_mainContent'
@@ -493,8 +493,8 @@ const MainForm: React.FC = () => {
           } transition-opacity duration-500 opacity-0`}
           onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
         />
-      </div>
-      <div
+      </section>
+      <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'text-m_mainPoint'
@@ -586,8 +586,8 @@ const MainForm: React.FC = () => {
           } w-[60%] transition-opacity duration-500 opacity-0  aspect-[14/10]`}
           onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
         />
-      </div>
-      <div
+      </section>
+      <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'text-m_mainContent'
@@ -681,9 +681,9 @@ const MainForm: React.FC = () => {
             하고 있습니다
           </div>
         </div>
-      </div>
+      </section>
       {/* Point 4 */}
-      <div
+      <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'w-full text-m_mainContent pt-20'
@@ -718,8 +718,8 @@ const MainForm: React.FC = () => {
             SLB 인테리어
           </p>
         </div>
-      </div>
-      <div
+      </section>
+      <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'w-full px-8'
@@ -873,9 +873,9 @@ const MainForm: React.FC = () => {
             </>
           )}
         </div>
-      </div>
+      </section>
       <DividerWithLabel label='Q. 상권선점을 위해서는?' />
-      <div
+      <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'text-sub mb-20'
@@ -905,9 +905,9 @@ const MainForm: React.FC = () => {
         >
           SLB를 선점할 수 있는 기회
         </p>
-      </div>
+      </section>
       {/* Point 5 6 */}
-      <div
+      <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'text-m_mainContent'
@@ -1163,9 +1163,9 @@ const MainForm: React.FC = () => {
             )}
           </div>
         </div>
-      </div>
+      </section>
       {/* Point 7 */}
-      <div
+      <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'w-full text-main pt-16'
@@ -1347,7 +1347,7 @@ const MainForm: React.FC = () => {
             deviceInfo.isMobile || deviceInfo.isSmallScreen ? '_mo' : ''
           }.webp`}
         ></img>
-      </div>
+      </section>
     </div>
   );
 };
