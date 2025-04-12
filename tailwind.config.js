@@ -17,6 +17,10 @@ module.exports = {
         Storke: '#58595b',
       },
       fontSize: {
+        slbPoint: '42px',
+        slbTitle: '36px',
+        slbSubTitle: '30px',
+        slbContent: '24px',
         mainContent: '52px',
         subContent: '40px',
         mainPoint: '64px',
@@ -36,34 +40,28 @@ module.exports = {
         cursive: ['Blacksword', 'cursive'],
       },
       keyframes: {
-        "slide-left": {
-          "0%": { transform: "translateX(100%)" },
-          "100%": { transform: "translateX(0%)" },
+        'slide-left': {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0%)' },
         },
-        "slide-right": {
-          "0%": { transform: "translateX(-100%)" },
-          "100%": { transform: "translateX(0%)" },
+        'slide-right': {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(0%)' },
         },
       },
       animation: {
-        "slide-left": "slide-left 0.5s ease-in-out",
-        "slide-right": "slide-right 0.5s ease-in-out",
+        'slide-left': 'slide-left 0.5s ease-in-out',
+        'slide-right': 'slide-right 0.5s ease-in-out',
       },
     },
   },
   plugins: [
     ({ addUtilities }) => {
       addUtilities({
-        '.headline1': { '@apply font-semibold text-2xl leading-8': '' },
-        '.headline2': { '@apply font-semibold text-xl leading-6': '' },
-        '.headline3': { '@apply font-semibold text-lg leading-6': '' },
-        '.headline4': { '@apply font-semibold text-base leading-5': '' },
-        '.body1': { '@apply font-normal text-base leading-6': '' },
-        '.body2': { '@apply font-normal text-sm leading-5': '' },
-        '.body3': { '@apply font-normal text-xs leading-4': '' },
-        '.normal': { '@apply font-medium text-lg leading-6': '' },
-        '.medium': { '@apply font-medium text-base leading-5': '' },
-        '.small': { '@apply font-medium text-sm leading-4': '' },
+        '.Slb-Point': { '@apply font-extrabold text-slbPoint': '' },
+        '.Slb-Title': { '@apply font-bold text-slbTitle': '' },
+        '.Slb-SubTitle': { '@apply font-semibold text-slbSubTitle': '' },
+        '.Slb-Content': { '@apply font-normal text-slbContent': '' },
       });
     },
     ({ addComponents }) => {
