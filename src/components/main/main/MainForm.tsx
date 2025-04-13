@@ -110,7 +110,7 @@ const MainForm: React.FC = () => {
       <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'w-full text-m_mainContent pt-20'
+            ? 'w-full Slb-Title-mo pt-20'
             : 'w-[1300px] Slb-Title pt-40'
         } flex flex-col items-center`}
       >
@@ -124,7 +124,7 @@ const MainForm: React.FC = () => {
           <p
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'text-[28px]'
+                ? 'Slb-Point-mo'
                 : 'Slb-Point'
             } text-[#FF331F] leading-none`}
           >
@@ -155,14 +155,14 @@ const MainForm: React.FC = () => {
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-sub'
-              : 'text-slbTitle'
+              ? 'Slb-Title-mo'
+              : 'Slb-Title'
           } flex items-center leading-none  mt-8`}
         >
           <p
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'text-m_mainPoint pb-2 px-2'
+                ? 'Slb-Point-mo pb-2 px-2'
                 : 'Slb-Point px-4 pt-2 pb-2'
             } 
              text-center text-[#FF331F] leading-none bg-no-repeat bg-bottom`}
@@ -179,7 +179,7 @@ const MainForm: React.FC = () => {
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-sub mb-4 mt-2'
+              ? 'Slb-Title-mo mb-4 mt-2'
               : 'Slb-Title mb-20 mt-5'
           } flex items-center leading-none`}
         >
@@ -187,7 +187,7 @@ const MainForm: React.FC = () => {
           <p
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'text-m_mainPoint pb-3 pt-2 px-4'
+                ? 'Slb-Point-mo pb-3 pt-2 px-4'
                 : 'Slb-Point px-4 pt-4 pb-4'
             } text-center text-[#FF331F] leading-none bg-no-repeat bg-center`}
             style={{
@@ -203,12 +203,21 @@ const MainForm: React.FC = () => {
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-detail'
+              ? 'Slb-Content-mo'
               : 'Slb-Content'
           } flex`}
         >
-          고객들의 외식 선택 요소의 변화로 '샐러드&포케' 시장
-          <p className='font-medium ml-2'>지속 성장 중!</p>
+          고객들의 외식 선택 요소의 변화로
+        </div>
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? 'Slb-Content-mo'
+              : 'Slb-Content'
+          } flex`}
+        >
+          '샐러드&포케' 시장
+          <p className='font-medium ml-1'>지속 성장 중!</p>
         </div>
       </section>
       {/* Point 2 */}
@@ -1091,8 +1100,13 @@ const MainForm: React.FC = () => {
             >
               <div className=''>
                 <img
+                  // mo 13/10 pc 11/10
                   loading='lazy'
-                  className='w-full rounded-t transition-opacity duration-500 opacity-0 aspect-[11/10]'
+                  className={`${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                      ? 'aspect-[13/10]'
+                      : 'aspect-[11/10]'
+                  }w-full rounded-t transition-opacity duration-500 opacity-0 `}
                   style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
                   onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
                   alt='가맹점 QSC 관리리'
@@ -1104,7 +1118,11 @@ const MainForm: React.FC = () => {
               <div className=''>
                 <img
                   loading='lazy'
-                  className='w-full rounded-t transition-opacity duration-500 opacity-0 aspect-[11/10]'
+                  className={`${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                      ? 'aspect-[13/10]'
+                      : 'aspect-[11/10]'
+                  }w-full rounded-t transition-opacity duration-500 opacity-0 `}
                   style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
                   onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
                   alt='매출&수익 관리리'
@@ -1124,7 +1142,11 @@ const MainForm: React.FC = () => {
               <div className=''>
                 <img
                   loading='lazy'
-                  className='w-full rounded-t transition-opacity duration-500 opacity-0 aspect-[11/10]'
+                  className={`${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                      ? 'aspect-[13/10]'
+                      : 'aspect-[11/10]'
+                  }w-full rounded-t transition-opacity duration-500 opacity-0 `}
                   style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
                   onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
                   alt='매출향상 LSM 지원원'
@@ -1136,7 +1158,11 @@ const MainForm: React.FC = () => {
               <div className=''>
                 <img
                   loading='lazy'
-                  className='w-full rounded-t transition-opacity duration-500 opacity-0 aspect-[11/10]'
+                  className={`${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                      ? 'aspect-[13/10]'
+                      : 'aspect-[11/10]'
+                  }w-full rounded-t transition-opacity duration-500 opacity-0 `}
                   style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
                   onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
                   alt='물품입출고 관리리'
@@ -1148,7 +1174,11 @@ const MainForm: React.FC = () => {
               <div className=''>
                 <img
                   loading='lazy'
-                  className='w-full rounded-t transition-opacity duration-500 opacity-0 aspect-[11/10]'
+                  className={`${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                      ? 'aspect-[13/10]'
+                      : 'aspect-[11/10]'
+                  }w-full rounded-t transition-opacity duration-500 opacity-0 `}
                   style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
                   onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
                   alt='매장인원 관리 지원'

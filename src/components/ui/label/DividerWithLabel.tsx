@@ -17,7 +17,7 @@ const DividerWithLabel: React.FC<DividerWithLabelProps> = ({ label }) => {
       <span
         className={`${
           deviceInfo.isMobile || deviceInfo.isSmallScreen
-            ? 'text-detail'
+            ? 'text-slbSubTitleMo'
             : 'text-slbSubTitle'
         } bg-[#58595B] text-white  px-4 py-[4px] rounded-tr-[1rem] rounded-bl-[1rem] ml-px mr-px whitespace-nowrap`}
       >

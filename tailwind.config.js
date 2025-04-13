@@ -21,6 +21,10 @@ module.exports = {
         slbTitle: '36px',
         slbSubTitle: '30px',
         slbContent: '24px',
+        slbPointMo: '24px',
+        slbTitleMo: '22px',
+        slbSubTitleMo: '16px',
+        slbContentMo: '16px',
         mainContent: '52px',
         subContent: '40px',
         mainPoint: '64px',
@@ -62,6 +66,10 @@ module.exports = {
         '.Slb-Title': { '@apply font-bold text-slbTitle': '' },
         '.Slb-SubTitle': { '@apply font-semibold text-slbSubTitle': '' },
         '.Slb-Content': { '@apply font-normal text-slbContent': '' },
+        '.Slb-Point-mo': { '@apply font-extrabold text-slbPointMo': '' },
+        '.Slb-Title-mo': { '@apply font-bold text-slbTitleMo': '' },
+        '.Slb-SubTitle-mo': { '@apply font-semibold text-slbSubTitleMo': '' },
+        '.Slb-Content-mo': { '@apply font-normal text-slbContentMo': '' },
       });
     },
     ({ addComponents }) => {
