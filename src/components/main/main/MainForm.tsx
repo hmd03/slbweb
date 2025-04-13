@@ -5,6 +5,7 @@ import useDeviceInfo from '../../../hooks/useDeviceInfo';
 import Chip from '../../ui/chip/chip';
 import DividerWithLabel from '../../ui/label/DividerWithLabel';
 import RollingCard from '../../ui/RollingBanner/RollingCard';
+import SlideUpOnView from '../../ui/slideUpOnView/SlideUpOnView';
 
 const MainForm: React.FC = () => {
   const deviceInfo = useDeviceInfo();
@@ -115,23 +116,33 @@ const MainForm: React.FC = () => {
         } flex flex-col items-center`}
       >
         <Chip text='Point 1' type='black' />
-        <div className='mt-6'>샐러드 & 포케 창업 지금이 적기,</div>
-        <div
-          className={`${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'mb-10' : 'mb-10'
-          } flex items-end leading-none`}
-        >
-          <p
+        <SlideUpOnView>
+          <div
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'mt-4' : 'mt-6'
+            }  `}
+          >
+            샐러드 & 포케 창업 지금이 적기,
+          </div>
+          <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'Slb-Point-mo'
-                : 'Slb-Point'
-            } text-[#FF331F] leading-none`}
+                ? 'mb-10'
+                : 'mb-10'
+            } flex items-end leading-none`}
           >
-            고민하지 말고 선점
-          </p>
-          하세요!
-        </div>
+            <p
+              className={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? 'Slb-Point-mo'
+                  : 'Slb-Point'
+              } text-[#FF331F] leading-none`}
+            >
+              고민하지 말고 선점
+            </p>
+            하세요!
+          </div>
+        </SlideUpOnView>
         {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
           <div className='flex flex-col w-full h-full items-center'>
             <img
@@ -235,29 +246,31 @@ const MainForm: React.FC = () => {
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'w-full  pt-10 text-m_mainContent'
+              ? 'w-full  pt-10'
               : 'w-[1300px]  pt-20'
           } flex flex-col items-center h-full font-semibold`}
         >
           <Chip text='Point 2' type='white' />
-          <div
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'text-White'
-                : 'text-White Slb-Point'
-            } flex items-end leading-none mt-6 mb-4`}
-          >
-            어떤 상권에도 매출 걱정 없는 SLB
-          </div>
-          <div
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'text-main'
-                : 'Slb-Title'
-            } text-White leading-none`}
-          >
-            매력적인 브랜드는 고객이 찾아오게 만든다!
-          </div>
+          <SlideUpOnView>
+            <div
+              className={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? 'text-White Slb-Point-mo'
+                  : 'text-White Slb-Point'
+              } flex items-end leading-none mt-6 mb-4`}
+            >
+              어떤 상권에도 매출 걱정 없는 SLB
+            </div>
+            <div
+              className={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? 'Slb-Title-mo  flex flex-col items-center gap-1'
+                  : 'Slb-Title  flex justify-center gap-2'
+              } text-White leading-none`}
+            >
+              <p>매력적인 브랜드는 고객이</p> <p>찾아오게 만든다!</p>
+            </div>
+          </SlideUpOnView>
           {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
             <div
               className={`w-full mt-6 mb-10 px-10 flex flex-col justify-around items-center`}
@@ -340,57 +353,61 @@ const MainForm: React.FC = () => {
       <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'text-m_mainContent'
-            : 'text-mainContent'
+            ? 'Slb-Title-mo'
+            : 'Slb-Title'
         } flex flex-col items-center w-full font-semibold`}
       >
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-m_mainContent'
-              : 'text-mainContent'
+              ? 'Slb-Title-mo'
+              : 'Slb-Title'
           } flex flex-col items-center w-full font-semibold bg-[#F6F6F6]`}
         >
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'w-full text-m_mainContent pt-10'
+                ? 'w-full Slb-Title-mo pt-10'
                 : 'w-[1300px] Slb-Title pt-20'
             } flex flex-col items-center`}
           >
             <Chip text='Point 3' type='black' />
-            <div className='mt-2'>SLB는 고객이 만든 #맛집</div>
-            <div className='flex items-end leading-none mb-10'>
-              <p
-                className={`${
-                  deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? 'text-title'
-                    : 'Slb-Point'
-                } text-[#FF331F] font-black leading-none`}
-              >
-                고객들의 후기
-              </p>
-              를 확인하세요!
-            </div>
+            <SlideUpOnView>
+              <div className='mt-2'>SLB는 고객이 만든 #맛집</div>
+              <div className='flex items-end leading-none mb-10'>
+                <p
+                  className={`${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                      ? 'Slb-Point-mo'
+                      : 'Slb-Point'
+                  } text-[#FF331F] font-black leading-none`}
+                >
+                  고객들의 후기
+                </p>
+                를 확인하세요!
+              </div>
+            </SlideUpOnView>
             <div
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'text-detail'
-                  : 'Slb-Content'
-              } font-normal flex`}
+                  ? 'Slb-Content-mo flex-col items-center'
+                  : 'Slb-Content gap-2'
+              } flex`}
             >
-              특별한 광고 없이도 매출이 높을 수 밖에 없는 이유는 고객!
+              특별한 광고 없이도 <p>매출이 높을 수 밖에 없는 이유는 고객!</p>
             </div>
             <div
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'text-detail'
-                  : 'text-m_mainPoint mb-[8rem]'
-              } font-normal flex`}
+                  ? 'Slb-Content-mo flex-col items-center mt-2'
+                  : 'Slb-Content mb-[8rem] gap-2'
+              } flex`}
             >
               예비창업자님들의
-              <p className='font-medium ml-2'>창업문의가 끊이지 않는 이유</p>
-              이기도 합니다.
+              <span className={`flex`}>
+                <p className='font-medium'>창업문의가 끊이지 않는 이유</p>
+                이기도 합니다.
+              </span>
             </div>
             <div
               className={`${
@@ -413,21 +430,21 @@ const MainForm: React.FC = () => {
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-m_mainContent'
+              ? 'Slb-Content-mo'
               : 'Slb-Content'
           } flex flex-col items-center w-full bg-[#231F20] text-White invisible`}
         >
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'w-full text-m_mainContent pt-6  pb-6'
+                ? 'w-full Slb-Content-mo pt-6  pb-6'
                 : 'w-[1300px] Slb-Content pt-20  pb-10'
             } flex flex-col items-center`}
           >
             <div
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'text-third'
+                  ? 'Slb-Content-mo'
                   : 'Slb-Content'
               } flex items-center leading-none mb-3`}
             >
@@ -436,12 +453,12 @@ const MainForm: React.FC = () => {
             <div
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'text-third'
+                  ? 'Slb-Content-mo'
                   : 'Slb-Content'
               } flex items-center leading-none `}
             >
-              <p className='font-bold'>특별한 브랜드</p>, 직원도 점주가 되는
-              <p className='font-bold'>힙한 브랜드</p>
+              <p className='font-medium'>특별한 브랜드</p>, 직원도 점주가 되는
+              <p className='font-medium'>힙한 브랜드</p>
             </div>
           </div>
           <img
@@ -460,21 +477,21 @@ const MainForm: React.FC = () => {
       <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'text-m_mainContent'
-            : 'text-mainContent'
-        } flex flex-col items-center w-full font-semibold bg-[#231F20] text-White`}
+            ? 'Slb-Content-mo'
+            : 'Slb-Content'
+        } flex flex-col items-center w-full bg-[#231F20] text-White`}
       >
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'w-full text-m_mainContent pt-6 pb-6'
+              ? 'w-full Slb-Content-mo pt-6 pb-6'
               : 'w-[1300px] Slb-Content pt-10 pb-10'
           } flex flex-col items-center`}
         >
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'text-third'
+                ? 'Slb-Content-mo'
                 : 'Slb-Content'
             } flex items-center leading-none mb-3`}
           >
@@ -483,7 +500,7 @@ const MainForm: React.FC = () => {
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'text-third'
+                ? 'Slb-Content-mo'
                 : 'Slb-Content'
             } flex items-center leading-none `}
           >
@@ -506,20 +523,24 @@ const MainForm: React.FC = () => {
       <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'text-m_mainPoint'
+            ? 'Slb-Title-mo'
             : 'Slb-Title'
         } bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-fit font-semibold`}
         style={{
           backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_3_background_2.webp)`,
         }}
       >
-        <div className='flex items-end leading-none mb-10'>
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'mb-4' : ' mb-10'
+          } flex items-end leading-none`}
+        >
           <p
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'text-title mt-10 '
-                : 'Slb-Point  mt-40'
-            } text-[#FF331F] font-black leading-none mr-2`}
+                ? 'Slb-Point-mo mt-20 mr-1'
+                : 'Slb-Point  mt-40 mr-2'
+            } text-[#FF331F] font-black leading-none `}
           >
             더 나은 삶,
           </p>
@@ -529,18 +550,18 @@ const MainForm: React.FC = () => {
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-detail'
+              ? 'Slb-Content-mo'
               : 'Slb-Content'
-          } font-normal flex`}
+          } flex`}
         >
           더 나은 음식 '맛'을 내기위해해
         </div>
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-detail'
+              ? 'Slb-Content-mo'
               : 'Slb-Content'
-          } font-normal flex`}
+          } flex`}
         >
           식재료 선택부터 진심을 담다!
         </div>
@@ -548,19 +569,23 @@ const MainForm: React.FC = () => {
         <div
           className={`w-[1px]  border border-black  ${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'h-40 my-2'
+              ? 'h-10 my-4'
               : 'h-40 my-10'
           }`}
         />
 
-        <div className='flex items-end leading-none mb-10'>
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'mb-4' : ' mb-10'
+          } flex items-end leading-none`}
+        >
           더 나은 삶,
           <p
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'text-title'
+                ? 'Slb-Point-mo'
                 : 'Slb-Point'
-            } text-[#FF331F] font-black leading-none ml-2`}
+            } text-[#FF331F] leading-none ml-2`}
           >
             더 맛있는 경험
           </p>
@@ -569,20 +594,20 @@ const MainForm: React.FC = () => {
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-detail'
-              : 'Slb-Content'
-          } font-normal flex`}
+              ? 'Slb-Content-mo flex-col items-center'
+              : 'Slb-Content gap-2'
+          } flex`}
         >
           고객이 더 맛있는 경험을 할 수 있도록
         </div>
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-detail'
-              : 'Slb-Content'
-          } font-normal flex`}
+              ? 'Slb-Content-mo flex-col items-center'
+              : 'Slb-Content gap-2'
+          } flex`}
         >
-          한식의 익숙함을 담아 특별한 샐러드&포케를 완성했습니다
+          한식의 익숙함을 담아 <p>특별한 샐러드&포케를 완성했습니다</p>
         </div>
         <img
           loading='lazy'
@@ -590,16 +615,16 @@ const MainForm: React.FC = () => {
           src={`${process.env.PUBLIC_URL}/main/point_3_salad.webp`}
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'mt-20 mb-20 px-8'
-              : 'ml-auto mr-[6rem] mt-40 mb-40'
-          } w-[60%] transition-opacity duration-500 opacity-0  aspect-[14/10]`}
+              ? 'w-full mt-20 mb-20 px-4'
+              : 'w-[60%] ml-auto mr-[6rem] mt-40 mb-40'
+          } transition-opacity duration-500 opacity-0  aspect-[14/10]`}
           onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
         />
       </section>
       <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'text-m_mainContent'
+            ? 'Slb-Title-mo'
             : 'Slb-Title'
         } bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-full text-White`}
         style={{
@@ -622,12 +647,12 @@ const MainForm: React.FC = () => {
           >
             메뉴 개발에 노력한 결과!
           </div>
-          <div className='flex items-end leading-none mt-1'>
+          <div className='flex items-center leading-none mt-1'>
             SLB 가맹점 고객
             <p
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'text-m_mainPoint'
+                  ? 'Slb-Point-mo'
                   : 'Slb-Point'
               } bg-[#FF331F] leading-none ml-2 p-1`}
             >
@@ -643,52 +668,38 @@ const MainForm: React.FC = () => {
             }`}
           />
 
-          <div
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'text-detail'
-                : 'text-title'
-            } flex items-center leading-none font-normal mb-3`}
-          >
-            현재에 안주하지 않고 한식의 익숙함에
-          </div>
-          <div
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'text-detail'
-                : 'text-title'
-            } flex items-center leading-none font-normal mb-3`}
-          >
-            <p
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'font-black'
-                  : ''
-              }`}
-            >
-              샐러드&포케의 새로움을 더하기 위해
-            </p>{' '}
-            지금 이 순간에도
-          </div>
-          <div
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'text-detail mb-6 flex-wrap'
-                : 'text-title mb-[6rem]'
-            } flex items-center leading-none font-normal `}
-          >
-            SLB R&D부서 전문가들은 연구에
-            <p
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'font-black'
-                  : ''
-              } ml-2`}
-            >
-              연구를 거듭
-            </p>
-            하고 있습니다
-          </div>
+          {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
+            <>
+              <div className='Slb-Content-mo flex items-center leading-none mb-3'>
+                현재에 안주하지 않고 한식의 익숙함에
+              </div>
+              <div className='Slb-Content-mo flex items-center leading-none mb-3'>
+                샐러드&amp;포케의 새로움을 더하기 위해
+              </div>
+              <div className='Slb-Content-mo flex items-center leading-none mb-3'>
+                지금 이 순간에도 SLB R&D 부서 전문가들은
+              </div>
+              <div className='Slb-Content-mo flex items-center leading-none mb-6'>
+                연구에 연구를 거듭하고 있습니다
+              </div>
+            </>
+          ) : (
+            <>
+              <div className='Slb-Content flex items-center leading-none mb-3'>
+                현재에 안주하지 않고 한식의 익숙함에
+              </div>
+              <div className='Slb-Content flex items-center leading-none mb-3'>
+                <p className='font-medium'>
+                  샐러드&amp;포케의 새로움을 더하기 위해
+                </p>{' '}
+                지금 이 순간에도
+              </div>
+              <div className='Slb-Content flex items-center leading-none mb-[6rem]'>
+                SLB R&D부서 전문가들은 연구에{' '}
+                <p className='ml-2 font-medium'>연구를 거듭</p> 하고 있습니다
+              </div>
+            </>
+          )}
         </div>
       </section>
       {/* Point 4 */}
@@ -700,33 +711,35 @@ const MainForm: React.FC = () => {
         } flex flex-col items-center font-semibold`}
       >
         <Chip text='Point 4' type='black' />
-        <div
-          className={`${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-m_mainPoint'
-              : 'Slb-Title'
-          } mt-6 `}
-        >
-          성공한 맛집 = 인테리어도 좋다!
-        </div>
-        <div
-          className={`flex ${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-m_mainPoint flex-col items-center'
-              : 'Slb-Title items-end'
-          }  leading-none mb-20`}
-        >
-          고객이 트렌디하다고 말하는
-          <p
+        <SlideUpOnView>
+          <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'text-title'
-                : 'Slb-Point'
-            } text-[#FF331F] leading-none ml-2`}
+                ? 'Slb-Title-mo mt-4'
+                : 'Slb-Title mt-6'
+            }  `}
           >
-            SLB 인테리어
-          </p>
-        </div>
+            성공한 맛집 = 인테리어도 좋다!
+          </div>
+          <div
+            className={`flex ${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? 'Slb-Title-mo flex-col items-center mb-10'
+                : 'Slb-Title items-end mb-20'
+            }  leading-none `}
+          >
+            고객이 트렌디하다고 말하는
+            <p
+              className={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? 'text-title'
+                  : 'Slb-Point'
+              } text-[#FF331F] leading-none ml-2`}
+            >
+              SLB 인테리어
+            </p>
+          </div>
+        </SlideUpOnView>
       </section>
       <section
         className={`${
@@ -738,7 +751,7 @@ const MainForm: React.FC = () => {
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'bg-contain bg-no-repeat bg-top flex flex-col min-h-[800px] items-center pt-10 text-third justify-between aspect-[10/15]'
+              ? 'bg-contain bg-no-repeat bg-top flex flex-col min-h-[800px] items-center pt-10 text-third justify-between aspect-[10/15] mb-20'
               : 'Slb-SubTitle aspect-[17/10] py-40 px-40 mb-40 bg-no-repeat bg-center bg-cover flex flex-col items-center '
           } w-full`}
           style={{
@@ -815,7 +828,7 @@ const MainForm: React.FC = () => {
             </div>
           ) : (
             // 이미지로 교체
-            <>
+            <div className='invisible'>
               <div
                 className={`${
                   deviceInfo.isMobile || deviceInfo.isSmallScreen
@@ -879,7 +892,7 @@ const MainForm: React.FC = () => {
                   SLB만의 수익형 인테리어를 완성하였습니다.
                 </p>
               </div>
-            </>
+            </div>
           )}
         </div>
       </section>
@@ -887,14 +900,14 @@ const MainForm: React.FC = () => {
       <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'text-sub mb-20'
+            ? 'Slb-SubTitle-mo mb-20'
             : 'Slb-SubTitle mb-40'
         } flex flex-col items-center leading-none mt-8 font-black`}
       >
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-third'
+              ? 'Slb-SubTitle-mo'
               : 'Slb-Title'
           } mt-2 mb-2`}
         >
@@ -903,9 +916,9 @@ const MainForm: React.FC = () => {
         <p
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-m_mainPoint'
-              : 'Slb-Point'
-          } px-4 pt-2 pb-5 text-center text-[#FF331F] font-black leading-none bg-no-repeat bg-bottom`}
+              ? 'Slb-Point-mo pb-2 px-2'
+              : 'Slb-Point pb-5 px-4'
+          } pt-2 text-center text-[#FF331F] leading-none bg-no-repeat bg-bottom`}
           style={{
             backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_4_line.webp)`,
             backgroundSize: 'contain',
@@ -919,14 +932,14 @@ const MainForm: React.FC = () => {
       <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'text-m_mainContent'
+            ? 'Slb-Title-mo'
             : 'Slb-Title'
         } flex flex-col items-center w-full font-semibold`}
       >
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-m_mainContent'
+              ? 'Slb-Title-mo'
               : 'Slb-Title'
           } flex flex-col items-center w-full font-semibold bg-[#F6F6F6]`}
         >
@@ -939,56 +952,61 @@ const MainForm: React.FC = () => {
             } flex flex-col items-center`}
           >
             <Chip text='Point 5' type='black' />
-            <div className='mt-6'>각 분야 10년 이상의 전문가가</div>
-            <div
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? ''
-                  : 'Slb-Point'
-              } flex items-end leading-none mb-10`}
-            >
-              <p
+            <SlideUpOnView>
+              <div className='mt-6'>각 분야 10년 이상의 전문가가</div>
+              <div
                 className={`${
                   deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? 'text-[26px]'
-                    : ''
-                } text-[#FF331F] font-black leading-none`}
+                    ? 'Slb-Point-mo'
+                    : 'Slb-Point'
+                } flex items-end leading-none mb-10`}
               >
-                창업부터 운영까지 지원
-              </p>
-              하는 SLB
-            </div>
-            <div
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'text-[12px]'
-                  : 'Slb-Content'
-              } flex`}
-            >
-              매장을 직접 운영 했던 경험 보유자부터 홀, 배달 등
-            </div>
-            <div
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'text-[12px]'
-                  : 'Slb-Content'
-              } flex`}
-            >
-              다양한 외식아이템을 경험한
-              <p className='font-medium ml-2'>10년 이상의</p>
-            </div>
-            <div
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'text-[12px] mb-6'
-                  : 'Slb-Content mb-[8rem]'
-              } flex `}
-            >
-              <p className='font-medium mr-2'>
-                각 분야 전문가들이 예비 가맹점주님의 고충을 해결
-              </p>
-              해드립니다.
-            </div>
+                <p
+                  className={`${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
+                  } text-[#FF331F] leading-none`}
+                >
+                  창업부터 운영까지 지원
+                </p>
+                하는 SLB
+              </div>
+            </SlideUpOnView>
+            {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
+              <div className='flex flex-col items-center'>
+                <div className='Slb-Content-mo flex'>
+                  매장을 직접 운영 했던 경험 보유자부터 홀, 배달 등
+                </div>
+                <div className='Slb-Content-mo flex'>
+                  다양한 외식아이템을 경험한
+                  <p className='font-medium ml-2'>10년 이상의</p>
+                </div>
+                <div className='Slb-Content-mo flex'>
+                  <p className='font-medium'>
+                    각 분야 전문가들이 예비 가맹점주님의
+                  </p>
+                </div>
+                <div className='Slb-Content-mo mb-6 flex'>
+                  <p className='font-medium'>고충을 해결</p>해 드립니다
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className='Slb-Content flex'>
+                  매장을 직접 운영 했던 경험 보유자부터 홀, 배달 등
+                </div>
+                <div className='Slb-Content flex'>
+                  다양한 외식아이템을 경험한
+                  <p className='font-medium ml-2'>10년 이상의</p>
+                </div>
+                <div className='Slb-Content mb-[8rem] flex'>
+                  <p className='font-medium mr-2'>
+                    각 분야 전문가들이 예비 가맹점주님의 고충을 해결
+                  </p>
+                  해드립니다.
+                </div>
+              </>
+            )}
+
             {deviceInfo.isMobile || deviceInfo.isSmallScreen ? (
               <div className='flex flex-col items-center gap-8 mx-8'>
                 <div className=''>
@@ -1050,7 +1068,7 @@ const MainForm: React.FC = () => {
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'w-full text-m_mainContent'
+                ? 'w-full Slb-SubTitle-mo'
                 : 'w-[1300px] Slb-SubTitle'
             } flex flex-col items-center pt-20 `}
           >
@@ -1063,34 +1081,36 @@ const MainForm: React.FC = () => {
             ) : (
               <Chip text='Point 6' type='black' />
             )}
-            <div
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'text-main'
-                  : 'Slb-Title'
-              }  mt-6`}
-            >
-              SLB만의 슈퍼바이징 시스템으로
-            </div>
-            <div
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'text-main mb-10'
-                  : 'Slb-Point mb-20'
-              } flex items-end leading-none`}
-            >
-              오픈 이후에도
-              <p
+            <SlideUpOnView>
+              <div
                 className={`${
                   deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? 'text-m_mainPoint'
-                    : ''
-                } text-[#FF331F] leading-none ml-2`}
+                    ? 'Slb-Title-mo mt-4'
+                    : 'Slb-Title mt-6'
+                }`}
               >
-                체계적으로 관리
-              </p>
-              합니다
-            </div>
+                SLB만의 슈퍼바이징 시스템으로
+              </div>
+              <div
+                className={`${
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile
+                    ? 'Slb-Title-mo mb-10'
+                    : 'Slb-Point mb-20'
+                } flex items-end leading-none`}
+              >
+                오픈 이후에도
+                <p
+                  className={`${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                      ? 'Slb-Point-mo'
+                      : ''
+                  } text-[#FF331F] leading-none ml-2`}
+                >
+                  체계적으로 관리
+                </p>
+                합니다
+              </div>
+            </SlideUpOnView>
             <div
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
@@ -1100,7 +1120,6 @@ const MainForm: React.FC = () => {
             >
               <div className=''>
                 <img
-                  // mo 13/10 pc 11/10
                   loading='lazy'
                   className={`${
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
@@ -1198,27 +1217,29 @@ const MainForm: React.FC = () => {
       <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'w-full text-main pt-16'
+            ? 'w-full Slb-Title-mo pt-16'
             : 'w-[1300px] Slb-Title pt-40'
         } flex flex-col items-center`}
       >
         <Chip text='Point 7' type='black' />
-        <div className='mt-6'>창업 및 운영 비용은 DOWN</div>
-        <div className='flex items-end leading-none'>
-          <p
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'text-m_mainPoint'
-                : 'Slb-Point'
-            } text-[#FF331F] font-black leading-none`}
-          >
-            수익률은 UP 시키는 SLB의 노력!
-          </p>
-        </div>
+        <SlideUpOnView>
+          <div className='mt-6'>창업 및 운영 비용은 DOWN</div>
+          <div className='flex items-end leading-none'>
+            <p
+              className={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? 'Slb-Point-mo'
+                  : 'Slb-Point'
+              } text-[#FF331F] leading-none`}
+            >
+              수익률은 UP 시키는 SLB의 노력!
+            </p>
+          </div>
+        </SlideUpOnView>
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-detail  mt-10'
+              ? 'Slb-Content-mo mt-10'
               : 'Slb-Content mt-20'
           } flex`}
         >
@@ -1227,7 +1248,7 @@ const MainForm: React.FC = () => {
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-detail mb-4'
+              ? 'Slb-Content-mo mb-4'
               : 'Slb-Content flex mb-20'
           } `}
         >
@@ -1246,6 +1267,7 @@ const MainForm: React.FC = () => {
           }.webp`}
         ></img>
         {/* Point 8 */}
+
         {deviceInfo.isMobile || deviceInfo.isSmallScreen ? (
           <div className='flex w-full items-center px-10'>
             <div className='h-px bg-[#58595B] flex-grow border border-[#58595B]' />
@@ -1255,36 +1277,54 @@ const MainForm: React.FC = () => {
         ) : (
           <Chip text='Point 8' type='black' />
         )}
-        <div className='mt-6 Slb-SubTitle'>물가상승으로 힘들어 하는</div>
-        <div className='Slb-SubTitle'>가맹점주님들을 위해 매년 물류 비용</div>
-        <div
-          className={`${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-m_mainPoint mb-10'
-              : 'Slb-Point mb-10'
-          } flex items-end leading-none`}
-        >
-          {deviceInfo.isMobile || deviceInfo.isSmallScreen ? (
-            <div className='flex flex-col items-center text-[28px]'>
-              <p className='text-[#FF331F] font-black leading-none'>
-                유지 또는 낮추기 위해
-              </p>
-              <p className='flex items-end'>
-                <span className='text-[#FF331F] font-black leading-none'>
-                  SLB는 노력
-                </span>
-                <span className='leading-none text-main'>합니다!</span>
-              </p>
-            </div>
-          ) : (
-            <>
-              <p className='text-[#FF331F] leading-none mt-2'>
-                유지 또는 낮추기 위해 SLB는 노력
-              </p>
-              합니다!
-            </>
-          )}
-        </div>
+        <SlideUpOnView>
+          <div
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? 'mt-4 Slb-SubTitle-mo'
+                : 'mt-6 Slb-SubTitle'
+            }`}
+          >
+            물가상승으로 힘들어 하는
+          </div>
+          <div
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? 'Slb-SubTitle-mo'
+                : 'Slb-SubTitle'
+            }`}
+          >
+            가맹점주님들을 위해 매년 물류 비용
+          </div>
+          <div
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? 'Slb-Point-mo mb-10'
+                : 'Slb-Point mb-10'
+            } flex items-end leading-none`}
+          >
+            {deviceInfo.isMobile || deviceInfo.isSmallScreen ? (
+              <div className='flex flex-col items-center text-[28px]'>
+                <p className='text-[#FF331F] leading-none'>
+                  유지 또는 낮추기 위해
+                </p>
+                <p className='flex items-end mt-2'>
+                  <span className='text-[#FF331F] leading-none'>
+                    SLB는 노력
+                  </span>
+                  <span className='leading-none text-main'>합니다!</span>
+                </p>
+              </div>
+            ) : (
+              <>
+                <p className='text-[#FF331F] leading-none mt-2'>
+                  유지 또는 낮추기 위해 SLB는 노력
+                </p>
+                합니다!
+              </>
+            )}
+          </div>
+        </SlideUpOnView>
         {deviceInfo.isMobile || deviceInfo.isSmallScreen ? (
           <img
             loading='lazy'
@@ -1329,37 +1369,57 @@ const MainForm: React.FC = () => {
           }.webp`}
         ></img>
         {/* Point 9 */}
+
         <Chip text='Point 9' type='black' />
-        <div className='mt-6'>누구나 쉽게 쉽게!</div>
+        <SlideUpOnView>
+          <div
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? 'Slb-Title-mo mt-4'
+                : 'Slb-Title mt-6'
+            }
+          `}
+          >
+            누구나 쉽게 쉽게!
+          </div>
+          <div
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? 'Slb-Title-mo mb-6'
+                : 'Slb-Title mb-10'
+            } flex items-end leading-none`}
+          >
+            <p
+              className={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? 'Slb-Point-mo mr-1'
+                  : 'Slb-Point mr-2'
+              } text-[#FF331F] leading-none`}
+            >
+              요리를 전혀 못해도
+            </p>
+            창업 가능
+          </div>
+        </SlideUpOnView>
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-m_mainPoint mb-10'
-              : 'Slb-Point mb-10'
-          } flex items-end leading-none`}
-        >
-          <p className='text-[#FF331F] leading-none mr-2'>요리를 전혀 못해도</p>
-          창업 가능
-        </div>
-        <div
-          className={`${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-detail'
-              : 'Slb-Content'
+              ? 'Slb-Content-mo gap-1'
+              : 'Slb-Content gap-2'
           } flex`}
         >
-          <p className='font-medium mr-2'>키오스크와 원팩 시스템 도입</p>등 운영
+          <p className='font-medium'>키오스크와 원팩 시스템 도입</p>등 운영
           편의성을 높여
         </div>
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'text-detail mb-8'
-              : 'Slb-Content mb-10'
+              ? 'Slb-Content-mo mb-8 gap-1'
+              : 'Slb-Content mb-10 gap-2'
           } flex`}
         >
           다른 외식 아이템 대비
-          <p className='font-medium ml-2'>낮은 인건비로 운영가능</p>
+          <p className='font-medium'>낮은 인건비로 운영가능</p>
         </div>
         <img
           loading='lazy'
