@@ -52,10 +52,15 @@ module.exports = {
           '0%': { transform: 'translateX(-100%)' },
           '100%': { transform: 'translateX(0%)' },
         },
+        slideup: {
+          '0%': { opacity: '0', transform: 'translateY(50px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
         'slide-left': 'slide-left 0.5s ease-in-out',
         'slide-right': 'slide-right 0.5s ease-in-out',
+         slideup: 'slideup 1s ease-out forwards',
       },
     },
   },
