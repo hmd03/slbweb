@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -60,7 +61,7 @@ module.exports = {
       animation: {
         'slide-left': 'slide-left 0.5s ease-in-out',
         'slide-right': 'slide-right 0.5s ease-in-out',
-         slideup: 'slideup 1s ease-out forwards',
+         slideup: 'slideup 0.8s ease-out forwards',
       },
     },
   },
