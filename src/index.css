@@ -120,4 +120,5 @@
 
 body {
   @apply font-scdream;
+  @apply bg-white;
 }
