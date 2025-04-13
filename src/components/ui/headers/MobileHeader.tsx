@@ -95,56 +95,69 @@ const MobileHeader = ({ children, ...props }: Props) => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center" {...props}>
-      <header className="bg-white shadow w-full">
-        <div className="flex justify-between items-center p-4">
-          <button onClick={handleMenuToggle} className="text-main">
+    <div className='w-full flex flex-col items-center' {...props}>
+      <div className='h-[72px]' />
+      <header className='bg-white shadow w-full fixed top-0 left-0 z-[100]'>
+        <div className='flex justify-between items-center p-4'>
+          <button onClick={handleMenuToggle} className='text-main'>
             <IoMdMenu size={30} />
           </button>
-          <div onClick={handleLogoClick} className="cursor-pointer select-none">
-            <img alt="Logo" src={`${process.env.PUBLIC_URL}/adminLoginLogo.png`} className="h-[3rem]" />
+          <div onClick={handleLogoClick} className='cursor-pointer select-none'>
+            <img
+              alt='Logo'
+              src={`${process.env.PUBLIC_URL}/adminLoginLogo.png`}
+              className='h-[3rem]'
+            />
           </div>
-          <a href="tel:15330516" className="flex items-center">
-            <span className="flex items-center justify-center w-[18px] h-[18px] bg-black rounded-full mr-1">
-              <IoIosCall color="white" size={12} />
+          <a href='tel:15330516' className='flex items-center'>
+            <span className='flex items-center justify-center w-[18px] h-[18px] bg-black rounded-full mr-1'>
+              <IoIosCall color='white' size={12} />
             </span>
           </a>
         </div>
       </header>
 
       {isMenuOpen && (
-        <div className="fixed top-0 left-0 w-full h-full z-50 bg-black bg-opacity-10">
+        <div className='fixed top-0 left-0 w-full h-full z-[1000] bg-black bg-opacity-10'>
           <div
             ref={menuRef}
-            className="absolute top-0 left-0 w-[80%] h-full bg-black bg-opacity-80 z-50 flex flex-col justify-between"
+            className='absolute top-0 left-0 w-[80%] h-full bg-black bg-opacity-80 z-50 flex flex-col justify-between'
           >
-            <div className="text-white overflow-y-auto mt-2">
-              <ul className="flex flex-col divide-y divide-gray-700">
+            <div className='text-white overflow-y-auto mt-2'>
+              <ul className='flex flex-col divide-y divide-gray-700'>
                 {mainMenuItems.map((item, index) => (
-                  <li key={index} className="border-b-[2px] border-gray-700">
+                  <li key={index} className='border-b-[2px] border-gray-700'>
                     <button
                       onClick={() => handleCategoryClick(index)}
-                      className="w-full text-left text-main font-bold flex justify-between items-center px-4 pt-3 pb-1 "
+                      className='w-full text-left text-main font-bold flex justify-between items-center px-4 pt-3 pb-1 '
                     >
                       {item.title}
                       {subMenuItems[index] && (
                         <>
-                          {selectedCategory === index
-                            ? <SlArrowDown size={12} />
-                            : <SlArrowRight size={12} />}
+                          {selectedCategory === index ? (
+                            <SlArrowDown size={12} />
+                          ) : (
+                            <SlArrowRight size={12} />
+                          )}
                         </>
                       )}
                     </button>
                     {selectedCategory === index && (
-                      <ul className="w-full">
+                      <ul className='w-full'>
                         {subMenuItems[index].map((submenuItem, subIndex) => (
-                          <li key={subIndex} className='border-t-[2px] border-gray-700 py-2'>
+                          <li
+                            key={subIndex}
+                            className='border-t-[2px] border-gray-700 py-2'
+                          >
                             <a
                               href={submenuItem.link}
                               onClick={closeMenu}
-                              className="px-4 py-1 text-detail text-white hover:underline flex"
+                              className='px-4 py-1 text-detail text-white hover:underline flex'
                             >
-                              ▸<div className="ml-1 break-keep whitespace-pre-line">{submenuItem.title}</div>
+                              ▸
+                              <div className='ml-1 break-keep whitespace-pre-line'>
+                                {submenuItem.title}
+                              </div>
                             </a>
                           </li>
                         ))}
@@ -155,11 +168,19 @@ const MobileHeader = ({ children, ...props }: Props) => {
               </ul>
             </div>
 
-            <div className="flex text-white text-sm font-semibold">
-              <a href="/inquiry" onClick={closeMenu} className="bg-[#F03838] flex-1 py-3 flex items-center justify-center gap-2">
+            <div className='flex text-white text-sm font-semibold'>
+              <a
+                href='/inquiry'
+                onClick={closeMenu}
+                className='bg-[#F03838] flex-1 py-3 flex items-center justify-center gap-2'
+              >
                 <FaPhoneAlt size={14} /> 온라인 창업문의
               </a>
-              <a href="/board/cs" onClick={closeMenu} className="bg-[#F58220] flex-1 py-3 flex items-center justify-center gap-2">
+              <a
+                href='/board/cs'
+                onClick={closeMenu}
+                className='bg-[#F58220] flex-1 py-3 flex items-center justify-center gap-2'
+              >
                 <FaCommentDots size={14} /> 고객 문의
               </a>
             </div>
@@ -167,7 +188,7 @@ const MobileHeader = ({ children, ...props }: Props) => {
         </div>
       )}
 
-      <div className="flex flex-col justify-center w-full border-t">
+      <div className='flex flex-col justify-center w-full border-t'>
         {children}
       </div>
     </div>
