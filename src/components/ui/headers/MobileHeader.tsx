@@ -1,7 +1,13 @@
-import React, { useState, useEffect, useRef, ReactNode, HTMLAttributes } from 'react';
-import { IoIosCall, IoMdMenu } from "react-icons/io";
-import { SlArrowDown, SlArrowRight } from "react-icons/sl";
-import { FaPhoneAlt, FaCommentDots } from "react-icons/fa";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  ReactNode,
+  HTMLAttributes,
+} from 'react';
+import { IoIosCall, IoMdMenu } from 'react-icons/io';
+import { SlArrowDown, SlArrowRight } from 'react-icons/sl';
+import { FaPhoneAlt, FaCommentDots } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -12,6 +18,8 @@ const MobileHeader = ({ children, ...props }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [headerHeight, setHeaderHeight] = useState(0);
   const navigate = useNavigate();
 
   const handleMenuToggle = () => {
@@ -42,6 +50,18 @@ const MobileHeader = ({ children, ...props }: Props) => {
     };
   }, [isMenuOpen]);
 
+  useEffect(() => {
+    const measureHeader = () => {
+      if (headerRef.current) {
+        setHeaderHeight(headerRef.current.getBoundingClientRect().height);
+      }
+    };
+
+    measureHeader();
+    window.addEventListener('resize', measureHeader);
+    return () => window.removeEventListener('resize', measureHeader);
+  }, []);
+
   const mainMenuItems = [
     { title: '한식X샐러드&포케 SLB?', link: '/sub_1' },
     { title: '기회를 붙잡는 노하우', link: '/sub_2' },
@@ -56,7 +76,10 @@ const MobileHeader = ({ children, ...props }: Props) => {
       { title: '맛에 대한 고집이 남다른 특별함을 만든다', link: '/sub_1/1' },
       { title: '아쉬움에 항상 고민합니다', link: '/sub_1/2' },
       { title: '동상이몽 창업?', link: '/sub_1/3' },
-      { title: '배달부터 홀 운영까지 해본 사람들이 함께합니다', link: '/sub_1/4' },
+      {
+        title: '배달부터 홀 운영까지 해본 사람들이 함께합니다',
+        link: '/sub_1/4',
+      },
     ],
     [
       { title: '성장하는 시장 성장하는 아이템 SLB', link: '/sub_2/1' },
@@ -87,7 +110,7 @@ const MobileHeader = ({ children, ...props }: Props) => {
       { title: '공지&뉴스', link: '/board/notice' },
       { title: '샐톡톡 이벤트', link: '/board/event' },
       { title: '매장안내', link: '/store' },
-    ]
+    ],
   ];
 
   const handleLogoClick = () => {
@@ -96,8 +119,11 @@ const MobileHeader = ({ children, ...props }: Props) => {
 
   return (
     <div className='w-full flex flex-col items-center' {...props}>
-      <div className='h-[72px]' />
-      <header className='bg-white shadow w-full fixed top-0 left-0 z-[100]'>
+      <div style={{ height: `${headerHeight}px` }} />
+      <header
+        className='bg-white shadow w-full fixed top-0 left-0 z-[100]'
+        ref={headerRef}
+      >
         <div className='flex justify-between items-center p-4'>
           <button onClick={handleMenuToggle} className='text-main'>
             <IoMdMenu size={30} />
