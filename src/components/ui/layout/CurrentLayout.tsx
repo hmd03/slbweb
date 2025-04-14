@@ -18,13 +18,24 @@ const CurrentLayout = ({ children, ...props }: Props) => {
       <SeoHelmet />
       {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
         <>
-          <MobileHeader>{children}</MobileHeader>
+          <MobileHeader>
+            <>
+              {children}
+              <QuickBar />
+              <InqueryFooter />
+            </>
+          </MobileHeader>
         </>
       ) : (
-        <Header>{children}</Header>
+        <Header>
+          <>
+            {children}
+            <QuickBar />
+            <InqueryFooter />
+          </>
+        </Header>
       )}
-      <QuickBar />
-      <InqueryFooter />
+
       <CompanyFooter />
     </div>
   );

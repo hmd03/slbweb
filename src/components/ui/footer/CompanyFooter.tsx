@@ -19,7 +19,7 @@ const CompanyFooter = () => {
   };
 
   return (
-    <div className='flex flex-col w-full justify-center items-center bg-[#F1F2F2]'>
+    <div className='flex flex-col w-full justify-center items-center bg-[#F1F2F2]' id='companyFooter'>
       <div
         className={`w-full bg-Black text-[#E6E7E8] flex w-full justify-center items-center ${
           deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'py-5' : 'py-10 '

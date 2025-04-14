@@ -1,8 +1,7 @@
-import React, { useRef, useCallback, useState } from 'react';
+import React, { useRef, useCallback, useState, useEffect } from 'react';
 import axios from 'axios';
 import { LoadingState } from '../../../store/atom';
 import { useRecoilState } from 'recoil';
-import Checkbox from '../checkbox/Checkbox';
 import useDeviceInfo from '../../../hooks/useDeviceInfo';
 import AlterModal from '../alters/AlterModal';
 
@@ -12,6 +11,10 @@ const InqueryFooter = () => {
   const contactRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useRecoilState(LoadingState);
   const deviceInfo = useDeviceInfo();
+
+  const footerRef = useRef<HTMLDivElement>(null);
+  const [footerHeight, setFooterHeight] = useState(0);
+  const [isFixed, setIsFixed] = useState(true); // 👈 고정 여부 상태
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [isCancelVisible, setIsCancelVisible] = useState(true);
@@ -37,7 +40,7 @@ const InqueryFooter = () => {
     try {
       const response = await axios.post('/api/inquiries', {
         senderName: sender,
-        preferredRegion: preferredRegion,
+        preferredRegion,
         senderContact: contact,
         isMobile: deviceInfo.isMobile,
         category: 1,
@@ -73,82 +76,143 @@ const InqueryFooter = () => {
     setModalVisible(false);
   };
 
+  // footer height 측정
+  useEffect(() => {
+    const measureFooter = () => {
+      if (footerRef.current) {
+        setFooterHeight(footerRef.current.getBoundingClientRect().height);
+      }
+    };
+
+    measureFooter();
+    window.addEventListener('resize', measureFooter);
+    return () => window.removeEventListener('resize', measureFooter);
+  }, []);
+
+  // companyFooter가 보이면 고정 해제
+  useEffect(() => {
+    if (!(deviceInfo.isMobile || deviceInfo.isSmallScreen)) return;
+
+    const companyFooter = document.getElementById('companyFooter');
+    if (!companyFooter) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsFixed(!entry.isIntersecting);
+      },
+      {
+        root: null,
+        threshold: 0.01,
+      }
+    );
+
+    observer.observe(companyFooter);
+    return () => observer.disconnect();
+  }, [deviceInfo]);
+
   return (
-    <div
-      id='footer'
-      className='flex flex-col w-full justify-center items-center bg-[#F1F2F2]'
-    >
+    <>
+      {(deviceInfo.isSmallScreen || deviceInfo.isMobile) && isFixed && (
+        <div style={{ height: `${footerHeight}px` }} />
+      )}
       <div
-        className={`flex w-full ${
+        id='footer'
+        ref={footerRef}
+        className={`flex flex-col justify-center items-center bg-[#F1F2F2] transition-all duration-300
+        ${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'flex-col justify-center items-center max-w-[80%] py-5'
-            : 'max-w-[1300px] justify-between py-10'
+            ? `${
+                isFixed
+                  ? 'fixed bottom-0 left-0 z-10 w-full shadow-md'
+                  : 'static'
+              }`
+            : 'w-full'
         }`}
       >
         <div
-          className={`${
+          className={`flex w-full ${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'flex w-full justify-between items-center'
-              : ''
+              ? 'flex-col justify-center items-center max-w-[80%] py-5'
+              : 'max-w-[1300px] justify-between py-10'
           }`}
         >
           <div
-            className={`flex font-semibold ${
+            className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'text-title'
-                : 'text-[2.4rem] '
+                ? 'flex w-full justify-between items-center'
+                : ''
             }`}
           >
-            {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
-              <div className='flex flex-col items-center'>
-                <p className='font-black text-main'>창업 문의</p>
-                <span className='w-full border border-b-[1px] border-black' />
-                <p className='text-detail'>빠른 상담 가능</p>
-              </div>
-            ) : (
-              <>
-                <p className='font-black'>창업 문의</p>| 빠른 상담 가능
-              </>
-            )}
+            <div
+              className={`flex font-semibold ${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? 'text-title'
+                  : 'text-[2.4rem]'
+              }`}
+            >
+              {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
+                <div className='flex flex-col items-center'>
+                  <p className='font-black text-main'>창업 문의</p>
+                  <span className='w-full border border-b-[1px] border-black' />
+                  <p className='text-detail'>빠른 상담 가능</p>
+                </div>
+              ) : (
+                <>
+                  <p className='font-black'>창업 문의</p>| 빠른 상담 가능
+                </>
+              )}
+            </div>
+            <div
+              className={`font-black leading-none ${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? 'text-[2.4rem]'
+                  : 'text-[5rem]'
+              }`}
+            >
+              1533-0516
+            </div>
           </div>
           <div
-            className={`font-black leading-none ${
+            className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'text-[2.4rem] '
-                : 'text-[5rem] '
+                ? 'w-full'
+                : 'w-[50%] ml-16'
             }`}
           >
-            1533-0616
-          </div>
-        </div>
-        <div
-          className={`${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'w-full'
-              : 'w-[50%] ml-16'
-          }`}
-        >
-          <div className={`w-full flex justify-between items-center`}>
-            <div>
-              <div className='flex w-full mb-2'>
+            <div className='w-full flex justify-between items-center'>
+              <div>
+                <div className='flex w-full mb-2'>
+                  <input
+                    aria-label='이름'
+                    type='text'
+                    placeholder='이름'
+                    ref={senderRef}
+                    autoComplete='name'
+                    className={`${
+                      deviceInfo.isSmallScreen || deviceInfo.isMobile
+                        ? 'h-[2.5rem] px-1 py-1 text-[12px]'
+                        : 'px-4 py-3'
+                    } border-[2px] border-black w-full mr-2`}
+                  />
+                  <input
+                    aria-label='창업희망지역'
+                    type='text'
+                    placeholder='창업희망지역'
+                    ref={preferredRegionRef}
+                    autoComplete='preferredRegion'
+                    className={`${
+                      deviceInfo.isSmallScreen || deviceInfo.isMobile
+                        ? 'h-[2.5rem] px-1 py-1 text-[12px]'
+                        : 'px-4 py-3'
+                    } border-[2px] border-black w-full`}
+                  />
+                </div>
                 <input
-                  aria-label='이름'
+                  aria-label='연락처'
                   type='text'
-                  placeholder='이름'
-                  ref={senderRef}
-                  autoComplete='name'
-                  className={`${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'h-[2.5rem] px-1 py-1 text-[12px]'
-                      : 'px-4 py-3'
-                  } border-[2px] border-black w-full mr-2`}
-                />
-                <input
-                  aria-label='창업희망지역'
-                  type='text'
-                  placeholder='창업희망지역'
-                  ref={preferredRegionRef}
-                  autoComplete='preferredRegion'
+                  placeholder='연락처'
+                  ref={contactRef}
+                  autoComplete='contact'
                   className={`${
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
                       ? 'h-[2.5rem] px-1 py-1 text-[12px]'
@@ -156,47 +220,36 @@ const InqueryFooter = () => {
                   } border-[2px] border-black w-full`}
                 />
               </div>
-              <input
-                aria-label='연락처'
-                type='text'
-                placeholder='연락처'
-                ref={contactRef}
-                autoComplete='contact'
+              <div
                 className={`${
                   deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? 'h-[2.5rem] px-1 py-1 text-[12px]'
-                    : 'px-4 py-3'
-                } border-[2px] border-black w-full`}
-              />
-            </div>
-            <div
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'ml-2'
-                  : 'mb-auto'
-              }`}
-            >
-              <button
-                type='button'
-                onClick={handleSubmitClick}
-                className='p-4 w-[6.5rem] h-[6rem] text-title text-White bg-[#FF331F] border-[1px] border-Black rounded-xl flex flex-col items-center justify-center'
+                    ? 'ml-2'
+                    : 'mb-auto'
+                }`}
               >
-                <p className='leading-none'>문의</p>
-                <p className='leading-none'>하기</p>
-              </button>
+                <button
+                  type='button'
+                  onClick={handleSubmitClick}
+                  className='p-4 w-[6.5rem] h-[6rem] text-title text-White bg-[#FF331F] border-[1px] border-Black rounded-xl flex flex-col items-center justify-center'
+                >
+                  <p className='leading-none'>문의</p>
+                  <p className='leading-none'>하기</p>
+                </button>
+              </div>
             </div>
           </div>
         </div>
+
+        {isModalVisible && (
+          <AlterModal
+            message={message}
+            isCancelVisible={isCancelVisible}
+            onConfirm={onConfirm}
+            onCancel={handleCancel}
+          />
+        )}
       </div>
-      {isModalVisible && (
-        <AlterModal
-          message={message}
-          isCancelVisible={isCancelVisible}
-          onConfirm={onConfirm}
-          onCancel={handleCancel}
-        />
-      )}
-    </div>
+    </>
   );
 };
 
