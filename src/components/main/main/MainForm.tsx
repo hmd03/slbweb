@@ -47,10 +47,10 @@ const MainForm: React.FC = () => {
             if (banner.media == null) {
               return banner;
             }
-            const fileType = banner.media.fileType.split('/')[0];
+            const fileType = banner.media.fileType.split('/');
 
             let fileSrc = '';
-            if (fileType == 'image') {
+            if (fileType[1] != 'youtube') {
               fileSrc = await getFile(banner.media.id);
             } else {
               fileSrc = banner.media.filePath;
@@ -59,7 +59,7 @@ const MainForm: React.FC = () => {
             return {
               link: banner.link,
               duration: banner.duration,
-              fileType: fileType,
+              fileType: banner.media.fileType,
               media: fileSrc,
             };
           }
