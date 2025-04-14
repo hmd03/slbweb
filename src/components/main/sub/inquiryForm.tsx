@@ -38,8 +38,8 @@ const InquiryForm: React.FC = () => {
       handleOpenModal('모든 필수 항목을 입력해 주세요.', false, handleCancel);
       return;
     }
-
-    handleOpenModal(`등록 하시겠습니까?`, true, handleConfirm);
+    handleConfirm();
+    //handleOpenModal(`등록 하시겠습니까?`, true, handleConfirm);
   };
 
   const handleConfirm = async () => {
