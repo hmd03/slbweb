@@ -39,7 +39,7 @@ const QuickBar: React.FC = () => {
       style={{ bottom: `${bottomOffset}px` }}
     >
       {!(deviceInfo.isSmallScreen || deviceInfo.isMobile) && (
-        <div className='overflow-hidden flex flex-col items-center shadow-md border border-black rounded-[40px]'>
+        <div className='overflow-hidden flex flex-col items-center shadow-md border-[2px] border-black rounded-[40px]'>
           <div className='bg-white px-4 pt-4 pb-2 text-center'>
             <p className='text-[1rem] font-bold leading-tight'>
               온라인
@@ -48,16 +48,16 @@ const QuickBar: React.FC = () => {
             </p>
             <a
               href='/inquiry'
-              className='inline-block bg-black text-white rounded-full mt-2 px-6 py-1 text-sm font-semibold'
+              className='inline-block bg-black text-white rounded-full mt-2 px-4 py-1 text-sm font-semibold'
             >
               바로가기
             </a>
           </div>
 
           <div className='w-full h-full bg-White'>
-            <div className='bg-black text-white w-full text-center px-6 py-4 rounded-t-[40px]'>
+            <div className='bg-black text-white w-full text-center py-4 rounded-t-[40px]'>
               <p className='text-base font-semibold mb-1'>빠른상담</p>
-              <div className='text-[2rem] font-bold leading-none'>
+              <div className='Slb-Content leading-none'>
                 1533
                 <br />
                 0516
@@ -72,8 +72,8 @@ const QuickBar: React.FC = () => {
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'w-[2.5rem] h-[2.5rem]'
-            : 'w-[4.5rem] h-[4.5rem]'
-        } mt-4 mb-1 border border-black rounded-full flex items-center justify-center bg-White`}
+            : 'w-[4rem] h-[4rem]'
+        } mt-4 mb-1 border-[2px] border-black rounded-full flex items-center justify-center bg-White`}
       >
         <svg
           className='w-6 h-6 text-black'
