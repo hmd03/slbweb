@@ -80,7 +80,8 @@ const Header = ({ children, ...props }: Props) => {
 
   return (
     <div className={`w-full flex flex-col items-center`} {...props}>
-      <header className="bg-white shadow w-full">
+      <div className="h-[12rem]" />
+      <header className="bg-white shadow w-full fixed top-0 left-0 z-50">
         <div className="flex-col justify-between items-center px-4 w-full border-b-[2px] border-black">
           <div className="flex-1 text-center mt-10">
             <img alt='Logo' onClick={handleLogoClick} src={`${process.env.PUBLIC_URL}/adminLoginLogo.png`} className='h-[6rem] m-auto cursor-pointer select-none' />
@@ -114,7 +115,7 @@ const Header = ({ children, ...props }: Props) => {
             ))}
           </ul>
           {isMenuOpen && (
-            <div className="z-40 py-6 absolute left-0 w-full bg-black bg-opacity-70 text-white rounded-md">
+            <div className="z-[100] py-6 absolute left-0 w-full bg-black bg-opacity-70 text-white rounded-md">
               <div className='flex justify-between items-center w-full max-w-[1300px] m-auto'>
                 {subMenuItems.map((subMenu, index) => (
                   <div key={index} className='flex-col justify-center' style={{ width: `${menuWidth[index]}px` }}>
