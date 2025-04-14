@@ -89,27 +89,6 @@ const InqueryFooter = () => {
     return () => window.removeEventListener('resize', measureFooter);
   }, []);
 
-  // companyFooter가 보이면 고정 해제
-  useEffect(() => {
-    if (!(deviceInfo.isMobile || deviceInfo.isSmallScreen)) return;
-
-    const companyFooter = document.getElementById('companyFooter');
-    if (!companyFooter) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsFixed(!entry.isIntersecting);
-      },
-      {
-        root: null,
-        threshold: 0.01,
-      }
-    );
-
-    observer.observe(companyFooter);
-    return () => observer.disconnect();
-  }, [deviceInfo]);
-
   return (
     <>
       {(deviceInfo.isSmallScreen || deviceInfo.isMobile) && isFixed && (
@@ -118,10 +97,10 @@ const InqueryFooter = () => {
       <div
         id='footer'
         ref={footerRef}
-        className={`flex flex-col justify-center items-center bg-[#F1F2F2] transition-all duration-300
+        className={`sticky bg-[#F1F2F2] transition-all duration-300
         ${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? `${
+            ? ` ${
                 isFixed
                   ? 'fixed bottom-0 left-0 z-10 w-full shadow-md'
                   : 'static'
@@ -130,16 +109,16 @@ const InqueryFooter = () => {
         }`}
       >
         <div
-          className={`flex w-full gap-1 my-1 ${
+          className={`flex w-full gap-1 my-1 mx-auto ${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'flex-col justify-center items-center max-w-[80%]'
+              ? 'flex-col justify-center items-center px-4'
               : 'max-w-[1300px] justify-between py-6'
           }`}
         >
           <span
             className={`flex w-full items-center justify-center whitespace-nowrap ${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'text-[16px]'
+                ? 'text-[18px] px-auto'
                 : 'text-[18px]'
             }`}
           >
@@ -153,10 +132,17 @@ const InqueryFooter = () => {
               창업문의
             </p>
             | 빠른 상담 가능
+            <div
+              className={` ${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? 'flex-1'
+                  : 'none'
+              }`}
+            ></div>
             <p
               className={` ${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'ml-2 text-[20px] font-black'
+                  ? 'ml-2 text-[22px] font-black'
                   : 'ml-2 text-[24px] font-black'
               }`}
             >
@@ -172,7 +158,7 @@ const InqueryFooter = () => {
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
                 ? 'h-[2.5rem] px-1 py-1 text-[12px]'
-                : 'p-1'
+                : 'p-1 ml-4'
             } border-[2px] border-black w-full`}
           />
           <input
@@ -202,7 +188,7 @@ const InqueryFooter = () => {
           <button
             type='button'
             onClick={handleSubmitClick}
-            className='flex bg-Point rounded-sm flex-nowrap text-White items-center justify-center whitespace-nowrap w-full px-2 py-1'
+            className='flex bg-Point rounded-sm flex-nowrap text-White items-center justify-center whitespace-nowrap w-full px-2'
           >
             ✓ 개인정보 수집 동의 후 보내기
           </button>
