@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import YouTube, { YouTubePlayer } from "react-youtube";
+import React, { useEffect, useState } from "react";
 import useDeviceInfo from "../../../hooks/useDeviceInfo";
 
 interface BannerItem {
@@ -17,13 +16,10 @@ const RollingBanner: React.FC<RollingBannerProps> = ({ items }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [bannerHeight, setBannerHeight] = useState(0);
   const deviceInfo = useDeviceInfo();
-  const playerRefs = useRef<(YouTubePlayer | null)[]>([]);
-  const hasInteracted = useRef(false);
 
   const widthRatio = deviceInfo.isSmallScreen || deviceInfo.isMobile ? 1 : 65;
   const heightRatio = deviceInfo.isSmallScreen || deviceInfo.isMobile ? 1 : 192;
 
-  // 비율 기반 높이 계산
   useEffect(() => {
     const updateHeight = () => {
       const width = window.innerWidth;
@@ -35,7 +31,6 @@ const RollingBanner: React.FC<RollingBannerProps> = ({ items }) => {
     return () => window.removeEventListener("resize", updateHeight);
   }, [widthRatio, heightRatio]);
 
-  // 배너 교체 타이머
   useEffect(() => {
     if (items.length === 0) return;
     const durationSec = items[currentIndex]?.duration ?? 5;
@@ -44,31 +39,6 @@ const RollingBanner: React.FC<RollingBannerProps> = ({ items }) => {
     }, durationSec * 1000);
     return () => clearInterval(interval);
   }, [currentIndex, items]);
-
-  // 유저 상호작용 시 소리 켜기
-  useEffect(() => {
-    const handleInteraction = () => {
-      if (hasInteracted.current) return;
-      hasInteracted.current = true;
-
-      const currentPlayer = playerRefs.current[currentIndex];
-      if (currentPlayer) {
-        currentPlayer.unMute();
-        currentPlayer.playVideo();
-      }
-
-      // 이후 이벤트 제거
-      document.removeEventListener("click", handleInteraction);
-      document.removeEventListener("touchstart", handleInteraction);
-    };
-
-    document.addEventListener("click", handleInteraction);
-    document.addEventListener("touchstart", handleInteraction);
-    return () => {
-      document.removeEventListener("click", handleInteraction);
-      document.removeEventListener("touchstart", handleInteraction);
-    };
-  }, [currentIndex]);
 
   const extractYouTubeId = (url: string): string => {
     if (url.includes("embed")) {
@@ -86,50 +56,50 @@ const RollingBanner: React.FC<RollingBannerProps> = ({ items }) => {
       style={{ height: `${bannerHeight}px` }}
     >
       {items.map((item, index) => {
-        const videoId = extractYouTubeId(
-          typeof item.media === "string" ? item.media : item.media.filePath
-        );
+        const mediaUrl =
+          typeof item.media === "string" ? item.media : item.media.filePath;
+        const fileTypeParts = item.fileType.split("/"); // 예: ["video", "youtube"] 또는 ["image", "jpg"]
+        const isActive = index === currentIndex;
 
         return (
           <div
             key={index}
             className={`absolute inset-0 transition-opacity duration-500 ${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? "aspect-[1/1]"
-                : ""
-            } ${index === currentIndex ? "opacity-100" : "opacity-0"}`}
+              deviceInfo.isSmallScreen || deviceInfo.isMobile ? "aspect-[1/1]" : ""
+            } ${isActive ? "opacity-100" : "opacity-0"}`}
           >
-            {item.fileType === "video" ? (
-              <YouTube
-                videoId={videoId}
-                opts={{
-                  width: "100%",
-                  height: `${bannerHeight}`,
-                  playerVars: {
-                    autoplay: 1,
-                    mute: 1, // 처음엔 무조건 mute
-                    loop: 1,
-                    playlist: videoId,
-                  },
-                }}
-                onReady={(event: { target: { mute: () => void; playVideo: () => void; }; }) => {
-                  playerRefs.current[index] = event.target;
-                  event.target.mute(); // 브라우저 autoplay 제한 대응
-                  event.target.playVideo(); // 강제 재생
-                }}
-              />
-            ) : (
+            {fileTypeParts[0] === "video" && fileTypeParts[1] === "youtube" ? (
+              // YouTube iframe
+              <iframe
+                width="100%"
+                height={bannerHeight}
+                src={`https://www.youtube.com/embed/${extractYouTubeId(mediaUrl)}?autoplay=1&mute=1&loop=1&playlist=${extractYouTubeId(mediaUrl)}&controls=0&modestbranding=1&showinfo=0&rel=0`}
+                title={`YouTube video ${index}`}
+                frameBorder="0"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+              ></iframe>
+            ) : fileTypeParts[0] === "video" ? (
+              // 일반 비디오 파일
+              <video
+              style={{ height: `${bannerHeight}px` }}
+              className="w-full object-fill"
+              autoPlay
+              loop
+              muted
+            >
+              <source src={mediaUrl} type={item.fileType} />
+            </video>
+
+            ) : fileTypeParts[0] === "image" ? (
+              // 이미지 파일
               <img
-                style={{ height: `${bannerHeight}px` }}
                 className="w-full object-fill"
-                src={
-                  typeof item.media === "string"
-                    ? item.media
-                    : item.media.filePath
-                }
+                style={{ height: `${bannerHeight}px` }}
+                src={mediaUrl}
                 alt={`Banner ${index}`}
               />
-            )}
+            ) : null}
           </div>
         );
       })}
