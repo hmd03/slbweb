@@ -94,12 +94,12 @@ const MainForm: React.FC = () => {
   };
 
   const imageList = [
-    `${process.env.PUBLIC_URL}/main/point_3_rolling_1.webp`,
-    `${process.env.PUBLIC_URL}/main/rolling/point_3_rolling_2.webp`,
-    `${process.env.PUBLIC_URL}/main/rolling/point_3_rolling_3.webp`,
-    `${process.env.PUBLIC_URL}/main/rolling/point_3_rolling_1.webp`,
-    `${process.env.PUBLIC_URL}/main/rolling/point_3_rolling_2.webp`,
-    `${process.env.PUBLIC_URL}/main/rolling/point_3_rolling_3.webp`,
+    `${process.env.PUBLIC_URL}/main/rolling/point_3_rolling_1.png`,
+    `${process.env.PUBLIC_URL}/main/rolling/point_3_rolling_2.png`,
+    `${process.env.PUBLIC_URL}/main/rolling/point_3_rolling_3.png`,
+    `${process.env.PUBLIC_URL}/main/rolling/point_3_rolling_1.png`,
+    `${process.env.PUBLIC_URL}/main/rolling/point_3_rolling_2.png`,
+    `${process.env.PUBLIC_URL}/main/rolling/point_3_rolling_3.png`,
   ];
 
   return (
@@ -412,7 +412,7 @@ const MainForm: React.FC = () => {
             <div
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'px-12'
+                  ? 'px-12 overflow-hidden'
                   : 'mb-[16rem]'
               }`}
             >
@@ -612,7 +612,7 @@ const MainForm: React.FC = () => {
         <img
           loading='lazy'
           alt='고객을 제대로 대접하겠다는 의지를 담아 정성껏 준비한 SLB만의 특별한 `한상차림` 마음까지 든든해지는 기분 좋은 경험이 시작됩니다'
-          src={`${process.env.PUBLIC_URL}/main/point_3_salad.webp`}
+          src={`${process.env.PUBLIC_URL}/main/point_3_salad.png`}
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
               ? 'w-full mt-20 mb-20 px-4'
@@ -757,7 +757,7 @@ const MainForm: React.FC = () => {
           style={{
             backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_4_${
               deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'mo_' : ''
-            }background.webp)`,
+            }background.png)`,
           }}
         >
           {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
@@ -1125,7 +1125,7 @@ const MainForm: React.FC = () => {
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
                       ? 'aspect-[13/10]'
                       : 'aspect-[11/10]'
-                  }w-full rounded-t transition-opacity duration-500 opacity-0 `}
+                  } w-full rounded-t-[1rem] transition-opacity duration-500 opacity-0 `}
                   style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
                   onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
                   alt='가맹점 QSC 관리리'
@@ -1141,7 +1141,7 @@ const MainForm: React.FC = () => {
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
                       ? 'aspect-[13/10]'
                       : 'aspect-[11/10]'
-                  }w-full rounded-t transition-opacity duration-500 opacity-0 `}
+                  } w-full rounded-t-[1rem] transition-opacity duration-500 opacity-0 `}
                   style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
                   onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
                   alt='매출&수익 관리리'
@@ -1165,7 +1165,7 @@ const MainForm: React.FC = () => {
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
                       ? 'aspect-[13/10]'
                       : 'aspect-[11/10]'
-                  }w-full rounded-t transition-opacity duration-500 opacity-0 `}
+                  } w-full rounded-t-[1rem] transition-opacity duration-500 opacity-0 `}
                   style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
                   onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
                   alt='매출향상 LSM 지원원'
@@ -1181,7 +1181,7 @@ const MainForm: React.FC = () => {
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
                       ? 'aspect-[13/10]'
                       : 'aspect-[11/10]'
-                  }w-full rounded-t transition-opacity duration-500 opacity-0 `}
+                  } w-full rounded-t-[1rem] transition-opacity duration-500 opacity-0 `}
                   style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
                   onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
                   alt='물품입출고 관리리'
@@ -1197,7 +1197,7 @@ const MainForm: React.FC = () => {
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
                       ? 'aspect-[13/10]'
                       : 'aspect-[11/10]'
-                  }w-full rounded-t transition-opacity duration-500 opacity-0 `}
+                  } w-full rounded-t-[1rem] transition-opacity duration-500 opacity-0 `}
                   style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
                   onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
                   alt='매장인원 관리 지원'
