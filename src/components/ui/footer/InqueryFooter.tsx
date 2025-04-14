@@ -130,114 +130,82 @@ const InqueryFooter = () => {
         }`}
       >
         <div
-          className={`flex w-full ${
+          className={`flex w-full gap-1 my-1 ${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'flex-col justify-center items-center max-w-[80%] py-5'
-              : 'max-w-[1300px] justify-between py-10'
+              ? 'flex-col justify-center items-center max-w-[80%]'
+              : 'max-w-[1300px] justify-between py-6'
           }`}
         >
-          <div
-            className={`${
+          <span
+            className={`flex w-full items-center justify-center whitespace-nowrap ${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'flex w-full justify-between items-center'
-                : ''
+                ? 'text-[16px]'
+                : 'text-[18px]'
             }`}
           >
-            <div
-              className={`flex font-semibold ${
+            <p
+              className={` ${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'text-title'
-                  : 'text-[2.4rem]'
+                  ? 'font-bold'
+                  : 'font-bold'
               }`}
             >
-              {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
-                <div className='flex flex-col items-center'>
-                  <p className='font-black text-main'>창업 문의</p>
-                  <span className='w-full border border-b-[1px] border-black' />
-                  <p className='text-detail'>빠른 상담 가능</p>
-                </div>
-              ) : (
-                <>
-                  <p className='font-black'>창업 문의</p>| 빠른 상담 가능
-                </>
-              )}
-            </div>
-            <div
-              className={`font-black leading-none ${
+              창업문의
+            </p>
+            | 빠른 상담 가능
+            <p
+              className={` ${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'text-[2.4rem]'
-                  : 'text-[5rem]'
+                  ? 'ml-2 text-[20px] font-black'
+                  : 'ml-2 text-[24px] font-black'
               }`}
             >
               1533-0516
-            </div>
-          </div>
-          <div
+            </p>
+          </span>
+          <input
+            aria-label='이름'
+            type='text'
+            placeholder='이름'
+            ref={senderRef}
+            autoComplete='name'
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'w-full'
-                : 'w-[50%] ml-16'
-            }`}
+                ? 'h-[2.5rem] px-1 py-1 text-[12px]'
+                : 'p-1'
+            } border-[2px] border-black w-full`}
+          />
+          <input
+            aria-label='창업희망지역'
+            type='text'
+            placeholder='창업희망지역'
+            ref={preferredRegionRef}
+            autoComplete='preferredRegion'
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? 'h-[2.5rem] px-1 py-1 text-[12px]'
+                : 'p-1'
+            } border-[2px] border-black w-full`}
+          />
+          <input
+            aria-label='연락처'
+            type='text'
+            placeholder='연락처'
+            ref={contactRef}
+            autoComplete='contact'
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? 'h-[2.5rem] px-1 py-1 text-[12px]'
+                : 'p-1'
+            } border-[2px] border-black w-full`}
+          />
+          <button
+            type='button'
+            onClick={handleSubmitClick}
+            className='flex bg-Point rounded-sm flex-nowrap text-White items-center justify-center whitespace-nowrap w-full px-2 py-1'
           >
-            <div className='w-full flex justify-between items-center'>
-              <div>
-                <div className='flex w-full mb-2'>
-                  <input
-                    aria-label='이름'
-                    type='text'
-                    placeholder='이름'
-                    ref={senderRef}
-                    autoComplete='name'
-                    className={`${
-                      deviceInfo.isSmallScreen || deviceInfo.isMobile
-                        ? 'h-[2.5rem] px-1 py-1 text-[12px]'
-                        : 'px-4 py-3'
-                    } border-[2px] border-black w-full mr-2`}
-                  />
-                  <input
-                    aria-label='창업희망지역'
-                    type='text'
-                    placeholder='창업희망지역'
-                    ref={preferredRegionRef}
-                    autoComplete='preferredRegion'
-                    className={`${
-                      deviceInfo.isSmallScreen || deviceInfo.isMobile
-                        ? 'h-[2.5rem] px-1 py-1 text-[12px]'
-                        : 'px-4 py-3'
-                    } border-[2px] border-black w-full`}
-                  />
-                </div>
-                <input
-                  aria-label='연락처'
-                  type='text'
-                  placeholder='연락처'
-                  ref={contactRef}
-                  autoComplete='contact'
-                  className={`${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'h-[2.5rem] px-1 py-1 text-[12px]'
-                      : 'px-4 py-3'
-                  } border-[2px] border-black w-full`}
-                />
-              </div>
-              <div
-                className={`${
-                  deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? 'ml-2'
-                    : 'mb-auto'
-                }`}
-              >
-                <button
-                  type='button'
-                  onClick={handleSubmitClick}
-                  className='p-4 w-[6.5rem] h-[6rem] text-title text-White bg-[#FF331F] border-[1px] border-Black rounded-xl flex flex-col items-center justify-center'
-                >
-                  <p className='leading-none'>문의</p>
-                  <p className='leading-none'>하기</p>
-                </button>
-              </div>
-            </div>
-          </div>
+            ✓ 개인정보 수집 동의 후 보내기
+          </button>
         </div>
 
         {isModalVisible && (
