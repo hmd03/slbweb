@@ -615,7 +615,7 @@ const MainForm: React.FC = () => {
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
               ? 'w-full mt-20 mb-20 px-4'
-              : 'w-[60%] ml-auto mr-[6rem] mt-40 mb-40'
+              : 'w-[50%] ml-auto mr-[15%] mt-40 mb-40'
           } transition-opacity duration-500 opacity-0  aspect-[14/10]`}
           onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
         />
