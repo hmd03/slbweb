@@ -11,7 +11,7 @@ function NextArrow(props: any) {
   const { onClick } = props;
   return (
     <div
-      className='hidden sm:block absolute -right-4 top-1/2 -translate-y-1/2 z-10 cursor-pointer p-2'
+      className='hidden sm:block absolute -right-12 top-1/2 -translate-y-1/2 z-10 cursor-pointer p-2'
       onClick={onClick}
     >
       <ChevronRight className='w-8 h-8 text-gray-500 hover:text-black' />
@@ -23,7 +23,7 @@ function PrevArrow(props: any) {
   const { onClick } = props;
   return (
     <div
-      className='hidden sm:block absolute -left-4 top-1/2 -translate-y-1/2 z-10 cursor-pointer p-2'
+      className='hidden sm:block absolute -left-12 top-1/2 -translate-y-1/2 z-10 cursor-pointer p-2'
       onClick={onClick}
     >
       <ChevronLeft className='w-8 h-8 text-gray-500 hover:text-black' />
@@ -54,7 +54,7 @@ const RollingCard: React.FC<RollingCardProps> = ({ images }) => {
   };
 
   return (
-    <div className='relative w-full max-w-[70vw] mx-auto py-10 px-4'>
+    <div className='relative w-full mx-auto py-10 px-4'>
       <Slider {...settings}>
         {images.map((src, idx) => (
           <div key={idx} className='px-2'>
