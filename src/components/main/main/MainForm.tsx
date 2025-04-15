@@ -94,12 +94,11 @@ const MainForm: React.FC = () => {
   };
 
   const imageList = [
-    `${process.env.PUBLIC_URL}/main/rolling/point_3_rolling_1.png`,
-    `${process.env.PUBLIC_URL}/main/rolling/point_3_rolling_2.png`,
-    `${process.env.PUBLIC_URL}/main/rolling/point_3_rolling_3.png`,
-    `${process.env.PUBLIC_URL}/main/rolling/point_3_rolling_1.png`,
-    `${process.env.PUBLIC_URL}/main/rolling/point_3_rolling_2.png`,
-    `${process.env.PUBLIC_URL}/main/rolling/point_3_rolling_3.png`,
+    `${process.env.PUBLIC_URL}/main/rolling/review1.jpg`,
+    `${process.env.PUBLIC_URL}/main/rolling/review2.jpg`,
+    `${process.env.PUBLIC_URL}/main/rolling/review3.jpg`,
+    `${process.env.PUBLIC_URL}/main/rolling/review4.jpg`,
+    `${process.env.PUBLIC_URL}/main/rolling/review5.jpg`,
   ];
 
   return (
@@ -413,7 +412,7 @@ const MainForm: React.FC = () => {
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
                   ? 'px-12 overflow-hidden'
-                  : 'mb-[16rem]'
+                  : 'mb-[16rem] w-[1100px]'
               }`}
             >
               <RollingCard images={imageList} />
@@ -745,14 +744,14 @@ const MainForm: React.FC = () => {
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'w-full px-8'
-            : 'w-full'
+            : 'w-[1300px]'
         }`}
       >
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
               ? 'bg-contain bg-no-repeat bg-top flex flex-col min-h-[800px] items-center pt-10 text-third justify-between aspect-[10/15] mb-20'
-              : 'Slb-SubTitle aspect-[17/10] py-40 px-40 mb-40 bg-no-repeat bg-center bg-cover flex flex-col items-center '
+              : 'Slb-SubTitle mb-40 bg-no-repeat bg-center bg-cover flex flex-col items-center h-[80vh]'
           } w-full`}
           style={{
             backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_4_${
@@ -1114,42 +1113,29 @@ const MainForm: React.FC = () => {
             <div
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'flex-col  mb-8 px-8'
-                  : 'mb-16'
-              } flex items-center gap-8`}
+                  ? 'flex-col px-8'
+                  : ''
+              } flex items-center gap-8 mb-16`}
             >
-              <div className=''>
-                <img
-                  loading='lazy'
-                  className={`${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'aspect-[13/10]'
-                      : 'aspect-[11/10]'
-                  } w-full rounded-t-[1rem] transition-opacity duration-500 opacity-0 `}
+              {[1, 2].map((idx) => (
+                <div
+                  key={idx}
+                  className='aspect-[11/10] w-full rounded-t-[1rem] overflow-hidden'
                   style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
-                  onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
-                  alt='가맹점 QSC 관리리'
-                  src={`${process.env.PUBLIC_URL}/main/point_6_${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'mo_' : ''
-                  }1.webp`}
-                />
-              </div>
-              <div className=''>
-                <img
-                  loading='lazy'
-                  className={`${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'aspect-[13/10]'
-                      : 'aspect-[11/10]'
-                  } w-full rounded-t-[1rem] transition-opacity duration-500 opacity-0 `}
-                  style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
-                  onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
-                  alt='매출&수익 관리리'
-                  src={`${process.env.PUBLIC_URL}/main/point_6_${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'mo_' : ''
-                  }2.webp`}
-                />
-              </div>
+                >
+                  <img
+                    loading='lazy'
+                    className='w-full h-full object-cover transition-opacity duration-500 opacity-0'
+                    onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+                    alt={`point ${idx}`}
+                    src={`${process.env.PUBLIC_URL}/main/point_6_${
+                      deviceInfo.isSmallScreen || deviceInfo.isMobile
+                        ? 'mo_'
+                        : ''
+                    }${idx}.webp`}
+                  />
+                </div>
+              ))}
             </div>
             <div
               className={`${
@@ -1158,54 +1144,25 @@ const MainForm: React.FC = () => {
                   : ''
               } flex items-center gap-8 mb-16`}
             >
-              <div className=''>
-                <img
-                  loading='lazy'
-                  className={`${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'aspect-[13/10]'
-                      : 'aspect-[11/10]'
-                  } w-full rounded-t-[1rem] transition-opacity duration-500 opacity-0 `}
+              {[3, 4, 5].map((idx) => (
+                <div
+                  key={idx}
+                  className='aspect-[11/10] w-full rounded-t-[1rem] overflow-hidden'
                   style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
-                  onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
-                  alt='매출향상 LSM 지원원'
-                  src={`${process.env.PUBLIC_URL}/main/point_6_${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'mo_' : ''
-                  }3.webp`}
-                />
-              </div>
-              <div className=''>
-                <img
-                  loading='lazy'
-                  className={`${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'aspect-[13/10]'
-                      : 'aspect-[11/10]'
-                  } w-full rounded-t-[1rem] transition-opacity duration-500 opacity-0 `}
-                  style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
-                  onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
-                  alt='물품입출고 관리리'
-                  src={`${process.env.PUBLIC_URL}/main/point_6_${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'mo_' : ''
-                  }4.webp`}
-                />
-              </div>
-              <div className=''>
-                <img
-                  loading='lazy'
-                  className={`${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'aspect-[13/10]'
-                      : 'aspect-[11/10]'
-                  } w-full rounded-t-[1rem] transition-opacity duration-500 opacity-0 `}
-                  style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
-                  onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
-                  alt='매장인원 관리 지원'
-                  src={`${process.env.PUBLIC_URL}/main/point_6_${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'mo_' : ''
-                  }5.webp`}
-                />
-              </div>
+                >
+                  <img
+                    loading='lazy'
+                    className='w-full h-full object-cover transition-opacity duration-500 opacity-0'
+                    onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+                    alt={`point ${idx}`}
+                    src={`${process.env.PUBLIC_URL}/main/point_6_${
+                      deviceInfo.isSmallScreen || deviceInfo.isMobile
+                        ? 'mo_'
+                        : ''
+                    }${idx}.webp`}
+                  />
+                </div>
+              ))}
             </div>
             {deviceInfo.isMobile || deviceInfo.isSmallScreen || (
               <div className='mb-10' />
