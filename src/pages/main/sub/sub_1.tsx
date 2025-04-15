@@ -3,8 +3,6 @@ import MainForm from '../../../components/main/main/MainForm';
 const sub_1 = () => {
     return (
         <>
-            <MainForm />
-            <div className='w-full h-[4000px]'></div>
         </>
     );
 };
