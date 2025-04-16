@@ -54,7 +54,7 @@ const RollingCard: React.FC<RollingCardProps> = ({ images }) => {
   };
 
   return (
-    <div className='relative w-full mx-auto py-10 px-4'>
+    <div className='relative w-[full] mx-auto py-10 px-4'>
       <Slider {...settings}>
         {images.map((src, idx) => (
           <div key={idx} className='px-2'>

@@ -486,7 +486,7 @@ const MainForm: React.FC = () => {
             <div
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'px-12 overflow-hidden'
+                  ? 'px-12 overflow-hidden w-full'
                   : 'mb-[16rem] w-[1100px]'
               }`}
             >
