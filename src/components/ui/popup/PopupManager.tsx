@@ -19,7 +19,6 @@ type PopupManagerProps = {
 const PopupManager: React.FC<PopupManagerProps> = ({ popups, isMobile = false }) => {
   const [visiblePopups, setVisiblePopups] = useState<PopupInfo[]>([]);
   const [popupInitialized, setPopupInitialized] = useState(false);
-  const [headerHeight, setHeaderHeight] = useState(0);
 
   // 처음 마운트 시에만 쿠키 체크
   useEffect(() => {
@@ -38,13 +37,6 @@ const PopupManager: React.FC<PopupManagerProps> = ({ popups, isMobile = false })
       setPopupInitialized(true);
     }
   }, [popups]);
-
-  useEffect(() => {
-    const headerEl = document.getElementById('header_mo');
-    if (headerEl) {
-      setHeaderHeight(headerEl.offsetHeight);
-    }
-  }, []);
 
   const handleClose = () => {
     setVisiblePopups(prev => prev.slice(1));
@@ -66,7 +58,7 @@ const PopupManager: React.FC<PopupManagerProps> = ({ popups, isMobile = false })
         <div
         className="fixed z-[9998] left-1/2 transform -translate-x-1/2"
         style={{
-          top: `${headerHeight + 10}px`,
+          top: 100,
           width: '90vw',
         }}
       >

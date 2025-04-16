@@ -39,7 +39,10 @@ const MainForm: React.FC = () => {
     }
     fetchPopupData();
   }, [deviceInfo]);
-  
+
+  useEffect(() => {
+    fetchPopupData();
+  }, []);
 
   const fetchBannerData = async (searchIsMobile: string) => {
     try {
