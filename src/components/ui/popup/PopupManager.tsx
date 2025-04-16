@@ -96,17 +96,17 @@ const PopupManager: React.FC<PopupManagerProps> = ({ popups, isMobile = false })
               top: Math.max(popup.locationY, headerHeight),
               left: popup.locationX,
               width: popup.width,
-              height: popup.height,
+              height: popup.height + 32,
             }}
           >
             <a href={popup.link} target="_blank" rel="noopener noreferrer">
               <img
                 src={popup.image}
                 alt={popup.title}
-                className="w-full h-full object-cover"
+                className={`w-[${popup.width}px] h-[${popup.height}px] object-cover`}
               />
             </a>
-            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white flex justify-between text-xs px-3 py-2 z-[9999]">
+            <div className="absolute h-[32px] bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white flex justify-between text-xs px-3 py-2 z-[9999]">
               <button onClick={handleHideForDay}>24시간 동안 다시 열람하지 않습니다.</button>
               <button onClick={handleClose}>닫기</button>
             </div>
