@@ -118,7 +118,7 @@ const MobileHeader = ({ children, ...props }: Props) => {
   };
 
   return (
-    <div className='w-full flex flex-col items-center' {...props}>
+    <div className='w-full flex flex-col items-center' {...props} id='header_mo'>
       <div style={{ height: `${headerHeight}px` }} />
       <header
         className='bg-white shadow w-full fixed top-0 left-0 z-[100]'
