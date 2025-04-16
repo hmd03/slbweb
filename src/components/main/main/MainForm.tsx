@@ -38,7 +38,7 @@ const MainForm: React.FC = () => {
       fetchBannerData(ismobile);
       fetchPopupData();
     }
-  }, [deviceInfo.isSmallScreen]);
+  }, [deviceInfo]);
 
   const fetchBannerData = async (searchIsMobile: string) => {
     try {
