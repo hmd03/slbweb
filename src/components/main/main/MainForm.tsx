@@ -166,6 +166,7 @@ const MainForm: React.FC = () => {
   return (
     <div className='flex flex-col w-full h-full items-center'>
       <div className='w-full h-full'>
+        <PopupManager popups={popupList} isMobile={deviceInfo.isSmallScreen || deviceInfo.isMobile}/>
         <RollingBanner items={bannerList} />
       </div>
       {/* Point 1 */}
@@ -1457,7 +1458,6 @@ const MainForm: React.FC = () => {
           }.webp`}
         ></img>
       </section>
-      <PopupManager popups={popupList} isMobile={deviceInfo.isSmallScreen || deviceInfo.isMobile}/>
     </div>
   );
 };
