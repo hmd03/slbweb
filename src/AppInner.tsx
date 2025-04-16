@@ -160,7 +160,7 @@ const AppInner: React.FC = () => {
   useEffect(() => {
     const refreshToken = Cookies.get('refreshToken');
     if (location.pathname.startsWith('/admin') && !refreshToken) {
-      navigate('/admin/login');
+      navigate('/admin/inquiry');
     }
   }, [location.pathname, Cookies.get('refreshToken'), navigate, isLoading]);
 
