@@ -98,8 +98,8 @@ const Header = ({ children, ...props }: Props) => {
   }, []);
 
   return (
-    <div className='w-full flex flex-col items-center' {...props} id='header'>
-      <div ref={headerRef} className='w-full bg-white shadow z-30'>
+    <div className='w-full flex flex-col items-center' {...props}>
+      <div ref={headerRef} className='w-full bg-white shadow z-30' id='header'>
         <div className='flex flex-col justify-between items-center px-4 w-full border-b-[2px] border-black'>
           <div className='text-center mt-10'>
             <img
