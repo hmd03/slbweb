@@ -100,42 +100,50 @@ const MainForm: React.FC = () => {
   };
 
   const fetchPopupData = async () => {
-    console.log('[fetchPopupData] 함수 시작');
-  
-    if (Object.keys(deviceInfo).length === 0) {
-      console.log('[fetchPopupData] deviceInfo 없음 => 중단');
-      return;
-    }
-  
     try {
-      console.log('[fetchPopupData] API 호출 시작');
       setPopupList([]);
       const url = `api/popups?page=1&searchIsMobile`;
+      console.log('요청 URL:', url);
+
       const response = await axios.get(url);
-  
       const popupList = response.data.popupList;
-      console.log('[fetchPopupData] 응답:', popupList);
-  
+
+      console.log('응답 데이터:', response.data);
+
       const updatedPopupList = await Promise.all(
-        popupList.map(async (popup: {
-          title: string;
-          link: string;
-          locationX: number;
-          locationY: number;
-          width: number;
-          height: number;
-          media: { id: string; fileType: string; filePath: string };
-        }) => {
-          if (popup.media == null) return popup;
-  
-          const fileSrc = await getFile(popup.media.id);
-          return { ...popup, image: fileSrc };
-        })
+        popupList.map(
+          async (popup: {
+            title: string;
+            link: string;
+            locationX: number;
+            locationY: number;
+            width: number;
+            height: number;
+            media: { id: string; fileType: string; filePath: string };
+          }) => {
+            if (popup.media == null) {
+              return popup;
+            }
+
+            let fileSrc = '';
+            fileSrc = await getFile(popup.media.id);
+
+            return {
+              title: popup.title,
+              link: popup.link,
+              locationX: popup.locationX,
+              locationY: popup.locationY,
+              width: popup.width,
+              height: popup.height,
+              image: fileSrc,
+            };
+          }
+        )
       );
-  
+
       setPopupList(updatedPopupList);
     } catch (error) {
-      console.error('[fetchPopupData] 에러:', error);
+      console.log('error: ' + error);
     }
   };
 
