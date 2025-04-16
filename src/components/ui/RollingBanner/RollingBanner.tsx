@@ -20,9 +20,6 @@ const RollingBanner: React.FC<RollingBannerProps> = ({ items }) => {
   const widthRatio = deviceInfo.isSmallScreen || deviceInfo.isMobile ? 1 : 65;
   const heightRatio = deviceInfo.isSmallScreen || deviceInfo.isMobile ? 1 : 192;
 
-  console.log('widthRatio: ' + widthRatio);
-  console.log('heightRatio: ' + heightRatio);
-
   useEffect(() => {
     const updateHeight = () => {
       const width = window.innerWidth;
