@@ -75,6 +75,7 @@ const AppInner: React.FC = () => {
   useEffect(() => {
     const fetchSettings = async () => {
       const res = await axios.get("/api/setting");
+      console.log(res);
       if (res.status === 200) {
         const { name, title, description, privacyPolicy, termsOfService } =
           res.data;

@@ -22,7 +22,8 @@ const InqueryFooter = () => {
   const [onConfirm, setOnConfirm] = useState(() => () => {});
 
   const handleSubmitClick = () => {
-    handleOpenModal(`등록 하시겠습니까?`, true, () => onSubmit());
+    //handleOpenModal(`등록 하시겠습니까?`, true, () => onSubmit());
+    onSubmit();
   };
 
   const onSubmit = useCallback(async () => {
@@ -49,7 +50,8 @@ const InqueryFooter = () => {
       const data = response.data;
       if (response.status === 201) {
         console.log(data);
-        handleCancel();
+        alert('등록되었습니다.');
+        //handleCancel();
         window.location.reload();
       } else {
         alert(data.message);
