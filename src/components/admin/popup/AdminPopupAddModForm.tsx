@@ -167,7 +167,6 @@ const AdminPopupAddModForm: React.FC = () => {
 
     const onSubmit = async () => {
         const title = titleRef.current?.value || '';
-        const link = linkRef.current?.value || '';
         const locationX = locationXRef.current?.value || '';
         const locationY = locationYRef.current?.value || '';
         const width = widthRef.current?.value || '';
@@ -175,7 +174,6 @@ const AdminPopupAddModForm: React.FC = () => {
 
         if (
             title === '' ||
-            link === '' ||
             locationX === '' ||
             locationY === '' ||
             width === '' ||
