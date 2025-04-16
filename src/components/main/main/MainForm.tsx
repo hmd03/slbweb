@@ -93,7 +93,7 @@ const MainForm: React.FC = () => {
       console.log('요청 URL:', url);
 
       const response = await axios.get(url);
-      const popupList = response.data;
+      const popupList = response.data.popupList;
 
       console.log('응답 데이터:', response.data);
 
