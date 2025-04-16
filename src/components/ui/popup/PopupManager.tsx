@@ -9,6 +9,7 @@ type PopupInfo = {
   width: number;
   height: number;
   image: string;
+  cookiesId: string;
 };
 
 type PopupManagerProps = {
@@ -37,7 +38,7 @@ const PopupManager: React.FC<PopupManagerProps> = ({
   // 팝업 목록이 바뀔 때마다 각 팝업에 해당하는 쿠키가 있는지 확인하여 필터링합니다.
   useEffect(() => {
     const filteredPopups = popups.filter(
-      (popup) => !Cookies.get(`popup_hidden_${popup.title}`)
+      (popup) => !Cookies.get(`popup_hidden_${popup.cookiesId}`)
     );
     setVisiblePopups(filteredPopups);
     setPopupInitialized(true);
@@ -46,15 +47,17 @@ const PopupManager: React.FC<PopupManagerProps> = ({
   // 특정 팝업만 닫기 (배열에서 제거)
   const handleClose = (popupToClose: PopupInfo) => {
     setVisiblePopups((prev) =>
-      prev.filter((popup) => popup.title !== popupToClose.title)
+      prev.filter((popup) => popup.cookiesId !== popupToClose.cookiesId)
     );
   };
 
   // 특정 팝업만 24시간 동안 숨김 처리 (쿠키 저장 후 배열에서 제거)
   const handleHideForDay = (popupToHide: PopupInfo) => {
-    Cookies.set(`popup_hidden_${popupToHide.title}`, 'true', { expires: 1 });
+    Cookies.set(`popup_hidden_${popupToHide.cookiesId}`, 'true', {
+      expires: 1,
+    });
     setVisiblePopups((prev) =>
-      prev.filter((popup) => popup.title !== popupToHide.title)
+      prev.filter((popup) => popup.cookiesId !== popupToHide.cookiesId)
     );
   };
 
@@ -94,7 +97,7 @@ const PopupManager: React.FC<PopupManagerProps> = ({
       ) : (
         visiblePopups.map((popup, idx) => (
           <div
-            key={popup.title + idx}
+            key={popup.cookiesId + idx}
             className='fixed z-[9999] bg-white shadow-lg border rounded-md overflow-hidden'
             style={{
               top: popup.locationY,

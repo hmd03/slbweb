@@ -8,6 +8,7 @@ import RollingCard from '../../ui/RollingBanner/RollingCard';
 import SlideUpOnView from '../../ui/slideUpOnView/SlideUpOnView';
 import PopupManager from '../../ui/popup/PopupManager';
 import { useLocation } from 'react-router-dom';
+import cookies from 'js-cookie';
 
 const MainForm: React.FC = () => {
   const deviceInfo = useDeviceInfo();
@@ -30,25 +31,19 @@ const MainForm: React.FC = () => {
       width: number;
       height: number;
       image: string;
+      cookiesId: string;
     }>
   >([]);
 
   useEffect(() => {
-    console.log('[useEffect] deviceInfo 변경됨:', deviceInfo);
   
     if (Object.keys(deviceInfo).length > 0) {
       const ismobile = deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'true' : 'false';
-      console.log('[useEffect] fetchBannerData, fetchPopupData 호출');
       fetchBannerData(ismobile);
     }
   }, [deviceInfo]);
   
   useEffect(() => {
-    fetchPopupData();
-  }, []);
-  
-  useEffect(() => {
-    console.log('[useEffect] location.pathname 변경됨:', location.pathname);
     fetchPopupData();
   }, [location.pathname]);
 
@@ -135,6 +130,7 @@ const MainForm: React.FC = () => {
               width: popup.width,
               height: popup.height,
               image: fileSrc,
+              cookiesId: popup.media.id,
             };
           }
         )
