@@ -109,7 +109,7 @@ const Header = ({ children, ...props }: Props) => {
               className='h-[6rem] m-auto cursor-pointer select-none'
             />
           </div>
-          <div className='flex justify-between items-center max-w-[1300px] mt-3 mb-6 text-main mx-auto'>
+          <div className='flex justify-between items-center max-w-[1300px] mt-3 mb-6 text-main mx-auto w-full'>
             <a
               href='tel:15330516'
               className='flex a-reset items-center'
