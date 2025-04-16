@@ -6,6 +6,7 @@ import Chip from '../../ui/chip/chip';
 import DividerWithLabel from '../../ui/label/DividerWithLabel';
 import RollingCard from '../../ui/RollingBanner/RollingCard';
 import SlideUpOnView from '../../ui/slideUpOnView/SlideUpOnView';
+import PopupManager from '../../ui/popup/PopupManager';
 
 const MainForm: React.FC = () => {
   const deviceInfo = useDeviceInfo();
@@ -18,15 +19,28 @@ const MainForm: React.FC = () => {
     }>
   >([]);
 
+  const [popupList, setPopupList] = useState<
+    Array<{
+      title: string;
+      link: string;
+      locationX: number;
+      locationY: number;
+      width: number;
+      height: number;
+      image: string;
+    }>
+  >([]);
+
   useEffect(() => {
     if (Object.keys(deviceInfo).length > 0) {
-      const mobile =
+      const ismobile =
         deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'true' : 'false';
-      fetchData(mobile);
+      fetchBannerData(ismobile);
+      fetchPopupData();
     }
   }, [deviceInfo.isSmallScreen]);
 
-  const fetchData = async (searchIsMobile: string) => {
+  const fetchBannerData = async (searchIsMobile: string) => {
     try {
       setBannerList([]);
       const url = `api/banners?page=1&searchIsMobile=${searchIsMobile}`;
@@ -67,6 +81,54 @@ const MainForm: React.FC = () => {
       );
 
       setBannerList(updatedBannerList);
+    } catch (error) {
+      console.log('error: ' + error);
+    }
+  };
+
+  const fetchPopupData = async () => {
+    try {
+      setPopupList([]);
+      const url = `api/popup?page=1&searchIsMobile`;
+      console.log('요청 URL:', url);
+
+      const response = await axios.get(url);
+      const popupList = response.data;
+
+      console.log('응답 데이터:', response.data);
+
+      const updatedPopupList = await Promise.all(
+        popupList.map(
+          async (popup: {
+            title: string;
+            link: string;
+            locationX: number;
+            locationY: number;
+            width: number;
+            height: number;
+            media: { id: string; fileType: string; filePath: string };
+          }) => {
+            if (popup.media == null) {
+              return popup;
+            }
+
+            let fileSrc = '';
+            fileSrc = await getFile(popup.media.id);
+
+            return {
+              title: popup.title,
+              link: popup.link,
+              locationX: popup.locationX,
+              locationY: popup.locationY,
+              width: popup.width,
+              height: popup.height,
+              image: fileSrc,
+            };
+          }
+        )
+      );
+
+      setPopupList(updatedPopupList);
     } catch (error) {
       console.log('error: ' + error);
     }
@@ -1395,6 +1457,7 @@ const MainForm: React.FC = () => {
           }.webp`}
         ></img>
       </section>
+      <PopupManager popups={popupList} isMobile={deviceInfo.isSmallScreen || deviceInfo.isMobile}/>
     </div>
   );
 };
