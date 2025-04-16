@@ -7,6 +7,9 @@ interface DeviceInfo {
   isSmallScreen?: boolean;
 }
 
+// 디바운스 적용 여부 설정
+const USE_DEBOUNCE = false;
+
 const useDeviceInfo = (): DeviceInfo => {
   const [deviceInfo, setDeviceInfo] = useState<DeviceInfo>({});
 
@@ -28,14 +31,18 @@ const useDeviceInfo = (): DeviceInfo => {
       });
     };
 
-    const debouncedCheck = debounce(checkDeviceInfo, 200);
+    const handler = USE_DEBOUNCE
+      ? debounce(checkDeviceInfo, 200)
+      : checkDeviceInfo;
 
     checkDeviceInfo();
-    window.addEventListener('resize', debouncedCheck);
+    window.addEventListener('resize', handler);
 
     return () => {
-      window.removeEventListener('resize', debouncedCheck);
-      debouncedCheck.cancel();
+      window.removeEventListener('resize', handler);
+      if (USE_DEBOUNCE) {
+        (handler as ReturnType<typeof debounce>).cancel();
+      }
     };
   }, []);
 
