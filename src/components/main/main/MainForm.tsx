@@ -89,7 +89,7 @@ const MainForm: React.FC = () => {
   const fetchPopupData = async () => {
     try {
       setPopupList([]);
-      const url = `api/popup?page=1&searchIsMobile`;
+      const url = `api/popups?page=1&searchIsMobile`;
       console.log('요청 URL:', url);
 
       const response = await axios.get(url);
