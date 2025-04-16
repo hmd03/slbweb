@@ -40,7 +40,7 @@ const PopupManager: React.FC<PopupManagerProps> = ({ popups, isMobile = false })
 
   return (
     <>
-      {hasPopup && <div className="fixed inset-0 bg-black bg-opacity-50 z-40" />}
+      {hasPopup && <div className="fixed inset-0 bg-black bg-opacity-50 z-8888" />}
 
       {isMobile ? (
         topPopup && (
@@ -72,7 +72,7 @@ const PopupManager: React.FC<PopupManagerProps> = ({ popups, isMobile = false })
         visiblePopups.map((popup, idx) => (
           <div
             key={popup.title + idx}
-            className="fixed z-50 bg-white shadow-lg border overflow-hidden"
+            className="fixed z-9999 bg-white shadow-lg border overflow-hidden"
             style={{
               left: popup.locationX,
               top: popup.locationY,
@@ -84,7 +84,7 @@ const PopupManager: React.FC<PopupManagerProps> = ({ popups, isMobile = false })
               <img
                 src={popup.image}
                 alt={popup.title}
-                className="w-full h-full object-cover"
+                className={`w-[${popup.width}px] h-[${popup.height-32}px] object-cover`}
               />
             </a>
             <div className="flex justify-between text-xs p-2 bg-black text-white bg-opacity-80">

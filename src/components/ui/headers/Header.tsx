@@ -142,7 +142,7 @@ const Header = ({ children, ...props }: Props) => {
       {/* ✅ nav 영역 - 스크롤 시 fixed top */}
       <div
         ref={navRef}
-        className={`w-full bg-white z-[9999] shadow transition-all duration-300 ${
+        className={`w-full bg-white z-[50] shadow transition-all duration-300 ${
           isNavFixed ? 'fixed top-0 left-0' : ''
         }`}
         onMouseEnter={handleMouseEnter}
