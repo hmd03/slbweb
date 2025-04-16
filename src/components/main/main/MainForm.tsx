@@ -40,20 +40,15 @@ const MainForm: React.FC = () => {
       fetchBannerData(ismobile);
     }
     fetchPopupData();
-  }, [deviceInfo, location.pathname]);
-
-  // useEffect(() => {
-  //   if (Object.keys(deviceInfo).length > 0) {
-  //     const ismobile =
-  //       deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'true' : 'false';
-  //     fetchBannerData(ismobile);
-  //   }
-  // }, [deviceInfo]);
+  }, [deviceInfo]);
   
-  // // 경로가 바뀔 때마다 팝업 데이터 호출
-  // useEffect(() => {
-  //   fetchPopupData();
-  // }, [location.pathname]);
+  useEffect(() => {
+    fetchPopupData();
+  }, []);
+  
+  useEffect(() => {
+    fetchPopupData();
+  }, [location.pathname]);
 
   const fetchBannerData = async (searchIsMobile: string) => {
     try {
