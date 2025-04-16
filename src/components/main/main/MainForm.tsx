@@ -40,7 +40,6 @@ const MainForm: React.FC = () => {
       const ismobile = deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'true' : 'false';
       console.log('[useEffect] fetchBannerData, fetchPopupData 호출');
       fetchBannerData(ismobile);
-      fetchPopupData();
     }
   }, [deviceInfo]);
   
