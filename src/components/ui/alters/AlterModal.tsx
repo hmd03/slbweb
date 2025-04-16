@@ -9,7 +9,7 @@ interface ModalProps {
 
 const AlterModal: React.FC<ModalProps> = ({ message, isCancelVisible = true, onConfirm, onCancel }) => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9999]">
       <div className="bg-white rounded-lg shadow-lg p-6">
         <p className="mb-4">{message}</p>
         <div className="flex justify-end">
