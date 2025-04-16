@@ -19,6 +19,7 @@ type PopupManagerProps = {
 const PopupManager: React.FC<PopupManagerProps> = ({ popups, isMobile = false }) => {
   const [visiblePopups, setVisiblePopups] = useState<PopupInfo[]>([]);
   const [popupInitialized, setPopupInitialized] = useState(false);
+  const [headerHeight, setHeaderHeight] = useState(0);
 
   // 처음 마운트 시에만 쿠키 체크
   useEffect(() => {
@@ -38,6 +39,13 @@ const PopupManager: React.FC<PopupManagerProps> = ({ popups, isMobile = false })
     }
   }, [popups]);
 
+  useEffect(() => {
+    const headerEl = document.getElementById('header_mo');
+    if (headerEl) {
+      setHeaderHeight(headerEl.offsetHeight);
+    }
+  }, []);
+
   const handleClose = () => {
     setVisiblePopups(prev => prev.slice(1));
   };
@@ -56,27 +64,27 @@ const PopupManager: React.FC<PopupManagerProps> = ({ popups, isMobile = false })
     <>
       {isMobile ? (
         <div
-          className="fixed z-[9998] bg-white shadow-lg border rounded-md overflow-hidden"
-          style={{
-            top: 0,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: topPopup.width,
-            height: topPopup.height,
-          }}
-        >
+        className="fixed z-[9998] left-1/2 transform -translate-x-1/2"
+        style={{
+          top: `${headerHeight + 10}px`,
+          width: '90vw',
+        }}
+      >
+        <div className="bg-white shadow-xl border rounded-md overflow-hidden w-full">
           <a href={topPopup.link} target="_blank" rel="noopener noreferrer">
             <img
               src={topPopup.image}
               alt={topPopup.title}
-              className="w-full h-full object-cover"
+              className="w-full object-cover"
+              style={{ height: topPopup.height }}
             />
           </a>
-          <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white flex justify-between text-xs px-3 py-2 z-[9999]">
+          <div className="bg-black bg-opacity-70 text-white flex justify-between text-xs px-3 py-2">
             <button onClick={handleHideForDay}>24시간 동안 다시 열람하지 않습니다.</button>
             <button onClick={handleClose}>닫기</button>
           </div>
         </div>
+      </div>
       ) : (
         visiblePopups.map((popup, idx) => (
           <div
