@@ -131,12 +131,16 @@ const InqueryFooter = () => {
             >
               창업문의
             </p>
-            | 빠른 상담 가능
+            <p className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? 'hidden'
+                : ''
+            }`}>| 빠른 상담 가능</p>
             <div
               className={` ${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
                   ? 'flex-1'
-                  : 'none'
+                  : 'hidden'
               }`}
             ></div>
             <p
@@ -157,7 +161,7 @@ const InqueryFooter = () => {
             autoComplete='name'
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'h-[2.5rem] px-1 py-1 text-[12px]'
+                ? 'px-1 py-1 text-[12px]'
                 : 'p-1 ml-4'
             } border-[2px] border-black w-full`}
           />
@@ -169,7 +173,7 @@ const InqueryFooter = () => {
             autoComplete='preferredRegion'
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'h-[2.5rem] px-1 py-1 text-[12px]'
+                ? 'px-1 py-1 text-[12px]'
                 : 'p-1'
             } border-[2px] border-black w-full`}
           />
@@ -181,7 +185,7 @@ const InqueryFooter = () => {
             autoComplete='contact'
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'h-[2.5rem] px-1 py-1 text-[12px]'
+                ? 'px-1 py-1 text-[12px]'
                 : 'p-1'
             } border-[2px] border-black w-full`}
           />
