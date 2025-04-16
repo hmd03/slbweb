@@ -40,7 +40,7 @@ const AdminHeader = ({...props}: Props) => {
   };
 
   const handleHomePageRedirect = () => {
-    window.open('https://slbslb.com/', '_blank');
+    window.open('/', '_blank');
   };
 
   return (
