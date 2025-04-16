@@ -7,9 +7,11 @@ import DividerWithLabel from '../../ui/label/DividerWithLabel';
 import RollingCard from '../../ui/RollingBanner/RollingCard';
 import SlideUpOnView from '../../ui/slideUpOnView/SlideUpOnView';
 import PopupManager from '../../ui/popup/PopupManager';
+import { useLocation } from 'react-router-dom';
 
 const MainForm: React.FC = () => {
   const deviceInfo = useDeviceInfo();
+  const location = useLocation();
   const [bannerList, setBannerList] = useState<
     Array<{
       media: string;
@@ -38,11 +40,20 @@ const MainForm: React.FC = () => {
       fetchBannerData(ismobile);
     }
     fetchPopupData();
-  }, [deviceInfo]);
+  }, [deviceInfo, location.pathname]);
 
-  useEffect(() => {
-    fetchPopupData();
-  }, []);
+  // useEffect(() => {
+  //   if (Object.keys(deviceInfo).length > 0) {
+  //     const ismobile =
+  //       deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'true' : 'false';
+  //     fetchBannerData(ismobile);
+  //   }
+  // }, [deviceInfo]);
+  
+  // // 경로가 바뀔 때마다 팝업 데이터 호출
+  // useEffect(() => {
+  //   fetchPopupData();
+  // }, [location.pathname]);
 
   const fetchBannerData = async (searchIsMobile: string) => {
     try {
