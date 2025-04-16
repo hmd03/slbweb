@@ -99,7 +99,7 @@ const Header = ({ children, ...props }: Props) => {
 
   return (
     <div className='w-full flex flex-col items-center' {...props}>
-      <div ref={headerRef} className='w-full bg-white shadow z-30' id='header'>
+      <div ref={headerRef} className='w-full bg-white shadow z-30'>
         <div className='flex flex-col justify-between items-center px-4 w-full border-b-[2px] border-black'>
           <div className='text-center mt-10'>
             <img
@@ -141,6 +141,7 @@ const Header = ({ children, ...props }: Props) => {
 
       {/* ✅ nav 영역 - 스크롤 시 fixed top */}
       <div
+        id='header'
         ref={navRef}
         className={`w-full bg-white z-[50] shadow transition-all duration-300 ${
           isNavFixed ? 'fixed top-0 left-0' : ''
