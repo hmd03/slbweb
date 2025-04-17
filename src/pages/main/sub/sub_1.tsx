@@ -3,7 +3,7 @@ import SubForm1 from '../../../components/main/sub/subForm_1';
 const sub_1 = () => {
     return (
         <>
-        <SubForm1 />
+            <SubForm1 />
         </>
     );
 };
