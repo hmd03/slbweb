@@ -1,8 +1,9 @@
 import React from 'react';
-import MainForm from '../../../components/main/main/MainForm';
+import SubForm1 from '../../../components/main/sub/subForm_1';
 const sub_1 = () => {
     return (
         <>
+        <SubForm1 />
         </>
     );
 };
