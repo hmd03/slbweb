@@ -14,22 +14,22 @@ const HtmlModal: React.FC<HtmlModalProps> = ({ htmlContent, onClose }) => {
       <div
         className={`${
           deviceInfo.isMobile || deviceInfo.isSmallScreen
-            ? 'max-w-[90vw] w-full min-h-[50vh] max-h-[60vh]'
-            : 'max-w-[90vw] min-w-[50vw] min-h-[50vh] max-h-[60vh]'
+            ? 'max-w-[95vw] w-full min-h-[50vh] max-h-[60vh]'
+            : 'max-w-[95vw] min-w-[50vw] min-h-[50vh] max-h-[60vh]'
         } bg-white rounded-lg shadow-lg p-6 overflow-auto flex flex-col justify-between mb-40`}
       >
-        <div
-          className='prose w-fullww'
-          dangerouslySetInnerHTML={{ __html: htmlContent }}
-        />
-        <div className='flex justify-end mt-4'>
+        <div className='flex justify-end'>
           <button
-            className='bg-gray-800 text-white px-4 py-2 rounded'
+            className='text-Black rounded'
             onClick={onClose}
           >
-            닫기
+            X
           </button>
         </div>
+        <div
+          className='prose w-full'
+          dangerouslySetInnerHTML={{ __html: htmlContent }}
+        />
       </div>
     </div>
   );
