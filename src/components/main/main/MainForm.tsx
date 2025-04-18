@@ -938,7 +938,7 @@ const MainForm: React.FC = () => {
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
                       ? 'text-detail'
                       : 'Slb-Content'
-                  }break-keep`}
+                  } break-keep`}
                 >
                   우리민족 고유의 절제와 비움에 미학을 반영한
                 </p>
@@ -1084,7 +1084,7 @@ const MainForm: React.FC = () => {
                     className='w-full rounded-t transition-opacity duration-500 opacity-0'
                     style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
                     onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
-                    alt='메뉴 및 운영 노하우 교육육'
+                    alt='메뉴 및 운영 노하우 교육'
                     src={`${process.env.PUBLIC_URL}/main/point_5_mo_1.webp`}
                   />
                 </div>

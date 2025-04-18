@@ -5,7 +5,8 @@ import { siteSettingState } from "../../store/atom";
 const SeoHelmet = () => {
   const { name, title, description } = useRecoilValue(siteSettingState);
 
-  const keywords = "슬램북, 창업, 매장관리, 마케팅, 가맹점관리, SLB, 샐러드, 포케";
+  const keywords =
+    'SLB, SLB샐러드, 샐러드, 포케, 샐러드창업, 포케창업, 외식창업, 프랜차이즈창업, 프레차이즈창업';
 
   return (
     <Helmet>
