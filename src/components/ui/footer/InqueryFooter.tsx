@@ -4,6 +4,7 @@ import { LoadingState } from '../../../store/atom';
 import { useRecoilState } from 'recoil';
 import useDeviceInfo from '../../../hooks/useDeviceInfo';
 import AlterModal from '../alters/AlterModal';
+import { formatPhone } from '../../utils/formatUtils';
 
 const InqueryFooter = () => {
   const senderRef = useRef<HTMLInputElement>(null);
@@ -14,7 +15,7 @@ const InqueryFooter = () => {
 
   const footerRef = useRef<HTMLDivElement>(null);
   const [footerHeight, setFooterHeight] = useState(0);
-  const [isFixed, setIsFixed] = useState(true); // 👈 고정 여부 상태
+  const [isFixed, setIsFixed] = useState(true);
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [isCancelVisible, setIsCancelVisible] = useState(true);
@@ -29,13 +30,21 @@ const InqueryFooter = () => {
   const onSubmit = useCallback(async () => {
     const sender = senderRef.current?.value;
     const preferredRegion = preferredRegionRef.current?.value;
-    const contact = contactRef.current?.value;
+    let contact = contactRef.current?.value;
 
-    if (!sender || !preferredRegion || !contact) {
+    const digits = contact?.replace(/\D/g, '').trim() || '';
+    contact = formatPhone(digits);
+
+    if (!sender || !preferredRegion || contact == '') {
       alert('이름, 창업희망지역, 연락처를 모두 입력해주세요.');
       return;
     }
 
+    if (contact.length < 11) {
+      alert('연락처를 확인해주세요.');
+      return;
+    }
+    
     setLoading(true);
 
     try {
@@ -78,7 +87,6 @@ const InqueryFooter = () => {
     setModalVisible(false);
   };
 
-  // footer height 측정
   useEffect(() => {
     const measureFooter = () => {
       if (footerRef.current) {
@@ -133,11 +141,13 @@ const InqueryFooter = () => {
             >
               창업문의
             </p>
-            <p className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'hidden'
-                : ''
-            }`}>| 빠른 상담 가능</p>
+            <p
+              className={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'hidden' : ''
+              }`}
+            >
+              | 빠른 상담 가능
+            </p>
             <div
               className={` ${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
@@ -185,6 +195,13 @@ const InqueryFooter = () => {
             placeholder='연락처'
             ref={contactRef}
             autoComplete='contact'
+            inputMode='numeric'
+            pattern='\d*'
+            maxLength={11}
+            onInput={(e) => {
+              const input = e.currentTarget as HTMLInputElement;
+              input.value = input.value.replace(/\D/g, '').slice(0, 11);
+            }}
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
                 ? 'px-1 py-1 text-[12px]'
