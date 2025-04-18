@@ -1,24 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
-import AdminCurrentLayout from "../../ui/layout/AdminCurrentLayout";
-import Button from "../../ui/buttons/Button";
-import InputField from "../../ui/inputs/InputField";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import axios from "axios";
-import Editor from "../../ui/Editer/Editor";
-import AlterModal from "../../ui/alters/AlterModal";
-import { LoadingState, siteSettingState } from "../../../store/atom";
+import React, { useEffect, useRef, useState } from 'react';
+import AdminCurrentLayout from '../../ui/layout/AdminCurrentLayout';
+import Button from '../../ui/buttons/Button';
+import InputField from '../../ui/inputs/InputField';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import axios from 'axios';
+import Editor from '../../ui/Editer/Editor';
+import AlterModal from '../../ui/alters/AlterModal';
+import { LoadingState, siteSettingState } from '../../../store/atom';
 
 const AdminConfigForm: React.FC = () => {
   const [loading, setLoading] = useRecoilState(LoadingState);
   const setSetting = useSetRecoilState(siteSettingState);
-  
+
   const [isModalVisible, setModalVisible] = useState(false);
   const [isCancelVisible, setIsCancelVisible] = useState(true);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [onConfirm, setOnConfirm] = useState(() => () => {});
 
-  const [editorPrivacy, setEditorPrivacy] = useState<string>("");
-  const [editorTerms, setEditorTerms] = useState<string>("");
+  const [editorPrivacy, setEditorPrivacy] = useState<string>('');
+  const [editorTerms, setEditorTerms] = useState<string>('');
   const siteNameRef = useRef<HTMLInputElement>(null);
   const siteTitleRef = useRef<HTMLInputElement>(null);
   const siteDescRef = useRef<HTMLInputElement>(null);
@@ -48,32 +48,71 @@ const AdminConfigForm: React.FC = () => {
         }
       } catch (error) {
         console.log(error);
-        console.log("사용자 정보를 가져오는 데 실패했습니다.");
+        console.log('사용자 정보를 가져오는 데 실패했습니다.');
       }
     };
 
     fetchData();
   }, []);
 
+  const formatPhone = (digits: string): string => {
+    if (digits.startsWith('02')) {
+      if (digits.length === 9) {
+        return digits.replace(/(02)(\d{3})(\d{4})/, '$1-$2-$3');
+      }
+      if (digits.length === 10) {
+        // 02-XXXX-XXXX
+        return digits.replace(/(02)(\d{4})(\d{4})/, '$1-$2-$3');
+      }
+    }
+
+    // 2) 기타 지역번호 0NZ (N=3~6, Z=1~5)
+    if (/^0[3-6][1-5]/.test(digits)) {
+      if (digits.length === 10) {
+        // 0NZ-XXX-XXXX
+        return digits.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+      }
+      if (digits.length === 11) {
+        // 0NZ-XXXX-XXXX
+        return digits.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+      }
+    }
+
+    // 3) 모바일 01x
+    if (/^01[016789]/.test(digits)) {
+      if (digits.length === 10) {
+        // e.g. 011-XXX-XXXX
+        return digits.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+      }
+      if (digits.length === 11) {
+        // 010-XXXX-XXXX
+        return digits.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+      }
+    }
+
+    // 4) 그 외: 숫자만 리턴
+    return digits;
+  };
+
   const onSubmit = async () => {
-    const siteName = siteNameRef.current?.value || "";
-    const siteTitle = siteTitleRef.current?.value || "";
-    const siteDesc = siteDescRef.current?.value || "";
-    const sms = smsRef.current?.value || "";
+    const siteName = siteNameRef.current?.value || '';
+    const siteTitle = siteTitleRef.current?.value || '';
+    const siteDesc = siteDescRef.current?.value || '';
+    const sms = smsRef.current?.value || '';
     const privacyPolicy = editorPrivacy;
     const terms = editorTerms;
 
     if (
-      siteName === "" ||
-      siteTitle === "" ||
-      siteDesc === "" ||
-      sms === "" ||
-      privacyPolicy === "" ||
-      privacyPolicy === "<p></p>" ||
-      privacyPolicy === "<p><br></p>" ||
-      terms === "" ||
-      terms === "<p></p>" ||
-      terms === "<p><br></p>"
+      siteName === '' ||
+      siteTitle === '' ||
+      siteDesc === '' ||
+      sms === '' ||
+      privacyPolicy === '' ||
+      privacyPolicy === '<p></p>' ||
+      privacyPolicy === '<p><br></p>' ||
+      terms === '' ||
+      terms === '<p></p>' ||
+      terms === '<p><br></p>'
     ) {
       handleOpenModal(`모든 값을 입력해 주세요`, false, handleCancel);
     } else {
@@ -82,19 +121,26 @@ const AdminConfigForm: React.FC = () => {
   };
 
   const handleConfirm = async () => {
-    const name = siteNameRef.current?.value || "";
-    const title = siteTitleRef.current?.value || "";
-    const description = siteDescRef.current?.value || "";
-    const contactList = smsRef.current?.value || "";
+    const name = siteNameRef.current?.value || '';
+    const title = siteTitleRef.current?.value || '';
+    const description = siteDescRef.current?.value || '';
+    const contactList = smsRef.current?.value || '';
     const privacyPolicy = editorPrivacy;
     const termsOfService = editorTerms;
+
+    const formattedContacts = contactList.split(',').map((item) => {
+      const digits = item.replace(/\D/g, '').trim();
+      return formatPhone(digits);
+    });
+
+    console.log(formattedContacts);
 
     try {
       setLoading(true);
       const response = await axios.put(`api/setting`, {
         name,
         title,
-        contactList: contactList.split(","),
+        contactList: formattedContacts,
         description,
         privacyPolicy,
         termsOfService,
@@ -134,22 +180,22 @@ const AdminConfigForm: React.FC = () => {
   };
 
   const thClassName =
-    "bg-LightGray border border-Black border-[2px] p-2 text-center w-[30%]";
+    'bg-LightGray border border-Black border-[2px] p-2 text-center w-[30%]';
   const tdClassName =
-    "bg-White border border-Black border-[2px] p-2 text-center w-full";
+    'bg-White border border-Black border-[2px] p-2 text-center w-full';
 
   return (
-    <AdminCurrentLayout title="사이트 설정">
-      <div className="w-full h-fit p-5 border border-Black bg-White flex flex-col items-center justify-center">
-        <table className="min-w-full border-collapse border border-[2px] border-Black">
-          <tbody className="text-diagram">
+    <AdminCurrentLayout title='사이트 설정'>
+      <div className='w-full h-fit p-5 border border-Black bg-White flex flex-col items-center justify-center'>
+        <table className='min-w-full border-collapse border border-[2px] border-Black'>
+          <tbody className='text-diagram'>
             <tr>
               <th className={thClassName}>사이트명</th>
               <td className={tdClassName}>
                 <InputField
                   ref={siteNameRef}
-                  placeholder="사이트명"
-                  className="w-full border-[2px] p-1"
+                  placeholder='사이트명'
+                  className='w-full border-[2px] p-1'
                 />
               </td>
             </tr>
@@ -158,8 +204,8 @@ const AdminConfigForm: React.FC = () => {
               <td className={tdClassName}>
                 <InputField
                   ref={siteTitleRef}
-                  placeholder="사이트 타이틀"
-                  className="w-full border-[2px] p-1"
+                  placeholder='사이트 타이틀'
+                  className='w-full border-[2px] p-1'
                 />
               </td>
             </tr>
@@ -168,8 +214,8 @@ const AdminConfigForm: React.FC = () => {
               <td className={tdClassName}>
                 <InputField
                   ref={siteDescRef}
-                  placeholder="사이트 설명"
-                  className="w-full border-[2px] p-1"
+                  placeholder='사이트 설명'
+                  className='w-full border-[2px] p-1'
                 />
               </td>
             </tr>
@@ -178,8 +224,8 @@ const AdminConfigForm: React.FC = () => {
               <td className={tdClassName}>
                 <InputField
                   ref={smsRef}
-                  placeholder="01012345678"
-                  className="w-full border-[2px] p-1"
+                  placeholder='01012345678'
+                  className='w-full border-[2px] p-1'
                 />
               </td>
             </tr>
@@ -189,7 +235,7 @@ const AdminConfigForm: React.FC = () => {
                 <Editor
                   value={editorPrivacy}
                   onChange={handlePrivacyChange}
-                  height="160px"
+                  height='160px'
                 />
               </td>
             </tr>
@@ -199,17 +245,17 @@ const AdminConfigForm: React.FC = () => {
                 <Editor
                   value={editorTerms}
                   onChange={handleTermsChange}
-                  height="160px"
-                 />
+                  height='160px'
+                />
               </td>
             </tr>
           </tbody>
         </table>
-        <div className="w-full flex justify-center mt-4">
+        <div className='w-full flex justify-center mt-4'>
           <Button
             onClick={onSubmit}
-            theme="admin"
-            className="px-10 py-2 border border-[2px]"
+            theme='admin'
+            className='px-10 py-2 border border-[2px]'
           >
             저장
           </Button>
