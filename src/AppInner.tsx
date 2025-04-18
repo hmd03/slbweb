@@ -162,6 +162,8 @@ const AppInner: React.FC = () => {
     if (location.pathname.startsWith('/admin')) {
       if(!refreshToken){
         navigate('/admin/login');
+      } else {
+        navigate('/admin/inquiry');
       }
     }
   }, [location.pathname, Cookies.get('refreshToken'), navigate, isLoading]);
