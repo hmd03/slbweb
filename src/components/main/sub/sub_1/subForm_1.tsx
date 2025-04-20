@@ -570,7 +570,7 @@ const SubForm1: React.FC = () => {
                   : 'mt-6'
               }  `}
             >
-              '맛'에 대한 고집으로 매출을 높이는는
+              '맛'에 대한 고집으로 매출을 높이는
             </div>
             <div
               className={`${
