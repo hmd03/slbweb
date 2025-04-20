@@ -28,7 +28,7 @@ const Header = ({ children, ...props }: Props) => {
   const [onConfirm, setOnConfirm] = useState(() => () => { });
 
   const mainMenuItems = [
-    { title: '한식X샐러드&포케 SLB?', link: '/sub_1/1', isReady: false },
+    { title: '한식X샐러드&포케 SLB?', link: '/sub_1/1', isReady: true },
     { title: '기회를 붙잡는 노하우', link: '/sub_2/1', isReady: false },
     { title: '끝까지 함께 성장합니다!', link: '/sub_3/1', isReady: false },
     { title: '성장하는 SLB 개설비용', link: '/sub_4/1', isReady: false },
@@ -41,14 +41,14 @@ const Header = ({ children, ...props }: Props) => {
       {
         title: '맛에 대한 고집이/n남다른 특별함을 만든다',
         link: '/sub_1/1',
-        isReady: false,
+        isReady: true,
       },
-      { title: '아쉬움에 항상 고민합니다', link: '/sub_1/2', isReady: false },
-      { title: '동상이몽 창업?', link: '/sub_1/3', isReady: false },
+      { title: '아쉬움에 항상 고민합니다', link: '/sub_1/2', isReady: true },
+      { title: '동상이몽 창업?', link: '/sub_1/3', isReady: true },
       {
         title: '배달부터 홀 운영까지/n해본 사람들이 함께합니다',
         link: '/sub_1/4',
-        isReady: false,
+        isReady: true,
       },
     ],
     [
