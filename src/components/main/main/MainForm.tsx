@@ -216,8 +216,7 @@ const MainForm: React.FC = () => {
           <div className='flex flex-col w-full h-full items-center'>
             <img
               loading='lazy'
-              className='mb-10 px-10 transition-opacity duration-500 opacity-0'
-              onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+              className='mb-10 px-10'
               alt='대한민국 국민 신체·정신 건강 우려도 1.8배 증가'
               src={`${process.env.PUBLIC_URL}/main/point_1_mo.webp`}
             ></img>
@@ -225,8 +224,7 @@ const MainForm: React.FC = () => {
         ) : (
           <img
             loading='lazy'
-            className='mb-[12rem] transition-opacity duration-500 opacity-0'
-            onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+            className='mb-[12rem]'
             alt='대한민국 국민 신체·정신 건강 우려도 1.8배 증가'
             src={`${process.env.PUBLIC_URL}/main/point_1_img.webp`}
           ></img>
@@ -347,8 +345,7 @@ const MainForm: React.FC = () => {
               <div className=''>
                 <img
                   loading='lazy'
-                  className='w-full rounded-t transition-opacity duration-500 opacity-0'
-                  onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+                  className='w-full rounded-t'
                   alt='평균매출 7,350만원 9천4백 최고매출'
                   src={`${process.env.PUBLIC_URL}/main/point_2_mo_3.webp`}
                 />
@@ -356,8 +353,7 @@ const MainForm: React.FC = () => {
               <div className=''>
                 <img
                   loading='lazy'
-                  className='w-full rounded-t transition-opacity duration-500 opacity-0'
-                  onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+                  className='w-full rounded-t'
                   alt='평균매출 4,700만원 8천9백 최고매출'
                   src={`${process.env.PUBLIC_URL}/main/point_2_mo_2.webp`}
                 />
@@ -365,8 +361,7 @@ const MainForm: React.FC = () => {
               <div className=''>
                 <img
                   loading='lazy'
-                  className='w-full rounded-t transition-opacity duration-500 opacity-0'
-                  onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+                  className='w-full rounded-t'
                   alt='평균매출 7,960만원 7천9백 최고매출'
                   src={`${process.env.PUBLIC_URL}/main/point_2_mo_1.webp`}
                 />
@@ -377,8 +372,7 @@ const MainForm: React.FC = () => {
               <div className='w-[31%]'>
                 <img
                   loading='lazy'
-                  className='w-full rounded-t transition-opacity duration-500 opacity-0'
-                  onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+                  className='w-full rounded-t'
                   alt='평균매출 7,350만원 9천4백 최고매출'
                   src={`${process.env.PUBLIC_URL}/main/point_2_store_1.webp`}
                 />
@@ -386,8 +380,7 @@ const MainForm: React.FC = () => {
               <div className='w-[31%]'>
                 <img
                   loading='lazy'
-                  className='w-full rounded-t transition-opacity duration-500 opacity-0'
-                  onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+                  className='w-full rounded-t'
                   alt='평균매출 4,700만원 8천9백 최고매출'
                   src={`${process.env.PUBLIC_URL}/main/point_2_store_2.webp`}
                 />
@@ -395,8 +388,7 @@ const MainForm: React.FC = () => {
               <div className='w-[31%]'>
                 <img
                   loading='lazy'
-                  className='w-full rounded-t transition-opacity duration-500 opacity-0'
-                  onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+                  className='w-full rounded-t'
                   alt='평균매출 7,960만원 7천9백 최고매출'
                   src={`${process.env.PUBLIC_URL}/main/point_2_store_3.webp`}
                 />
@@ -538,8 +530,7 @@ const MainForm: React.FC = () => {
               deviceInfo.isSmallScreen || deviceInfo.isMobile
                 ? 'h-[3.5rem] mb-6'
                 : 'h-[8rem] mb-20'
-            } transition-opacity duration-500 opacity-0`}
-            onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+            }`}
           />
         </div>
       </section>
@@ -585,8 +576,7 @@ const MainForm: React.FC = () => {
             deviceInfo.isSmallScreen || deviceInfo.isMobile
               ? 'h-[3.5rem] mb-6'
               : 'h-[8rem] mb-10'
-          } transition-opacity duration-500 opacity-0`}
-          onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+          }`}
         />
       </section>
       <section
@@ -686,8 +676,7 @@ const MainForm: React.FC = () => {
             deviceInfo.isSmallScreen || deviceInfo.isMobile
               ? 'w-full mt-20 mb-20 px-4'
               : 'w-[50%] ml-auto mr-[15%] mt-40 mb-40'
-          } transition-opacity duration-500 opacity-0  aspect-[14/10]`}
-          onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+          }aspect-[14/10]`}
         />
       </section>
       <section
@@ -1081,9 +1070,8 @@ const MainForm: React.FC = () => {
                 <div className=''>
                   <img
                     loading='lazy'
-                    className='w-full rounded-t transition-opacity duration-500 opacity-0'
+                    className='w-full rounded-t'
                     style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
-                    onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
                     alt='메뉴 및 운영 노하우 교육'
                     src={`${process.env.PUBLIC_URL}/main/point_5_mo_1.webp`}
                   />
@@ -1091,9 +1079,8 @@ const MainForm: React.FC = () => {
                 <div className=''>
                   <img
                     loading='lazy'
-                    className='w-full rounded-t transition-opacity duration-500 opacity-0'
+                    className='w-full rounded-t'
                     style={{ boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.2)' }}
-                    onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
                     alt='오픈 운영 지원'
                     src={`${process.env.PUBLIC_URL}/main/point_5_mo_2.webp`}
                   />
@@ -1195,8 +1182,7 @@ const MainForm: React.FC = () => {
                 >
                   <img
                     loading='lazy'
-                    className='w-full h-full object-cover transition-opacity duration-500 opacity-0'
-                    onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+                    className='w-full h-full object-cover'
                     alt={`point ${idx}`}
                     src={`${process.env.PUBLIC_URL}/main/point_6_${
                       deviceInfo.isSmallScreen || deviceInfo.isMobile
@@ -1222,8 +1208,7 @@ const MainForm: React.FC = () => {
                 >
                   <img
                     loading='lazy'
-                    className='w-full h-full object-cover transition-opacity duration-500 opacity-0'
-                    onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+                    className='w-full h-full object-cover'
                     alt={`point ${idx}`}
                     src={`${process.env.PUBLIC_URL}/main/point_6_${
                       deviceInfo.isSmallScreen || deviceInfo.isMobile
@@ -1286,8 +1271,7 @@ const MainForm: React.FC = () => {
           loading='lazy'
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'mb-20' : 'mb-60'
-          }  transition-opacity duration-500 opacity-0`}
-          onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+          }`}
           alt='초기 인테리어 비용 최대 35% 이상 감소'
           src={`${process.env.PUBLIC_URL}/main/point_7${
             deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
@@ -1355,8 +1339,7 @@ const MainForm: React.FC = () => {
         {deviceInfo.isMobile || deviceInfo.isSmallScreen ? (
           <img
             loading='lazy'
-            className='transition-opacity duration-500 opacity-0 mb-6 px-8'
-            onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+            className='mb-6 px-8'
             alt='주6회 배송은 기본! 친환경 무농약 인증 받은 농장과 계약 재배로 사시사철 균일한 가격으로 제공해드립니다.'
             src={`${process.env.PUBLIC_URL}/main/point_8_mo_1.webp`}
           ></img>
@@ -1388,8 +1371,7 @@ const MainForm: React.FC = () => {
             deviceInfo.isSmallScreen || deviceInfo.isMobile
               ? 'mb-20 px-8'
               : 'mb-60'
-          }  transition-opacity duration-500 opacity-0`}
-          onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+          }`}
           alt='주6회 배송은 기본! 친환경 무농약 인증 받은 농장과 계약 재배로 사시사철 균일한 가격으로 제공해드립니다.'
           src={`${process.env.PUBLIC_URL}/main/point_8${
             deviceInfo.isMobile || deviceInfo.isSmallScreen ? '_mo_2' : ''
@@ -1454,8 +1436,7 @@ const MainForm: React.FC = () => {
             deviceInfo.isSmallScreen || deviceInfo.isMobile
               ? 'mb-8 px-8'
               : 'mb-40 '
-          } transition-opacity duration-500 opacity-0`}
-          onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+          }`}
           alt='주문 시스템 운영 인력 최소화를 위해 키오스크로 편하게! 
           > 원팩 시스템 - 주로 사용되는 원부자재 원팩화로 준비시간 짧게! 
           > 간단 조리 시스템 - 어려운 조리 스킬 필요 없이 모든 메뉴 쉽게 가능!

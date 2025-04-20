@@ -9,7 +9,17 @@ const SubForm1: React.FC = () => {
   const deviceInfo = useDeviceInfo();
   const { page } = useParams<{ page: string }>();
 
+  const isDeviceReady =
+    deviceInfo.isMobile !== undefined &&
+    deviceInfo.isTouchDevice !== undefined &&
+    deviceInfo.isSmallScreen !== undefined;
+
+  console.log(deviceInfo);
+
   useEffect(() => {
+
+    if (!isDeviceReady) return;
+
     if (!page || page === '1') return;
 
     const target = document.getElementById(`section-${page}`);
@@ -363,10 +373,9 @@ const SubForm1: React.FC = () => {
                       deviceInfo.isSmallScreen || deviceInfo.isMobile
                         ? 'max-w-[70%] mb-2'
                         : 'max-w-[250px]'
-                    } w-full transition-opacity duration-500 opacity-0`}
-                    onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+                    } w-full`}
                     alt={`SLB샐러드 ${v}점`}
-                    src={`${process.env.PUBLIC_URL}/sub_1/sub_1_1_2_${v}.png`}
+                    src={`/sub_1/sub_1_1_2_${v}.png`}
                   />
                   <div>{`SLB샐러드 ${v}점`}</div>
                 </div>
@@ -451,8 +460,7 @@ const SubForm1: React.FC = () => {
             loading='lazy'
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : 'flex-1'
-            } w-full transition-opacity duration-500 opacity-0`}
-            onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+            } w-full`}
             alt={`익숙한 한식 X 새로운 샐러드&포케`}
             src={`${process.env.PUBLIC_URL}/sub_1/sub_1_2_1${
               deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
@@ -615,8 +623,7 @@ const SubForm1: React.FC = () => {
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
                       ? 'p-6'
                       : 'flex-1'
-                  } w-full transition-opacity duration-500 opacity-0`}
-                  onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+                  } w-full`}
                   alt={item.alt}
                   src={`${process.env.PUBLIC_URL}/sub_1/${item.image}`}
                 />
@@ -782,8 +789,7 @@ const SubForm1: React.FC = () => {
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
                       ? 'flex-1 max-w-[250px] my-6'
                       : 'flex-1 max-w-[400px]'
-                  } w-full transition-opacity duration-500 opacity-0 aspect-[1/1]`}
-                  onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+                  } w-full aspect-[1/1]`}
                   alt={item.alt}
                   src={`${process.env.PUBLIC_URL}/sub_1/${item.image}`}
                 />
@@ -1107,8 +1113,7 @@ const SubForm1: React.FC = () => {
               deviceInfo.isSmallScreen || deviceInfo.isMobile
                 ? 'px-4'
                 : 'max-w-[1300px] aspect-[1139/594]'
-            } w-full transition-opacity duration-500 opacity-0`}
-            onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+            } w-full`}
             alt={`SLB샐러드 점`}
             src={`${process.env.PUBLIC_URL}/sub_1/sub_1_4_1.webp`}
           />
@@ -1128,9 +1133,10 @@ const SubForm1: React.FC = () => {
             <img
               loading='lazy'
               className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : 'w-[30%]'
-              } transition-opacity duration-500 opacity-0`}
-              onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? 'py-6 px-16 mb-2'
+                  : 'w-[30%]'
+              }`}
               alt={`SLB샐러드 점`}
               src={`${process.env.PUBLIC_URL}/adminLoginLogo.png`}
             />
@@ -1302,8 +1308,7 @@ const SubForm1: React.FC = () => {
             loading='lazy'
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : 'flex-1'
-            } w-full transition-opacity duration-500 opacity-0`}
-            onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+            } w-full`}
             alt={`익숙한 한식 X 새로운 샐러드&포케`}
             src={`${process.env.PUBLIC_URL}/sub_1/sub_1_4_2.webp`}
           />
