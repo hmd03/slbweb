@@ -25,9 +25,11 @@ const DividerWithLabel: React.FC<DividerWithLabelProps> = ({
           : 'justify-center'
       }`}
     >
-      {isLineView && (
-        <div className={`h-px bg-${color} flex-grow border border-${color}`} />
-      )}
+      <div
+        className={`h-px bg-${color} flex-grow border border-${color}`}
+        style={isLineView ? undefined : { visibility: 'hidden' }}
+      />
+
       <span
         className={`${
           deviceInfo.isMobile || deviceInfo.isSmallScreen
@@ -38,9 +40,10 @@ const DividerWithLabel: React.FC<DividerWithLabelProps> = ({
       >
         {label}
       </span>
-      {isLineView && (
-        <div className={`h-px bg-${color} flex-grow border border-${color}`} />
-      )}
+      <div
+        className={`h-px bg-${color} flex-grow border border-${color}`}
+        style={isLineView ? undefined : { visibility: 'hidden' }}
+      />
     </div>
   );
 };
