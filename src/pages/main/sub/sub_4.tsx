@@ -1,5 +1,5 @@
 import React from 'react';
-import SubForm4 from '../../../components/main/sub/subForm_4';
+import SubForm4 from '../../../components/main/sub/sub_4/subForm_4';
 const sub_4 = () => {
     return (
         <>

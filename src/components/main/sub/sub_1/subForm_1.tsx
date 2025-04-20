@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import useDeviceInfo from '../../../hooks/useDeviceInfo';
-import Chip from '../../ui/chip/chip';
-import SlideUpOnView from '../../ui/slideUpOnView/SlideUpOnView';
-import DividerWithLabel from '../../ui/label/DividerWithLabel';
+import useDeviceInfo from '../../../../hooks/useDeviceInfo';
+import Chip from '../../../ui/chip/chip';
+import SlideUpOnView from '../../../ui/slideUpOnView/SlideUpOnView';
+import DividerWithLabel from '../../../ui/label/DividerWithLabel';
 
 const SubForm1: React.FC = () => {
   const deviceInfo = useDeviceInfo();
   const { page } = useParams<{ page: string }>();
-
 
   useEffect(() => {
     if (!page || page === '1') return;
@@ -334,12 +333,11 @@ const SubForm1: React.FC = () => {
             label='SLB의 경쟁력 고객이 먼저 알아봅니다.'
             isLineView={false}
             color='Black'
-            
           />
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'Slb-Title-mo'
+                ? 'Slb-Title-mo mt-10'
                 : 'Slb-Title'
             } flex flex-col items-center w-full font-semibold bg-[#F6F6F6]`}
           >

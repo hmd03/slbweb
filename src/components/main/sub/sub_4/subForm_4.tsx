@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import useDeviceInfo from '../../../hooks/useDeviceInfo';
+import useDeviceInfo from '../../../../hooks/useDeviceInfo';
 
 const SubForm4: React.FC = () => {
     const deviceInfo = useDeviceInfo();

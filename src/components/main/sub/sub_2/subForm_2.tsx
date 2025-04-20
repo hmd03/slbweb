@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import useDeviceInfo from '../../../hooks/useDeviceInfo';
+import useDeviceInfo from '../../../../hooks/useDeviceInfo';
 
-const SubForm3: React.FC = () => {
+const SubForm2: React.FC = () => {
     const deviceInfo = useDeviceInfo();
     const { page } = useParams<{ page: string }>();
 
@@ -42,4 +42,4 @@ const SubForm3: React.FC = () => {
     );
 };
 
-export default SubForm3;
+export default SubForm2;
