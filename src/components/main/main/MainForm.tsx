@@ -583,7 +583,7 @@ const MainForm: React.FC = () => {
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'Slb-Title-mo'
-            : 'Slb-Title'
+            : 'Slb-Title pb-60'
         } bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-fit font-semibold`}
         style={{
           backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_3_background_2.webp)`,
