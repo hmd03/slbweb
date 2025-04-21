@@ -19,36 +19,39 @@ const SubForm2: React.FC = () => {
   useEffect(() => {
     if (!isDeviceReady) return;
     if (!page || page === '1') return;
+    requestAnimationFrame(() => {
+      const target = document.getElementById(`section-${page}`);
+      if (!target) return;
 
-    const target = document.getElementById(`section-${page}`);
-    if (!target) return;
+      const headerId =
+        deviceInfo.isMobile || deviceInfo.isSmallScreen
+          ? 'header_list_mo'
+          : 'header';
+      const headerEl = document.getElementById(headerId);
+      const headerHeight = headerEl?.offsetHeight ?? 0;
 
-    const headerId =
-      deviceInfo.isMobile || deviceInfo.isSmallScreen ? 'header_mo' : 'header';
-    const headerEl = document.getElementById(headerId);
-    const headerHeight = headerEl?.offsetHeight ?? 0;
+      const absoluteY =
+        target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
 
-    const absoluteY =
-      target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-
-    window.scrollTo({ top: absoluteY });
+      window.scrollTo({ top: absoluteY });
+    });
   }, [page, deviceInfo.isMobile]);
-    
-    const imageList = [
-      `${process.env.PUBLIC_URL}/main/rolling/review1.jpg`,
-      `${process.env.PUBLIC_URL}/main/rolling/review2.jpg`,
-      `${process.env.PUBLIC_URL}/main/rolling/review3.jpg`,
-      `${process.env.PUBLIC_URL}/main/rolling/review4.jpg`,
-      `${process.env.PUBLIC_URL}/main/rolling/review5.jpg`,
-    ];
 
-    const qnaItem = [
-      `회사만 다녔는데 운영 할 수 있을까요?`,
-      `집안일만 하던 주부인데도 창업 가능할까요?`,
-      `메뉴가 적지 않은데 손이 많이 가지 않나요?`,
-      `나이가 좀 있는데 제가 할 수 있을까요?`,
-      `부모님이 해주신 음식 말고 라면 정도만 끓여봤는데 가능할까요?`,
-    ];
+  const imageList = [
+    `${process.env.PUBLIC_URL}/main/rolling/review1.jpg`,
+    `${process.env.PUBLIC_URL}/main/rolling/review2.jpg`,
+    `${process.env.PUBLIC_URL}/main/rolling/review3.jpg`,
+    `${process.env.PUBLIC_URL}/main/rolling/review4.jpg`,
+    `${process.env.PUBLIC_URL}/main/rolling/review5.jpg`,
+  ];
+
+  const qnaItem = [
+    `회사만 다녔는데 운영 할 수 있을까요?`,
+    `집안일만 하던 주부인데도 창업 가능할까요?`,
+    `메뉴가 적지 않은데 손이 많이 가지 않나요?`,
+    `나이가 좀 있는데 제가 할 수 있을까요?`,
+    `부모님이 해주신 음식 말고 라면 정도만 끓여봤는데 가능할까요?`,
+  ];
 
   return (
     <>
@@ -87,7 +90,7 @@ const SubForm2: React.FC = () => {
               >
                 최우선
               </p>
-              으로로
+              으로
               <p
                 className={`${
                   deviceInfo.isSmallScreen || deviceInfo.isMobile
@@ -97,7 +100,7 @@ const SubForm2: React.FC = () => {
               >
                 고려
               </p>
-              하는는
+              하는
               <p
                 className={`${
                   deviceInfo.isSmallScreen || deviceInfo.isMobile
@@ -161,26 +164,28 @@ const SubForm2: React.FC = () => {
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'Slb-Content-mo flex-col items-center text-White'
-                : 'Slb-Content'
-            }`}
+                ? 'Slb-Content-mo text-center flex-col'
+                : 'Slb-Content gap-2'
+            } flex`}
           >
-            외식에서 가장 중요한 것은 여전히 맛이지만 현재 고객은
-            <span className='font-medium'>건강도 중요하게 작용하는</span>
+            외식에서 가장 중요한 것은 여전히 맛이지만
+            <p>
+              현재 고객은
+              <span className='font-medium'>건강도 중요하게 작용하는</span>
+            </p>
           </div>
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'Slb-Content-mo flex-col items-center text-White'
+                ? 'Slb-Content-mo text-center flex-col'
                 : 'Slb-Content'
             } flex`}
           >
-            <span className={`flex`}>
-              <span className='font-medium'>
-                영양성분을 음식의 맛만큼 중요하게 생각
-              </span>
+            <span className='font-medium'>영양성분을 음식의 맛만큼</span>
+            <p>
+              <span className='font-medium'>중요하게 생각</span>
               하고 있습니다.
-            </span>
+            </p>
           </div>
           <div
             className={`${
@@ -231,7 +236,7 @@ const SubForm2: React.FC = () => {
               <div
                 className={`${
                   deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? 'mt-4'
+                    ? 'mt-4 flex-col text-center'
                     : 'mt-6 gap-2 items-end'
                 }  flex`}
               >
@@ -239,7 +244,7 @@ const SubForm2: React.FC = () => {
                 <p
                   className={`${
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'Slb-Point-mo'
+                      ? 'Slb-Point-mo leading-none'
                       : 'Slb-Point'
                   } text-[#FF331F]`}
                 >
@@ -250,17 +255,20 @@ const SubForm2: React.FC = () => {
             <div
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'Slb-Content-mo gap-2 mb-10'
+                  ? 'Slb-Content-mo gap-2 mb-6 mt-10 text-center'
                   : 'Slb-Content gap-2 mb-20 mt-20'
               } flex leading-none flex-col items-center`}
             >
               {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
                 <>
-                  <p>지금 한국인은 샐러드 섭취 횟수를 매년 늘리는 중</p>
                   <p>
-                    SLB는 한국인이 가장 많이 섭취하는 한식을 샐러드&포케 등
-                    다양한 메뉴에 접목해
+                    지금
+                    <span className='ml-1 font-medium'>
+                      한국인은 샐러드 섭취 횟수를 매년 늘리는 중
+                    </span>
                   </p>
+                  <p>SLB는 한국인이 가장 많이 섭취하는 한식을</p>
+                  <p>샐러드&포케 등 다양한 메뉴에 접목해</p>
                   <p>시장 경쟁력을 더 높이고 있습니다</p>
                 </>
               ) : (
@@ -276,9 +284,7 @@ const SubForm2: React.FC = () => {
             </div>
             <div
               className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'mb-10'
-                  : ' mb-20'
+                deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ' mb-20'
               } w-full flex justify-center`}
             >
               <img
@@ -289,7 +295,9 @@ const SubForm2: React.FC = () => {
                     : 'max-w-[1300px]'
                 } w-full`}
                 alt={`한국인이 자주 섭취하는 메뉴 Top20`}
-                src={`${process.env.PUBLIC_URL}/sub_2/sub_2_1_2.webp`}
+                src={`${process.env.PUBLIC_URL}/sub_2/sub_2_1_2${
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
+                }.webp`}
               />
             </div>
           </div>
@@ -323,39 +331,48 @@ const SubForm2: React.FC = () => {
               <div
                 className={`${
                   deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? 'mt-4'
+                    ? ' text-center flex-col leading-none'
                     : 'mt-6 items-end gap-2'
                 }  flex`}
               >
-                앞으로
+                <span className='flex items-end'>
+                  앞으로
+                  <p
+                    className={`${
+                      deviceInfo.isSmallScreen || deviceInfo.isMobile
+                        ? 'Slb-Point-mo'
+                        : 'Slb-Point ml-2'
+                    } text-[#FF331F]`}
+                  >
+                    성장할 수 밖에
+                  </p>
+                </span>
                 <p
                   className={`${
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'Slb-Point-mo'
+                      ? 'Slb-Point-mo mt-1 mb-6'
                       : 'Slb-Point'
                   } text-[#FF331F]`}
                 >
-                  성장할 수 밖에 없는 가장 큰 이유?
+                  없는 가장 큰 이유?
                 </p>
               </div>
             </SlideUpOnView>
             <div
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'Slb-Content-mo gap-2 mb-10'
+                  ? 'Slb-Content-mo gap-2 mb-10 text-center'
                   : 'Slb-Content gap-2 mb-20 mt-20'
               } flex leading-none flex-col items-center`}
             >
               {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
                 <>
                   <p className='font-medium'>
-                    전 연령대 모두 신체/정신 건강에 대한 폭넓은 관심과 관리
-                    노력!
+                    전 연령대 모두 신체/정신 건강에 대한
                   </p>
-                  <p>
-                    건강 관리 5대 관심 분야 : 수면, 식단 관리, 스트레스 관리,
-                    체중 감량 방법, 운동 방법
-                  </p>
+                  <p>폭넓은 관심과 관리 노력!</p>
+                  <p>건강 관리 5대 관심 분야 : 수면, 식단 관리,</p>
+                  <p> 스트레스 관리, 체중 감량 방법, 운동 방법</p>
                 </>
               ) : (
                 <>
@@ -386,19 +403,20 @@ const SubForm2: React.FC = () => {
                   : 'max-w-[1300px]'
               } w-full`}
               alt={`대한민국 전 연령 신체 정신 건강 우려도`}
-              src={`${process.env.PUBLIC_URL}/sub_2/sub_2_1_3.webp`}
+              src={`${process.env.PUBLIC_URL}/sub_2/sub_2_1_3${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
+              }.webp`}
             />
           </div>
           <div
-            className={`relative w-full ${
+            className={`w-full ${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'mb-10'
-                : 'my-20'
+                ? 'mb-10 aspect-[4/3]'
+                : 'my-20 aspect-[16/7]'
             }`}
-            style={{ paddingBottom: '56.25%' }}
           >
             <iframe
-              className='absolute top-0 left-0 w-full h-full'
+              className='w-full h-full'
               src='https://www.youtube.com/embed/-Gn1Cmfe5Is?autoplay=1&mute=1&loop=1&playlist=-Gn1Cmfe5Is&controls=0&modestbranding=1&showinfo=0&rel=0'
               title='Just Eat It! 한식X샐러드&포케 전문점 SLB'
               frameBorder='0'
@@ -418,7 +436,7 @@ const SubForm2: React.FC = () => {
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'w-full Slb-Title-mo pt-20'
+                ? 'w-full Slb-Title-mo pt-10'
                 : 'Slb-Title pt-40'
             } flex flex-col items-center`}
           >
@@ -443,29 +461,33 @@ const SubForm2: React.FC = () => {
                 <span
                   className={`${
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'my-1'
-                      : ''
-                  } flex items-end`}
+                      ? 'my-1 flex-col text-center'
+                      : 'items-end'
+                  } flex `}
                 >
-                  <p
-                    className={`${
-                      deviceInfo.isSmallScreen || deviceInfo.isMobile
-                        ? 'Slb-Point-mo mx-1'
-                        : 'Slb-Point mx-2'
-                    } text-[#FF331F] leading-none`}
-                  >
-                    SLB는 다르다!
-                  </p>
-                  SLB의
-                  <p
-                    className={`${
-                      deviceInfo.isSmallScreen || deviceInfo.isMobile
-                        ? 'Slb-Point-mo mx-1'
-                        : 'Slb-Point mx-2'
-                    } text-[#FF331F] leading-none`}
-                  >
-                    경쟁력은 메뉴!
-                  </p>
+                  <span>
+                    <p
+                      className={`${
+                        deviceInfo.isSmallScreen || deviceInfo.isMobile
+                          ? 'Slb-Point-mo mb-1'
+                          : 'Slb-Point mx-2'
+                      } text-[#FF331F] leading-none`}
+                    >
+                      SLB는 다르다!
+                    </p>
+                  </span>
+                  <span className='flex items-end'>
+                    SLB의
+                    <p
+                      className={`${
+                        deviceInfo.isSmallScreen || deviceInfo.isMobile
+                          ? 'Slb-Point-mo mx-1'
+                          : 'Slb-Point mx-2'
+                      } text-[#FF331F] leading-none`}
+                    >
+                      경쟁력은 메뉴!
+                    </p>
+                  </span>
                 </span>
               </div>
               {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
@@ -473,11 +495,11 @@ const SubForm2: React.FC = () => {
                   <div
                     className={`${
                       deviceInfo.isSmallScreen || deviceInfo.isMobile
-                        ? 'mb-1'
+                        ? 'mb-1 flex-col'
                         : ''
                     } flex items-end leading-none`}
                   >
-                    보유한
+                    한번이라도 SLB를 경험한
                     <p
                       className={`${
                         deviceInfo.isSmallScreen || deviceInfo.isMobile
@@ -485,9 +507,8 @@ const SubForm2: React.FC = () => {
                           : 'Slb-Point mr-2'
                       } text-[#FF331F] leading-none`}
                     >
-                      프랜차이즈 경력자
+                      고객 재방문율 86%
                     </p>
-                    가
                   </div>
                   <div
                     className={`${
@@ -539,17 +560,14 @@ const SubForm2: React.FC = () => {
           >
             {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
               <>
-                <p>
-                  고객들의 입맛은 냉정하다! 아무리 건강해도 ‘맛’이 없다면
-                  소비하지 않습니다.
-                </p>
-                <p>
-                  SLB는 외식 프랜차이즈로서 ‘맛’과 ‘건강’모두 높이기 위해 익숙한
-                  한식을
-                </p>
-                <p>
-                  샐러드&포케와 접목한 메뉴를 개발해 고객 재방문을 높였습니다.
-                </p>
+                <p>고객들의 입맛은 냉정하다!</p>
+
+                <p>아무리 건강해도 ‘맛’이 없다면 소비하지 않습니다.</p>
+                <p>SLB는 외식 프랜차이즈로서 ‘맛’과 ‘건강’모두</p>
+                <p>높이기 위해 익숙한 한식을 샐러드&포케와 접목한</p>
+                <p> 메뉴를 개발해 고객 재방문을 높였습니다.</p>
+                <p>샐러드&포케와 접목한 메뉴를 개발해</p>
+                <p> 고객 재방문을 높였습니다.</p>
               </>
             ) : (
               <>
@@ -622,17 +640,17 @@ const SubForm2: React.FC = () => {
                     : 'Slb-Content gap-2'
                 } flex`}
               >
-                특별히 광고하지 않아도 고객이 인정한 ‘맛집’이기에 매출이 높을 수
-                밖에 없습니다.
+                특별히 광고하지 않아도 고객이 인정한
+                <p>‘맛집’이기에 매출이 높을 수 밖에 없습니다.</p>
               </div>
               <div
                 className={`${
                   deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? 'Slb-Content-mo flex-col items-center mt-2'
+                    ? 'Slb-Content-mo flex-col items-center'
                     : 'Slb-Content mb-[8rem] gap-2'
                 } flex`}
               >
-                예비창업자님들의 창업문의가 끊이지 않는 이유이기도 합니다.
+                예비창업자님들의 창업문의가<p>끊이지 않는 이유이기도 합니다.</p>
               </div>
               <div
                 className={`${
@@ -645,6 +663,16 @@ const SubForm2: React.FC = () => {
               </div>
             </div>
           </div>
+          <div
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? 'aspect-[431/173]'
+                : 'aspect-[1904/540]'
+            } bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-fit`}
+            style={{
+              backgroundImage: `url(${process.env.PUBLIC_URL}/sub_2/sub_2_3_1.webp)`,
+            }}
+          />
         </section>
         <section
           id='section-3'
@@ -654,16 +682,6 @@ const SubForm2: React.FC = () => {
               : 'Slb-Title'
           } bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-fit`}
         >
-          <div
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'aspect-[431/173] mt-10'
-                : 'aspect-[1904/540]'
-            } bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-fit`}
-            style={{
-              backgroundImage: `url(${process.env.PUBLIC_URL}/sub_2/sub_2_3_1.webp)`,
-            }}
-          />
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
@@ -680,30 +698,22 @@ const SubForm2: React.FC = () => {
                     : 'mt-6'
                 }  `}
               >
-                '맛'에 대한 고집으로 매출을 높이는
-              </div>
-              <div
-                className={`${
-                  deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? 'mb-1'
-                    : 'mb-2'
-                } flex items-end leading-none`}
-              >
-                한식X샐러드&포케 전문점
+                음식점 일이이
               </div>
               <div
                 className={`${
                   deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
                 } flex items-end leading-none`}
               >
+                이렇게
                 <p
                   className={`${
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'Slb-Point-mo mr-1'
-                      : 'Slb-Point mr-2'
+                      ? 'Slb-Point-mo ml-1'
+                      : 'Slb-Point ml-2'
                   } text-[#FF331F] leading-none`}
                 >
-                  SLB를 메뉴 라인업
+                  쉬워도 되나요?
                 </p>
               </div>
             </SlideUpOnView>
@@ -711,7 +721,7 @@ const SubForm2: React.FC = () => {
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? ''
+                ? 'font-normal text-[10px] gap-4 px-4'
                 : 'max-w-[800px] Slb-Content gap-10'
             } flex flex-col w-full`}
           >
@@ -742,11 +752,16 @@ const SubForm2: React.FC = () => {
           >
             {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
               <>
-                <p>외식 프랜차이즈가 가장 많이 듣는 질문 중 하나입니다.</p>
+                <p>외식 프랜차이즈가</p>
+                <p>가장 많이 듣는 질문 중 하나입니다.</p>
+                <p>걱정 하지 마세요! SLB는 메뉴</p>
                 <p>
-                  걱정 하지 마세요! SLB는 메뉴 개발 과정부터 조리 편의성은 물론
+                  개발 과정부터{' '}
+                  <span className='font-medium'>조리 편의성은 물론</span>
                 </p>
-                <p>고객의 만족도를 높일 수 있도록 개발됩니다.</p>
+                <p className='font-medium'>
+                  고객의 만족도를 높일 수 있도록 개발됩니다.
+                </p>
               </>
             ) : (
               <>
@@ -781,7 +796,7 @@ const SubForm2: React.FC = () => {
                 }
           `}
               >
-                누구나 쉽게 쉽게!
+                SLB의 강점
               </div>
               <div
                 className={`${
@@ -797,9 +812,8 @@ const SubForm2: React.FC = () => {
                       : 'Slb-Point mr-2'
                   } text-[#FF331F] leading-none`}
                 >
-                  요리를 전혀 못해도
+                  누구나 쉽게 쉽게!
                 </p>
-                창업 가능
               </div>
             </SlideUpOnView>
             <img
@@ -875,7 +889,7 @@ const SubForm2: React.FC = () => {
                   <div
                     className={`${
                       deviceInfo.isSmallScreen || deviceInfo.isMobile
-                        ? 'mb-1'
+                        ? 'mb-10'
                         : ''
                     } flex items-end leading-none`}
                   >
@@ -896,7 +910,7 @@ const SubForm2: React.FC = () => {
                   <div
                     className={`${
                       deviceInfo.isSmallScreen || deviceInfo.isMobile
-                        ? 'mb-10'
+                        ? ''
                         : 'mb-10'
                     } flex items-end leading-none`}
                   >
@@ -909,37 +923,39 @@ const SubForm2: React.FC = () => {
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'h-10 my-4 w-[1px]  border border-black  '
-                : ''
-            }`}
-          />
-          <div
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
                 ? 'Slb-Content-mo flex-col items-center'
                 : 'Slb-Content flex-col items-center'
             } flex`}
           >
-            <p>
-              음식에 진심인 사람들이 모여
-              <span className='font-medium'>맛에 대한 기준이 높은 SLB!</span>
-            </p>
-            <p>고객의 건강은 물론 입맛까지 사로잡기 위해</p>
             {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
               <>
-                <p>우리나라 전통 식문화를 접목한 요리를 연구하고 개발해</p>
-                <p>본사 직영점에서 충분히 노하우를 쌓을 수 있도록</p>
+                <p>
+                  음식에 진심인 사람들이 모여
+                  <span className='font-medium'>맛에 대한</span>
+                </p>
+                <p>
+                  <span className='font-medium'>기준이 높은 SLB!</span>
+                  고객의 건강은 물론
+                </p>
+                <p>입맛까지 사로잡기 위해 우리나라 전통 식문화를 </p>
+                <p>접목한 요리를 연구하고 개발해</p>
                 <p>독보적인 메뉴 경쟁력을 갖추고 있습니다.</p>
               </>
             ) : (
               <>
+                <p>
+                  음식에 진심인 사람들이 모여
+                  <span className='font-medium'>
+                    맛에 대한 기준이 높은 SLB!
+                  </span>
+                </p>
+                <p>고객의 건강은 물론 입맛까지 사로잡기 위해</p>
                 <p>
                   <span className='font-medium'>
                     우리나라 전통 식문화를 접목
                   </span>
                   한 요리를 연구하고 개발해
                 </p>
-                <p>본사 직영점에서 충분히 노하우를 쌓을 수 있도록</p>
                 <p>독보적인 메뉴 경쟁력을 갖추고 있습니다.</p>
               </>
             )}
@@ -947,7 +963,7 @@ const SubForm2: React.FC = () => {
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'flex-col items-center'
+                ? 'flex-col-reverse items-center  py-6 px-4'
                 : `max-w-[1300px] w-[100%] gap-10 py-10 my-20 items-center`
             } flex `}
           >
@@ -955,14 +971,14 @@ const SubForm2: React.FC = () => {
               <div
                 className={`${
                   deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? 'flex-col items-center'
+                    ? 'items-start py-4 border-t-[1px] border-Black'
                     : 'flex-col justify-center py-10 border-b-[2px] border-Black'
                 } flex`}
               >
                 <div
                   className={`${
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'Slb-SubTitle-mo'
+                      ? 'Slb-SubTitle-mo flex-1'
                       : 'Slb-SubTitle flex-col flex-wrap mb-6'
                   } flex`}
                 >
@@ -996,16 +1012,16 @@ const SubForm2: React.FC = () => {
                 <div
                   className={`${
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'Slb-Content-mo px-6 mb-20'
+                      ? 'Slb-Content-mo w-[65%]'
                       : 'Slb-Content'
                   } break-keep whitespace-pre-wrap flex flex-col gap-8`}
                 >
                   <p
                     className={`${
                       deviceInfo.isSmallScreen || deviceInfo.isMobile
-                        ? 'text-center break-keep'
-                        : 'flex flex-col'
-                    }`}
+                        ? 'break-keep'
+                        : ''
+                    } flex flex-col `}
                   >
                     <span>SLB의 모든 메뉴는 직영점에서</span>
                     <span>고객 평가를 거칩니다.</span>
@@ -1015,14 +1031,21 @@ const SubForm2: React.FC = () => {
               <div
                 className={`${
                   deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? 'flex-col items-center'
+                    ? 'border-dotted border-t-[1px] border-Black'
+                    : ''
+                }`}
+              ></div>
+              <div
+                className={`${
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile
+                    ? 'items-start py-4 border-b-[1px] border-Black'
                     : 'flex-col justify-center py-10'
                 } flex`}
               >
                 <div
                   className={`${
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'Slb-SubTitle-mo'
+                      ? 'Slb-SubTitle-mo flex-1'
                       : 'Slb-SubTitle flex-col flex-wrap mb-6'
                   } flex`}
                 >
@@ -1049,23 +1072,23 @@ const SubForm2: React.FC = () => {
                           : 'Slb-Title'
                       } text-[#EF812A]`}
                     >
-                      TEST
+                      만족도 上
                     </span>
                   </p>
                 </div>
                 <div
                   className={`${
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'Slb-Content-mo px-6 mb-20'
+                      ? 'Slb-Content-mo w-[65%]'
                       : 'Slb-Content'
                   } break-keep whitespace-pre-wrap flex flex-col gap-8`}
                 >
                   <p
                     className={`${
                       deviceInfo.isSmallScreen || deviceInfo.isMobile
-                        ? 'text-center break-keep'
+                        ? 'break-keep'
                         : 'flex flex-col'
-                    }`}
+                    } `}
                   >
                     <span>SLB의 모든 메뉴는 고객평가를 거친 후</span>
                     <span>고객만족도가 높은 메뉴만을 엄선해</span>
@@ -1088,11 +1111,13 @@ const SubForm2: React.FC = () => {
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'aspect-[431/173] mt-10'
+                ? 'aspect-[720/420] text-White'
                 : 'aspect-[1904/650] text-White justify-center'
             } bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-fit`}
             style={{
-              backgroundImage: `url(${process.env.PUBLIC_URL}/sub_2/sub_2_4_2.webp)`,
+              backgroundImage: `url(${process.env.PUBLIC_URL}/sub_2/sub_2_4_2${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
+              }.webp)`,
             }}
           >
             <div
@@ -1105,7 +1130,7 @@ const SubForm2: React.FC = () => {
               <div
                 className={`${
                   deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? 'mt-6'
+                    ? 'mt-6 Slb-Content-mo'
                     : 'mt-[6rem]'
                 } flex items-end leading-none`}
               >
@@ -1113,19 +1138,27 @@ const SubForm2: React.FC = () => {
               </div>
               <div
                 className={`${
-                  deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : 'mt-2'
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile
+                    ? 'Slb-Content-mo mt-1'
+                    : 'mt-2'
                 } flex items-end leading-none`}
               >
                 재료의 선택부터 메뉴의 구성까지 고민하다
               </div>
-              <div className='flex items-center leading-none mt-2'>
+              <div
+                className={`${
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile
+                    ? 'Slb-Title-mo flex-col'
+                    : 'Slb-Title items-center leading-none mt-2'
+                } flex `}
+              >
                 정성을 담은
                 <p
                   className={`${
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'Slb-Point-mo'
-                      : 'Slb-Point'
-                  } bg-[#FF331F] leading-none ml-2 p-1`}
+                      ? 'Slb-Point-mo w-fit'
+                      : 'Slb-Point ml-2'
+                  } bg-[#FF331F] leading-none p-1`}
                 >
                   SLB 한상차림
                 </p>
@@ -1140,32 +1173,17 @@ const SubForm2: React.FC = () => {
               />
 
               {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
-                <>
-                  <div className='Slb-Content-mo flex items-center leading-none mb-3'>
-                    현재에 안주하지 않고 한식의 익숙함에
-                  </div>
-                  <div className='Slb-Content-mo flex items-center leading-none mb-3'>
-                    샐러드&amp;포케의 새로움을 더하기 위해
-                  </div>
-                  <div className='Slb-Content-mo flex items-center leading-none mb-3'>
-                    지금 이 순간에도 SLB R&D 부서 전문가들은
-                  </div>
-                  <div className='Slb-Content-mo flex items-center leading-none mb-6'>
-                    연구에 연구를 거듭하고 있습니다
-                  </div>
-                </>
+                <div className='text-[10px] font-normal flex flex-col gap-1 leading-none'>
+                  <div>한끼를 먹더라도 든든하게 드실 수 있도록</div>
+                  <div>제대로 된 한상의 감동을 경험 할 수 있도록</div>
+                  <div>SLB는 고객을 가장 중요하게 생각합니다</div>
+                </div>
               ) : (
-                <>
-                  <div className='Slb-Content flex items-center leading-none mb-3'>
-                    한끼를 먹더라도 든든하게 드실 수 있도록
-                  </div>
-                  <div className='Slb-Content flex items-center leading-none mb-3'>
-                    제대로 된 한상의 감동을 경험 할 수 있도록
-                  </div>
-                  <div className='Slb-Content flex items-center leading-none mb-[6rem]'>
-                    SLB는 고객을 가장 중요하게 생각합니다
-                  </div>
-                </>
+                <div className='Slb-Content flex flex-col leading-none gap-3 mb-[6rem]'>
+                  <div>한끼를 먹더라도 든든하게 드실 수 있도록</div>
+                  <div>제대로 된 한상의 감동을 경험 할 수 있도록</div>
+                  <div>SLB는 고객을 가장 중요하게 생각합니다</div>
+                </div>
               )}
             </div>
           </div>
@@ -1208,15 +1226,8 @@ const SubForm2: React.FC = () => {
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'h-10 my-4 w-[1px]  border border-black  '
-                : ''
-            }`}
-          />
-          <div
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'Slb-Content-mo flex-col items-center'
-                : 'Slb-Content flex-col items-center mb-20'
+                ? 'Slb-Content-mo flex-col items-center mt-4'
+                : 'Slb-Content flex-col items-center mb-20 mt-6'
             } flex`}
           >
             {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
@@ -1235,7 +1246,7 @@ const SubForm2: React.FC = () => {
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
                 ? 'my-10'
-                : 'mt-40 mb-40'
+                : 'my-40 m-40'
             } w-full flex justify-center`}
           >
             <img
@@ -1246,14 +1257,16 @@ const SubForm2: React.FC = () => {
                   : 'max-w-[1300px] aspect-[1300/1713]'
               } w-full`}
               alt={`샐러드 한상`}
-              src={`${process.env.PUBLIC_URL}/sub_2/sub_2_4_3.png`}
+              src={`${process.env.PUBLIC_URL}/sub_2/sub_2_4_3${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
+              }.png`}
             />
           </div>
 
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'my-10'
+                ? 'mb-10'
                 : 'mb-40'
             } w-full flex justify-center`}
           >
@@ -1265,14 +1278,16 @@ const SubForm2: React.FC = () => {
                   : 'max-w-[1300px] aspect-[1300/1300]'
               } w-full`}
               alt={`포케 한상`}
-              src={`${process.env.PUBLIC_URL}/sub_2/sub_2_4_4.png`}
+              src={`${process.env.PUBLIC_URL}/sub_2/sub_2_4_4${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
+              }.png`}
             />
           </div>
 
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'my-10'
+                ? 'mb-10'
                 : 'mb-40'
             } w-full flex justify-center`}
           >
@@ -1284,14 +1299,16 @@ const SubForm2: React.FC = () => {
                   : 'max-w-[1300px] aspect-[1300/495]'
               } w-full`}
               alt={`랩 메뉴`}
-              src={`${process.env.PUBLIC_URL}/sub_2/sub_2_4_5.png`}
+              src={`${process.env.PUBLIC_URL}/sub_2/sub_2_4_5${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
+              }.png`}
             />
           </div>
 
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'my-10'
+                ? 'mb-10'
                 : 'mb-40'
             } w-full flex justify-center`}
           >
@@ -1303,14 +1320,16 @@ const SubForm2: React.FC = () => {
                   : 'max-w-[1300px] aspect-[1300/495]'
               } w-full`}
               alt={`샌드 메뉴`}
-              src={`${process.env.PUBLIC_URL}/sub_2/sub_2_4_6.png`}
+              src={`${process.env.PUBLIC_URL}/sub_2/sub_2_4_6${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
+              }.png`}
             />
           </div>
 
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'my-10'
+                ? ''
                 : 'mb-[20rem]'
             } w-full flex justify-center`}
           >
@@ -1322,7 +1341,9 @@ const SubForm2: React.FC = () => {
                   : 'max-w-[1300px] aspect-[1300/1300]'
               } w-full`}
               alt={`추가 메뉴`}
-              src={`${process.env.PUBLIC_URL}/sub_2/sub_2_4_7.png`}
+              src={`${process.env.PUBLIC_URL}/sub_2/sub_2_4_7${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
+              }.png`}
             />
           </div>
         </section>

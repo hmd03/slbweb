@@ -29,7 +29,7 @@ const Header = ({ children, ...props }: Props) => {
 
   const mainMenuItems = [
     { title: '한식X샐러드&포케 SLB?', link: '/sub_1/1', isReady: true },
-    { title: '기회를 붙잡는 노하우', link: '/sub_2/1', isReady: false },
+    { title: '기회를 붙잡는 노하우', link: '/sub_2/1', isReady: true },
     { title: '끝까지 함께 성장합니다!', link: '/sub_3/1', isReady: false },
     { title: '성장하는 SLB 개설비용', link: '/sub_4/1', isReady: false },
     { title: '성공창업문의', link: '/inquiry', isReady: true },
@@ -55,19 +55,19 @@ const Header = ({ children, ...props }: Props) => {
       {
         title: '성장하는 시장/n성장하는 아이템 SLB',
         link: '/sub_2/1',
-        isReady: false,
+        isReady: true,
       },
       {
         title: '고객이 인정하는/n샐러드&포케 맛집!',
         link: '/sub_2/2',
-        isReady: false,
+        isReady: true,
       },
       {
         title: '음식점 일이/n이렇게 쉬워도 되나요?',
         link: '/sub_2/3',
-        isReady: false,
+        isReady: true,
       },
-      { title: '특별한 메뉴소개', link: '/sub_2/4', isReady: false },
+      { title: '특별한 메뉴소개', link: '/sub_2/4', isReady: true },
     ],
     [
       {
@@ -169,7 +169,10 @@ const Header = ({ children, ...props }: Props) => {
 
   return (
     <div className='w-full flex flex-col items-center' {...props}>
-      <div ref={headerRef} className='w-full bg-white shadow z-30'>
+      <div
+        ref={headerRef}
+        className='w-full bg-white shadow z-30'
+      >
         <div className='flex flex-col justify-between items-center px-4 w-full border-b-[2px] border-black'>
           <div className='text-center mt-10'>
             <img
@@ -220,7 +223,7 @@ const Header = ({ children, ...props }: Props) => {
         onMouseLeave={handleMouseLeave}
       >
         <nav className='text-center w-full max-w-[1300px] mx-auto'>
-          <ul className='flex justify-between text-main py-4'>
+          <ul className='flex justify-between text-main py-4' id='header_list'>
             {mainMenuItems.map((item, index) => (
               <li key={index} ref={(el) => (menuRefs.current[index] = el)}>
                 {item.isReady ? (

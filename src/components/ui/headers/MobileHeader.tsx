@@ -70,7 +70,7 @@ const MobileHeader = ({ children, ...props }: Props) => {
 
   const mainMenuItems = [
     { title: '한식X샐러드&포케 SLB?', link: '/sub_1/1', isReady: true },
-    { title: '기회를 붙잡는 노하우', link: '/sub_2/1', isReady: false },
+    { title: '기회를 붙잡는 노하우', link: '/sub_2/1', isReady: true },
     { title: '끝까지 함께 성장합니다!', link: '/sub_3/1', isReady: false },
     { title: '성장하는 SLB 개설비용', link: '/sub_4/1', isReady: false },
     { title: '성공창업문의', link: '/inquiry', isReady: true },
@@ -96,19 +96,19 @@ const MobileHeader = ({ children, ...props }: Props) => {
       {
         title: '성장하는 시장/n성장하는 아이템 SLB',
         link: '/sub_2/1',
-        isReady: false,
+        isReady: true,
       },
       {
         title: '고객이 인정하는/n샐러드&포케 맛집!',
         link: '/sub_2/2',
-        isReady: false,
+        isReady: true,
       },
       {
         title: '음식점 일이/n이렇게 쉬워도 되나요?',
         link: '/sub_2/3',
-        isReady: false,
+        isReady: true,
       },
-      { title: '특별한 메뉴소개', link: '/sub_2/4', isReady: false },
+      { title: '특별한 메뉴소개', link: '/sub_2/4', isReady: true },
     ],
     [
       {
@@ -199,6 +199,7 @@ const MobileHeader = ({ children, ...props }: Props) => {
       <header
         className='bg-white shadow w-full fixed top-0 left-0 z-[100]'
         ref={headerRef}
+        id='header_list_mo'
       >
         <div className='flex justify-between items-center p-4'>
           <button onClick={handleMenuToggle} className='text-main'>

@@ -17,23 +17,29 @@ const SubForm1: React.FC = () => {
   console.log(deviceInfo);
 
   useEffect(() => {
-
     if (!isDeviceReady) return;
 
     if (!page || page === '1') return;
+    requestAnimationFrame(() => {
+      const target = document.getElementById(`section-${page}`);
+      if (!target) return;
 
-    const target = document.getElementById(`section-${page}`);
-    if (!target) return;
+      const headerId =
+        deviceInfo.isMobile || deviceInfo.isSmallScreen
+          ? 'header_list_mo'
+          : 'header_list';
+      const headerEl = document.getElementById(headerId);
+      const headerHeight = headerEl?.offsetHeight ?? 0;
 
-    const headerId =
-      deviceInfo.isMobile || deviceInfo.isSmallScreen ? 'header_mo' : 'header';
-    const headerEl = document.getElementById(headerId);
-    const headerHeight = headerEl?.offsetHeight ?? 0;
+      const absoluteY =
+        target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
 
-    const absoluteY =
-      target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+      console.log(absoluteY);
+      console.log(target);
+      console.log(headerEl);
 
-    window.scrollTo({ top: absoluteY });
+      window.scrollTo({ top: absoluteY });
+    });
   }, [page, deviceInfo.isMobile]);
 
   const itemData = [
