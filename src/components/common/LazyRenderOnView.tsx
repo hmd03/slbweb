@@ -5,6 +5,7 @@ interface Props {
   threshold?: number;
   rootMargin?: string;
   forceRender?: boolean;
+  onVisible?: () => void;
 }
 
 const LazyRenderOnView: React.FC<Props> = ({
@@ -12,24 +13,27 @@ const LazyRenderOnView: React.FC<Props> = ({
   threshold = 0.1,
   rootMargin = '0px',
   forceRender = false,
+  onVisible,
 }) => {
   const [isVisible, setIsVisible] = useState(forceRender);
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (forceRender) return;
+    if (forceRender) {
+      setIsVisible(true);
+      onVisible?.();
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
           observer.disconnect();
+          onVisible?.();
         }
       },
-      {
-        threshold,
-        rootMargin,
-      }
+      { threshold, rootMargin }
     );
 
     if (ref.current) observer.observe(ref.current);

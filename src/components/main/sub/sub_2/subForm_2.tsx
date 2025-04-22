@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import useDeviceInfo from '../../../../hooks/useDeviceInfo';
 import LazyRenderOnView from '../../../common/LazyRenderOnView';
@@ -10,45 +10,61 @@ import Sub2Section4 from './Sub2Section4';
 const SubForm2: React.FC = () => {
   const deviceInfo = useDeviceInfo();
   const { page } = useParams<{ page: string }>();
+  const [visibleSections, setVisibleSections] = React.useState<number[]>([]);
 
-  const isDeviceReady =
-    deviceInfo.isMobile !== undefined &&
-    deviceInfo.isTouchDevice !== undefined &&
-    deviceInfo.isSmallScreen !== undefined;
+  const iframeLoadedRef = useRef(false);
 
-  console.log(deviceInfo);
+  const handleIframeLoad = () => {
+    if (iframeLoadedRef.current) return;
+    iframeLoadedRef.current = true;
+    if (page && page !== '1') {
+      scrollToSection(`section-${page}`);
+    }
+  };
+
+  const scrollToSection = (targetId: string) => {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    const headerId =
+      deviceInfo.isMobile || deviceInfo.isSmallScreen ? 'header_mo' : 'header';
+    const headerEl = document.getElementById(headerId);
+    const headerHeight = headerEl?.offsetHeight ?? 0;
+
+    const absoluteY =
+      target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+    window.scrollTo({ top: absoluteY});
+  };
 
   useEffect(() => {
-    if (!isDeviceReady) return;
     if (!page || page === '1') return;
-    requestAnimationFrame(() => {
-      const target = document.getElementById(`section-${page}`);
-      if (!target) return;
+    const pageNum = parseInt(page);
+    if (visibleSections.includes(pageNum)) {
+      scrollToSection(`section-${page}`);
+    }
+  }, [page, visibleSections]);
 
-      const headerId =
-        deviceInfo.isMobile || deviceInfo.isSmallScreen
-          ? 'header_list_mo'
-          : 'header';
-      const headerEl = document.getElementById(headerId);
-      const headerHeight = headerEl?.offsetHeight ?? 0;
-
-      const absoluteY =
-        target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-
-      window.scrollTo({ top: absoluteY });
-    });
-  }, [page, deviceInfo.isMobile]);
-
-  
   return (
-    <>
-      <div>
-        {[1, 2, 3, 4].map((sectionNum) => (
-          <LazyRenderOnView key={sectionNum} forceRender={page === String(sectionNum)}>
+    <div>
+      {[1, 2, 3, 4].map((sectionNum) => (
+        <LazyRenderOnView
+          key={sectionNum}
+          forceRender={page === String(sectionNum)}
+          onVisible={() => {
+            setVisibleSections((prev) =>
+              prev.includes(sectionNum) ? prev : [...prev, sectionNum]
+            );
+          }}
+        >
+          <div
+            className='w-full flex flex-col items-center'
+            id={`section-${sectionNum}`}
+          >
             {(() => {
               switch (sectionNum) {
                 case 1:
-                  return <Sub2Section1 />;
+                  return <Sub2Section1 onIframeLoad={handleIframeLoad} />;
                 case 2:
                   return <Sub2Section2 />;
                 case 3:
@@ -59,11 +75,12 @@ const SubForm2: React.FC = () => {
                   return null;
               }
             })()}
-          </LazyRenderOnView>
-        ))}
-      </div>
-    </>
+          </div>
+        </LazyRenderOnView>
+      ))}
+    </div>
   );
 };
+
 
 export default SubForm2;

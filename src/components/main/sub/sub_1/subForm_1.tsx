@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useDeviceInfo from '../../../../hooks/useDeviceInfo';
 import LazyRenderOnView from '../../../common/LazyRenderOnView';
@@ -10,58 +10,62 @@ import Sub1Section4 from './Sub1Section4';
 const SubForm1: React.FC = () => {
   const deviceInfo = useDeviceInfo();
   const { page } = useParams<{ page: string }>();
+  const [visibleSections, setVisibleSections] = useState<number[]>([]);
 
-  const isDeviceReady =
-    deviceInfo.isMobile !== undefined &&
-    deviceInfo.isTouchDevice !== undefined &&
-    deviceInfo.isSmallScreen !== undefined;
+  const scrollToSection = (targetId: string) => {
+    const target = document.getElementById(targetId);
+    if (!target) return;
 
-  console.log(deviceInfo);
+    const headerId =
+      deviceInfo.isMobile || deviceInfo.isSmallScreen ? 'header_mo' : 'header';
+    const headerEl = document.getElementById(headerId);
+    const headerHeight = headerEl?.offsetHeight ?? 0;
+
+    const absoluteY =
+      target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+    window.scrollTo({ top: absoluteY});
+  };
 
   useEffect(() => {
-    if (!isDeviceReady) return;
-
     if (!page || page === '1') return;
-    requestAnimationFrame(() => {
-      const target = document.getElementById(`section-${page}`);
-      if (!target) return;
-
-      const headerId =
-        deviceInfo.isMobile || deviceInfo.isSmallScreen
-          ? 'header_list_mo'
-          : 'header_list';
-      const headerEl = document.getElementById(headerId);
-      const headerHeight = headerEl?.offsetHeight ?? 0;
-
-      const absoluteY =
-        target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-
-      console.log(absoluteY);
-      console.log(target);
-      console.log(headerEl);
-
-      window.scrollTo({ top: absoluteY });
-    });
-  }, [page, deviceInfo.isMobile]);
+    const pageNum = parseInt(page);
+    if (visibleSections.includes(pageNum)) {
+      scrollToSection(`section-${page}`);
+    }
+  }, [page, visibleSections]);
 
   return (
     <div>
       {[1, 2, 3, 4].map((sectionNum) => (
-        <LazyRenderOnView key={sectionNum} forceRender={page === String(sectionNum)}>
-          {(() => {
-            switch (sectionNum) {
-              case 1:
-                return <Sub1Section1 />;
-              case 2:
-                return <Sub1Section2 />;
-              case 3:
-                return <Sub1Section3 />;
-              case 4:
-                return <Sub1Section4 />;
-              default:
-                return null;
-            }
-          })()}
+        <LazyRenderOnView
+          key={sectionNum}
+          forceRender={page === String(sectionNum)}
+          onVisible={() => {
+            setVisibleSections((prev) =>
+              prev.includes(sectionNum) ? prev : [...prev, sectionNum]
+            );
+          }}
+        >
+          <div
+            className='w-full flex flex-col items-center'
+            id={`section-${sectionNum}`}
+          >
+            {(() => {
+              switch (sectionNum) {
+                case 1:
+                  return <Sub1Section1 />;
+                case 2:
+                  return <Sub1Section2 />;
+                case 3:
+                  return <Sub1Section3 />;
+                case 4:
+                  return <Sub1Section4 />;
+                default:
+                  return null;
+              }
+            })()}
+          </div>
         </LazyRenderOnView>
       ))}
     </div>
