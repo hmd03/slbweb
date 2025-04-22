@@ -46,26 +46,25 @@ const SubForm1: React.FC = () => {
 
   return (
     <div>
-  {[1, 2, 3, 4].map((sectionNum) => (
-    <LazyRenderOnView key={sectionNum} forceRender={page === String(sectionNum)}>
-      {(() => {
-        switch (sectionNum) {
-          case 1:
-            return <Sub1Section1 />;
-          case 2:
-            return <Sub1Section2 />;
-          case 3:
-            return <Sub1Section3 />;
-          case 4:
-            return <Sub1Section4 />;
-          default:
-            return null;
-        }
-      })()}
-    </LazyRenderOnView>
-  ))}
-</div>
-
+      {[1, 2, 3, 4].map((sectionNum) => (
+        <LazyRenderOnView key={sectionNum} forceRender={page === String(sectionNum)}>
+          {(() => {
+            switch (sectionNum) {
+              case 1:
+                return <Sub1Section1 />;
+              case 2:
+                return <Sub1Section2 />;
+              case 3:
+                return <Sub1Section3 />;
+              case 4:
+                return <Sub1Section4 />;
+              default:
+                return null;
+            }
+          })()}
+        </LazyRenderOnView>
+      ))}
+    </div>
   );
 };
 
