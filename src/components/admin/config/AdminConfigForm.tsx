@@ -22,6 +22,7 @@ const AdminConfigForm: React.FC = () => {
   const [editorTerms, setEditorTerms] = useState<string>('');
   const siteNameRef = useRef<HTMLInputElement>(null);
   const siteTitleRef = useRef<HTMLInputElement>(null);
+  const keywordsRef = useRef<HTMLInputElement>(null);
   const siteDescRef = useRef<HTMLInputElement>(null);
   const smsRef = useRef<HTMLInputElement>(null);
 
@@ -60,6 +61,7 @@ const AdminConfigForm: React.FC = () => {
     const siteName = siteNameRef.current?.value || '';
     const siteTitle = siteTitleRef.current?.value || '';
     const siteDesc = siteDescRef.current?.value || '';
+    const keywords = keywordsRef.current?.value || '';
     const sms = smsRef.current?.value || '';
     const privacyPolicy = editorPrivacy;
     const terms = editorTerms;
@@ -69,6 +71,7 @@ const AdminConfigForm: React.FC = () => {
       siteTitle === '' ||
       siteDesc === '' ||
       sms === '' ||
+      keywords === '' ||
       privacyPolicy === '' ||
       privacyPolicy === '<p></p>' ||
       privacyPolicy === '<p><br></p>' ||
@@ -89,6 +92,7 @@ const AdminConfigForm: React.FC = () => {
     const contactList = smsRef.current?.value || '';
     const privacyPolicy = editorPrivacy;
     const termsOfService = editorTerms;
+    const keywords = keywordsRef.current?.value || '';
 
     const formattedContacts = contactList.split(',').map((item) => {
       const digits = item.replace(/\D/g, '').trim();
@@ -103,6 +107,7 @@ const AdminConfigForm: React.FC = () => {
         name,
         title,
         contactList: formattedContacts,
+        keywords,
         description,
         privacyPolicy,
         termsOfService,
@@ -187,6 +192,16 @@ const AdminConfigForm: React.FC = () => {
                 <InputField
                   ref={smsRef}
                   placeholder='01012345678'
+                  className='w-full border-[2px] p-1'
+                />
+              </td>
+            </tr>
+            <tr>
+              <th className={thClassName}>키워드</th>
+              <td className={tdClassName}>
+                <InputField
+                  ref={keywordsRef}
+                  placeholder='키워드'
                   className='w-full border-[2px] p-1'
                 />
               </td>
