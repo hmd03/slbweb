@@ -4,13 +4,21 @@ interface Props {
   children: React.ReactNode;
   threshold?: number;
   rootMargin?: string;
+  forceRender?: boolean;
 }
 
-const LazyRenderOnView: React.FC<Props> = ({ children, threshold = 0.1, rootMargin = '0px' }) => {
-  const [isVisible, setIsVisible] = useState(false);
+const LazyRenderOnView: React.FC<Props> = ({
+  children,
+  threshold = 0.1,
+  rootMargin = '0px',
+  forceRender = false,
+}) => {
+  const [isVisible, setIsVisible] = useState(forceRender);
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    if (forceRender) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -26,9 +34,13 @@ const LazyRenderOnView: React.FC<Props> = ({ children, threshold = 0.1, rootMarg
 
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
-  }, [threshold, rootMargin]);
+  }, [threshold, rootMargin, forceRender]);
 
-  return <div className='w-full flex flex-col items-center' ref={ref}>{isVisible ? children : null}</div>;
+  return (
+    <div className='w-full flex flex-col items-center' ref={ref}>
+      {isVisible ? children : null}
+    </div>
+  );
 };
 
 export default LazyRenderOnView;
