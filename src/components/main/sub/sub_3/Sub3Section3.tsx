@@ -30,7 +30,7 @@ const Sub3Section3: React.FC = () => {
 
   return (
   <section
-        id='section-1'
+        id='section-3'
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'Slb-Title-mo'
@@ -181,7 +181,7 @@ const Sub3Section3: React.FC = () => {
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
               ? 'p-4 gap-4 flex-col-reverse'
-              : 'max-w-[1300px] w-[100%] mt-20 mb-40'
+              : 'max-w-[1300px] w-[100%] mt-20 '
           } flex`}
         >
           <div className={`${

@@ -84,7 +84,7 @@ const Sub1Section2: React.FC = () => {
       deviceInfo.isSmallScreen || deviceInfo.isMobile
         ? 'w-full Slb-Title-mo pt-20'
         : 'Slb-Title pt-40'
-    } flex flex-col items-center`}
+    } flex flex-col items-center w-full`}
   >
     <Chip text='Point 2' type='black' />
     <SlideUpOnView>
