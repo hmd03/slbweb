@@ -363,6 +363,7 @@ const Sub2Section1: React.FC<Sub2Section1Props> = ({ onIframeLoad }) => {
         }`}
       >
         <iframe
+         loading='lazy'
           className='w-full h-full'
           src='https://www.youtube.com/embed/-Gn1Cmfe5Is?autoplay=1&mute=1&loop=1&playlist=-Gn1Cmfe5Is&controls=0&modestbranding=1&showinfo=0&rel=0'
           title='Just Eat It! 한식X샐러드&포케 전문점 SLB'
@@ -370,7 +371,7 @@ const Sub2Section1: React.FC<Sub2Section1Props> = ({ onIframeLoad }) => {
           frameBorder='0'
           allow='autoplay; encrypted-media'
           allowFullScreen
-        ></iframe>
+        />
       </div>
     </section>
   );
