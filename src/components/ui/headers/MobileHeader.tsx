@@ -71,7 +71,7 @@ const MobileHeader = ({ children, ...props }: Props) => {
   const mainMenuItems = [
     { title: '한식X샐러드&포케 SLB?', link: '/sub_1/1', isReady: true },
     { title: '기회를 붙잡는 노하우', link: '/sub_2/1', isReady: true },
-    { title: '끝까지 함께 성장합니다!', link: '/sub_3/1', isReady: false },
+    { title: '끝까지 함께 성장합니다!', link: '/sub_3/1', isReady: true },
     { title: '성장하는 SLB 개설비용', link: '/sub_4/1', isReady: false },
     { title: '성공창업문의', link: '/inquiry', isReady: true },
     { title: 'SLB 이야기', link: '/story', isReady: false },
@@ -114,22 +114,22 @@ const MobileHeader = ({ children, ...props }: Props) => {
       {
         title: 'SLB는 점주님과/n끝까지 합께 합니다',
         link: '/sub_3/1',
-        isReady: false,
+        isReady: true,
       },
       {
         title: '청년, 중장년, 남녀/n누구나 성공창업가능!',
         link: '/sub_3/2',
-        isReady: false,
+        isReady: true,
       },
       {
         title: '샐러드&포케 창업/n이것만은 꼭! 확인하세요?',
         link: '/sub_3/3',
-        isReady: false,
+        isReady: true,
       },
       {
         title: '고객이 묻습니다./n카페인가요? 힙한 인테리어',
         link: '/sub_3/4',
-        isReady: false,
+        isReady: true,
       },
     ],
     [

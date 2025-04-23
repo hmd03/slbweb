@@ -18,7 +18,7 @@ const Sub3Section1: React.FC = () => {
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? ' mt-10'
+              ? ' mt-10 mb-4'
               : 'mb-5 mt-40'
           }`}
         >
@@ -27,29 +27,35 @@ const Sub3Section1: React.FC = () => {
         <div>우리는 가맹점을</div>
         <div
           className={`${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
-          } flex items-end leading-none`}
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? 'flex-col items-center'
+              : 'items-end'
+          } flex leading-none`}
         >
-          <p
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? ' Slb-Point-mo'
-                : ' Slb-Point'
-            } flex items-end leading-none text-[#FF331F]`}
-          >
-            '식구'
-          </p>
-          라고 쓰고
-          <p
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? ' Slb-Point-mo'
-                : ' Slb-Point'
-            } flex items-end leading-none text-[#FF331F]`}
-          >
-            '가족'
-          </p>
-          이라고 부릅니다
+          <span className='flex items-end'>
+            <p
+              className={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? ' Slb-Point-mo'
+                  : ' Slb-Point'
+              } flex items-end leading-none text-[#FF331F]`}
+            >
+              '식구'
+            </p>
+            라고 쓰고
+          </span>
+          <span className='flex items-end'>
+            <p
+              className={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? ' Slb-Point-mo'
+                  : ' Slb-Point ml-2'
+              } flex items-end leading-none text-[#FF331F]`}
+            >
+              '가족'
+            </p>
+            이라고 부릅니다
+          </span>
         </div>
       </SlideUpOnView>
       <div
@@ -98,26 +104,12 @@ const Sub3Section1: React.FC = () => {
             <>
               <div
                 className={`${
-                  deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? 'mb-1 flex-col'
-                    : ''
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
                 } flex items-end leading-none`}
               >
-                <p
-                  className={`${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'Slb-Point-mo'
-                      : 'Slb-Point'
-                  } text-[#FF331F] leading-none`}
-                >
+                <p className={`Slb-Point-mo mr-1 text-[#FF331F] leading-none`}>
                   '식구'
                 </p>
-              </div>
-              <div
-                className={`${
-                  deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : 'mb-10'
-                } flex items-end leading-none`}
-              >
                 라 쓰는 이유?
               </div>
             </>
@@ -148,20 +140,15 @@ const Sub3Section1: React.FC = () => {
       <div
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'h-10 my-4 w-[1px]  border border-black  '
-            : ''
-        }`}
-      />
-      <div
-        className={`${
-          deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'my-10' : 'my-10'
+            ? 'my-10 px-4'
+            : 'my-10'
         } w-full flex justify-center`}
       >
         <img
           loading='lazy'
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'px-4'
+              ? 'aspect-[579/370]'
               : 'max-w-[1300px] aspect-[1139/594]'
           } w-full`}
           alt={`고객이 인정하는 샐러드 포케 맛집`}
@@ -171,27 +158,37 @@ const Sub3Section1: React.FC = () => {
       <div
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'Slb-Content-mo flex-col items-center'
+            ? 'Slb-Content-mo flex-col items-center gap-1 mb-20'
             : 'Slb-Content flex-col items-center mb-40'
         } flex`}
       >
         {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
           <>
-            <p>
-              점주님도 SLB 본사가 없다면 존재할 수 없듯이 본사는 점주님들이
-              없다면 존재할 수 없기 때문!
-            </p>
-            <p>
+            <p>점주님도 SLB 본사가 없다면 존재할 수 없듯이</p>
+            <p>본사는 점주님들이 없다면 존재할 수 없기 때문!</p>
+            <p className='mt-2'>
               SLB는{' '}
               <span
-                className='Slb-SubTitle text-[#FF331F] leading-none bg-no-repeat bg-bottom pb-1'
+                className='Slb-SubTitle text-[#FF331F] leading-none bg-no-repeat bg-bottom'
                 style={{
                   backgroundImage: `url(${process.env.PUBLIC_URL}/sub_3/sub_3_1_1_line.webp)`,
                   backgroundSize: 'contain',
                   textShadow: '0 0 1px white, 0 0 1px white, 0 0 1px white',
                 }}
               >
-                "남이 아닌 내 식구가 하는 매장이다"
+                "남이 아닌 내 식구가
+              </span>
+            </p>
+            <p>
+              <span
+                className='Slb-SubTitle text-[#FF331F] leading-none bg-no-repeat bg-bottom'
+                style={{
+                  backgroundImage: `url(${process.env.PUBLIC_URL}/sub_3/sub_3_1_1_line.webp)`,
+                  backgroundSize: 'contain',
+                  textShadow: '0 0 1px white, 0 0 1px white, 0 0 1px white',
+                }}
+              >
+                하는 매장이다"
               </span>
               라는 마음가짐으로
             </p>
@@ -234,7 +231,7 @@ const Sub3Section1: React.FC = () => {
             <div
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? ''
+                  ? 'flex-col text-center mt-4'
                   : 'flex-col text-center mt-6'
               } flex`}
             >
@@ -242,7 +239,7 @@ const Sub3Section1: React.FC = () => {
               <div
                 className={`${
                   deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? 'Slb-Point-mo mt-4 mb-10'
+                    ? 'Slb-Point-mo mb-10'
                     : 'Slb-Point mb-20'
                 } text-[#FF331F] leading-none`}
               >
@@ -272,7 +269,7 @@ const Sub3Section1: React.FC = () => {
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'my-10'
+                ? 'my-10 px-4 '
                 : 'my-10'
             } w-full flex justify-center`}
           >
@@ -280,18 +277,20 @@ const Sub3Section1: React.FC = () => {
               loading='lazy'
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'px-4'
+                  ? 'aspect-[630/772]'
                   : 'max-w-[1000px] aspect-[942/423]'
               } w-full`}
               alt={`대한민국을 넘어 세계의 모든 고객들에게 사랑받을 수 있도록 가슴 따뜻한 요리에 마음을 담는다
                 가맨점주 한 분 한 분 끝까지 책임질 줄 아는 진정한 프랜차이즈가 될 수 있도록 초심을 잃지 않는 브랜드로 성장한다
                 누군가 알아주지 않아도 언제나 최선을 다하며 모든 결과에 책임을 더한다`}
-              src={`${process.env.PUBLIC_URL}/sub_3/sub_3_1_2.webp`}
+              src={`${process.env.PUBLIC_URL}/sub_3/sub_3_1_2${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
+              }.webp`}
             />
           </div>
           <div
             className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : 'gap-2'
+              deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'flex-col text-center gap-1' : 'gap-2'
             } flex`}
           >
             고객, 가맹점, 본사가
@@ -308,7 +307,7 @@ const Sub3Section1: React.FC = () => {
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'my-10'
+                ? 'my-6'
                 : 'mt-10'
             } w-full flex justify-center`}
           >
@@ -316,7 +315,7 @@ const Sub3Section1: React.FC = () => {
               loading='lazy'
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'px-4'
+                  ? 'aspect-[165/83] max-w-[30%]'
                   : 'max-w-[243px] aspect-[243/122]'
               } w-full`}
               alt={`SLB`}

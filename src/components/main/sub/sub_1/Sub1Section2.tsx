@@ -82,8 +82,8 @@ const Sub1Section2: React.FC = () => {
     id='section-2'
     className={`${
       deviceInfo.isSmallScreen || deviceInfo.isMobile
-        ? 'w-full Slb-Title-mo pt-20'
-        : 'Slb-Title pt-40'
+        ? 'w-full Slb-Title-mo pt-20 pb-10'
+        : 'Slb-Title py-40'
     } flex flex-col items-center w-full`}
   >
     <Chip text='Point 2' type='black' />

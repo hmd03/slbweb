@@ -12,7 +12,10 @@ const SubForm4: React.FC = () => {
         const target = document.getElementById(`section-${page}`);
         if (!target) return;
       
-        const headerId = (deviceInfo.isMobile || deviceInfo.isSmallScreen) ? 'header_mo' : 'header';
+        const headerId =
+          deviceInfo.isMobile || deviceInfo.isSmallScreen
+            ? 'header_mo'
+            : 'header_list';
         const headerEl = document.getElementById(headerId);
         const headerHeight = headerEl?.offsetHeight ?? 0;
       

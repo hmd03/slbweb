@@ -24,11 +24,11 @@ const Sub3Section2: React.FC = () => {
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'mt-4'
+              ? 'mt-4 flex flex-col text-center'
               : 'mt-6'
           }`}
         >
-          청년, 중장년, 남녀 누구나 성공 창업 가능!
+          청년, 중장년, 남녀 누구나 <span>성공 창업 가능!</span>
         </div>
       </SlideUpOnView>
       <div
@@ -57,15 +57,24 @@ const Sub3Section2: React.FC = () => {
       <div
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'Slb-Content-mo gap-2 mb-10'
+            ? 'Slb-Content-mo gap-2 mt-8 mb-10'
             : 'Slb-Content gap-2 mb-40'
         } flex leading-none flex-col items-center`}
       >
         {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
           <>
             <p>여전히 많은 예비창업자가 창업을 진행 중!</p>
-            <p>다만, 매출만 좋은 아이템이 아닌 평균 매출의 지속성이 높은</p>
-            <p>확실한 창업 아이템인지 여부를 먼저 확인하는 것이 중요</p>
+            <p>
+              다만,{' '}
+              <span className='font-medium'>매출만 좋은 아이템이 아닌</span>
+            </p>
+            <p>
+              <span className='font-medium'>
+                평균 매출의 지속성이 높은 확실한 창업 아이템
+              </span>
+              인지
+            </p>
+            <p>여부를 먼저 확인하는 것이 중요</p>
           </>
         ) : (
           <>
@@ -85,44 +94,23 @@ const Sub3Section2: React.FC = () => {
       </div>
       <div
         className={`${
-          deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
-        } w-full flex justify-center gap-6`}
+          deviceInfo.isSmallScreen || deviceInfo.isMobile
+            ? 'flex-col'
+            : 'justify-center gap-6'
+        } w-full flex `}
       >
         {[1, 2].map((v) => (
           <div
+            key={v}
             className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
+              deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'p-8' : ''
             } w-fit`}
           >
             <img
               loading='lazy'
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'px-4'
-                  : 'max-w-[404px] aspect-[404/280]'
-              } w-full`}
-              alt={`SLB`}
-              src={`${process.env.PUBLIC_URL}/sub_3/sub_3_2_${v}.webp`}
-            />
-          </div>
-        ))}
-      </div>
-      <div
-        className={`${
-          deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : 'mt-10 mb-40'
-        } w-full flex justify-center gap-6`}
-      >
-        {[3, 4, 5].map((v) => (
-          <div
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
-            } w-fit`}
-          >
-            <img
-              loading='lazy'
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'px-4'
+                  ? ' aspect-[404/280]'
                   : 'max-w-[404px] aspect-[404/280]'
               } w-full`}
               alt={`SLB`}
@@ -134,8 +122,35 @@ const Sub3Section2: React.FC = () => {
       <div
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'w-full Slb-Title-mo pt-10'
-            : 'w-[1300px] Slb-Title pt-20 mb-20'
+            ? 'flex-col'
+            : 'mt-10 mb-40'
+        } w-full flex justify-center gap-6`}
+      >
+        {[3, 4, 5].map((v) => (
+          <div
+            key={v}
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'p-8' : ''
+            } w-fit`}
+          >
+            <img
+              loading='lazy'
+              className={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? 'aspect-[404/280]'
+                  : 'max-w-[404px] aspect-[404/280]'
+              } w-full`}
+              alt={`SLB`}
+              src={`${process.env.PUBLIC_URL}/sub_3/sub_3_2_${v}.webp`}
+            />
+          </div>
+        ))}
+      </div>
+      <div
+        className={`${
+          deviceInfo.isSmallScreen || deviceInfo.isMobile
+            ? 'w-full Slb-Title-mo pt-20'
+            : 'w-[1300px] Slb-Title pt-20'
         } flex flex-col items-center`}
       >
         <Chip text='Point 4' type='black' />
@@ -143,7 +158,7 @@ const Sub3Section2: React.FC = () => {
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? ''
+                ? 'mt-4'
                 : 'flex-col text-center my-6'
             } flex`}
           >
@@ -153,14 +168,20 @@ const Sub3Section2: React.FC = () => {
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'Slb-Content-mo flex-col items-center'
+              ? 'Slb-Content-mo flex-col items-center mt-6'
               : 'Slb-Content flex-col items-center mb-20'
           } flex`}
         >
           {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
             <>
-              <p>창업 하고 싶어하는 예비창업자의 창업 의지는 여전히 높다</p>
-              <p>안정적인 매출과 수익이 확실한 창업 아이템만 있다면</p>
+              <p>창업 하고 싶어하는 예비창업자의</p>
+              <p>창업 의지는 여전히 높다</p>
+              <p>
+                <span className='font-medium'>
+                  안정적인 매출과 수익이 확실한 창업 아이템
+                </span>
+                만 있다면
+              </p>
               <p>창업하고 싶다는 것이 예비창업자들의 생각입니다.</p>
             </>
           ) : (
@@ -178,26 +199,55 @@ const Sub3Section2: React.FC = () => {
         </div>
         <div
           className={`${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? 'flex flex-col'
+              : ''
           } w-full`}
         >
-          <img
-            loading='lazy'
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'px-4'
-                : 'max-w-[1253px] aspect-[1253/384]'
-            } w-full`}
-            alt={`예비 창업자 창업 의향도`}
-            src={`${process.env.PUBLIC_URL}/sub_3/sub_3_2_6.webp`}
-          />
+          {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
+            <>
+              <img
+                loading='lazy'
+                className={`${
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile
+                    ? 'mt-10 aspect-[721/247]'
+                    : 'max-w-[1253px] aspect-[1253/384]'
+                } w-full`}
+                alt={`예비 창업자 창업 의향도`}
+                src={`${process.env.PUBLIC_URL}/sub_3/sub_3_2_6_1_mo.webp`}
+              />
+              <img
+                loading='lazy'
+                className={`${
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile
+                    ? 'mt-6 aspect-[721/247]'
+                    : 'max-w-[1253px] aspect-[1253/384]'
+                } w-full`}
+                alt={`예비 창업자 창업 의향도`}
+                src={`${process.env.PUBLIC_URL}/sub_3/sub_3_2_6_2_mo.webp`}
+              />
+            </>
+          ) : (
+            <>
+              <img
+                loading='lazy'
+                className={`${
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile
+                    ? ''
+                    : 'max-w-[1253px] aspect-[1253/384]'
+                } w-full`}
+                alt={`예비 창업자 창업 의향도`}
+                src={`${process.env.PUBLIC_URL}/sub_3/sub_3_2_6.webp`}
+              />
+            </>
+          )}
         </div>
       </div>
       <div
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'mt-10 pb-5'
-            : 'aspect-[1904/3462] my-40 '
+            ? 'mt-20 aspect-[720/1585]'
+            : 'aspect-[1904/3000] pt-[30rem]'
         } bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-full`}
         style={{
           backgroundImage: `url(${
@@ -232,21 +282,14 @@ const Sub3Section2: React.FC = () => {
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'Slb-Content-mo gap-2 mb-6 mt-10 text-center'
-              : 'Slb-Content gap-2 mb-20 mt-6'
+              ? 'Slb-Content-mo gap-2 mt-10 text-center'
+              : 'Slb-Content gap-2 mb-40 mt-6'
           } flex leading-none flex-col items-center`}
         >
           {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
             <>
-              <p>
-                지금
-                <span className='ml-1 font-medium'>
-                  한국인은 샐러드 섭취 횟수를 매년 늘리는 중
-                </span>
-              </p>
-              <p>SLB는 한국인이 가장 많이 섭취하는 한식을</p>
-              <p>샐러드&포케 등 다양한 메뉴에 접목해</p>
-              <p>시장 경쟁력을 더 높이고 있습니다</p>
+              <p>익숙함에 새로움을 더해 더 특별한 맛집</p>
+              <p className='font-medium'>한식X샐러드&포케 전문점 SLB</p>
             </>
           ) : (
             <>
@@ -276,21 +319,35 @@ const Sub3Section2: React.FC = () => {
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? ''
-              : 'flex-col px-20 border-y-[1px] border-Black'
+              ? 'flex-col  border-y-[1px] border-Black'
+              : 'flex-col max-w-[1300px] mt-20 px-20 border-y-[1px] border-Black'
           } w-full flex justify-center`}
         >
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'Slb-Content-mo gap-2 mb-6 mt-10 text-center'
+                ? 'Slb-Content-mo gap-2 mt-10 text-center'
                 : 'Slb-Content gap-2 mt-10'
             } flex leading-none flex-col items-center`}
           >
             {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
               <>
-                <p>익숙함에 새로움을 더해 더 특별한 맛집</p>
-                <p className='font-medium'>한식X샐러드&포케 전문점 SLB</p>
+                <p>고물가 시대 외식 소비 변화 대표 키워드</p>
+                <span className='font-medium'>#푸드게이지(웰빙,가심비)</span>
+                <p>고객들의 먹는 즐거움, 건강 트렌드에 적합한 메뉴</p>
+                <span className='font-medium'>샐러드&포케!</span>
+                <div
+                  className={`w-[1px]  border border-black  ${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                      ? 'h-10 my-4'
+                      : 'h-20 my-6'
+                  }`}
+                />
+                <p>나만의 기준으로 균형을 맞추는</p>
+                <p>#평균게이지 자극적인 식사, 폭식, 음주 후 건강하고</p>
+                <p>가벼운 샐러드&포케로 나만의 총량을 맞추고</p>
+                <p>식사와 건강 균형을 위해 음식의</p>
+                <p className='mb-6'>칼로리 및 영양성분 필이 확인!</p>
               </>
             ) : (
               <>
@@ -316,7 +373,7 @@ const Sub3Section2: React.FC = () => {
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'Slb-Title-mo'
+                ? 'Slb-Title-mo flex-col'
                 : 'Slb-Title justify-center my-10'
             } flex items-center leading-none w-full`}
           >
@@ -324,7 +381,7 @@ const Sub3Section2: React.FC = () => {
             <p
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'Slb-Point-mo pb-2 px-2'
+                  ? 'Slb-Point-mo pb-2 px-2 mt-2 mb-10'
                   : 'Slb-Point pt-2 pb-2 ml-2'
               } 
             text-center text-[#FF331F] leading-none bg-no-repeat bg-bottom`}
@@ -342,7 +399,7 @@ const Sub3Section2: React.FC = () => {
       <div
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'aspect-[431/173]'
+            ? 'aspect-[431/173] mt-[30rem]'
             : 'aspect-[1904/540]'
         } bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-fit`}
         style={{
@@ -362,7 +419,7 @@ const Sub3Section2: React.FC = () => {
               <div
                 className={`${
                   deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? 'mb-1'
+                    ? 'mb-2 Slb-Content-mo'
                     : 'mb-2'
                 } flex items-end leading-none`}
               >
@@ -370,7 +427,7 @@ const Sub3Section2: React.FC = () => {
               </div>
               <div
                 className={`${
-                  deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'mb-10' : ''
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
                 } flex items-end leading-none`}
               >
                 좋은 상권은 기다려 주지 않습니다
@@ -399,7 +456,7 @@ const Sub3Section2: React.FC = () => {
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'mb-1 flex-col items-center '
+                ? 'flex-col items-center mb-6'
                 : 'items-end mb-10'
             } flex leading-none`}
           >
@@ -411,11 +468,11 @@ const Sub3Section2: React.FC = () => {
               <p
                 className={`${
                   deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? 'Slb-Point-mo mx-1'
-                    : 'Slb-Point mx-2'
-                } text-[#FF331F] leading-none`}
+                    ? 'Slb-Point-mo flex-col text-center gap-1'
+                    : 'Slb-Point mx-2 gap-2'
+                } text-[#FF331F] leading-none flex`}
               >
-                SLB를 선점할 기회! 놓치지 마세요
+                <span>SLB를 선점할 기회!</span>놓치지 마세요
               </p>
             </span>
           </div>
@@ -432,20 +489,20 @@ const Sub3Section2: React.FC = () => {
           <>
             <p>청년들은 어려운 취업 대신 N잡러 부가수입을 위해</p>
             <p>퇴직 걱정 없는 안정적인 직장으로</p>
-            <p>경력 단절녀?지만 가정에 도움이 되고자</p>
+            <p>경력 단절녀?지만 가정에 도움이 되고자 합니다</p>
           </>
         ) : (
           <>
             <p>청년들은 어려운 취업 대신 N잡러 부가수입을 위해</p>
             <p>퇴직 걱정 없는 안정적인 직장으로</p>
-            <p>경력 단절녀?지만 가정에 도움이 되고자</p>
+            <p>경력 단절녀?지만 가정에 도움이 되고자 합니다</p>
           </>
         )}
       </div>
       <div
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'flex-col-reverse items-center  py-6 px-4'
+            ? 'flex-col-reverse items-center py-6 px-4'
             : `w-full items-center justify-center mb-20`
         } flex `}
       >
@@ -453,11 +510,13 @@ const Sub3Section2: React.FC = () => {
           loading='lazy'
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? ' max-w-[250px] my-6'
-              : ' aspect-[1904/706]'
+              ? 'aspect-[650/734]'
+              : 'aspect-[1904/706]'
           } w-full`}
-          alt={`독보적 메뉴 = 높은 매출!`}
-          src={`${process.env.PUBLIC_URL}/sub_3/sub_3_2_9.webp`}
+          alt={`SLB를 선점할 기회! 놓치지 마세요`}
+          src={`${process.env.PUBLIC_URL}/sub_3/sub_3_2_9${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
+          }.webp`}
         />
       </div>
     </section>

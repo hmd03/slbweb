@@ -17,7 +17,9 @@ const SubForm1: React.FC = () => {
     if (!target) return;
 
     const headerId =
-      deviceInfo.isMobile || deviceInfo.isSmallScreen ? 'header_mo' : 'header';
+      deviceInfo.isMobile || deviceInfo.isSmallScreen
+        ? 'header_mo'
+        : 'header_list';
     const headerEl = document.getElementById(headerId);
     const headerHeight = headerEl?.offsetHeight ?? 0;
 
