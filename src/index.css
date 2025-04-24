@@ -119,6 +119,6 @@
 }
 
 body {
-  @apply font-scdream;
-  @apply bg-white;
+  font-family: 'SCDream', sans-serif;
+  background-color: white;
 }
