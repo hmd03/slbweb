@@ -202,7 +202,7 @@ const MobileHeader = ({ children, ...props }: Props) => {
         id='header_list_mo'
       >
         <div className='flex justify-between items-center p-4'>
-          <button onClick={handleMenuToggle} className='text-main'>
+          <button onClick={handleMenuToggle} aria-label="menu" className='text-main'>
             <IoMdMenu size={30} />
           </button>
           <div onClick={handleLogoClick} className='cursor-pointer select-none'>
@@ -212,7 +212,7 @@ const MobileHeader = ({ children, ...props }: Props) => {
               className='h-[3rem]'
             />
           </div>
-          <a href='tel:15330516' className='flex items-center'>
+          <a href='tel:15330516' aria-label="phone number" className='flex items-center'>
             <span className='flex items-center justify-center w-[18px] h-[18px] bg-black rounded-full mr-1'>
               <IoIosCall color='white' size={12} />
             </span>

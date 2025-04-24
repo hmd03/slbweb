@@ -1,7 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
-  darkMode: 'false',
+  content: [
+    './src/**/*.{js,jsx,ts,tsx}',
+    './public/index.html',
+    './*.html'
+  ],
+  darkMode: false,
   theme: {
     extend: {
       colors: {
@@ -87,5 +91,15 @@ module.exports = {
         },
       });
     },
+  ],
+  safelist: [
+    'Slb-Point',
+    'Slb-Title',
+    'Slb-SubTitle',
+    'Slb-Content',
+    'Slb-Point-mo',
+    'Slb-Title-mo',
+    'Slb-SubTitle-mo',
+    'Slb-Content-mo'
   ],
 };

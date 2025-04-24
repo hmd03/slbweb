@@ -69,6 +69,7 @@ const QuickBar: React.FC = () => {
       <div></div>
       <button
         onClick={scrollToTop}
+        aria-label="scrollToTop"
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'w-[2.5rem] h-[2.5rem]'
