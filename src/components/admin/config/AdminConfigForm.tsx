@@ -124,6 +124,7 @@ const AdminConfigForm: React.FC = () => {
                     description,
                     privacyPolicy,
                     termsOfService,
+                    keywords
                 });
                 console.log(response);
                 alert(data.message);
