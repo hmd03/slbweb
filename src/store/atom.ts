@@ -28,5 +28,6 @@ export const siteSettingState = atom({
     description: "",
     privacyPolicy: "",
     termsOfService: "",
+    keywords: "",
   },
 });

@@ -118,6 +118,7 @@ const AppInner: React.FC = () => {
                     description,
                     privacyPolicy,
                     termsOfService,
+                    keywords
                 } = res.data;
                 setSetting({
                     name,
@@ -125,6 +126,7 @@ const AppInner: React.FC = () => {
                     description,
                     privacyPolicy,
                     termsOfService,
+                    keywords,
                 });
             }
         };

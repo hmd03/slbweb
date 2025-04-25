@@ -3,10 +3,7 @@ import { useRecoilValue } from "recoil";
 import { siteSettingState } from "../../store/atom";
 
 const SeoHelmet = () => {
-  const { name, title, description } = useRecoilValue(siteSettingState);
-
-  const keywords =
-    'SLB, SLB샐러드, 샐러드, 포케, 샐러드창업, 포케창업, 외식창업, 프랜차이즈창업, 프레차이즈창업';
+  const { name, title, description, keywords } = useRecoilValue(siteSettingState);
 
   return (
     <Helmet>
