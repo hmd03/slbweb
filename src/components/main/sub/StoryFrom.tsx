@@ -6,19 +6,19 @@ const StoryFrom = () => {
 
   const itemData = [
     {
-      image: `sub_story_4.webp`,
+      image: `${process.env.PUBLIC_URL}/story/sub_story_4.webp`,
       alt: `Salad`,
       desc: `우리나라 국기의 상징 중 하나인 ‘태극 문양’과 Salad의 ‘S’를 결합해
 대한민국을 대표하는 샐러드&포케 브랜드로 성장하겠다는 의지를 표현`,
     },
     {
-      image: `sub_story_5.webp`,
+      image: `${process.env.PUBLIC_URL}/story/sub_story_5.webp`,
       alt: `Life`,
       desc: `모든 고객들의 건강한 삶을 위해 먹는 즐거움으로 행복을 만끽할 수 있도록
 노력하겠다는 의미를 담기 위해 ‘노리개’의 문양과 Life의 ‘L’을 합성하여 표현`,
     },
     {
-      image: `sub_story_6.webp`,
+      image: `${process.env.PUBLIC_URL}/story/sub_story_6.webp`,
       alt: `Balance`,
       desc: `균형 잡힌 한끼를 제대로 대접해 드시는 고객들의 정신적, 육체적 균형까지도
 지켜드리는 브랜드가 되겠다는 의지를 ‘사람’과 Balance의 ‘B’를 합성하여 표현`,
