@@ -33,7 +33,7 @@ const Header = ({ children, ...props }: Props) => {
     { title: '끝까지 함께 성장합니다!', link: '/sub_3/1', isReady: true },
     { title: '성장하는 SLB 개설비용', link: '/sub_4/1', isReady: true },
     { title: '성공창업문의', link: '/inquiry', isReady: true },
-    { title: 'SLB 이야기', link: '/story', isReady: false },
+    { title: 'SLB 이야기', link: '/story', isReady: true },
   ];
 
   const subMenuItems = [
@@ -120,7 +120,7 @@ const Header = ({ children, ...props }: Props) => {
       { title: '찾아오시는 길', link: '/map', isReady: true },
     ],
     [
-      { title: '브랜드 스토리', link: '/story', isReady: false },
+      { title: '브랜드 스토리', link: '/story', isReady: true },
       { title: '공지&뉴스', link: '/board/notice', isReady: false },
       { title: '샐톡톡 이벤트', link: '/board/event', isReady: false },
       { title: '매장안내', link: '/store', isReady: false },

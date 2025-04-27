@@ -209,10 +209,10 @@ const Sub3Section3: React.FC = () => {
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
                   ? `items-start py-4 ${
                       idx === 0 ? '' : 'border-dashed border-t-[1px]'
-                    } border-Black`
+                    } border-DeepGray`
                   : `items-start py-10 ${
                       idx === 0 ? '' : 'border-dashed border-t-[1px]'
-                    } border-Black`
+                    } border-DeepGray`
               } flex`}
             >
               <div

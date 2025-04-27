@@ -39,7 +39,7 @@ const Sub2Section3: React.FC = () => {
                   : 'mt-6'
               }  `}
             >
-              음식점 일이이
+              음식점 일이
             </div>
             <div
               className={`${
