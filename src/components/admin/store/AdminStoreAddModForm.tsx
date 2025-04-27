@@ -254,7 +254,7 @@ const AdminStoreForm: React.FC = () => {
   };
 
   const onBackPage = () => {
-    navigate("/admin/banner");
+    navigate('/admin/store');
   };
 
   const thClassName = 'bg-LightGray border border-Black border-[2px] p-2 text-left text-center';
