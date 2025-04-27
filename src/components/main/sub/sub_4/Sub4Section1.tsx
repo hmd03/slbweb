@@ -17,32 +17,32 @@ const Sub4Section1: React.FC = () => {
       id='section-1'
       className={`${
         deviceInfo.isSmallScreen || deviceInfo.isMobile
-          ? 'w-full Slb-Title-mo pt-20'
+          ? 'w-full Slb-Title-mo'
           : 'Slb-Title'
       } flex flex-col items-center w-full`}
     >
       <div
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'aspect-[720/313] mb-0'
+            ? 'aspect-[720/1024] mb-0'
             : 'aspect-[1904/1140] mb-0'
         } bg-no-repeat bg-center bg-cover flex flex-col items-center justify-center w-full h-fit text-White`}
         style={{
-          backgroundImage: `url(${process.env.PUBLIC_URL}/sub_4/sub_4_1_1.webp)`,
+          backgroundImage: `url(${process.env.PUBLIC_URL}/sub_4/sub_4_1_1${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
+          }.webp)`,
         }}
       >
         <div
           className={`${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? ''
-              : 'flex leading-none flex-col items-center'
-          } `}
+            deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
+          } flex leading-none flex-col items-center`}
         >
           <SlideUpOnView>
             <div
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? ' mt-10'
+                  ? ''
                   : 'mt-[8rem]'
               }`}
             >
@@ -64,13 +64,57 @@ const Sub4Section1: React.FC = () => {
             } flex leading-none flex-col items-center`}
           >
             {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
-              <></>
+              <>
+                <div className='flex flex-col items-center'>
+                  <div
+                    className={`${
+                      deviceInfo.isSmallScreen || deviceInfo.isMobile
+                        ? 'mb-4'
+                        : ''
+                    } flex items-center leading-none`}
+                  >
+                    SLB는 어떤 상권에서도
+                    <p
+                      className={`
+                        bg-[#FF331F] py-2 px-1`}
+                    >
+                      매출 걱정 NO
+                    </p>
+                  </div>
+                  <div className='flex flex-col text-center gap-2 leading-none Slb-Content-mo mb-4'>
+                    <span>매력적인 브랜드는 고객이 먼저 알아본다</span>
+                    <span>고객에게 인정 받을 수 있는 이유는?</span>
+                  </div>
+                  <p
+                    className={`${
+                      deviceInfo.isSmallScreen || deviceInfo.isMobile
+                        ? 'Slb-Title-mo flex-col text-center gap-1'
+                        : 'Slb-Title mx-2 items-end mt-10'
+                    } text-[#FF331F] leading-none flex`}
+                  >
+                    본사와 가맹점이
+                    <span className='Slb-Point-mo ml-2 mb-6'>
+                      함께 노력했기 때문!
+                    </span>
+                  </p>
+                  <div className='Slb-Content-mo text-center py-4 gap-2 flex flex-col border-y-[1px] border-White mx-8'>
+                    <p>본사만 노력한다고 해서 매출이 더 </p>
+                    <p>높아지지도</p>
+                    <p>점주님만 노력한다고 해서 매출이</p>
+                    <p>더 높아지는 것은 아닙니다.</p>
+                    <p>본사와 가맹점이 함께 노력할 때 높은 매출과</p>
+                    <p>안정적인 수익창출이 가능합니다.</p>
+                  </div>
+                </div>
+              </>
             ) : (
               <>
                 <div>
                   <div
                     className={`${
-                      deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
+                      deviceInfo.isSmallScreen || deviceInfo.isMobile
+                        ? 'text-White'
+                        : ''
                     } flex items-center leading-none`}
                   >
                     SLB는 어떤 상권에서도
@@ -113,7 +157,7 @@ const Sub4Section1: React.FC = () => {
       <div
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'aspect-[720/313] mb-0'
+            ? 'aspect-[720/308] mb-0 Slb-SubTitle-mo'
             : 'aspect-[1904/558] mb-0'
         } bg-no-repeat bg-center bg-cover flex flex-col items-center justify-center w-full h-fit`}
         style={{
@@ -129,10 +173,10 @@ const Sub4Section1: React.FC = () => {
         </div>
         <div>가맹점주님께 고개 숙여 감사 드립니다.</div>
         <div
-          className={`w-[1px] border border-Black  ${
+          className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'h-10 my-4'
-              : 'h-16 my-10'
+              ? 'h-4'
+              : 'h-16 my-10 w-[1px] border border-Black '
           }`}
         />
         <div
@@ -148,7 +192,7 @@ const Sub4Section1: React.FC = () => {
       <div
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'aspect-[720/313] mb-0'
+            ? 'aspect-[720/153] pb-[5%] mb-0'
             : 'aspect-[1904/238] pb-10 mb-0'
         } bg-no-repeat bg-center bg-cover flex flex-col items-center justify-center w-full h-fit text-White`}
         style={{
@@ -159,8 +203,8 @@ const Sub4Section1: React.FC = () => {
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
               ? 'Slb-Content-mo'
-              : 'Slb-Content flex-col '
-          } leading-none flex text-center`}
+              : 'Slb-Content'
+          } leading-none flex text-center flex-col`}
         >
           가맹점의 매출과 수익을 높이기 위한
           <span className='flex gap-2 justify-center mt-2'>
@@ -179,16 +223,51 @@ const Sub4Section1: React.FC = () => {
         <SlideUpOnView>
           {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
             <>
-            <div
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? ''
-                  : 'mt-6 mb-4'
-              } flex items-end leading-none`}
-            >
-              매출을 높일 수 있는 전문가의 상권 분석으로
-            </div>
-          </>
+              <div
+                className={`${
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile
+                    ? 'mt-4 Slb-Content-mo mb-1'
+                    : 'mt-6 mb-4'
+                } flex items-end leading-none`}
+              >
+                매출을 높일 수 있는 전문가의 상권 분석으로
+              </div>
+              <div
+                className={`${
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile
+                    ? 'mb-1 flex-col items-center gap-1'
+                    : 'mb-20 items-end'
+                } flex leading-none`}
+              >
+                <span
+                  className={`${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                      ? 'Slb-Title-mo'
+                      : 'Slb-Point'
+                  } flex items-end`}
+                >
+                  <p
+                    className={`${
+                      deviceInfo.isSmallScreen || deviceInfo.isMobile
+                        ? 'Slb-Point-mo'
+                        : ''
+                    } text-[#FF331F] leading-none`}
+                  >
+                    최적의 매장 입지
+                  </p>
+                  를
+                </span>
+                <span
+                  className={`${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                      ? 'Slb-Title-mo'
+                      : 'Slb-Point'
+                  } flex items-end`}
+                >
+                  선정할 수 있도록 지원!
+                </span>
+              </div>
+            </>
           ) : (
             <>
               <div
@@ -200,34 +279,32 @@ const Sub4Section1: React.FC = () => {
               >
                 매출을 높일 수 있는 전문가의 상권 분석으로
               </div>
-            </>
-          )}
-          <div
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'mb-1 flex-col items-center'
-                : 'mb-20 items-end'
-            } flex leading-none`}
-          >
-            <span
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'Slb-Point-mo'
-                  : 'Slb-Point'
-              } flex items-end`}
-            >
-              <p
+              <div
                 className={`${
                   deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? ''
-                    : ''
-                } text-[#FF331F] leading-none`}
+                    ? 'mb-1 flex-col items-center'
+                    : 'mb-20 items-end'
+                } flex leading-none`}
               >
-                최적의 매장 입지
-              </p>
-              를 선정할 수 있도록 지원!
-            </span>
-          </div>
+                <span
+                  className={`${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                      ? 'Slb-Point-mo'
+                      : 'Slb-Point'
+                  } flex items-end`}
+                >
+                  <p
+                    className={`${
+                      deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
+                    } text-[#FF331F] leading-none`}
+                  >
+                    최적의 매장 입지
+                  </p>
+                  를 선정할 수 있도록 지원!
+                </span>
+              </div>
+            </>
+          )}
         </SlideUpOnView>
       </div>
       <div
@@ -239,41 +316,58 @@ const Sub4Section1: React.FC = () => {
       >
         {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
           <>
-          <p>빅데이터 분석을 통한 전문적인 상권분석으로 최적의 매장 입지를 선정할 수 있도록</p>
-          <p>10년 이상의 상권분석 노하우를 가진 전문가를 지원하고 있습니다</p>
-        </>
+            <p>빅데이터 분석을 통한 전문적인 상권분석으로</p>
+            <p>최적의 매장 입지를 선정할 수 있도록</p>
+            <p>10년 이상의 상권분석 노하우를 가진 전문가를</p>
+            <p>지원하고 있습니다</p>
+          </>
         ) : (
           <>
-            <p>빅데이터 분석을 통한 전문적인 상권분석으로 최적의 매장 입지를 선정할 수 있도록</p>
+            <p>
+              빅데이터 분석을 통한 전문적인 상권분석으로 최적의 매장 입지를
+              선정할 수 있도록
+            </p>
             <p>10년 이상의 상권분석 노하우를 가진 전문가를 지원하고 있습니다</p>
           </>
         )}
       </div>
-      <img
-        loading='lazy'
+      <div
         className={`${
-          deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'flex-1 max-w-[250px] my-6'
-            : 'aspect-[1904/427] my-40'
+          deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'px-8' : ''
         } w-full`}
-        alt={`상권DB 유동인구DB 인구DB 부동산DB 매출DB 지역특성DB`}
-        src={`${process.env.PUBLIC_URL}/sub_4/sub_4_1_4.webp`}
-      />
+      >
+        <img
+          loading='lazy'
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? 'aspect-[623/1200] my-20'
+              : 'aspect-[1904/427] my-40'
+          } w-full`}
+          alt={`상권DB 유동인구DB 인구DB 부동산DB 매출DB 지역특성DB`}
+          src={`${process.env.PUBLIC_URL}/sub_4/sub_4_1_4${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
+          }.webp`}
+        />
+      </div>
       <div
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'aspect-[720/313] mb-0'
+            ? 'aspect-[720/1412] mb-0'
             : 'aspect-[1904/1549] mb-0 '
         } bg-no-repeat bg-center bg-cover flex flex-col items-center justify-end w-full h-fit`}
         style={{
-          backgroundImage: `url(${process.env.PUBLIC_URL}/sub_4/sub_4_1_5.webp)`,
+          backgroundImage: `url(${process.env.PUBLIC_URL}/sub_4/sub_4_1_5${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
+          }.webp)`,
         }}
       >
-        <div className={`${
-          deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? ''
-            : 'flex-col items-center justify-center max-w-[1300px] h-[50%]'
-        } w-full flex`}>
+        <div
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? 'flex-col items-center'
+              : 'flex-col items-center justify-center max-w-[1300px] h-[50%]'
+          } w-full flex`}
+        >
           <DividerWithLabel label='Q. 상권 분석을 하는 이유는?' />
           <div
             className={`${
@@ -284,25 +378,62 @@ const Sub4Section1: React.FC = () => {
           >
             {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
               <>
-              <p><span className='font-medium mb-6'>지속적으로 높은 매출이 발생될 수 있는지 여부를 확인하는절차</span>입니다.</p>
-                <p>상권분석은 향후 매출을 분석해 유추해 볼 수 있는 토대가 되므로</p>
-                <p><span className='font-medium mb-6'>상권분석 전문가의 체계적이고 과학적인 접근을 통한 분석</span>이 필요합니다.</p>
-                <p>SLB는 본사 아이템의 특성에 가장 적합한 입지를 상권분석 시스템으로</p>
-                <p>후보지를 선정하는 한편 예비 창업주님의 창업 비용에 맞는</p>
-            </>
+                <p className='flex flex-col text-center my-6'>
+                  <span className='font-medium'>
+                    지속적으로 높은 매출이 발생될 수 있는지
+                  </span>
+                  <p>
+                    <span className='font-medium'>여부를 확인하는절차</span>
+                    입니다
+                  </p>
+                </p>
+                <p>상권분석은 향후 매출을 분석해 유추해 볼 수 있는</p>
+                <p>
+                  토대가 되므로
+                  <span className='font-medium'>
+                    상권분석 전문가의 체계적이고
+                  </span>
+                </p>
+                <p className='mb-6'>
+                  <span className='font-medium'>과학적인 접근을 통한 분석</span>
+                  이 필요합니다.
+                </p>
+                <p>SLB는 본사 아이템의 특성에 가장 적합한 입지를</p>
+                <p>상권분석 시스템으로후보지를 선정하는</p>
+                <p className='mb-6'>한편 예비 창업주님의 창업 비용에 맞는</p>
+              </>
             ) : (
               <>
-                <p className='mb-6'><span className='font-medium'>지속적으로 높은 매출이 발생될 수 있는지 여부를 확인하는절차</span>입니다.</p>
-                <p>상권분석은 향후 매출을 분석해 유추해 볼 수 있는 토대가 되므로</p>
-                <p className='mb-6'><span className='font-medium'>상권분석 전문가의 체계적이고 과학적인 접근을 통한 분석</span>이 필요합니다.</p>
-                <p>SLB는 본사 아이템의 특성에 가장 적합한 입지를 상권분석 시스템으로</p>
-                <p className='mb-6'>후보지를 선정하는 한편 예비 창업주님의 창업 비용에 맞는</p>
+                <p className='mb-6'>
+                  <span className='font-medium'>
+                    지속적으로 높은 매출이 발생될 수 있는지 여부를 확인하는절차
+                  </span>
+                  입니다.
+                </p>
+                <p>
+                  상권분석은 향후 매출을 분석해 유추해 볼 수 있는 토대가 되므로
+                </p>
+                <p className='mb-6'>
+                  <span className='font-medium'>
+                    상권분석 전문가의 체계적이고 과학적인 접근을 통한 분석
+                  </span>
+                  이 필요합니다.
+                </p>
+                <p>
+                  SLB는 본사 아이템의 특성에 가장 적합한 입지를 상권분석
+                  시스템으로
+                </p>
+                <p className='mb-6'>
+                  후보지를 선정하는 한편 예비 창업주님의 창업 비용에 맞는
+                </p>
               </>
             )}
           </div>
           <div
             className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'Slb-Point-mo' : 'Slb-Point mb-4'
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? 'Slb-Title-mo'
+                : 'Slb-Point mb-4'
             } flex items-center`}
           >
             <span
@@ -316,25 +447,82 @@ const Sub4Section1: React.FC = () => {
               적합한 상권을 찾아
             </span>
           </div>
-          <div
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
-            } flex items-center`}
-          >
-            가장
-            <p
+          {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
+            <div
               className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'Slb-Point-mo' : 'Slb-Point mr-2'
-              }
-              text-[#FF331F]`}
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? 'Slb-Title-mo flex-col mt-4'
+                  : ''
+              } flex items-center`}
             >
-              <span className=' bg-[#FF331F] mx-2 py-1 px-1 text-White'>
-              우수한 매장
-              </span>
-              을 선별 및 제안
-            </p>
-            합니다.
-          </div>
+              <div
+                className={`${
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile
+                    ? 'Slb-SubTitle-mo'
+                    : ''
+                } flex items-center`}
+              >
+                가장
+                <p
+                  className={`${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                      ? 'Slb-Point-mo'
+                      : 'Slb-Point'
+                  }
+              text-[#FF331F]`}
+                >
+                  <span className=' bg-[#FF331F] ml-1 px-1 text-White'>
+                    우수한 매장
+                  </span>
+                  을
+                </p>
+              </div>
+
+              <div
+                className={`${
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile
+                    ? 'Slb-SubTitle-mo'
+                    : ''
+                } flex items-center`}
+              >
+                <p
+                  className={`${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                      ? 'Slb-Point-mo mr-1'
+                      : 'Slb-Point'
+                  }
+              text-[#FF331F]`}
+                >
+                  선별 및 제안
+                </p>
+                합니다.
+              </div>
+            </div>
+          ) : (
+            <div
+              className={`${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? 'Slb-Title-mo'
+                  : ''
+              } flex items-center`}
+            >
+              가장
+              <p
+                className={`${
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile
+                    ? 'Slb-Point-mo'
+                    : 'Slb-Point mr-2'
+                }
+              text-[#FF331F]`}
+              >
+                <span className=' bg-[#FF331F] mx-2 py-1 px-1 text-White'>
+                  우수한 매장
+                </span>
+                을 선별 및 제안
+              </p>
+              합니다.
+            </div>
+          )}
         </div>
       </div>
       <div
@@ -349,7 +537,7 @@ const Sub4Section1: React.FC = () => {
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? ''
+                ? 'mt-4 mb-1'
                 : 'mt-6 mb-4'
             } flex items-end leading-none`}
           >
@@ -371,9 +559,7 @@ const Sub4Section1: React.FC = () => {
             >
               <p
                 className={`${
-                  deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? ''
-                    : ''
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
                 } text-[#FF331F] leading-none`}
               >
                 가맹점 매출 및 수익성 UP
@@ -391,7 +577,8 @@ const Sub4Section1: React.FC = () => {
       >
         {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
           <>
-            <p>SLB는 본사의 가장 중요한 역할 중 하나 물류비용의 안정화</p>
+            <p>SLB는 본사의 가장 중요한 역할 중</p>
+            <p>하나 물류비용의 안정화</p>
           </>
         ) : (
           <>
@@ -403,21 +590,25 @@ const Sub4Section1: React.FC = () => {
         loading='lazy'
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'flex-1 max-w-[250px] my-6'
+            ? 'aspect-[720/318] my-6'
             : 'aspect-[1067/276] mb-6 max-w-[1100px]'
         } w-full`}
         alt={`현재 경기 성장률은 낮고, 물가는 매년 상승 중 물류비용 또한 상승하는 것은 당연한 일입니다.`}
-        src={`${process.env.PUBLIC_URL}/sub_4/sub_4_1_6.webp`}
+        src={`${process.env.PUBLIC_URL}/sub_4/sub_4_1_6${
+          deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
+        }.webp`}
       />
       <img
         loading='lazy'
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'flex-1 max-w-[250px] my-6'
+            ? 'aspect-[720/318] my-6'
             : 'aspect-[1067/276] mb-20 max-w-[1100px]'
         } w-full`}
         alt={`하지만 SLB는 물가 상승에 따른 물류 비용 상승을 막기 위해 원부자재 업체 개발 노력을 지속 진행 중입니다.`}
-        src={`${process.env.PUBLIC_URL}/sub_4/sub_4_1_7.webp`}
+        src={`${process.env.PUBLIC_URL}/sub_4/sub_4_1_7${
+          deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
+        }.webp`}
       />
       <div
         className={`${
@@ -430,27 +621,59 @@ const Sub4Section1: React.FC = () => {
         <SlideUpOnView>
           {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
             <>
-            <div
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? ''
-                  : 'mt-6 mb-4'
-              } flex items-end leading-none`}
-            >
-              매출을 높일 수 있는 전문가의 상권 분석으로
-            </div>
-          </>
+              <div
+                className={`${
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'mt-4 mb-1' : ''
+                } flex items-end leading-none`}
+              >
+                <p className='Slb-Point-mo'>안정적인 매출</p>을 지속적으로
+              </div>
+              <div
+                className={`${
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile
+                    ? 'mb-1'
+                    : 'mt-6 mb-4'
+                } flex items-end leading-none`}
+              >
+                <p className='Slb-Point-mo'>유지</p>하기 위해
+                <p className='Slb-Point-mo ml-2'>가장 중요한 것?</p>
+              </div>
+              <div
+                className={`${
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile
+                    ? 'mb-1 flex-col items-center'
+                    : 'mb-20 items-end'
+                } flex leading-none`}
+              >
+                <span
+                  className={`${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                      ? 'Slb-Title-mo mb-1'
+                      : 'Slb-Title'
+                  } flex items-end`}
+                >
+                  <p
+                    className={`${
+                      deviceInfo.isSmallScreen || deviceInfo.isMobile
+                        ? 'Slb-Point-mo'
+                        : ''
+                    } text-[#FF331F] leading-none`}
+                  >
+                    고객이 인정한 맛집
+                  </p>
+                  이
+                </span>
+                되는 것입니다.
+              </div>
+            </>
           ) : (
             <>
               <div
                 className={`${
-                  deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? ''
-                    : ''
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : 'mt-6'
                 } flex items-end leading-none`}
               >
                 <p className='Slb-Point'>안정적인 매출</p>을 지속적으로
-                
               </div>
               <div
                 className={`${
@@ -459,36 +682,35 @@ const Sub4Section1: React.FC = () => {
                     : 'mt-6 mb-4'
                 } flex items-end leading-none`}
               >
-                <p className='Slb-Point'>유지</p>하기 위해<p className='Slb-Point ml-2'>가장 중요한 것?</p>
+                <p className='Slb-Point'>유지</p>하기 위해
+                <p className='Slb-Point ml-2'>가장 중요한 것?</p>
+              </div>
+              <div
+                className={`${
+                  deviceInfo.isSmallScreen || deviceInfo.isMobile
+                    ? 'mb-1 flex-col items-center'
+                    : 'mb-20 items-end'
+                } flex leading-none`}
+              >
+                <span
+                  className={`${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                      ? 'Slb-Point-mo'
+                      : 'Slb-Point'
+                  } flex items-end`}
+                >
+                  <p
+                    className={`${
+                      deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
+                    } text-[#FF331F] leading-none`}
+                  >
+                    고객이 인정한 맛집
+                  </p>
+                  이 되는 것입니다.
+                </span>
               </div>
             </>
           )}
-          <div
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'mb-1 flex-col items-center'
-                : 'mb-20 items-end'
-            } flex leading-none`}
-          >
-            <span
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'Slb-Point-mo'
-                  : 'Slb-Point'
-              } flex items-end`}
-            >
-              <p
-                className={`${
-                  deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? ''
-                    : ''
-                } text-[#FF331F] leading-none`}
-              >
-                고객이 인정한 맛집
-              </p>
-              이 되는 것입니다.
-            </span>
-          </div>
         </SlideUpOnView>
       </div>
       <div
@@ -500,43 +722,51 @@ const Sub4Section1: React.FC = () => {
       >
         {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
           <>
-            <p>SLB는 모든 메뉴가 '맛'있다고 자부하지만 '맛'만 있다고</p>
-            <p>[맛집]이 되는 것은 아닙니다.</p>
-            <p>많은 고객이 SLB의 '맛'있는 메뉴들을 드셔볼 수 있도록</p>
-            <p className='font-medium'>본사와 가맹점주 모두의 노력이 필요합니다.</p>
+            <p>SLB는 모든 메뉴가 '맛'있다고 자부하지만</p>
+            <p>'맛'만 있다고 [맛집]이 되는 것은 아닙니다.</p>
+            <p>많은 고객이 SLB의</p>
+            <p>'맛'있는 메뉴들을 드셔볼 수 있도록</p>
+            <p className='font-medium'>
+              본사와 가맹점주 모두의 노력이 필요합니다.
+            </p>
           </>
         ) : (
           <>
             <p>SLB는 모든 메뉴가 '맛'있다고 자부하지만 '맛'만 있다고</p>
             <p>[맛집]이 되는 것은 아닙니다.</p>
             <p>많은 고객이 SLB의 '맛'있는 메뉴들을 드셔볼 수 있도록</p>
-            <p className='font-medium'>본사와 가맹점주 모두의 노력이 필요합니다.</p>
+            <p className='font-medium'>
+              본사와 가맹점주 모두의 노력이 필요합니다.
+            </p>
           </>
         )}
       </div>
       <div
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'Slb-Content-mo grid grid-cols-2 gap-2 p-4'
+            ? 'Slb-Content-mo grid grid-cols-1 gap-6 p-10'
             : 'Slb-Content mt-20 mb-60 w-[1100px] grid grid-cols-2 items-center justify-center gap-10'
         } `}
       >
         {desc.map((v, idx) => (
-            <img
-              key={idx}
-              loading='lazy'
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? ''
-                  : 'aspect-[513/415]'
-              } w-full`}
-              alt={v.alt}
-              src={v.img}
-            />
+          <img
+            key={idx}
+            loading='lazy'
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? 'aspect-[534/489]'
+                : 'aspect-[513/415]'
+            } w-full`}
+            alt={v.alt}
+            src={v.img}
+          />
         ))}
       </div>
-      <div className={`${
-          deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'mt-10' : 'mt-40 aspect-[1904/1000]'
+      <div
+        className={`${
+          deviceInfo.isSmallScreen || deviceInfo.isMobile
+            ? 'mt-10'
+            : 'mt-40 aspect-[1904/1000]'
         }  bg-no-repeat bg-center w-full flex flex-col items-center`}
         style={{
           backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_2${
@@ -634,33 +864,43 @@ const Sub4Section1: React.FC = () => {
         <span
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? ''
-              : ''
+              ? 'flex-col text-center'
+              : 'gap-2'
           } flex `}
         >
-          SLB의 수익률을 확인해 보세요
+          <p>SLB의 수익률을</p>
+          <p>확인해 보세요</p>
         </span>
       </div>
-      <img
-        loading='lazy'
-        className={`${
-          deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'flex-1 max-w-[250px] my-6'
-            : 'aspect-[1066/588] my-20 max-w-[1000px]'
-        } w-full`}
-        alt={`현재 경기 성장률은 낮고, 물가는 매년 상승 중 물류비용 또한 상승하는 것은 당연한 일입니다.`}
-        src={`${process.env.PUBLIC_URL}/sub_4/sub_4_1_12.webp`}
-      />
-      <img
-        loading='lazy'
-        className={`${
-          deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'flex-1 max-w-[250px] my-6'
-            : 'aspect-[1066/588] max-w-[1000px] mb-20'
-        } w-full`}
-        alt={`현재 경기 성장률은 낮고, 물가는 매년 상승 중 물류비용 또한 상승하는 것은 당연한 일입니다.`}
-        src={`${process.env.PUBLIC_URL}/sub_4/sub_4_1_13.webp`}
-      />
+      <div className={`${deviceInfo.isSmallScreen || deviceInfo.isMobile
+          ? 'px-8'
+          : ''
+        } flex flex-col`}>
+        <img
+          loading='lazy'
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? 'aspect-[626/589] my-6'
+              : 'aspect-[1066/588] my-20 max-w-[1000px]'
+          } w-full`}
+          alt={`현재 경기 성장률은 낮고, 물가는 매년 상승 중 물류비용 또한 상승하는 것은 당연한 일입니다.`}
+          src={`${process.env.PUBLIC_URL}/sub_4/sub_4_1_12${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
+          }.webp`}
+        />
+        <img
+          loading='lazy'
+          className={`${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile
+              ? 'aspect-[626/589] my-6'
+              : 'aspect-[1066/588] max-w-[1000px] mb-20'
+          } w-full`}
+          alt={`현재 경기 성장률은 낮고, 물가는 매년 상승 중 물류비용 또한 상승하는 것은 당연한 일입니다.`}
+          src={`${process.env.PUBLIC_URL}/sub_4/sub_4_1_13${
+            deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
+          }.webp`}
+        />
+      </div>
     </section>
   );
 };

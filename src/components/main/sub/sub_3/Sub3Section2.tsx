@@ -247,7 +247,7 @@ const Sub3Section2: React.FC = () => {
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'mt-20 aspect-[720/1585]'
-            : 'aspect-[1904/3000] pt-[30rem]'
+            : 'aspect-[1904/2300] pt-[30rem]'
         } bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-full`}
         style={{
           backgroundImage: `url(${
