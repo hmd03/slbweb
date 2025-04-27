@@ -56,8 +56,8 @@ const SubBoardEventFrom = () => {
             className={`${
               deviceInfo.isMobile || deviceInfo.isSmallScreen
                 ? 'Slb-Title-mo'
-                : 'Slb-Title flex flex-col text-center'
-            }`}
+                : 'Slb-Title'
+            }  flex flex-col text-center`}
           >
             <span>SLB의 다양한 이벤트</span>
             <span>정보를 확인하세요!</span>
@@ -67,9 +67,9 @@ const SubBoardEventFrom = () => {
           <div
             className={`${
               deviceInfo.isMobile || deviceInfo.isSmallScreen
-                ? 'Slb-Content-mo'
-                : 'Slb-Content border-t-[2px] border-Black gap-10 pt-10'
-            } grid grid-cols-3 cursor-pointer`}
+                ? 'Slb-Content-mo grid-cols-1 p-10 gap-10'
+                : 'Slb-Content border-t-[2px] border-Black gap-10 pt-10 grid-cols-3'
+            } grid cursor-pointer`}
           >
             {data.map((item, idx) => (
               <div
@@ -82,9 +82,9 @@ const SubBoardEventFrom = () => {
                     loading='lazy'
                     className={`${
                       deviceInfo.isSmallScreen || deviceInfo.isMobile
-                        ? 'my-6'
-                        : ' mb-6'
-                    } aspect-[282/201] w-full`}
+                        ? 'aspect-[282/201]'
+                        : ' mb-6 aspect-[282/201]'
+                    }  w-full `}
                     alt={``}
                     src={''}
                   />
@@ -97,7 +97,7 @@ const SubBoardEventFrom = () => {
                     <p
                       className={`${
                         deviceInfo.isMobile || deviceInfo.isSmallScreen
-                          ? 'text-[10px]'
+                          ? 'text-[10px] mb-2'
                           : 'text-[16px]'
                       } text-center`}
                     >

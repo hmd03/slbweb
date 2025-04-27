@@ -115,18 +115,19 @@ const SubStoreFrom = () => {
           <p
             className={`${
               deviceInfo.isMobile || deviceInfo.isSmallScreen
-                ? 'Slb-Title-mo'
-                : 'Slb-Title flex flex-col text-center'
-            }`}
+                ? 'Slb-Title-mo '
+                : 'Slb-Title gap-2'
+            } flex flex-col text-center`}
           >
-            <span>SLB 가맹점을 확인하세요</span>
+            <span>SLB 가맹점을</span>
+            <span>확인하세요</span>
           </p>
         </div>
         <div className='flex w-full justify-center gap-4'>
           <div
             className={` text-White bg-Black cursor-pointer ${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'w-fit h-fit px-4 py-1'
+                ? 'w-fit h-fit px-2 py-1 whitespace-nowrap'
                 : 'w-fit h-fit px-4 py-1 mt-10 mb-4'
             }`}
             onClick={fetchData}
@@ -147,7 +148,7 @@ const SubStoreFrom = () => {
           <div
             className={`${
               deviceInfo.isMobile || deviceInfo.isSmallScreen
-                ? 'Slb-SubTitle-mo'
+                ? 'Slb-SubTitle-mo gap-4 mt-10 mb-10'
                 : 'Slb-SubTitle gap-4 mt-10 mb-10'
             } flex flex-col cursor-pointer`}
           >
@@ -156,11 +157,17 @@ const SubStoreFrom = () => {
                 key={item.title}
                 className={`${
                   deviceInfo.isMobile || deviceInfo.isSmallScreen
-                    ? ''
+                    ? 'flex-col items-center mt-4 pb-4 border-b-[1px] border-Black'
                     : 'py-2 items-center gap-20 border-y-[1px] border-Black'
                 } flex `}
               >
-                <div className='w-[20%] h-full flex justify-center items-center'>
+                <div
+                  className={`${
+                    deviceInfo.isMobile || deviceInfo.isSmallScreen
+                      ? 'mb-6'
+                      : 'max-w-[20%] h-full flex justify-center items-center'
+                  } w-full`}
+                >
                   <img
                     loading='lazy'
                     className={`${
@@ -170,49 +177,100 @@ const SubStoreFrom = () => {
                     src={item.media}
                   />
                 </div>
-                <div
-                  className={`${
-                    deviceInfo.isMobile || deviceInfo.isSmallScreen
-                      ? ''
-                      : 'gap-2 max-w-[50%]'
-                  } flex flex-col w-full`}
-                >
-                  <div>{item.name}</div>
-                  <div
-                    className={`${
-                      deviceInfo.isMobile || deviceInfo.isSmallScreen
-                        ? 'Slb-Content-mo'
-                        : 'Slb-Content'
-                    }`}
-                  >
-                    {item.address}
-                  </div>
-                </div>
-                <div
-                  className={`${
-                    deviceInfo.isMobile || deviceInfo.isSmallScreen
-                      ? ''
-                      : 'max w-[30%] justify-end gap-10'
-                  } flex w-full`}
-                >
-                  {JSON.parse(item.tags).map(
-                    (v: React.Key | null | undefined) => (
-                      <div key={v} className='flex gap-2'>
-                        <img
-                          loading='lazy'
-                          className={`${
-                            deviceInfo.isSmallScreen || deviceInfo.isMobile
-                              ? ''
-                              : 'max-w-[32px]'
-                          } w-full h-full`}
-                          alt={`${v}`}
-                          src={`${process.env.PUBLIC_URL}/${v}.webp`}
-                        />
-                        <span className=' whitespace-nowrap'>{v}</span>
+                {deviceInfo.isMobile || deviceInfo.isSmallScreen ? (
+                  <>
+                    <div
+                      className={`${
+                        deviceInfo.isMobile || deviceInfo.isSmallScreen
+                          ? ' justify-between'
+                          : 'gap-2 max-w-[50%] flex-col '
+                      } flex w-full`}
+                    >
+                      <div>{item.name}</div>
+                      <div
+                        className={`${
+                          deviceInfo.isMobile || deviceInfo.isSmallScreen
+                            ? 'justify-end gap-2 Slb-Content-mo'
+                            : 'max w-[30%] justify-end gap-10'
+                        } flex w-full`}
+                      >
+                        {JSON.parse(item.tags).map(
+                          (v: React.Key | null | undefined) => (
+                            <div key={v} className='flex gap-2 items-end'>
+                              <img
+                                loading='lazy'
+                                className={`${
+                                  deviceInfo.isSmallScreen ||
+                                  deviceInfo.isMobile
+                                    ? 'max-w-[16px]'
+                                    : ''
+                                } w-full h-full`}
+                                alt={`${v}`}
+                                src={`${process.env.PUBLIC_URL}/${v}.webp`}
+                              />
+                              <span className=' whitespace-nowrap text-[12px]'>{v}</span>
+                            </div>
+                          )
+                        )}
                       </div>
-                    )
-                  )}
-                </div>
+                    </div>
+                    <div
+                      className={`${
+                        deviceInfo.isMobile || deviceInfo.isSmallScreen
+                          ? 'text-[10px] w-full'
+                          : ''
+                      }`}
+                    >
+                      {item.address}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div
+                      className={`${
+                        deviceInfo.isMobile || deviceInfo.isSmallScreen
+                          ? ''
+                          : 'gap-2 max-w-[50%]'
+                      } flex flex-col w-full`}
+                    >
+                      <div>{item.name}</div>
+                      <div
+                        className={`${
+                          deviceInfo.isMobile || deviceInfo.isSmallScreen
+                            ? 'Slb-Content-mo'
+                            : 'Slb-Content'
+                        }`}
+                      >
+                        {item.address}
+                      </div>
+                    </div>
+                    <div
+                      className={`${
+                        deviceInfo.isMobile || deviceInfo.isSmallScreen
+                          ? ''
+                          : 'max w-[30%] justify-end gap-10'
+                      } flex w-full`}
+                    >
+                      {JSON.parse(item.tags).map(
+                        (v: React.Key | null | undefined) => (
+                          <div key={v} className='flex gap-2'>
+                            <img
+                              loading='lazy'
+                              className={`${
+                                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                                  ? ''
+                                  : 'max-w-[32px]'
+                              } w-full h-full`}
+                              alt={`${v}`}
+                              src={`${process.env.PUBLIC_URL}/${v}.webp`}
+                            />
+                            <span className=' whitespace-nowrap'>{v}</span>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </>
+                )}
               </div>
             ))}
           </div>

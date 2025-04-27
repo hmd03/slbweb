@@ -72,24 +72,38 @@ const SubBoardNoticeFrom = () => {
           >
             Just Eat It!
           </p>
-          <p
-            className={`${
-              deviceInfo.isMobile || deviceInfo.isSmallScreen
-                ? 'Slb-Title-mo'
-                : 'Slb-Title flex flex-col text-center'
-            }`}
-          >
-            <span>음식을 넘어 삶의 균형을 고민하는 브랜드</span>
-            <span>SLB의 소식을 확인하세요</span>
-          </p>
+          {deviceInfo.isMobile || deviceInfo.isSmallScreen ? (
+            <p
+              className={`${
+                deviceInfo.isMobile || deviceInfo.isSmallScreen
+                  ? 'Slb-Title-mo mb-6'
+                  : 'Slb-Title '
+              } flex flex-col text-center`}
+            >
+              <span>음식을 넘어 삶의 균형을</span>
+              <span>고민하는 브랜드</span>
+              <span>SLB의 소식을 확인하세요</span>
+            </p>
+          ) : (
+            <p
+              className={`${
+                deviceInfo.isMobile || deviceInfo.isSmallScreen
+                  ? 'Slb-Title-mo'
+                  : 'Slb-Title flex flex-col text-center'
+              }`}
+            >
+              <span>음식을 넘어 삶의 균형을 고민하는 브랜드</span>
+              <span>SLB의 소식을 확인하세요</span>
+            </p>
+          )}
         </div>
         {data.length > 0 && (
           <div
             className={`${
               deviceInfo.isMobile || deviceInfo.isSmallScreen
-                ? 'Slb-SubTitle-mo'
-                : 'Slb-SubTitle border-y-[2px] border-Black'
-            } flex flex-col cursor-pointer`}
+                ? 'Slb-SubTitle-mo mb-6'
+                : 'Slb-SubTitle '
+            } flex flex-col cursor-pointer border-y-[2px] border-Black`}
           >
             {data.map((item, idx) => (
               <div
@@ -97,7 +111,7 @@ const SubBoardNoticeFrom = () => {
                 onClick={() => handleItemClick(item.id)}
                 className={`${
                   deviceInfo.isMobile || deviceInfo.isSmallScreen
-                    ? ''
+                    ? 'py-6 px-8 items- start gap-8'
                     : 'py-6 px-8 items-center gap-20'
                 } flex ${
                   idx === 0 ? '' : 'border-dashed border-t-[1px]'
