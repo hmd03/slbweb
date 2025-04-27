@@ -121,9 +121,9 @@ const Header = ({ children, ...props }: Props) => {
     ],
     [
       { title: '브랜드 스토리', link: '/story', isReady: true },
-      { title: '공지&뉴스', link: '/board/notice', isReady: false },
-      { title: '샐톡톡 이벤트', link: '/board/event', isReady: false },
-      { title: '매장안내', link: '/store', isReady: false },
+      { title: '공지&뉴스', link: '/board/notice', isReady: true },
+      { title: '톡톡 이벤트', link: '/board/event', isReady: true },
+      { title: '매장안내', link: '/store', isReady: true },
     ],
   ];
 
