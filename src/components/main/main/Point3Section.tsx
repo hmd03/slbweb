@@ -120,7 +120,7 @@ const Point3Section: React.FC = () => {
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
                   ? 'Slb-Content-mo'
-                  : 'Slb-Content'
+                  : 'Slb-Content gap-2'
               } flex items-center leading-none `}
             >
               <p className='font-medium'>특별한 브랜드</p>, 직원도 점주가 되는
@@ -166,7 +166,7 @@ const Point3Section: React.FC = () => {
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
                 ? 'Slb-Content-mo'
-                : 'Slb-Content'
+                : 'Slb-Content gap-2'
             } flex items-center leading-none `}
           >
             <p className='font-medium'>특별한 브랜드</p>, 직원도 점주가 되는
