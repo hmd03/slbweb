@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import useDeviceInfo from '../../../../hooks/useDeviceInfo';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { formatDate } from '../../../utils/dateUtils';
 
 const SubBoardEventFrom = () => {
   const navigate = useNavigate();
   const deviceInfo = useDeviceInfo();
   const [data, setData] = useState<any[]>([]);
   const [totalItems, setTotalItems] = useState<number>(0);
-  const [pageIndex, setPageIndex] = useState<number>(1);
 
   useEffect(() => {
     fetchData();
-  }, [pageIndex]);
+  }, []);
 
   const fetchData = async () => {
     try {
@@ -21,15 +21,61 @@ const SubBoardEventFrom = () => {
       const response = await axios.get(url);
 
       console.log(response);
-      setData(response.data.eventList);
-      setTotalItems(response.data.eventList);
+      const storeList = response.data.eventList;
+
+      const updatedStoreList = await Promise.all(
+        storeList.map(
+          async (store: { thumbnail: { id: string; fileType: string } }) => {
+            if (store.thumbnail == null) {
+              return store;
+            }
+            const fileType = store.thumbnail.fileType.split('/')[0];
+            console.log(fileType);
+            const imgSrc = await getFile(store.thumbnail.id);
+            return {
+              ...store,
+              fileType: fileType,
+              media: imgSrc,
+            };
+          }
+        )
+      );
+
+      console.log(updatedStoreList);
+
+      setData(updatedStoreList);
+      setTotalItems(response.data.totalCount);
     } catch (error) {
       console.log('error: ' + error);
     }
   };
 
+  const getFile = async (id: string) => {
+    try {
+      const response = await axios.get(`api/files/${id}`, {
+        responseType: 'arraybuffer',
+      });
+
+      console.log(response);
+      const contentType = response.headers['content-type'];
+      const base64String = btoa(
+        new Uint8Array(response.data).reduce(
+          (data, byte) => data + String.fromCharCode(byte),
+          ''
+        )
+      );
+
+      const strbase64 = `data:${contentType};base64,${base64String}`;
+
+      return strbase64;
+    } catch (error) {
+      console.log('error: ' + error);
+      return '';
+    }
+  };
+
   const handleItemClick = (id: String) => {
-    navigate(`/board/event/${id}`);
+    navigate(`/board/event/detail/no/${id}`);
   };
 
   return (
@@ -83,10 +129,10 @@ const SubBoardEventFrom = () => {
                     className={`${
                       deviceInfo.isSmallScreen || deviceInfo.isMobile
                         ? 'aspect-[282/201]'
-                        : ' mb-6 aspect-[282/201]'
+                        : 'aspect-[282/201]'
                     }  w-full `}
                     alt={``}
-                    src={''}
+                    src={item.thumbnail.media}
                   />
                   <div>
                     <div className='border-t-[1px] border-Black p-2 font-medium text-center'>
@@ -101,7 +147,9 @@ const SubBoardEventFrom = () => {
                           : 'text-[16px]'
                       } text-center`}
                     >
-                      날짜
+                      {`${formatDate(item.startDate)} ~ ${formatDate(
+                        item.endDate
+                      )}`}
                     </p>
                   </div>
                 </div>
