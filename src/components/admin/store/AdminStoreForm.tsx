@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import AdminPagination from "../../ui/paging/AdminPagination";
-import AdminCurrentLayout from "../../ui/layout/AdminCurrentLayout";
-import Button from "../../ui/buttons/Button";
-import axios from "axios";
-import { formatDate } from "../../utils/dateUtils";
-import OutlineButton from "../../ui/buttons/OutlineButton";
-import AlterModal from "../../ui/alters/AlterModal";
-import { useRecoilValue } from "recoil";
-import { UserState } from "../../../store/atom";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaPencilAlt } from "react-icons/fa";
-import useDeviceInfo from "../../../hooks/useDeviceInfo";
-import InputField from "../../ui/inputs/InputField";
-import Dropdown from "../../ui/dropdown/Dropdown";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AdminPagination from '../../ui/paging/AdminPagination';
+import AdminCurrentLayout from '../../ui/layout/AdminCurrentLayout';
+import Button from '../../ui/buttons/Button';
+import axios from 'axios';
+import { formatDate } from '../../utils/dateUtils';
+import OutlineButton from '../../ui/buttons/OutlineButton';
+import AlterModal from '../../ui/alters/AlterModal';
+import { useRecoilValue } from 'recoil';
+import { UserState } from '../../../store/atom';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { FaPencilAlt } from 'react-icons/fa';
+import useDeviceInfo from '../../../hooks/useDeviceInfo';
+import InputField from '../../ui/inputs/InputField';
+import Dropdown from '../../ui/dropdown/Dropdown';
 
 const AdminStoreForm: React.FC = () => {
   const navigate = useNavigate();
   const [isModalVisible, setModalVisible] = useState(false);
   const [isCancelVisible, setIsCancelVisible] = useState(true);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [data, setData] = useState<any[]>([]);
   const [totalItems, setTotalItems] = useState<number>(0);
   const [pageIndex, setPageIndex] = useState<number>(1);
   const [onConfirm, setOnConfirm] = useState(() => () => {});
-  const [dropdownValue, setDropdownValue] = useState("searchName");
-  const [searchValue, setSearchValue] = useState("");
+  const [dropdownValue, setDropdownValue] = useState('searchName');
+  const [searchValue, setSearchValue] = useState('');
 
   const deviceInfo = useDeviceInfo();
 
@@ -33,20 +33,20 @@ const AdminStoreForm: React.FC = () => {
 
   const items = [
     {
-      label: "매장명",
-      value: "searchName ",
+      label: '매장명',
+      value: 'searchName ',
     },
     {
-      label: "주소",
-      value: "searchAdress",
+      label: '주소',
+      value: 'searchAddress',
     },
     {
-      label: "연락처",
-      value: "searchContact",
+      label: '연락처',
+      value: 'searchContact',
     },
     {
-      label: "태그",
-      value: "searchTag",
+      label: '태그',
+      value: 'searchTag',
     },
   ];
 
@@ -63,18 +63,22 @@ const AdminStoreForm: React.FC = () => {
   };
 
   const handleRegisterClick = () => {
-    navigate("/admin/store/add");
+    navigate('/admin/store/add');
   };
 
   const handleModClick = (id: string) => {
     navigate(`/admin/store/modify/no/${id}`);
   };
 
+  const handleDelClick = (id: string) => {
+    handleOpenModal('삭제 하시겠습니까?', false, () => deleteId(id));
+  };
+
   const fetchData = async () => {
     try {
       let url = `api/stores?page=${pageIndex}`;
 
-      if (searchValue !== "") {
+      if (searchValue !== '') {
         url += `&${dropdownValue}=${searchValue}`;
       }
       const response = await axios.get(url);
@@ -88,7 +92,7 @@ const AdminStoreForm: React.FC = () => {
             if (store.media == null) {
               return store;
             }
-            const fileType = store.media.fileType.split("/")[0];
+            const fileType = store.media.fileType.split('/')[0];
             console.log(fileType);
             const imgSrc = await getFile(store.media.id);
             return {
@@ -105,22 +109,22 @@ const AdminStoreForm: React.FC = () => {
       setData(updatedStoreList);
       setTotalItems(response.data.totalCount);
     } catch (error) {
-      console.log("error: " + error);
+      console.log('error: ' + error);
     }
   };
 
   const getFile = async (id: string) => {
     try {
       const response = await axios.get(`api/files/${id}`, {
-        responseType: "arraybuffer",
+        responseType: 'arraybuffer',
       });
 
       console.log(response);
-      const contentType = response.headers["content-type"];
+      const contentType = response.headers['content-type'];
       const base64String = btoa(
         new Uint8Array(response.data).reduce(
           (data, byte) => data + String.fromCharCode(byte),
-          ""
+          ''
         )
       );
 
@@ -128,29 +132,48 @@ const AdminStoreForm: React.FC = () => {
 
       return strbase64;
     } catch (error) {
-      console.log("error: " + error);
-      return "";
+      console.log('error: ' + error);
+      return '';
     }
   };
 
   const handleExcelDownload = async () => {
     try {
-      const response = await axios.get("/api/stores/excel", {
-        responseType: "blob",
+      const response = await axios.get('/api/stores/excel', {
+        responseType: 'blob',
       });
 
       const blob = new Blob([response.data], {
-        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
 
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
-      link.download = "매장리스트.xlsx";
+      link.download = '매장리스트.xlsx';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } catch (error) {
-      console.error("엑셀 다운로드 실패:", error);
+      console.error('엑셀 다운로드 실패:', error);
+    }
+  };
+
+  const deleteId = async (id: string) => {
+    console.log(id);
+    try {
+      const response = await axios.delete(`api/stores/${id}`);
+
+      console.log(response);
+      const data = response.data;
+
+      if (response.status === 200) {
+        handleCancel();
+        fetchData();
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.log('error: ' + error);
     }
   };
 
@@ -170,57 +193,57 @@ const AdminStoreForm: React.FC = () => {
   };
 
   return (
-    <AdminCurrentLayout title="매장 리스트">
+    <AdminCurrentLayout title='매장 리스트'>
       <div
         className={`w-full h-fit border border-Black bg-White ${
-          deviceInfo.isSmallScreen || deviceInfo.isMobile ? "p-1" : "p-5"
+          deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'p-1' : 'p-5'
         }`}
       >
         <div
           className={`flex width-full pb-6 gap-2 ${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? "flex-col"
-              : "items-center"
+              ? 'flex-col'
+              : 'items-center'
           }`}
         >
           <Dropdown
             items={items}
             onSelectItemHandler={setDropdownValue}
-            placeholder=""
-            defaultValue="매장명"
+            placeholder=''
+            defaultValue='매장명'
             width={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? "w-full"
-                : "w-[200px]"
+                ? 'w-full'
+                : 'w-[200px]'
             }`}
           ></Dropdown>
           <InputField
             className={`border-[1px] px-4 py-3 ${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? "w-full"
-                : "w-[200px] "
+                ? 'w-full'
+                : 'w-[200px] '
             }`}
-            placeholder="검색어 입력"
+            placeholder='검색어 입력'
             onChange={(e) => setSearchValue(e.target.value)}
           />
           <OutlineButton
-            theme="admin"
+            theme='admin'
             className={`h-[3rem] bg-LightGray ${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? "w-full"
-                : "w-[5rem] "
+                ? 'w-full'
+                : 'w-[5rem] '
             }`}
             onClick={fetchData}
           >
             검색
           </OutlineButton>
-          <div className="w-full">
+          <div className='w-full'>
             <OutlineButton
-              theme="admin"
+              theme='admin'
               className={`bg-LightGray float-right p-2 ${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? "w-full"
-                  : "w-fit"
+                  ? 'w-full'
+                  : 'w-fit'
               }`}
               onClick={handleExcelDownload}
             >
@@ -228,68 +251,69 @@ const AdminStoreForm: React.FC = () => {
             </OutlineButton>
           </div>
         </div>
-        <table className="min-w-full border-collapse border border-[2px] border-Black">
-          <thead className="bg-LightGray text-diagram">
+        <table className='min-w-full border-collapse border border-[2px] border-Black'>
+          <thead className='bg-LightGray text-diagram'>
             <tr>
-              <th className="border border-Black border-[2px] p-2">No</th>
-              <th className="border border-Black border-[2px] p-2">지역</th>
-              <th className="border border-Black border-[2px] p-2">썸네일</th>
-              <th className="border border-Black border-[2px] p-2">매장명</th>
-              <th className="border border-Black border-[2px] p-2">주소</th>
-              <th className="border border-Black border-[2px] p-2">연락처</th>
-              <th className="border border-Black border-[2px] p-2">태그</th>
-              <th className="border border-Black border-[2px] p-2">등록일</th>
-              <th className="border border-Black border-[2px] p-2">관리리</th>
+              <th className='border border-Black border-[2px] p-2'>No</th>
+              <th className='border border-Black border-[2px] p-2'>지역</th>
+              <th className='border border-Black border-[2px] p-2'>썸네일</th>
+              <th className='border border-Black border-[2px] p-2'>매장명</th>
+              <th className='border border-Black border-[2px] p-2'>주소</th>
+              <th className='border border-Black border-[2px] p-2'>연락처</th>
+              <th className='border border-Black border-[2px] p-2'>태그</th>
+              <th className='border border-Black border-[2px] p-2'>등록일</th>
+              <th className='border border-Black border-[2px] p-2'>관리리</th>
             </tr>
           </thead>
-          <tbody className="bg-White text-diagram">
+          <tbody className='bg-White text-diagram'>
             {data.map((item, index) => (
               <tr key={item.id}>
-                <td className="border border-Black border-[2px] p-2 text-center w-[5%]">
+                <td className='border border-Black border-[2px] p-2 text-center w-[5%]'>
                   {totalItems - index - (pageIndex - 1) * pageItems}
                 </td>
-                <td className="border border-Black border-[2px] p-2 text-center w-[10%]">
+                <td className='border border-Black border-[2px] p-2 text-center w-[10%]'>
                   {item.region.name}
                 </td>
-                <td className="border border-Black border-[2px] p-2 text-center w-[10%]">
-                  {item.fileType === "image" && item.media && (
+                <td className='border border-Black border-[2px] p-2 text-center w-[10%]'>
+                  {item.fileType === 'image' && item.media && (
                     <img
-                      className="w-[18.75rem] h-[6.375rem]"
+                      className='w-[18.75rem] h-[6.375rem]'
                       src={`${item.media}`}
                     ></img>
                   )}
                 </td>
-                <td className="border border-Black border-[2px] p-2 text-center w-[10%]">
+                <td className='border border-Black border-[2px] p-2 text-center w-[10%]'>
                   {item.name}
                 </td>
-                <td className="border border-Black border-[2px] p-2 text-center w-[20%]">
+                <td className='border border-Black border-[2px] p-2 text-center w-[20%]'>
                   {item.address}
                 </td>
-                <td className="border border-Black border-[2px] p-2 text-center w-[15%]">
+                <td className='border border-Black border-[2px] p-2 text-center w-[15%]'>
                   {item.contact}
                 </td>
-                <td className="border border-Black border-[2px] p-2 text-center w-[10%]">
+                <td className='border border-Black border-[2px] p-2 text-center w-[10%]'>
                   {item.name}
                 </td>
-                <td className="border border-Black border-[2px] p-2 text-center w-[10%]">
+                <td className='border border-Black border-[2px] p-2 text-center w-[10%]'>
                   {formatDate(item.createdAt)}
                 </td>
-                <td className="border border-Black border-[2px] p-2 text-center w-[10%]">
-                  <div className="w-full flex items-center justify-center">
+                <td className='border border-Black border-[2px] p-2 text-center w-[10%]'>
+                  <div className='w-full flex items-center justify-center'>
                     <OutlineButton
-                      theme="admin"
-                      className="px-2  w-[4rem] h-[2rem] flex items-center"
+                      theme='admin'
+                      className='px-2  w-[4rem] h-[2rem] flex items-center'
                       onClick={() => handleModClick(item.id)}
                     >
                       수정
-                      <FaPencilAlt color="black" className="ml-1 w-fit" />
+                      <FaPencilAlt color='black' className='ml-1 w-fit' />
                     </OutlineButton>
                     <Button
-                      theme="error"
-                      className="ml-2 px-2 w-[4rem] h-[2rem] bolder flex items-center"
+                      theme='error'
+                      className='ml-2 px-2 w-[4rem] h-[2rem] bolder flex items-center'
+                      onClick={() => handleDelClick(item.id)}
                     >
                       삭제
-                      <RiDeleteBin6Line color="white" className="ml-1 w-fit" />
+                      <RiDeleteBin6Line color='white' className='ml-1 w-fit' />
                     </Button>
                   </div>
                 </td>
@@ -302,7 +326,7 @@ const AdminStoreForm: React.FC = () => {
           itemsPerPage={pageItems}
           onPageChange={handlePageChange}
         />
-        <Button theme="admin" onClick={handleRegisterClick}>
+        <Button theme='admin' onClick={handleRegisterClick}>
           등록
         </Button>
       </div>
