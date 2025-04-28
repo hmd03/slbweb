@@ -3,8 +3,6 @@ import useDeviceInfo from '../../../../hooks/useDeviceInfo';
 import axios from 'axios';
 import AdminPagination from '../../../ui/paging/AdminPagination';
 import { useNavigate } from 'react-router-dom';
-import InputField from '../../../ui/inputs/InputField';
-import OutlineButton from '../../../ui/buttons/OutlineButton';
 
 const SubStoreFrom = () => {
   const navigate = useNavigate();
@@ -40,7 +38,7 @@ const SubStoreFrom = () => {
 
       console.log(response);
       const storeList = response.data.storeList;
-
+      
       const updatedStoreList = await Promise.all(
         storeList.map(
           async (store: { media: { id: string; fileType: string } }) => {
@@ -90,6 +88,10 @@ const SubStoreFrom = () => {
       console.log('error: ' + error);
       return '';
     }
+  };
+
+  const handleItemClick = (id: String) => {
+    navigate(`/store/detail/no/${id}`);
   };
   
   return (
@@ -155,6 +157,7 @@ const SubStoreFrom = () => {
             {data.map((item, idx) => (
               <div
                 key={item.title}
+                onClick={() => handleItemClick(item.id)}
                 className={`${
                   deviceInfo.isMobile || deviceInfo.isSmallScreen
                     ? 'flex-col items-center mt-4 pb-4 border-b-[1px] border-Black'
@@ -208,7 +211,9 @@ const SubStoreFrom = () => {
                                 alt={`${v}`}
                                 src={`${process.env.PUBLIC_URL}/${v}.webp`}
                               />
-                              <span className=' whitespace-nowrap text-[12px]'>{v}</span>
+                              <span className=' whitespace-nowrap text-[12px]'>
+                                {v}
+                              </span>
                             </div>
                           )
                         )}
@@ -253,13 +258,13 @@ const SubStoreFrom = () => {
                     >
                       {JSON.parse(item.tags).map(
                         (v: React.Key | null | undefined) => (
-                          <div key={v} className='flex gap-2'>
+                          <div key={v} className='flex gap-2 items-center'>
                             <img
                               loading='lazy'
                               className={`${
                                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                                  ? ''
-                                  : 'max-w-[32px]'
+                                  ? 'max-w-[16px] max-h-[16px] mr-1'
+                                  : 'max-w-[24px] max-h-[24px] mr-1'
                               } w-full h-full`}
                               alt={`${v}`}
                               src={`${process.env.PUBLIC_URL}/${v}.webp`}
