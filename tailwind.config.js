@@ -47,6 +47,7 @@ module.exports = {
         suit: ['SUIT', 'sans-serif'],
         scdream: ['SCDream', 'sans-serif'],
         cursive: ['Blacksword', 'cursive'],
+        sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Malgun Gothic', '맑은 고딕', 'sans-serif'],
       },
       keyframes: {
         'slide-left': {
