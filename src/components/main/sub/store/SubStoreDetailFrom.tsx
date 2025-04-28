@@ -138,7 +138,7 @@ const SubStoreDetailFrom = () => {
   };
 
   const onBackPage = () => {
-    navigate('/board/event');
+    navigate('/store');
   };
 
   const tdClassName =
@@ -178,7 +178,7 @@ const SubStoreDetailFrom = () => {
                 src={data.img}
               />
             </div>
-            <div className='flex justify-center mb-6'>
+            <div className='flex justify-center my-6'>
               <div
                 ref={mapRef}
                 style={{ width: '100%', height: mapHeight }}
