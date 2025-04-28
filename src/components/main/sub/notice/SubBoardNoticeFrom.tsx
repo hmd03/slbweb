@@ -39,8 +39,21 @@ const SubBoardNoticeFrom = () => {
     }
   };
 
+  const extractTextFromPTag = (htmlString: string): string[] => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, 'text/html');
+    const pTags = doc.querySelectorAll('p');
+
+    const texts = Array.from(pTags).map((p) => {
+      Array.from(p.querySelectorAll('img')).forEach((img) => img.remove());
+      return p.textContent?.trim() ?? '';
+    });
+
+    return texts.filter((text) => text.length > 0);
+  };
+
   const handleItemClick = (id:String) => {
-    navigate(`/board/notice/${id}`);
+    navigate(`/board/notice/detail/no/${id}`);
   };
 
   return (
@@ -118,8 +131,7 @@ const SubBoardNoticeFrom = () => {
                 } border-DeepGray`}
               >
                 <div className='w-[5%] flex justify-center whitespace-nowrap'>
-                  {totalItems - idx - (pageIndex - 1) * pageItems ==
-                  totalItems ? (
+                  {item.isNotice ? (
                     <div className='text-White bg-[#FF331F] text-center w-fit h-fit px-4 rounded-xl whitespace-nowrap'>
                       공지
                     </div>
@@ -142,7 +154,7 @@ const SubBoardNoticeFrom = () => {
                         : 'Slb-Content'
                     } overflow-hidden text-ellipsis max-w-[100ch]`}
                   >
-                    {/* <span className='text-White'>.</span>{item.내용} */}
+                   <span className='text-White'>.</span>{extractTextFromPTag(item.content).join(' ')}
                   </div>
                 </div>
               </div>
