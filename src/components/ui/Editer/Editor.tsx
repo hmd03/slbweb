@@ -68,7 +68,7 @@ const Editor: React.FC<EditorProps> = ({
   );
 
   return (
-    <div className='w-full p-4 bg-white rounded-lg shadow-md'>
+    <div className='w-full max-w-[1300px] p-4 bg-white rounded-lg shadow-md'>
       <Toolbar id={toolbarId} />
       <ReactQuill
         className='font-sans'
