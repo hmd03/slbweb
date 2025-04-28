@@ -61,10 +61,6 @@ const AdminBoardNoticeForm: React.FC = () => {
     };
 
     const handleModClick = (id: string, itemSupervisor: boolean) => {
-        if (!isSupervisor) {
-            handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
-            return;
-        }
         navigate(`/admin/board/notice/write/no/${id}`);
     };
 
