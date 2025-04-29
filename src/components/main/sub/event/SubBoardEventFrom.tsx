@@ -131,8 +131,8 @@ const SubBoardEventFrom = () => {
                         ? 'aspect-[282/201]'
                         : 'aspect-[282/201]'
                     }  w-full `}
-                    alt={``}
-                    src={item.thumbnail.media}
+                    alt={item.title}
+                    src={item.media}
                   />
                   <div>
                     <div className='border-t-[1px] border-Black p-2 font-medium text-center'>
