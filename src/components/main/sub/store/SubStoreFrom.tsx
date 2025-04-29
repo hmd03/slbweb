@@ -93,6 +93,19 @@ const SubStoreFrom = () => {
   const handleItemClick = (id: String) => {
     navigate(`/store/detail/no/${id}`);
   };
+
+  const parseTags = (tags: string | any[]): string[] => {
+    if (Array.isArray(tags)) {
+      return tags;
+    }
+    try {
+      const parsed = JSON.parse(tags);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  };
+
   
   return (
     <div className={`w-full flex justify-center px-4 py-8 bg-white`}>
@@ -197,26 +210,24 @@ const SubStoreFrom = () => {
                             : 'max w-[30%] justify-end gap-10'
                         } flex w-full`}
                       >
-                        {JSON.parse(item.tags).map(
-                          (v: React.Key | null | undefined) => (
-                            <div key={v} className='flex gap-2 items-end'>
-                              <img
-                                loading='lazy'
-                                className={`${
-                                  deviceInfo.isSmallScreen ||
-                                  deviceInfo.isMobile
-                                    ? 'max-w-[16px]'
-                                    : ''
-                                } w-full h-full`}
-                                alt={`${v}`}
-                                src={`${process.env.PUBLIC_URL}/${v}.webp`}
-                              />
-                              <span className=' whitespace-nowrap text-[12px]'>
-                                {v}
-                              </span>
-                            </div>
-                          )
-                        )}
+                        {parseTags(item.tags).map((v: string, idx: number) => (
+                          <div
+                            key={`${v}-${idx}`}
+                            className='flex gap-2 items-center'
+                          >
+                            <img
+                              loading='lazy'
+                              className={`${
+                                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                                  ? 'max-w-[16px] max-h-[16px] mr-1'
+                                  : 'max-w-[24px] max-h-[24px] mr-1'
+                              } w-full h-full`}
+                              alt={`${v}`}
+                              src={`${process.env.PUBLIC_URL}/${v}.webp`}
+                            />
+                            <span className='whitespace-nowrap'>{v}</span>
+                          </div>
+                        ))}
                       </div>
                     </div>
                     <div
