@@ -210,11 +210,9 @@ const SubStoreFrom = () => {
                             : 'max w-[30%] justify-end gap-10'
                         } flex w-full`}
                       >
-                        {parseTags(item.tags).map((v: string, idx: number) => (
-                          <div
-                            key={`${v}-${idx}`}
-                            className='flex gap-2 items-center'
-                          >
+                        {item.tags !== '' && JSON.parse(item.tags).map(
+                        (v: React.Key | null | undefined) => (
+                          <div key={v} className='flex gap-2 items-center'>
                             <img
                               loading='lazy'
                               className={`${
