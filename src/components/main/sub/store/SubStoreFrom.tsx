@@ -267,7 +267,7 @@ const SubStoreFrom = () => {
                           : 'max w-[30%] justify-end gap-10'
                       } flex w-full`}
                     >
-                      {JSON.parse(item.tags).map(
+                    {item.tags !== '' && JSON.parse(item.tags).map(
                         (v: React.Key | null | undefined) => (
                           <div key={v} className='flex gap-2 items-center'>
                             <img
