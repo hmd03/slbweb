@@ -33,9 +33,8 @@ const AdminMasterForm: React.FC = () => {
     }, [pageIndex]);
 
     const handlePageChange = (page: number) => {
-        console.log(`현재 페이지: ${page}`);
         setPageIndex(page);
-        if(page == pageIndex) {
+        if (page === pageIndex) {
             fetchData();
         }
     };
@@ -45,15 +44,15 @@ const AdminMasterForm: React.FC = () => {
     };
 
     const handleModClick = (id: string, itemSupervisor: boolean) => {
-        if(!isSupervisor){
+        if (!isSupervisor) {
             handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
             return;
         }
-        navigate(`/admin/master/write/no/${id}/${itemSupervisor?1:0}`);
+        navigate(`/admin/master/write/no/${id}/${itemSupervisor ? 1 : 0}`);
     };
 
     const handleDelClick = (id: string) => {
-        if(!isSupervisor){
+        if (!isSupervisor) {
             handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
             return;
         }
@@ -62,25 +61,19 @@ const AdminMasterForm: React.FC = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(
-              `api/users?page=${pageIndex}`,
-            );
+            const response = await axios.get(`api/users?page=${pageIndex}`);
 
             setData(response.data.userList);
             setTotalItems(response.data.totalCount);
-          } catch (error) {
-            console.log("error: " + error);
-          }
+        } catch (error) {
+            console.log('error: ' + error);
+        }
     };
 
     const deleteId = async (id: string) => {
-        console.log(id);
         try {
-            const response = await axios.delete(
-              `api/users/${id}`,
-            );
+            const response = await axios.delete(`api/users/${id}`);
 
-            console.log(response)
             const data = response.data;
 
             if (response.status === 200) {
@@ -89,12 +82,16 @@ const AdminMasterForm: React.FC = () => {
             } else {
                 alert(data.message);
             }
-          } catch (error) {
-            console.log("error: " + error);
-          }
+        } catch (error) {
+            console.log('error: ' + error);
+        }
     };
 
-    const handleOpenModal = (msg: string,  isCancel = true, confirmFunction: () => void) => {
+    const handleOpenModal = (
+        msg: string,
+        isCancel = true,
+        confirmFunction: () => void
+    ) => {
         setMessage(msg);
         setIsCancelVisible(isCancel);
         setOnConfirm(() => confirmFunction);
@@ -103,102 +100,117 @@ const AdminMasterForm: React.FC = () => {
 
     const handleCancel = () => {
         setModalVisible(false);
-    }
+    };
 
     const thClassName = 'border border-Black border-[2px] p-2';
     const tdClassName = 'border border-Black border-[2px] p-2 text-center';
 
     return (
-      <AdminCurrentLayout title="관리자 리스트">
-        <div
-          className={`w-full h-fit border border-Black bg-White ${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile ? "p-1" : "p-5"
-          }`}
-        >
-          <table className="min-w-full border-collapse border border-[2px] border-Black">
-            <thead className="bg-LightGray text-diagram">
-              <tr>
-                <th className={thClassName}>No</th>
-                <th className={thClassName}>아이디</th>
-                <th className={thClassName}>이름</th>
-                <th className={thClassName}>가입일</th>
-                <th className={thClassName}>관리</th>
-              </tr>
-            </thead>
-            <tbody className="bg-White text-diagram">
-              {data.map((item, index) => (
-                <tr key={item.id}>
-                  <td className={`${tdClassName} w-[5%]`}>
-                    {totalItems - index - (pageIndex - 1) * pageItems}
-                  </td>
-                  <td className={`${tdClassName} w-[20%]`}>{item.id}</td>
-                  <td className={`${tdClassName} w-[20%]`}>{item.name}</td>
-                  <td className={`${tdClassName} w-[25%]`}>
-                    {formatDate(item.createdAt)}
-                  </td>
-                  <td className={`${tdClassName} w-[25%]`}>
-                    <div
-                      className={`w-full flex ${
-                        deviceInfo.isSmallScreen || deviceInfo.isMobile
-                          ? "flex-col items-center justify-center"
-                          : "items-center justify-center"
-                      }`}
-                    >
-                      <OutlineButton
-                        theme="admin"
-                        className="px-2  w-[4rem] h-[2rem] flex items-center"
-                        onClick={() =>
-                          handleModClick(item.id, item.isSupervisor)
-                        }
-                      >
-                        수정
-                        <FaPencilAlt
-                          color="black"
-                          className="ml-[0.2rem] w-fit"
-                        />
-                      </OutlineButton>
-                      {!item.isSupervisor && (
-                        <Button
-                          theme="error"
-                          className={`${
-                            deviceInfo.isSmallScreen ||
-                            deviceInfo.isMobile == false
-                              ? "ml-2"
-                              : ""
-                          } px-2 w-[4rem] h-[2rem] bolder flex items-center`}
-                          onClick={() => handleDelClick(item.id)}
-                        >
-                          삭제
-                          <RiDeleteBin6Line
-                            color="white"
-                            className="ml-[0.2rem] w-fit"
-                          />
-                        </Button>
-                      )}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <AdminPagination
-            totalItems={totalItems}
-            itemsPerPage={pageItems}
-            onPageChange={handlePageChange}
-          />
-          <Button theme="admin" onClick={handleRegisterClick}>
-            등록
-          </Button>
-        </div>
-        {isModalVisible && (
-          <AlterModal
-            message={message}
-            isCancelVisible={isCancelVisible}
-            onConfirm={onConfirm}
-            onCancel={handleCancel}
-          />
-        )}
-      </AdminCurrentLayout>
+        <AdminCurrentLayout title='관리자 리스트'>
+            <div
+                className={`w-full h-fit border border-Black bg-White ${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                        ? 'p-1'
+                        : 'p-5'
+                }`}
+            >
+                <table className='min-w-full border-collapse border border-[2px] border-Black'>
+                    <thead className='bg-LightGray text-diagram'>
+                        <tr>
+                            <th className={thClassName}>No</th>
+                            <th className={thClassName}>아이디</th>
+                            <th className={thClassName}>이름</th>
+                            <th className={thClassName}>가입일</th>
+                            <th className={thClassName}>관리</th>
+                        </tr>
+                    </thead>
+                    <tbody className='bg-White text-diagram'>
+                        {data.map((item, index) => (
+                            <tr key={item.id}>
+                                <td className={`${tdClassName} w-[5%]`}>
+                                    {totalItems -
+                                        index -
+                                        (pageIndex - 1) * pageItems}
+                                </td>
+                                <td className={`${tdClassName} w-[20%]`}>
+                                    {item.id}
+                                </td>
+                                <td className={`${tdClassName} w-[20%]`}>
+                                    {item.name}
+                                </td>
+                                <td className={`${tdClassName} w-[25%]`}>
+                                    {formatDate(item.createdAt)}
+                                </td>
+                                <td className={`${tdClassName} w-[25%]`}>
+                                    <div
+                                        className={`w-full flex ${
+                                            deviceInfo.isSmallScreen ||
+                                            deviceInfo.isMobile
+                                                ? 'flex-col items-center justify-center'
+                                                : 'items-center justify-center'
+                                        }`}
+                                    >
+                                        <OutlineButton
+                                            theme='admin'
+                                            className='px-2  w-[4rem] h-[2rem] flex items-center'
+                                            onClick={() =>
+                                                handleModClick(
+                                                    item.id,
+                                                    item.isSupervisor
+                                                )
+                                            }
+                                        >
+                                            수정
+                                            <FaPencilAlt
+                                                color='black'
+                                                className='ml-[0.2rem] w-fit'
+                                            />
+                                        </OutlineButton>
+                                        {!item.isSupervisor && (
+                                            <Button
+                                                theme='error'
+                                                className={`${
+                                                    deviceInfo.isSmallScreen ||
+                                                    deviceInfo.isMobile ===
+                                                        false
+                                                        ? 'ml-2'
+                                                        : ''
+                                                } px-2 w-[4rem] h-[2rem] bolder flex items-center`}
+                                                onClick={() =>
+                                                    handleDelClick(item.id)
+                                                }
+                                            >
+                                                삭제
+                                                <RiDeleteBin6Line
+                                                    color='white'
+                                                    className='ml-[0.2rem] w-fit'
+                                                />
+                                            </Button>
+                                        )}
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <AdminPagination
+                    totalItems={totalItems}
+                    itemsPerPage={pageItems}
+                    onPageChange={handlePageChange}
+                />
+                <Button theme='admin' onClick={handleRegisterClick}>
+                    등록
+                </Button>
+            </div>
+            {isModalVisible && (
+                <AlterModal
+                    message={message}
+                    isCancelVisible={isCancelVisible}
+                    onConfirm={onConfirm}
+                    onCancel={handleCancel}
+                />
+            )}
+        </AdminCurrentLayout>
     );
 };
 

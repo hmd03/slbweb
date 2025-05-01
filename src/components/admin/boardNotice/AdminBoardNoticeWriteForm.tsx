@@ -17,13 +17,13 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
     const [isCancelVisible, setIsCancelVisible] = useState(true);
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-    const { id } = useParams<{ id?: string;}>();
+    const { id } = useParams<{ id?: string }>();
     const [onConfirm, setOnConfirm] = useState(() => () => {});
-    
+
     const titleRef = useRef<HTMLInputElement>(null);
     const [selectedOption, setSelectedOption] = useState('1');
     const [editorContent, setEditorContent] = useState<string>('');
-    
+
     const options = [
         { id: 'option1', name: 'group1', value: '1', label: '공지' },
         { id: 'option2', name: 'group1', value: '0', label: '일반' },
@@ -34,7 +34,6 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
     };
 
     const handleEditorChange = (content: string) => {
-        console.log(content);
         setEditorContent(content);
     };
 
@@ -43,15 +42,14 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
             if (id) {
                 try {
                     const response = await axios.get(`/api/notices/${id}`);
-                    console.log(response);
                     if (response.status === 200) {
                         const data = response.data;
                         titleRef.current!.value = data.title;
-                        setSelectedOption( data.isNotice == true ? '1' : '0' );
+                        setSelectedOption(data.isNotice === true ? '1' : '0');
                         setEditorContent(data.content);
                     }
                 } catch (error) {
-                    console.log('사용자 정보를 가져오는 데 실패했습니다.');
+                    console.error('Error fetching data:', error);
                 }
             }
         };
@@ -63,12 +61,21 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
         const title = titleRef.current?.value || '';
         const content = editorContent;
 
-        if(title == '' || content == '' || content == '<p></p>' || content == '<p><br></p>'){
-            handleOpenModal(`제목, 공지 내용을 확인해 주세요.`, false, handleCancel);
+        if (
+            title === '' ||
+            content === '' ||
+            content === '<p></p>' ||
+            content === '<p><br></p>'
+        ) {
+            handleOpenModal(
+                `제목, 공지 내용을 확인해 주세요.`,
+                false,
+                handleCancel
+            );
         } else {
             handleOpenModal(`등록 하시겠습니까?`, true, handleConfirm);
         }
-    }
+    };
 
     const handleDelClick = () => {
         handleOpenModal('삭제 하시겠습니까?', true, deleteId);
@@ -76,28 +83,29 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
 
     const deleteId = async () => {
         try {
-            if(id){
-                const response = await axios.delete(
-                    `api/notices/${id}`,
-                  );
-      
-                  console.log(response)
-                  const data = response.data;
-      
-                  if (response.status === 200) {
-                      navigate('/admin/board/notice');
-                  } else {
-                      alert(data.message);
-                  }
+            if (id) {
+                const response = await axios.delete(`api/notices/${id}`);
+
+                const data = response.data;
+
+                if (response.status === 200) {
+                    navigate('/admin/board/notice');
+                } else {
+                    alert(data.message);
+                }
             }
-          } catch (error) {
-            console.log("error: " + error);
-          }
+        } catch (error) {
+            console.log('error: ' + error);
+        }
     };
 
-    const handleOpenModal = (msg: string, isCancel = true, confirmFunction: () => void) => {
+    const handleOpenModal = (
+        msg: string,
+        isCancel = true,
+        confirmFunction: () => void
+    ) => {
         setMessage(msg);
-        setIsCancelVisible(isCancel)
+        setIsCancelVisible(isCancel);
         setOnConfirm(() => confirmFunction);
         setModalVisible(true);
     };
@@ -108,12 +116,12 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
         const content = editorContent;
 
         try {
-            if(!id){
+            if (!id) {
                 setLoading(true);
                 const response = await axios.post('/api/notices', {
                     title: title,
                     isNotice: isNotice,
-                    content: content
+                    content: content,
                 });
 
                 const data = response.data;
@@ -129,46 +137,44 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
                 const response = await axios.put(`api/notices/${id}`, {
                     title: title,
                     isNotice: isNotice,
-                    content: content
+                    content: content,
                 });
 
                 const data = response.data;
                 setLoading(false);
-                
+
                 if (response.status === 200) {
-                    console.log(response);
                     navigate('/admin/board/notice');
                 } else {
                     alert(data.message);
                 }
             }
-            
         } catch (error) {
             alert((error as Error).message);
         } finally {
             setLoading(false);
             setModalVisible(false);
         }
-    }
+    };
 
     const handleCancel = () => {
         setModalVisible(false);
-    }
+    };
 
     const onBackPage = () => {
         navigate('/admin/board/notice');
-    }
+    };
 
-    const thClassName = 'bg-LightGray border border-Black border-[2px] p-2 text-left text-center w-[30%]';
-    const tdClassName = 'bg-White border border-Black border-[2px] p-2 text-center w-full';
+    const thClassName =
+        'bg-LightGray border border-Black border-[2px] p-2 text-left text-center w-[30%]';
+    const tdClassName =
+        'bg-White border border-Black border-[2px] p-2 text-center w-full';
 
     return (
         <AdminCurrentLayout title='공지&뉴스 등록'>
             <div className='w-full h-fit p-5 border border-Black bg-White flex flex-col items-center justify-center'>
-                <table className="min-w-full border-collapse border border-[2px] border-Black">
-                    <thead className='text-diagram'>
-                        
-                    </thead>
+                <table className='min-w-full border-collapse border border-[2px] border-Black'>
+                    <thead className='text-diagram'></thead>
                     <tbody className='text-diagram'>
                         <tr>
                             <th className={thClassName}>제목</th>
@@ -176,35 +182,58 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
                                 <InputField
                                     className=' p-1 w-full border-[2px] '
                                     placeholder='제목'
-                                    ref={titleRef} 
+                                    ref={titleRef}
                                     autoComplete='id'
                                     readOnly={!!id}
                                 />
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <th className={thClassName}>공지</th>
                             <td className={tdClassName}>
                                 <RadioButtonGroup
                                     options={options}
                                     selectedOption={selectedOption}
                                     onChange={handleChange}
-                                    className="radio-group flex gap-2"
+                                    className='radio-group flex gap-2'
                                 />
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <th className={thClassName}>내용</th>
                             <td className={`${tdClassName}`}>
-                                <Editor value={editorContent} onChange={handleEditorChange} /> 
+                                <Editor
+                                    value={editorContent}
+                                    onChange={handleEditorChange}
+                                />
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <div className='flex w-full items-center justify-center h-fit mt-2 gap-2'>
-                    <Button onClick={onSubmit} theme='admin' className='px-8 py-[14px] border border-[2px]'>{!id?'등록':'수정'}</Button>
-                    {!!id && <Button onClick={handleDelClick} theme='error' className='px-8 py-[14px] border border-[2px]'>삭제</Button>}
-                    <OutlineButton onClick={onBackPage} theme='admin' className='px-8 py-[13px]'>← 목록</OutlineButton>
+                    <Button
+                        onClick={onSubmit}
+                        theme='admin'
+                        className='px-8 py-[14px] border border-[2px]'
+                    >
+                        {!id ? '등록' : '수정'}
+                    </Button>
+                    {!!id && (
+                        <Button
+                            onClick={handleDelClick}
+                            theme='error'
+                            className='px-8 py-[14px] border border-[2px]'
+                        >
+                            삭제
+                        </Button>
+                    )}
+                    <OutlineButton
+                        onClick={onBackPage}
+                        theme='admin'
+                        className='px-8 py-[13px]'
+                    >
+                        ← 목록
+                    </OutlineButton>
                 </div>
             </div>
             {isModalVisible && (

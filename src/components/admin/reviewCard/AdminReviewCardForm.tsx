@@ -28,7 +28,6 @@ const AdminReviewCardForm: React.FC = () => {
     }, [pageIndex, searchIsMobile]);
 
     const handlePageChange = (page: number) => {
-        console.log(`현재 페이지: ${page}`);
         setPageIndex(page);
         if (page === pageIndex) {
             fetchData();
@@ -45,11 +44,8 @@ const AdminReviewCardForm: React.FC = () => {
 
     const fetchData = async () => {
         try {
-            console.log(pageIndex);
             let url = `api/content/cards?page=${pageIndex}`;
             const response = await axios.get(url);
-
-            console.log(response);
             const reviewCardList = response.data.contentCardList;
 
             const updatedBannerList = await Promise.all(
@@ -64,7 +60,7 @@ const AdminReviewCardForm: React.FC = () => {
                             reviewCard.media.fileType.split('/')[0];
 
                         let imgSrc = '';
-                        if (fileType == 'image') {
+                        if (fileType === 'image') {
                             imgSrc = await getFile(reviewCard.media.id);
                         }
 
@@ -76,8 +72,6 @@ const AdminReviewCardForm: React.FC = () => {
                     }
                 )
             );
-
-            console.log(updatedBannerList);
 
             setData(updatedBannerList);
             setTotalItems(response.data.totalCount);
@@ -92,7 +86,6 @@ const AdminReviewCardForm: React.FC = () => {
                 responseType: 'arraybuffer',
             });
 
-            console.log(response);
             const contentType = response.headers['content-type'];
             const base64String = btoa(
                 new Uint8Array(response.data).reduce(
@@ -135,10 +128,7 @@ const AdminReviewCardForm: React.FC = () => {
 
     const deleteItem = async (id: string) => {
         try {
-            console.log(id);
             const response = await axios.delete(`api/content/cards/${id}`);
-
-            console.log(response);
             const data = response.data;
 
             if (response.status === 200) {

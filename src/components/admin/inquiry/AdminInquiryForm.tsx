@@ -30,7 +30,7 @@ const AdminInquiryForm: React.FC = () => {
     const [searchCategory, setSearchCategory] = useState('-1');
 
     const [selectedSenderDropdownItem, setSelectedSenderDropdownItem] =
-      useState("searchSender");
+        useState('searchSender');
     const [searchSender, setSearchSender] = useState('');
 
     const deviceInfo = useDeviceInfo();
@@ -40,14 +40,14 @@ const AdminInquiryForm: React.FC = () => {
     const placeholder = '분류선택';
 
     const senderDropdownItem = [
-      {
-        label: "이름",
-        value: "searchSender",
-      },
-      {
-        label: "연락처",
-        value: "searchSenderContact",
-      },
+        {
+            label: '이름',
+            value: 'searchSender',
+        },
+        {
+            label: '연락처',
+            value: 'searchSenderContact',
+        },
     ];
 
     useEffect(() => {
@@ -56,7 +56,6 @@ const AdminInquiryForm: React.FC = () => {
     }, [pageIndex]);
 
     const handlePageChange = (page: number) => {
-        console.log(`현재 페이지: ${page}`);
         setPageIndex(page);
         if (page === pageIndex) {
             fetchData();
@@ -85,12 +84,8 @@ const AdminInquiryForm: React.FC = () => {
             if (selectedSenderDropdownItem !== '') {
                 url += `&searchSender=${searchSender}`;
             }
-
-            console.log(pageIndex);
-            console.log(url);
             const response = await axios.get(url);
 
-            console.log(response);
             setData(response.data.inquiryList);
             setTotalItems(response.data.totalCount);
         } catch (error) {
@@ -100,10 +95,7 @@ const AdminInquiryForm: React.FC = () => {
 
     const fetchCategoryData = async () => {
         try {
-            console.log(pageIndex);
             const response = await axios.get(`api/inquiries/categories`);
-
-            console.log(response);
             const category = response.data.map(
                 (v: { name: string; id: number }) => {
                     const obj = {
@@ -126,11 +118,8 @@ const AdminInquiryForm: React.FC = () => {
     };
 
     const deleteId = async (id: string) => {
-        console.log(id);
         try {
             const response = await axios.delete(`api/inquiries/${id}`);
-
-            console.log(response);
             const data = response.data;
 
             if (response.status === 200) {
@@ -164,132 +153,150 @@ const AdminInquiryForm: React.FC = () => {
     };
 
     return (
-      <AdminCurrentLayout title="창업문의 리스트">
-        <div
-          className={`w-full h-fit border border-Black bg-White ${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile ? "p-1" : "p-5"
-          }`}
-        >
-          <div
-            className={`flex width-full pb-6 gap-2 ${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? "flex-col"
-                : "items-center"
-            }`}
-          >
-            <Dropdown
-              onSelectItemHandler={onSelectItemHandler}
-              items={searchCategoryData}
-              placeholder={placeholder}
-              width={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? "w-full"
-                  : "w-[200px]"
-              }`}
-            ></Dropdown>
-            <Dropdown
-              onSelectItemHandler={setSelectedSenderDropdownItem}
-              items={senderDropdownItem}
-              placeholder="이름"
-              width={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? "w-full"
-                  : "w-[200px]"
-              }`}
-            ></Dropdown>
-            <InputField
-              className={`border-[1px] px-4 py-3 ${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? "w-full"
-                  : "w-[200px] "
-              }`}
-              placeholder="검색어 입력"
-              onChange={(e) => setSearchSender(e.target.value)}
-            />
-            <OutlineButton
-              onClick={fetchData}
-              theme="admin"
-              className={`h-[3rem] bg-LightGray ${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? "w-full"
-                  : "w-[5rem] "
-              }`}
+        <AdminCurrentLayout title='창업문의 리스트'>
+            <div
+                className={`w-full h-fit border border-Black bg-White ${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                        ? 'p-1'
+                        : 'p-5'
+                }`}
             >
-              검색
-            </OutlineButton>
-          </div>
-          <table className="min-w-full border-collapse border border-[2px] border-Black">
-            <thead className="bg-LightGray text-diagram">
-              <tr>
-                <th className="border border-Black border-[2px] p-2">No</th>
-                <th className="border border-Black border-[2px] p-2">제목</th>
-                <th className="border border-Black border-[2px] p-2">연락처</th>
-                <th className="border border-Black border-[2px] p-2">등록일</th>
-                <th className="border border-Black border-[2px] p-2">관리</th>
-              </tr>
-            </thead>
-            <tbody className="bg-White text-diagram">
-              {data.map((item, index) => (
-                <tr key={item.id}>
-                  <td className="border border-Black border-[2px] p-2 text-center w-[5%]">
-                    {totalItems - index - (pageIndex - 1) * pageItems}
-                  </td>
-                  <td className="border border-Black border-[2px] p-2 text-center w-[35%]">
-                    {item.title}
-                  </td>
-                  <td className="border border-Black border-[2px] p-2 text-center w-[20%]">
-                    {item.senderContact}
-                  </td>
-                  <td className="border border-Black border-[2px] p-2 text-center w-[20%]">
-                    {formatDate(item.createdAt)}
-                  </td>
-                  <td className="border border-Black border-[2px] p-2 text-center w-[20%]">
-                    <div className="w-full flex items-center justify-center">
-                      <OutlineButton
-                        theme="admin"
-                        className="p-2  w-[4rem] h-[2rem] flex items-center"
-                        onClick={() => hanViewClick(item.id)}
-                      >
-                        <FaRegEye
-                          color="black"
-                          className="mr-[0.125rem] w-fit"
-                        />
-                        보기
-                      </OutlineButton>
-                      {!item.isSupervisor && (
-                        <Button
-                          theme="error"
-                          className="ml-2 p-2 w-[4rem] h-[2rem] bolder flex items-center"
-                          onClick={() => handleDelClick(item.id)}
-                        >
-                          삭제
-                          <RiDeleteBin6Line
-                            color="white"
-                            className="ml-1 w-fit"
-                          />
-                        </Button>
-                      )}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <AdminPagination
-            totalItems={totalItems}
-            itemsPerPage={pageItems}
-            onPageChange={handlePageChange}
-          />
-        </div>
-        {isModalVisible && (
-          <AlterModal
-            message={message}
-            isCancelVisible={isCancelVisible}
-            onConfirm={onConfirm}
-            onCancel={handleCancel}
-          />
-        )}
-      </AdminCurrentLayout>
+                <div
+                    className={`flex width-full pb-6 gap-2 ${
+                        deviceInfo.isSmallScreen || deviceInfo.isMobile
+                            ? 'flex-col'
+                            : 'items-center'
+                    }`}
+                >
+                    <Dropdown
+                        onSelectItemHandler={onSelectItemHandler}
+                        items={searchCategoryData}
+                        placeholder={placeholder}
+                        width={`${
+                            deviceInfo.isSmallScreen || deviceInfo.isMobile
+                                ? 'w-full'
+                                : 'w-[200px]'
+                        }`}
+                    ></Dropdown>
+                    <Dropdown
+                        onSelectItemHandler={setSelectedSenderDropdownItem}
+                        items={senderDropdownItem}
+                        placeholder='이름'
+                        width={`${
+                            deviceInfo.isSmallScreen || deviceInfo.isMobile
+                                ? 'w-full'
+                                : 'w-[200px]'
+                        }`}
+                    ></Dropdown>
+                    <InputField
+                        className={`border-[1px] px-4 py-3 ${
+                            deviceInfo.isSmallScreen || deviceInfo.isMobile
+                                ? 'w-full'
+                                : 'w-[200px] '
+                        }`}
+                        placeholder='검색어 입력'
+                        onChange={(e) => setSearchSender(e.target.value)}
+                    />
+                    <OutlineButton
+                        onClick={fetchData}
+                        theme='admin'
+                        className={`h-[3rem] bg-LightGray ${
+                            deviceInfo.isSmallScreen || deviceInfo.isMobile
+                                ? 'w-full'
+                                : 'w-[5rem] '
+                        }`}
+                    >
+                        검색
+                    </OutlineButton>
+                </div>
+                <table className='min-w-full border-collapse border border-[2px] border-Black'>
+                    <thead className='bg-LightGray text-diagram'>
+                        <tr>
+                            <th className='border border-Black border-[2px] p-2'>
+                                No
+                            </th>
+                            <th className='border border-Black border-[2px] p-2'>
+                                제목
+                            </th>
+                            <th className='border border-Black border-[2px] p-2'>
+                                연락처
+                            </th>
+                            <th className='border border-Black border-[2px] p-2'>
+                                등록일
+                            </th>
+                            <th className='border border-Black border-[2px] p-2'>
+                                관리
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody className='bg-White text-diagram'>
+                        {data.map((item, index) => (
+                            <tr key={item.id}>
+                                <td className='border border-Black border-[2px] p-2 text-center w-[5%]'>
+                                    {totalItems -
+                                        index -
+                                        (pageIndex - 1) * pageItems}
+                                </td>
+                                <td className='border border-Black border-[2px] p-2 text-center w-[35%]'>
+                                    {item.title}
+                                </td>
+                                <td className='border border-Black border-[2px] p-2 text-center w-[20%]'>
+                                    {item.senderContact}
+                                </td>
+                                <td className='border border-Black border-[2px] p-2 text-center w-[20%]'>
+                                    {formatDate(item.createdAt)}
+                                </td>
+                                <td className='border border-Black border-[2px] p-2 text-center w-[20%]'>
+                                    <div className='w-full flex items-center justify-center'>
+                                        <OutlineButton
+                                            theme='admin'
+                                            className='p-2  w-[4rem] h-[2rem] flex items-center'
+                                            onClick={() =>
+                                                hanViewClick(item.id)
+                                            }
+                                        >
+                                            <FaRegEye
+                                                color='black'
+                                                className='mr-[0.125rem] w-fit'
+                                            />
+                                            보기
+                                        </OutlineButton>
+                                        {!item.isSupervisor && (
+                                            <Button
+                                                theme='error'
+                                                className='ml-2 p-2 w-[4rem] h-[2rem] bolder flex items-center'
+                                                onClick={() =>
+                                                    handleDelClick(item.id)
+                                                }
+                                            >
+                                                삭제
+                                                <RiDeleteBin6Line
+                                                    color='white'
+                                                    className='ml-1 w-fit'
+                                                />
+                                            </Button>
+                                        )}
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <AdminPagination
+                    totalItems={totalItems}
+                    itemsPerPage={pageItems}
+                    onPageChange={handlePageChange}
+                />
+            </div>
+            {isModalVisible && (
+                <AlterModal
+                    message={message}
+                    isCancelVisible={isCancelVisible}
+                    onConfirm={onConfirm}
+                    onCancel={handleCancel}
+                />
+            )}
+        </AdminCurrentLayout>
     );
 };
 

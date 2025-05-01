@@ -16,8 +16,6 @@ const AdminReviewCardAddModForm: React.FC = () => {
     const navigate = useNavigate();
     const { id } = useParams<{ id?: string }>();
 
-    console.log(id);
-
     const [loading, setLoading] = useRecoilState(LoadingState);
     const [isModalVisible, setModalVisible] = useState(false);
     const [isCancelVisible, setIsCancelVisible] = useState(true);
@@ -98,7 +96,6 @@ const AdminReviewCardAddModForm: React.FC = () => {
                     const response = await axios.get(
                         `/api/content/cards/${id}`
                     );
-                    console.log(response);
                     if (response.status === 200) {
                         const data = response.data;
 
@@ -109,7 +106,7 @@ const AdminReviewCardAddModForm: React.FC = () => {
                         }
                     }
                 } catch (error) {
-                    console.log('사용자 정보를 가져오는 데 실패했습니다.');
+                    console.log('Error :', error);
                 }
             }
         };
@@ -145,10 +142,6 @@ const AdminReviewCardAddModForm: React.FC = () => {
             if (media !== null) {
                 formData.append('media', media);
 
-                for (const [key, value] of formData.entries()) {
-                    console.log(`${key}: ${value}`);
-                }
-
                 if (!id) {
                     setLoading(true);
                     const response = await axios.post(
@@ -175,7 +168,6 @@ const AdminReviewCardAddModForm: React.FC = () => {
                     setLoading(false);
 
                     if (response.status === 200) {
-                        console.log(response);
                         navigate('/admin/card/review');
                     } else {
                         alert(data.message);
@@ -199,7 +191,6 @@ const AdminReviewCardAddModForm: React.FC = () => {
             if (id) {
                 const response = await axios.delete(`api/content/cards/${id}`);
 
-                console.log(response);
                 const data = response.data;
 
                 if (response.status === 200) {
@@ -271,7 +262,7 @@ const AdminReviewCardAddModForm: React.FC = () => {
                                         accept='image/*'
                                         onChange={handleImageChange}
                                     />
-                                    {imagePath != '' && (
+                                    {imagePath !== '' && (
                                         <img
                                             className='ml-10 w-[6.65rem] h-[2.25rem]'
                                             id='thumbnail'

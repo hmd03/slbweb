@@ -18,8 +18,6 @@ const AdminPopupAddModForm: React.FC = () => {
     const navigate = useNavigate();
     const { id } = useParams<{ id?: string }>();
 
-    console.log(id);
-
     const [loading, setLoading] = useRecoilState(LoadingState);
     const [isModalVisible, setModalVisible] = useState(false);
     const [isCancelVisible, setIsCancelVisible] = useState(true);
@@ -84,7 +82,7 @@ const AdminPopupAddModForm: React.FC = () => {
             setEndDate(date.format('YYYY-MM-DD'));
         }
     };
-    
+
     const handleCustomEndDateChange = (date: dayjs.Dayjs) => {
         if (startDateObj && date.isBefore(startDateObj)) return;
         setEndDateObj(date);
@@ -96,7 +94,7 @@ const AdminPopupAddModForm: React.FC = () => {
             if (id) {
                 try {
                     const response = await axios.get(`/api/popups/${id}`);
-                    console.log(response);
+
                     if (response.status === 200) {
                         const data = response.data;
 
@@ -114,7 +112,7 @@ const AdminPopupAddModForm: React.FC = () => {
                         getFile(data.media.id, data.media.fileName);
                     }
                 } catch (error) {
-                    console.log('사용자 정보를 가져오는 데 실패했습니다.');
+                    console.log('Error :', error);
                 }
             }
         };
@@ -123,46 +121,46 @@ const AdminPopupAddModForm: React.FC = () => {
     }, [id]);
 
     const getFile = async (id: string, fileName: string) => {
-      try {
-        const response = await axios.get(`api/files/${id}`, {
-          responseType: "arraybuffer",
-        });
+        try {
+            const response = await axios.get(`api/files/${id}`, {
+                responseType: 'arraybuffer',
+            });
 
-        const contentType = response.headers["content-type"];
-        const base64String = btoa(
-          new Uint8Array(response.data).reduce(
-            (data, byte) => data + String.fromCharCode(byte),
-            ""
-          )
-        );
+            const contentType = response.headers['content-type'];
+            const base64String = btoa(
+                new Uint8Array(response.data).reduce(
+                    (data, byte) => data + String.fromCharCode(byte),
+                    ''
+                )
+            );
 
-        const strbase64 = `data:${contentType};base64,${base64String}`;
+            const strbase64 = `data:${contentType};base64,${base64String}`;
 
-        setImagePath(strbase64);
+            setImagePath(strbase64);
 
-        const img = new Image();
-        img.src = strbase64;
-        img.onload = () => {
-          setImageMsg(`불러온 이미지 사이즈 ${img.width}X${img.height}`);
-        };
+            const img = new Image();
+            img.src = strbase64;
+            img.onload = () => {
+                setImageMsg(`불러온 이미지 사이즈 ${img.width}X${img.height}`);
+            };
 
-        const byteString = atob(base64String);
-        const mimeString = contentType;
-        const ab = new ArrayBuffer(byteString.length);
-        const ia = new Uint8Array(ab);
-        for (let i = 0; i < byteString.length; i++) {
-          ia[i] = byteString.charCodeAt(i);
+            const byteString = atob(base64String);
+            const mimeString = contentType;
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            const blob = new Blob([ab], { type: mimeString });
+            const file = new File([blob], fileName, { type: mimeString });
+
+            setImageFile(file);
+
+            return strbase64;
+        } catch (error) {
+            console.log('error: ' + error);
+            return '';
         }
-        const blob = new Blob([ab], { type: mimeString });
-        const file = new File([blob], fileName, { type: mimeString });
-
-        setImageFile(file);
-
-        return strbase64;
-      } catch (error) {
-        console.log("error: " + error);
-        return "";
-      }
     };
 
     const onSubmit = async () => {
@@ -216,10 +214,6 @@ const AdminPopupAddModForm: React.FC = () => {
                 formData.append('media', media);
             }
 
-            for (const [key, value] of formData.entries()) {
-                console.log(`${key}: ${value}`);
-            }
-
             if (!id) {
                 setLoading(true);
                 const response = await axios.post(`/api/popups`, formData);
@@ -240,7 +234,6 @@ const AdminPopupAddModForm: React.FC = () => {
                 setLoading(false);
 
                 if (response.status === 200) {
-                    console.log(response);
                     navigate('/admin/popup');
                 } else {
                     alert(data.message);
@@ -405,13 +398,19 @@ const AdminPopupAddModForm: React.FC = () => {
                         <tr>
                             <th className={thClassName}>팝업 시작일</th>
                             <td className={tdClassName}>
-                                <DatePicker value={startDateObj} onChange={handleCustomStartDateChange} />
+                                <DatePicker
+                                    value={startDateObj}
+                                    onChange={handleCustomStartDateChange}
+                                />
                             </td>
                         </tr>
                         <tr>
                             <th className={thClassName}>팝업 종료일</th>
                             <td className={tdClassName}>
-                                <DatePicker value={endDateObj} onChange={handleCustomEndDateChange} />
+                                <DatePicker
+                                    value={endDateObj}
+                                    onChange={handleCustomEndDateChange}
+                                />
                             </td>
                         </tr>
                         <tr>

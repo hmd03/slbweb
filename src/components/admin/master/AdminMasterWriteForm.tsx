@@ -19,9 +19,6 @@ const AdminMasterWriteForm: React.FC = () => {
     const { id, isv } = useParams<{ id?: string; isv?: string }>();
     const [onConfirm, setOnConfirm] = useState(() => () => {});
 
-    console.log(id);
-    console.log(isv);
-    
     const idRef = useRef<HTMLInputElement>(null);
     const nameRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -33,15 +30,16 @@ const AdminMasterWriteForm: React.FC = () => {
             if (id) {
                 try {
                     const response = await axios.get(`/api/users/${id}`);
-                    console.log(response);
                     if (response.status === 200) {
                         const data = response.data;
                         nameRef.current!.value = data.name;
                         idRef.current!.value = data.id;
-                        createdAtRef.current!.value = formatDate(data.createdAt);
+                        createdAtRef.current!.value = formatDate(
+                            data.createdAt
+                        );
                     }
                 } catch (error) {
-                    console.log('사용자 정보를 가져오는 데 실패했습니다.');
+                    console.log('Error:', error);
                 }
             }
         };
@@ -63,25 +61,41 @@ const AdminMasterWriteForm: React.FC = () => {
             return;
         }
         if (!/^[a-zA-Z]{6,}$/.test(inputid)) {
-            handleOpenModal('아이디는 영어로 최소 6자 이상이어야 합니다.', false, handleCancel);
+            handleOpenModal(
+                '아이디는 영어로 최소 6자 이상이어야 합니다.',
+                false,
+                handleCancel
+            );
             setLoading(false);
             return;
         }
         if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{6,}$/.test(password)) {
-            handleOpenModal('비밀번호는 영어, 숫자, 특수문자를 포함하여 최소 6자 이상이어야 합니다.', false, handleCancel);
+            handleOpenModal(
+                '비밀번호는 영어, 숫자, 특수문자를 포함하여 최소 6자 이상이어야 합니다.',
+                false,
+                handleCancel
+            );
             setLoading(false);
             return;
         }
         if (password !== checkPassword) {
-            handleOpenModal('비밀번호와 비밀번호 확인이 일치하지 않습니다.', false, handleCancel);
+            handleOpenModal(
+                '비밀번호와 비밀번호 확인이 일치하지 않습니다.',
+                false,
+                handleCancel
+            );
             setLoading(false);
             return;
         }
 
-        handleOpenModal(`${!id?'관리자를':'수정'} 등록 하시겠습니까?`, true, handleConfirm)
+        handleOpenModal(
+            `${!id ? '관리자를' : '수정'} 등록 하시겠습니까?`,
+            true,
+            handleConfirm
+        );
 
         setModalVisible(true);
-    }
+    };
 
     const handleDelClick = () => {
         handleOpenModal('삭제 하시겠습니까?', true, deleteId);
@@ -89,28 +103,29 @@ const AdminMasterWriteForm: React.FC = () => {
 
     const deleteId = async () => {
         try {
-            if(id){
-                const response = await axios.delete(
-                    `api/users/${id}`,
-                  );
-      
-                  console.log(response)
-                  const data = response.data;
-      
-                  if (response.status === 200) {
-                      navigate('/admin/master');
-                  } else {
-                      alert(data.message);
-                  }
+            if (id) {
+                const response = await axios.delete(`api/users/${id}`);
+
+                const data = response.data;
+
+                if (response.status === 200) {
+                    navigate('/admin/master');
+                } else {
+                    alert(data.message);
+                }
             }
-          } catch (error) {
-            console.log("error: " + error);
-          }
+        } catch (error) {
+            console.log('error: ' + error);
+        }
     };
 
-    const handleOpenModal = (msg: string, isCancel = true, confirmFunction: () => void) => {
+    const handleOpenModal = (
+        msg: string,
+        isCancel = true,
+        confirmFunction: () => void
+    ) => {
         setMessage(msg);
-        setIsCancelVisible(isCancel)
+        setIsCancelVisible(isCancel);
         setOnConfirm(() => confirmFunction);
         setModalVisible(true);
     };
@@ -121,7 +136,7 @@ const AdminMasterWriteForm: React.FC = () => {
         const password = passwordRef.current?.value || '';
 
         try {
-            if(!id){
+            if (!id) {
                 const response = await axios.post('/api/auth/signup', {
                     id: inputid,
                     name: name,
@@ -129,54 +144,54 @@ const AdminMasterWriteForm: React.FC = () => {
                 });
 
                 const data = response.data;
-    
+
                 if (response.status === 201) {
-                    console.log(response);
                     navigate('/admin/master');
                 } else {
                     alert(data.message);
                 }
             } else {
-                const response = await axios.patch(`api/users/${id.split('=')[1]}/password`, {
-                    password: password,
-                });
+                const response = await axios.patch(
+                    `api/users/${id.split('=')[1]}/password`,
+                    {
+                        password: password,
+                    }
+                );
 
                 const data = response.data;
-    
+
                 if (response.status === 200) {
-                    console.log(response);
                     navigate('/admin/master');
                 } else {
                     alert(data.message);
                 }
             }
-            
         } catch (error) {
             alert((error as Error).message);
         } finally {
             setLoading(false);
             setModalVisible(false);
         }
-    }
+    };
 
     const handleCancel = () => {
         setModalVisible(false);
-    }
+    };
 
     const onBackPage = () => {
         navigate('/admin/master');
-    }
+    };
 
-    const thClassName = 'bg-LightGray border border-Black border-[2px] p-2 text-left';
-    const tdClassName = 'bg-White border border-Black border-[2px] p-2 text-center w-[70%]';
+    const thClassName =
+        'bg-LightGray border border-Black border-[2px] p-2 text-left';
+    const tdClassName =
+        'bg-White border border-Black border-[2px] p-2 text-center w-[70%]';
 
     return (
         <AdminCurrentLayout title='관리자 등록'>
             <div className='w-full h-fit p-5 border border-Black bg-White flex flex-col items-center justify-center'>
-                <table className="min-w-full border-collapse border border-[2px] border-Black">
-                    <thead className='text-diagram'>
-                        
-                    </thead>
+                <table className='min-w-full border-collapse border border-[2px] border-Black'>
+                    <thead className='text-diagram'></thead>
                     <tbody className='text-diagram'>
                         <tr>
                             <th className={thClassName}>이름</th>
@@ -184,63 +199,85 @@ const AdminMasterWriteForm: React.FC = () => {
                                 <InputField
                                     className=' p-1 w-full border-[2px] '
                                     placeholder='한글만 가능'
-                                    ref={nameRef} 
+                                    ref={nameRef}
                                     autoComplete='id'
                                     readOnly={!!id}
                                 />
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <th className={thClassName}>아이디</th>
                             <td className={tdClassName}>
                                 <InputField
                                     className=' p-1 w-full border-[2px] '
                                     placeholder='영어(최소 6자 이상)'
-                                    ref={idRef} 
+                                    ref={idRef}
                                     autoComplete='name'
                                     readOnly={!!id}
                                 />
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <th className={thClassName}>비밀번호</th>
                             <td className={tdClassName}>
                                 <InputField
                                     className=' p-1 w-full border-[2px] '
                                     placeholder='영어+숫자+특문(최소 6자 이상)'
-                                    ref={passwordRef} 
+                                    ref={passwordRef}
                                     autoComplete='password'
                                 />
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <th className={thClassName}>비밀번호 확인</th>
                             <td className={tdClassName}>
                                 <InputField
                                     className=' p-1 w-full border-[2px] '
                                     placeholder='영어+숫자+특문(최소 6자 이상)'
-                                    ref={chackPasswordRef} 
+                                    ref={chackPasswordRef}
                                     autoComplete='chackPassword'
                                 />
                             </td>
                         </tr>
-                        {!!id && <tr >
-                            <th className={thClassName}>가입일</th>
-                            <td className={tdClassName}>
-                                <InputField
-                                    className=' p-1 w-full border-[2px] '
-                                    ref={createdAtRef} 
-                                    autoComplete='createdAt'
-                                    readOnly={!!id}
-                                />
-                            </td>
-                        </tr>}
+                        {!!id && (
+                            <tr>
+                                <th className={thClassName}>가입일</th>
+                                <td className={tdClassName}>
+                                    <InputField
+                                        className=' p-1 w-full border-[2px] '
+                                        ref={createdAtRef}
+                                        autoComplete='createdAt'
+                                        readOnly={!!id}
+                                    />
+                                </td>
+                            </tr>
+                        )}
                     </tbody>
                 </table>
                 <div className='flex w-full items-center justify-center h-fit mt-2 gap-2'>
-                    <Button onClick={onSubmit} theme='admin' className='px-8 py-[14px] border border-[2px]'>{!id?'등록':'수정'}</Button>
-                    {isv === '0' && !!id && <Button onClick={handleDelClick} theme='error' className='px-8 py-[14px] border border-[2px]'>삭제</Button>}
-                    <OutlineButton onClick={onBackPage} theme='admin' className='px-8 py-[13px]'>← 목록</OutlineButton>
+                    <Button
+                        onClick={onSubmit}
+                        theme='admin'
+                        className='px-8 py-[14px] border border-[2px]'
+                    >
+                        {!id ? '등록' : '수정'}
+                    </Button>
+                    {isv === '0' && !!id && (
+                        <Button
+                            onClick={handleDelClick}
+                            theme='error'
+                            className='px-8 py-[14px] border border-[2px]'
+                        >
+                            삭제
+                        </Button>
+                    )}
+                    <OutlineButton
+                        onClick={onBackPage}
+                        theme='admin'
+                        className='px-8 py-[13px]'
+                    >
+                        ← 목록
+                    </OutlineButton>
                 </div>
             </div>
             {isModalVisible && (

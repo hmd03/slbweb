@@ -28,7 +28,6 @@ const AdminBannerForm: React.FC = () => {
     }, [pageIndex, searchIsMobile]);
 
     const handlePageChange = (page: number) => {
-        console.log(`현재 페이지: ${page}`);
         setPageIndex(page);
         if (page === pageIndex) {
             fetchData();
@@ -45,31 +44,29 @@ const AdminBannerForm: React.FC = () => {
 
     const fetchData = async () => {
         try {
-            console.log(pageIndex);
             let url = `api/banners?page=${pageIndex}`;
             if (searchIsMobile !== '') {
                 url += `&searchIsMobile=${searchIsMobile}`;
             }
             const response = await axios.get(url);
 
-            console.log(response);
             const bannerList = response.data.bannerList;
 
             const updatedBannerList = await Promise.all(
                 bannerList.map(
                     async (banner: {
-                        media: { id: string; fileType: string;};
+                        media: { id: string; fileType: string };
                     }) => {
-                        if (banner.media == null) {
-                          return banner;
+                        if (banner.media === null) {
+                            return banner;
                         }
                         const fileType = banner.media.fileType.split('/')[0];
-                        
+
                         let imgSrc = '';
-                        if (fileType == 'image') {
+                        if (fileType === 'image') {
                             imgSrc = await getFile(banner.media.id);
                         }
-                        
+
                         return {
                             ...banner,
                             fileType: fileType,
@@ -79,8 +76,6 @@ const AdminBannerForm: React.FC = () => {
                 )
             );
 
-            console.log(updatedBannerList);
-
             setData(updatedBannerList);
             setTotalItems(response.data.totalCount);
         } catch (error) {
@@ -89,27 +84,26 @@ const AdminBannerForm: React.FC = () => {
     };
 
     const getFile = async (id: string) => {
-      try {
-        const response = await axios.get(`api/files/${id}`, {
-          responseType: "arraybuffer",
-        });
+        try {
+            const response = await axios.get(`api/files/${id}`, {
+                responseType: 'arraybuffer',
+            });
 
-        console.log(response);
-        const contentType = response.headers["content-type"];
-        const base64String = btoa(
-          new Uint8Array(response.data).reduce(
-            (data, byte) => data + String.fromCharCode(byte),
-            ""
-          )
-        );
+            const contentType = response.headers['content-type'];
+            const base64String = btoa(
+                new Uint8Array(response.data).reduce(
+                    (data, byte) => data + String.fromCharCode(byte),
+                    ''
+                )
+            );
 
-        const strbase64 = `data:${contentType};base64,${base64String}`;
+            const strbase64 = `data:${contentType};base64,${base64String}`;
 
-        return strbase64;
-      } catch (error) {
-        console.log("error: " + error);
-        return "";
-      }
+            return strbase64;
+        } catch (error) {
+            console.log('error: ' + error);
+            return '';
+        }
     };
 
     const handleOpenModal = (
@@ -137,10 +131,8 @@ const AdminBannerForm: React.FC = () => {
 
     const deleteItem = async (id: string) => {
         try {
-            console.log(id);
             const response = await axios.delete(`api/banners/${id}`);
 
-            console.log(response);
             const data = response.data;
 
             if (response.status === 200) {

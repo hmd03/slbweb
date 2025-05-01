@@ -53,7 +53,6 @@ const AdminBoardEventWriteForm: React.FC = () => {
     };
 
     const handleEditorChange = (content: string) => {
-        console.log(content);
         setEditorContent(content);
     };
 
@@ -65,7 +64,7 @@ const AdminBoardEventWriteForm: React.FC = () => {
             setEndDate(date.format('YYYY-MM-DD'));
         }
     };
-    
+
     const handleCustomEndDateChange = (date: dayjs.Dayjs) => {
         if (startDateObj && date.isBefore(startDateObj)) return;
         setEndDateObj(date);
@@ -79,7 +78,6 @@ const AdminBoardEventWriteForm: React.FC = () => {
                     const response = await axios.get(`/api/events/${id}`);
                     if (response.status === 200) {
                         const data = response.data;
-                        console.log(data);
                         titleRef.current!.value = data.title;
 
                         const thumbnail = await axios.get(
@@ -96,7 +94,6 @@ const AdminBoardEventWriteForm: React.FC = () => {
                     }
                 } catch (error) {
                     console.log(error);
-                    console.log('사용자 정보를 가져오는 데 실패했습니다.');
                 }
             }
         };
@@ -157,7 +154,6 @@ const AdminBoardEventWriteForm: React.FC = () => {
             if (id) {
                 const response = await axios.delete(`api/events/${id}`);
 
-                console.log(response);
                 const data = response.data;
 
                 if (response.status === 200) {
@@ -200,10 +196,6 @@ const AdminBoardEventWriteForm: React.FC = () => {
                 formData.append('media', media);
             }
 
-            for (const [key, value] of formData.entries()) {
-                console.log(`${key}: ${value}`);
-            }
-
             if (!id) {
                 setLoading(true);
                 const response = await axios.post(`/api/events`, formData);
@@ -224,7 +216,6 @@ const AdminBoardEventWriteForm: React.FC = () => {
                 setLoading(false);
 
                 if (response.status === 200) {
-                    console.log(response);
                     navigate('/admin/board/event');
                 } else {
                     alert(data.message);
@@ -282,11 +273,17 @@ const AdminBoardEventWriteForm: React.FC = () => {
                         <tr>
                             <th className={thClassName}>이벤트 기간</th>
                             <td className={tdClassName}>
-                            <div className='flex gap-2'>
-                                <DatePicker value={startDateObj} onChange={handleCustomStartDateChange} />
-                            <span>~</span>
-                                <DatePicker value={endDateObj} onChange={handleCustomEndDateChange} />
-                            </div>
+                                <div className='flex gap-2'>
+                                    <DatePicker
+                                        value={startDateObj}
+                                        onChange={handleCustomStartDateChange}
+                                    />
+                                    <span>~</span>
+                                    <DatePicker
+                                        value={endDateObj}
+                                        onChange={handleCustomEndDateChange}
+                                    />
+                                </div>
                             </td>
                         </tr>
                         <tr>

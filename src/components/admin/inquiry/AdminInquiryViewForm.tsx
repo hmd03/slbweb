@@ -20,8 +20,6 @@ const AdminInquiryViewForm: React.FC = () => {
         createdAt: '',
     });
 
-    console.log(params.id);
-
     useEffect(() => {
         const fetchData = async () => {
             if (params.id) {
@@ -29,7 +27,6 @@ const AdminInquiryViewForm: React.FC = () => {
                     const response = await axios.get(
                         `/api/inquiries/${params.id}`
                     );
-                    console.log(response);
                     if (response.status === 200) {
                         const data = response.data;
                         setItem({
@@ -45,7 +42,7 @@ const AdminInquiryViewForm: React.FC = () => {
                         });
                     }
                 } catch (error) {
-                    console.log('사용자 정보를 가져오는 데 실패했습니다.');
+                    console.log('Error :', error);
                 }
             }
         };

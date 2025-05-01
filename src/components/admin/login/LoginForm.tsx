@@ -37,7 +37,6 @@ const LoginForm = () => {
                 });
 
                 const data = response.data;
-                console.log(data);
 
                 if (response.status === 201) {
                     const { accessToken, user } = data;
@@ -46,7 +45,9 @@ const LoginForm = () => {
                     const isSupervisor = user.isSupervisor;
                     const refreshToken = response.data.refreshToken;
 
-                    Cookies.set('refreshToken', refreshToken, { expires: 4 / 24 });
+                    Cookies.set('refreshToken', refreshToken, {
+                        expires: 4 / 24,
+                    });
                     setUser({
                         id,
                         name,
@@ -67,31 +68,44 @@ const LoginForm = () => {
     );
 
     return (
-        <form onSubmit={onSubmit} className={`${deviceInfo.isMobile ? 'w-full h-full' : 'w-[40rem] h-[32rem]'}  border-[2px] border-Black bg-LightGray px-16`}>
+        <form
+            onSubmit={onSubmit}
+            className={`${
+                deviceInfo.isMobile ? 'w-full h-full' : 'w-[40rem] h-[32rem]'
+            }  border-[2px] border-Black bg-LightGray px-16`}
+        >
             <div className='flex flex-col items-center h-full justify-center'>
                 <div className='w-full mb-10 mt-2'>
-                    <img alt='adminLoginLogo' src={`${process.env.PUBLIC_URL}/adminLoginLogo.png`} className='h-[6rem] m-auto'/>
+                    <img
+                        alt='adminLoginLogo'
+                        src={`${process.env.PUBLIC_URL}/adminLoginLogo.png`}
+                        className='h-[6rem] m-auto'
+                    />
                 </div>
                 <div className='pb-2 w-full'>
                     <InputField
                         aria-label='관리자 아이디'
                         placeholder='관리자 아이디'
-                        ref={idRef} 
+                        ref={idRef}
                         autoComplete='id'
                         className='px-4 py-3 w-full border-[2px] '
                     />
                 </div>
                 <div className='pb-2 w-full'>
-                    <InputField 
-                        aria-label='비밀번호' 
-                        type='password' 
-                        placeholder='비밀번호' 
+                    <InputField
+                        aria-label='비밀번호'
+                        type='password'
+                        placeholder='비밀번호'
                         ref={passwordRef}
                         autoComplete='password'
                     />
                 </div>
                 <div className='pb-2 w-full mb-2'>
-                    <Button theme='admin' className='w-full px-8 py-[14px] rounded' type='submit'>
+                    <Button
+                        theme='admin'
+                        className='w-full px-8 py-[14px] rounded'
+                        type='submit'
+                    >
                         {loading ? '로딩 중...' : '로그인'}
                     </Button>
                 </div>

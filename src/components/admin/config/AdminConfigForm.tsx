@@ -40,7 +40,7 @@ const AdminConfigForm: React.FC = () => {
                 const response = await axios.get(`/api/setting`);
                 if (response.status === 200) {
                     const data = response.data;
-                    console.log(data);
+
                     siteNameRef.current!.value = data.name;
                     siteTitleRef.current!.value = data.title;
                     keywordsRef.current!.value = data.keywords;
@@ -51,7 +51,6 @@ const AdminConfigForm: React.FC = () => {
                 }
             } catch (error) {
                 console.log(error);
-                console.log('사용자 정보를 가져오는 데 실패했습니다.');
             }
         };
 
@@ -100,8 +99,6 @@ const AdminConfigForm: React.FC = () => {
             return formatPhone(digits);
         });
 
-        console.log(formattedContacts);
-
         try {
             setLoading(true);
             const response = await axios.put(`api/setting`, {
@@ -124,9 +121,8 @@ const AdminConfigForm: React.FC = () => {
                     description,
                     privacyPolicy,
                     termsOfService,
-                    keywords
+                    keywords,
                 });
-                console.log(response);
                 alert(data.message);
             } else {
                 alert(data.message);

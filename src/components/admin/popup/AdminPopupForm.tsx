@@ -30,7 +30,6 @@ const AdminPopupForm: React.FC = () => {
     }, [pageIndex]);
 
     const handlePageChange = (page: number) => {
-        console.log(`현재 페이지: ${page}`);
         setPageIndex(page);
         if (page === pageIndex) {
             fetchData();
@@ -99,10 +98,7 @@ const AdminPopupForm: React.FC = () => {
 
     const deleteItem = async (id: string) => {
         try {
-            console.log(id);
             const response = await axios.delete(`api/popups/${id}`);
-
-            console.log(response);
             const data = response.data;
 
             if (response.status === 200) {
