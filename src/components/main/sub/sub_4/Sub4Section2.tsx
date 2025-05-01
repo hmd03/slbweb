@@ -1,6 +1,7 @@
 import React from 'react';
 import useDeviceInfo from '../../../../hooks/useDeviceInfo';
 import SlideUpOnView from '../../../ui/slideUpOnView/SlideUpOnView';
+import Chip from '../../../ui/chip/chip';
 
 const Sub4Section2: React.FC = () => {
     const deviceInfo = useDeviceInfo();
@@ -14,11 +15,18 @@ const Sub4Section2: React.FC = () => {
             } bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-fit`}
         >
             <SlideUpOnView>
+                {/* 05/15 변경 -SH */}
+                <Chip text='Point 2' type='black' />
                 <div
+                    // className={`${
+                    //     deviceInfo.isSmallScreen || deviceInfo.isMobile
+                    //         ? ' mt-20 mb-4'
+                    //         : 'mb-5 mt-40'
+                    // }`}
                     className={`${
                         deviceInfo.isSmallScreen || deviceInfo.isMobile
-                            ? ' mt-20 mb-4'
-                            : 'mb-5 mt-40'
+                            ? 'mt-3 mb-4'
+                            : 'mt-6 mb-5'
                     }`}
                 >
                     과하지 않은 맞춤 창업 비용

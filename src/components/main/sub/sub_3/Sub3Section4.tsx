@@ -33,6 +33,8 @@ const Sub3Section4: React.FC = () => {
                     } `}
                 >
                     <SlideUpOnView>
+                        {/* 05/15 변경 -SH */}
+                        <Chip text='Point 4' type='black' />
                         <div
                             className={`${
                                 deviceInfo.isSmallScreen || deviceInfo.isMobile
@@ -178,14 +180,15 @@ const Sub3Section4: React.FC = () => {
             </div>
             {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
                 <>
-                    <Chip
+                    {/* 05/15 변경 -SH */}
+                    {/* <Chip
                         text='Point 7'
                         type={`${
                             deviceInfo.isSmallScreen || deviceInfo.isMobile
                                 ? 'black'
                                 : 'black'
                         }`}
-                    />
+                    /> */}
                     <SlideUpOnView>
                         <div className='flex flex-col items-center leading-none mt-4 mb-2 gap-1'>
                             <span className='flex items-end '>
@@ -266,14 +269,14 @@ const Sub3Section4: React.FC = () => {
                     <></>
                 ) : (
                     <>
-                        <Chip
+                        {/* <Chip
                             text='Point 7'
                             type={`${
                                 deviceInfo.isSmallScreen || deviceInfo.isMobile
                                     ? 'black'
                                     : 'black'
                             }`}
-                        />
+                        /> */}
                         <SlideUpOnView>
                             <div className='flex items-end leading-none mb-2'>
                                 <p
@@ -497,7 +500,8 @@ const Sub3Section4: React.FC = () => {
                         : 'Slb-Title'
                 } flex flex-col items-center`}
             >
-                {deviceInfo.isMobile || deviceInfo.isSmallScreen ? (
+                {/* 05/15 변경 -SH */}
+                {/* {deviceInfo.isMobile || deviceInfo.isSmallScreen ? (
                     <div className='flex w-full items-center px-4'>
                         <div className='h-px bg-[#58595B] flex-grow border border-[#58595B]' />
                         <Chip text='Point 8' type='black' />
@@ -505,7 +509,7 @@ const Sub3Section4: React.FC = () => {
                     </div>
                 ) : (
                     <Chip text='Point 8' type='black' />
-                )}
+                )} */}
                 <SlideUpOnView>
                     <div
                         className={`${
@@ -658,7 +662,8 @@ const Sub3Section4: React.FC = () => {
                     </div>
                 </>
             )}
-            <Chip text='Point 9' type='black' />
+            {/* 05/15 변경 -SH */}
+            {/* <Chip text='Point 9' type='black' /> */}
             <SlideUpOnView>
                 {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
                     <>

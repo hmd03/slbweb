@@ -57,6 +57,8 @@ const Sub1Section3: React.FC = () => {
             } bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-fit`}
         >
             <SlideUpOnView>
+                {/* 05/15 변경 -SH */}
+                <Chip text='Point 3' type='black' />
                 <div
                     className={`${
                         deviceInfo.isSmallScreen || deviceInfo.isMobile
@@ -123,7 +125,8 @@ const Sub1Section3: React.FC = () => {
                             : 'w-[1300px] Slb-Title pt-20 mb-20'
                     } flex flex-col items-center bg-[#F6F6F6]`}
                 >
-                    <Chip text='Point 4' type='black' />
+                    {/* 05/15 변경 -SH */}
+                    {/* <Chip text='Point 4' type='black' /> */}
                     <SlideUpOnView>
                         <div
                             className={`${
@@ -259,14 +262,15 @@ const Sub1Section3: React.FC = () => {
                     }`,
                 }}
             >
-                <Chip
+                {/* 05/15 변경 -SH */}
+                {/* <Chip
                     text='Point 5'
                     type={`${
                         deviceInfo.isSmallScreen || deviceInfo.isMobile
                             ? 'white'
                             : 'black'
                     }`}
-                />
+                /> */}
                 <SlideUpOnView>
                     <div className='flex items-end leading-none mb-10'>
                         <p

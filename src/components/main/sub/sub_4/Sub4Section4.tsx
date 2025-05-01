@@ -74,11 +74,13 @@ const Sub4Section4: React.FC = () => {
                 }}
             >
                 <SlideUpOnView>
+                    {/* 05/15 변경 -SH */}
+                    <Chip text='Point 4' type='black' />
                     <div
                         className={`${
                             deviceInfo.isSmallScreen || deviceInfo.isMobile
                                 ? ''
-                                : 'mb-5 mt-40'
+                                : 'mb-5 mt-5'
                         }`}
                     >
                         일 잘하는 사람들의 운영 관리 시스템
@@ -315,7 +317,8 @@ const Sub4Section4: React.FC = () => {
                     )}
                 </div>
             </div>
-            <Chip text='Point 6' type='black' />
+            {/* 05/15 변경 -SH */}
+            {/* <Chip text='Point 6' type='black' /> */}
             <SlideUpOnView>
                 <div className='flex flex-col text-center leading-none mb-40'>
                     <span

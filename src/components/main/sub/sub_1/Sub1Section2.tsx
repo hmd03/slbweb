@@ -273,7 +273,8 @@ const Sub1Section2: React.FC = () => {
                     }.webp)`,
                 }}
             >
-                <Chip text='Point 3' type='black' />
+                {/* 05/15 변경 -SH */}
+                {/* <Chip text='Point 3' type='black' /> */}
                 <SlideUpOnView>
                     <div
                         className={`${

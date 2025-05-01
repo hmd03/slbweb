@@ -193,7 +193,8 @@ const Sub2Section1: React.FC<Sub2Section1Props> = ({ onIframeLoad }) => {
                     }.webp)`,
                 }}
             >
-                <Chip text='Point 2' type='black' />
+                {/* 05/15 변경 -SH */}
+                {/* <Chip text='Point 2' type='black' /> */}
                 <SlideUpOnView>
                     <div
                         className={`${
@@ -276,7 +277,8 @@ const Sub2Section1: React.FC<Sub2Section1Props> = ({ onIframeLoad }) => {
                         : 'Slb-Title pt-40'
                 } flex flex-col items-center`}
             >
-                <Chip text='Point 3' type='black' />
+                {/* 05/15 변경 -SH */}
+                {/* <Chip text='Point 3' type='black' /> */}
                 <SlideUpOnView>
                     <div
                         className={`${
