@@ -3,6 +3,63 @@ import useDeviceInfo from '../../../../hooks/useDeviceInfo';
 import SlideUpOnView from '../../../ui/slideUpOnView/SlideUpOnView';
 import Chip from '../../../ui/chip/chip';
 import DividerWithLabel from '../../../ui/label/DividerWithLabel';
+import { ProfitAnalysisTable } from '../../../ui/table/ProfitAnalysis';
+
+const allroundStoreTableInfo = {
+    title: '홀+포장+배달 매장 수익률 분석',
+    description: '매장 상황 및 매출액에 따라 수익률은 변경될 수 있습니다.',
+    highlight: {
+        title: '월 순수익',
+        amount: '28,475,430',
+        percent: '30.39%',
+    },
+    rows: [
+        { label: '월 매출', amount: '93,700,000', percent: '100%' },
+        { label: '원가(부자재 포함)', amount: '31,858,000', percent: '34%' },
+        {
+            label: '인건비(점주 인건비 제외)',
+            amount: '15,930,000',
+            percent: '17%',
+        },
+        { label: '임대료', amount: '4,700,000', percent: '5%' },
+        { label: '관리비', amount: '2,811,000', percent: '3%' },
+        { label: '배달광고', amount: '281,000', percent: '0.3%' },
+        {
+            label: '배달대행비(수수료 포함)',
+            amount: '8,433,000',
+            percent: '9%',
+        },
+        { label: '기타 유지비', amount: '1,227,400', percent: '1.31%' },
+    ],
+};
+
+const onlyDeliveryStoreTableInfo = {
+    title: '배달 전용 매장 수익률 분석',
+    description: '매장 상황 및 매출액에 따라 수익률은 변경될 수 있습니다.',
+    highlight: {
+        title: '월 순수익',
+        amount: '10,028,600',
+        percent: '17.52%',
+    },
+    rows: [
+        { label: '월 매출', amount: '53,900,000', percent: '100%' },
+        { label: '원가(부자재 포함)', amount: '18,865,000', percent: '36%' },
+        {
+            label: '인건비(점주 인건비 제외)',
+            amount: '6,450,000',
+            percent: '12%',
+        },
+        { label: '임대료', amount: '1,000,000', percent: '1.9%' },
+        { label: '관리비', amount: '1,078,000', percent: '2%' },
+        { label: '배달광고', amount: '264,000', percent: '0.5%' },
+        {
+            label: '배달대행비(수수료 포함)',
+            amount: '15,092,000',
+            percent: '28%',
+        },
+        { label: '기타 유지비', amount: '1,122,400', percent: '2.08%' },
+    ],
+};
 
 const Sub4Section1: React.FC = () => {
     const deviceInfo = useDeviceInfo();
@@ -1013,34 +1070,20 @@ const Sub4Section1: React.FC = () => {
                         : ''
                 } flex flex-col`}
             >
-                <img
-                    loading='lazy'
+                {/* 05/16 변경 -SH */}
+                <div
                     className={`${
                         deviceInfo.isSmallScreen || deviceInfo.isMobile
-                            ? 'aspect-[626/589] my-6'
-                            : 'aspect-[1066/588] my-20 max-w-[1000px]'
-                    } w-full`}
-                    alt={`현재 경기 성장률은 낮고, 물가는 매년 상승 중 물류비용 또한 상승하는 것은 당연한 일입니다.`}
-                    src={`${process.env.PUBLIC_URL}/sub_4/sub_4_1_12${
-                        deviceInfo.isSmallScreen || deviceInfo.isMobile
-                            ? '_mo'
+                            ? 'px-4'
                             : ''
-                    }.webp`}
-                />
-                <img
-                    loading='lazy'
-                    className={`${
-                        deviceInfo.isSmallScreen || deviceInfo.isMobile
-                            ? 'aspect-[626/589] my-6'
-                            : 'aspect-[1066/588] max-w-[1000px] mb-20'
-                    } w-full`}
-                    alt={`현재 경기 성장률은 낮고, 물가는 매년 상승 중 물류비용 또한 상승하는 것은 당연한 일입니다.`}
-                    src={`${process.env.PUBLIC_URL}/sub_4/sub_4_1_13${
-                        deviceInfo.isSmallScreen || deviceInfo.isMobile
-                            ? '_mo'
-                            : ''
-                    }.webp`}
-                />
+                    } flex flex-col`}
+                >
+                    <div className='w-full max-w-[1000px] mx-auto my-8'>
+                        <ProfitAnalysisTable {...allroundStoreTableInfo} />
+
+                        <ProfitAnalysisTable {...onlyDeliveryStoreTableInfo} />
+                    </div>
+                </div>
             </div>
         </section>
     );
