@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-pascal-case */
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useRef } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -11,6 +11,8 @@ import Cookies from 'js-cookie';
 import CurrentLayout from './components/ui/layout/CurrentLayout';
 import AdminReviewCard from './pages/admin/reviewCard/AdminReviewCard';
 import AdminReviewCardAddMod from './pages/admin/reviewCard/AdminReviewCardAddMod';
+import useDeviceInfo from './hooks/useDeviceInfo';
+import { trackConversion, trackExit, trackPageView } from './components/utils/analytics';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
@@ -112,9 +114,36 @@ const AppInner: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const {isMobile = false} = useDeviceInfo();
+    const deviceType = isMobile ? 'mobile' : 'desktop';
+    const enterTimeRef = useRef<number>(Date.now());
+
     const isAdminRoute = location.pathname.startsWith('/admin');
 
     const setSetting = useSetRecoilState(siteSettingState);
+
+    useEffect(() => {
+        // 진입 시간 리셋
+        enterTimeRef.current = Date.now();
+        trackPageView(location.pathname + location.search, deviceType);
+      }, [location.pathname, location.search, deviceType]);
+
+      useEffect(() => {
+        const handleBeforeUnload = () => {
+          const dwellMs = Date.now() - enterTimeRef.current;
+          trackExit(location.pathname + location.search, deviceType, dwellMs);
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => {
+          window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+      }, [location.pathname, location.search, deviceType]);
+
+      useEffect(() => {
+        if (!location.pathname.startsWith('/admin')) {
+          trackConversion();
+        }
+      }, [location.pathname]);
 
     useEffect(() => {
         const fetchSettings = async () => {
