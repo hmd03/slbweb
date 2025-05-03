@@ -130,7 +130,10 @@ const InquiryForm: React.FC = () => {
 
     return (
         <div className={`w-full flex justify-center px-4 py-8 bg-white`}>
-            <div className='w-full max-w-[1300px]'>
+            {/* 05/04 변경 -SH
+             *   max-w-[1300px] -> max-w-[1100px]
+             */}
+            <div className='w-full max-w-[1100px]'>
                 <div className='flex flex-col items-center justify-center mb-6'>
                     <p
                         className={`${
