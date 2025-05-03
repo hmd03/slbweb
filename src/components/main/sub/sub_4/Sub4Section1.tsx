@@ -449,8 +449,10 @@ const Sub4Section1: React.FC = () => {
                     </>
                 )}
             </div>
-            {/* 05/04 변경 -SH
-             *   w-full -> max-w-[1100px]
+            {/**
+             * 05/04 변경 -SH
+             * PC : w-full -> max-w-[1100px]
+             * Mobile : w-[280px] max-w-full mx-auto 추가
              */}
             <div
                 className={`${
@@ -463,9 +465,9 @@ const Sub4Section1: React.FC = () => {
                     loading='lazy'
                     className={`${
                         deviceInfo.isSmallScreen || deviceInfo.isMobile
-                            ? 'aspect-[623/1200] my-20'
-                            : 'aspect-[1904/427] my-40'
-                    } w-full`}
+                            ? 'w-[280px] max-w-full mx-auto aspect-[623/1200] my-20'
+                            : 'w-full aspect-[1904/427] my-40'
+                    }`}
                     alt={`상권DB 유동인구DB 인구DB 부동산DB 매출DB 지역특성DB`}
                     src={`${process.env.PUBLIC_URL}/sub_4/sub_4_1_4${
                         deviceInfo.isSmallScreen || deviceInfo.isMobile
