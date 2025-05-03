@@ -280,35 +280,38 @@ const Sub4Section4: React.FC = () => {
                             </div>
                         </div>
                     ) : (
-                        <div className={`w-[1300px] mt-20 mx-auto flex gap-6`}>
-                            <div className='flex-1'>
+                        /* 05/04 변경 -SH
+                         *   max-w-[1300px] -> max-w-[1100px]
+                         */
+                        <div className='w-[1100px] mt-20 mx-auto flex gap-6'>
+                            <div className='flex-none w-[270px] h-[425px]'>
                                 <img
                                     loading='lazy'
-                                    className='w-full rounded-t shadow-lg'
+                                    className='w-full h-full object-cover rounded-t shadow-lg'
                                     alt='오픈 초기 안정적인 매장운영 지원'
                                     src={`${process.env.PUBLIC_URL}/sub_4/sub_4_4_3_1.webp`}
                                 />
                             </div>
-                            <div className='flex-1'>
+                            <div className='flex-none w-[270px] h-[425px]'>
                                 <img
                                     loading='lazy'
-                                    className='w-full rounded-t shadow-lg'
+                                    className='w-full h-full object-cover rounded-t shadow-lg'
                                     alt='상권 특성에 적합한 운영방안 개발'
                                     src={`${process.env.PUBLIC_URL}/sub_4/sub_4_4_3_2.webp`}
                                 />
                             </div>
-                            <div className='flex-1'>
+                            <div className='flex-none w-[270px] h-[425px]'>
                                 <img
                                     loading='lazy'
-                                    className='w-full rounded-t shadow-lg'
+                                    className='w-full h-full object-cover rounded-t shadow-lg'
                                     alt='본사 마케팅 정책 및 운영 매뉴얼 시행 점검'
                                     src={`${process.env.PUBLIC_URL}/sub_4/sub_4_4_3_3.webp`}
                                 />
                             </div>
-                            <div className='flex-1'>
+                            <div className='flex-none w-[270px] h-[425px]'>
                                 <img
                                     loading='lazy'
-                                    className='w-full rounded-t shadow-lg'
+                                    className='w-full h-full object-cover rounded-t shadow-lg'
                                     alt='가맹점 애로사항 수집 및 대안강구'
                                     src={`${process.env.PUBLIC_URL}/sub_4/sub_4_4_3_4.webp`}
                                 />
@@ -328,7 +331,7 @@ const Sub4Section4: React.FC = () => {
                                 : 'flex items-end mb-2 mt-6'
                         } leading-none`}
                     >
-                        가맹점의{' '}
+                        가맹점의
                         <p
                             className={`${
                                 deviceInfo.isSmallScreen || deviceInfo.isMobile
@@ -336,7 +339,7 @@ const Sub4Section4: React.FC = () => {
                                     : ''
                             } leading-none text-[#FF331F]`}
                         >
-                            안정적인 운영
+                            &nbsp;안정적인 운영
                         </p>
                         을 위한
                     </span>
@@ -403,7 +406,7 @@ const Sub4Section4: React.FC = () => {
                                             ? ' gap-1'
                                             : `items-end gap-2`
                                     } flex ${
-                                        idx == 3 ? `flex-row-reverse` : ``
+                                        idx === 3 ? `flex-row-reverse` : ``
                                     }  `}
                                 >
                                     {item.title}

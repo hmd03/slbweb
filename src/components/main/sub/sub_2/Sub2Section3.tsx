@@ -167,12 +167,15 @@ const Sub2Section3: React.FC = () => {
                         </p>
                     </div>
                 </SlideUpOnView>
+                {/* 05/04 변경 -SH
+                 *   max-w-[1300px] -> max-w-[1100px]
+                 */}
                 <img
                     loading='lazy'
                     className={`${
                         deviceInfo.isSmallScreen || deviceInfo.isMobile
                             ? 'mb-8 px-8'
-                            : 'mb-40 mt-10 aspect-[975/201] max-w-[1300px]'
+                            : 'mb-40 mt-10 aspect-[975/201] max-w-[1100px]'
                     } w-full`}
                     alt='주문 시스템 운영 인력 최소화를 위해 키오스크로 편하게! 
         > 원팩 시스템 - 주로 사용되는 원부자재 원팩화로 준비시간 짧게! 

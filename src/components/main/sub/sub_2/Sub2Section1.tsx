@@ -166,12 +166,15 @@ const Sub2Section1: React.FC<Sub2Section1Props> = ({ onIframeLoad }) => {
                         : ' mb-40'
                 } w-full flex justify-center`}
             >
+                {/* 05/04 변경 -SH
+                 *   max-w-[1300px] -> max-w-[1100px]
+                 */}
                 <img
                     loading='lazy'
                     className={`${
                         deviceInfo.isSmallScreen || deviceInfo.isMobile
                             ? 'px-4'
-                            : 'max-w-[1300px]'
+                            : 'max-w-[1100px]'
                     } w-full`}
                     alt={`식사 방법ㆍ메뉴 선택 시 고려 요소`}
                     src={`${process.env.PUBLIC_URL}/sub_2/sub_2_1_1.webp`}
@@ -254,12 +257,15 @@ const Sub2Section1: React.FC<Sub2Section1Props> = ({ onIframeLoad }) => {
                             : ' mb-20'
                     } w-full flex justify-center`}
                 >
+                    {/* 05/04 변경 -SH
+                     *   max-w-[1300px] -> max-w-[1100px]
+                     */}
                     <img
                         loading='lazy'
                         className={`${
                             deviceInfo.isSmallScreen || deviceInfo.isMobile
                                 ? 'px-4'
-                                : 'max-w-[1300px]'
+                                : 'max-w-[1100px]'
                         } w-full`}
                         alt={`한국인이 자주 섭취하는 메뉴 Top20`}
                         src={`${process.env.PUBLIC_URL}/sub_2/sub_2_1_2${
@@ -366,12 +372,15 @@ const Sub2Section1: React.FC<Sub2Section1Props> = ({ onIframeLoad }) => {
                         : ' mb-20'
                 } w-full flex justify-center`}
             >
+                {/* 05/04 변경 -SH
+                 *   max-w-[1300px] -> max-w-[1100px]
+                 */}
                 <img
                     loading='lazy'
                     className={`${
                         deviceInfo.isSmallScreen || deviceInfo.isMobile
                             ? 'px-4'
-                            : 'max-w-[1300px]'
+                            : 'max-w-[1100px]'
                     } w-full`}
                     alt={`대한민국 전 연령 신체 정신 건강 우려도`}
                     src={`${process.env.PUBLIC_URL}/sub_2/sub_2_1_3${

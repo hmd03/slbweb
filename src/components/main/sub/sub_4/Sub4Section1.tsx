@@ -426,7 +426,7 @@ const Sub4Section1: React.FC = () => {
                 className={`${
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
                         ? 'Slb-Content-mo flex-col items-center'
-                        : 'Slb-Content flex-col items-center mb-20'
+                        : 'Slb-Content flex-col items-center mb-6'
                 } flex`}
             >
                 {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
@@ -449,11 +449,14 @@ const Sub4Section1: React.FC = () => {
                     </>
                 )}
             </div>
+            {/* 05/04 변경 -SH
+             *   w-full -> max-w-[1100px]
+             */}
             <div
                 className={`${
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
                         ? 'px-8'
-                        : ''
+                        : 'max-w-[1100px]'
                 } w-full`}
             >
                 <img
@@ -476,7 +479,9 @@ const Sub4Section1: React.FC = () => {
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
                         ? 'aspect-[720/1412] mb-0'
                         : 'aspect-[1904/1549] mb-0 '
-                } bg-no-repeat bg-center bg-cover flex flex-col items-center justify-end w-full h-fit`}
+                } bg-no-repeat bg-center bg-cover
+                flex flex-col items-center justify-end 
+                w-full h-fit`}
                 style={{
                     backgroundImage: `url(${
                         process.env.PUBLIC_URL
