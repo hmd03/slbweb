@@ -153,7 +153,7 @@ const AdminStoreForm: React.FC = () => {
 
     const handleSubmit = () => {
         if (!region || !name || !address || !phone || (!id && !imageFile)) {
-            handleOpenModal('모든 필드를 입력해주세요.', false, handleConfirm);
+            handleOpenModal('모든 필드를 입력해주세요.', false, handleCancel);
             return;
         }
 
