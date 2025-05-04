@@ -62,8 +62,8 @@ const Sub1Section3: React.FC = () => {
                 <div
                     className={`${
                         deviceInfo.isSmallScreen || deviceInfo.isMobile
-                            ? ''
-                            : 'mb-5'
+                            ? 'mt-4'
+                            : 'mb-5 mt-6'
                     }`}
                 >
                     동상이몽 창업?
