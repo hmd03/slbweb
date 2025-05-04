@@ -451,8 +451,12 @@ const Sub4Section1: React.FC = () => {
             </div>
             {/**
              * 05/04 변경 -SH
-             * PC : w-full -> max-w-[1100px]
-             * Mobile : w-[280px] max-w-full mx-auto 추가
+             * - 빅데이터 분석 이미지
+             *  ㆍPC : w-full -> max-w-[1100px]
+             *  ㆍMobile : w-[280px] max-w-full mx-auto 추가
+             * - 상권 분석 이미지
+             *  ㆍ이미지 통합, div background서 분리
+             *  ㆍDividerWithLabel 높이 조절 불가로 수정
              */}
             <div
                 className={`${
@@ -476,140 +480,186 @@ const Sub4Section1: React.FC = () => {
                     }.webp`}
                 />
             </div>
-            <div
-                className={`${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile
-                        ? 'aspect-[720/1412] mb-0'
-                        : 'aspect-[1904/1549] mb-0 '
-                } bg-no-repeat bg-center bg-cover
-                flex flex-col items-center justify-end 
-                w-full h-fit`}
-                style={{
-                    backgroundImage: `url(${
-                        process.env.PUBLIC_URL
-                    }/sub_4/sub_4_1_5${
-                        deviceInfo.isSmallScreen || deviceInfo.isMobile
-                            ? '_mo'
-                            : ''
-                    }.webp)`,
-                }}
-            >
-                <div
-                    className={`${
-                        deviceInfo.isSmallScreen || deviceInfo.isMobile
-                            ? 'flex-col items-center'
-                            : 'flex-col items-center justify-center max-w-[1300px] h-[50%]'
-                    } w-full flex`}
-                >
-                    <DividerWithLabel label='Q. 상권 분석을 하는 이유는?' />
+            <div className='w-full bg-[#f0f0f0] flex flex-col items-center'>
+                <div>
+                    <img
+                        loading='lazy'
+                        className='w-full max-w-[1100px] mx-auto object-cover'
+                        src={`${process.env.PUBLIC_URL}/sub_4/sub_4_1_5.webp`}
+                        alt='상권분석 차트'
+                    />
+                </div>
+                <div className='w-full flex justify-center'>
                     <div
-                        className={`${
+                        className={`w-full flex flex-col items-center px-6 pt-16 pb-24 ${
                             deviceInfo.isSmallScreen || deviceInfo.isMobile
-                                ? 'Slb-Content-mo flex-col items-center'
-                                : 'Slb-Content flex-col items-center mt-10'
-                        } flex`}
+                                ? 'max-w-[95vw]'
+                                : 'max-w-[1300px]'
+                        }`}
                     >
-                        {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
-                            <>
-                                <p className='flex flex-col text-center my-6'>
-                                    <span className='font-medium'>
-                                        지속적으로 높은 매출이 발생될 수 있는지
-                                    </span>
-                                    <p>
-                                        <span className='font-medium'>
-                                            여부를 확인하는절차
-                                        </span>
-                                        입니다
-                                    </p>
-                                </p>
-                                <p>
-                                    상권분석은 향후 매출을 분석해 유추해 볼 수
-                                    있는
-                                </p>
-                                <p>
-                                    토대가 되므로
-                                    <span className='font-medium'>
-                                        상권분석 전문가의 체계적이고
-                                    </span>
-                                </p>
-                                <p className='mb-6'>
-                                    <span className='font-medium'>
-                                        과학적인 접근을 통한 분석
-                                    </span>
-                                    이 필요합니다.
-                                </p>
-                                <p>
-                                    SLB는 본사 아이템의 특성에 가장 적합한
-                                    입지를
-                                </p>
-                                <p>상권분석 시스템으로후보지를 선정하는</p>
-                                <p className='mb-6'>
-                                    한편 예비 창업주님의 창업 비용에 맞는
-                                </p>
-                            </>
-                        ) : (
-                            <>
-                                <p className='mb-6'>
-                                    <span className='font-medium'>
-                                        지속적으로 높은 매출이 발생될 수 있는지
-                                        여부를 확인하는절차
-                                    </span>
-                                    입니다.
-                                </p>
-                                <p>
-                                    상권분석은 향후 매출을 분석해 유추해 볼 수
-                                    있는 토대가 되므로
-                                </p>
-                                <p className='mb-6'>
-                                    <span className='font-medium'>
-                                        상권분석 전문가의 체계적이고 과학적인
-                                        접근을 통한 분석
-                                    </span>
-                                    이 필요합니다.
-                                </p>
-                                <p>
-                                    SLB는 본사 아이템의 특성에 가장 적합한
-                                    입지를 상권분석 시스템으로
-                                </p>
-                                <p className='mb-6'>
-                                    후보지를 선정하는 한편 예비 창업주님의 창업
-                                    비용에 맞는
-                                </p>
-                            </>
-                        )}
-                    </div>
-                    <div
-                        className={`${
-                            deviceInfo.isSmallScreen || deviceInfo.isMobile
-                                ? 'Slb-Title-mo'
-                                : 'Slb-Point mb-4'
-                        } flex items-center`}
-                    >
-                        <span
-                            className='text-[#FF331F] leading-none bg-no-repeat bg-bottom pb-2'
-                            style={{
-                                backgroundImage: `url(${process.env.PUBLIC_URL}/sub_3/sub_3_1_1_line.webp)`,
-                                backgroundSize: 'contain',
-                                textShadow:
-                                    '0 0 1px white, 0 0 1px white, 0 0 1px white',
-                            }}
-                        >
-                            적합한 상권을 찾아
-                        </span>
-                    </div>
-                    {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
+                        <DividerWithLabel
+                            weight='0.5rem'
+                            label='Q. 상권 분석을 하는 이유는?'
+                        />
                         <div
-                            className={`${
+                            className={`flex flex-col items-center ${
                                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                                    ? 'Slb-Title-mo flex-col mt-4'
-                                    : ''
-                            } flex items-center`}
+                                    ? 'Slb-Content-mo'
+                                    : 'Slb-Content mt-10'
+                            }`}
                         >
+                            {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
+                                <>
+                                    <p className='flex flex-col text-center my-6'>
+                                        <span className='font-medium'>
+                                            지속적으로 높은 매출이 발생될 수
+                                            있는지
+                                        </span>
+                                        <p>
+                                            <span className='font-medium'>
+                                                여부를 확인하는절차
+                                            </span>
+                                            입니다
+                                        </p>
+                                    </p>
+                                    <p>
+                                        상권분석은 향후 매출을 분석해 유추해 볼
+                                        수 있는
+                                    </p>
+                                    <p>
+                                        토대가 되므로
+                                        <span className='font-medium'>
+                                            상권분석 전문가의 체계적이고
+                                        </span>
+                                    </p>
+                                    <p className='mb-6'>
+                                        <span className='font-medium'>
+                                            과학적인 접근을 통한 분석
+                                        </span>
+                                        이 필요합니다.
+                                    </p>
+                                    <p>
+                                        SLB는 본사 아이템의 특성에 가장 적합한
+                                        입지를
+                                    </p>
+                                    <p>상권분석 시스템으로후보지를 선정하는</p>
+                                    <p className='mb-6'>
+                                        한편 예비 창업주님의 창업 비용에 맞는
+                                    </p>
+                                </>
+                            ) : (
+                                <>
+                                    <p className='mb-6'>
+                                        <span className='font-medium'>
+                                            지속적으로 높은 매출이 발생될 수
+                                            있는지 여부를 확인하는절차
+                                        </span>
+                                        입니다.
+                                    </p>
+                                    <p>
+                                        상권분석은 향후 매출을 분석해 유추해 볼
+                                        수 있는 토대가 되므로
+                                    </p>
+                                    <p className='mb-6'>
+                                        <span className='font-medium'>
+                                            상권분석 전문가의 체계적이고
+                                            과학적인 접근을 통한 분석
+                                        </span>
+                                        이 필요합니다.
+                                    </p>
+                                    <p>
+                                        SLB는 본사 아이템의 특성에 가장 적합한
+                                        입지를 상권분석 시스템으로
+                                    </p>
+                                    <p className='mb-6'>
+                                        후보지를 선정하는 한편 예비 창업주님의
+                                        창업 비용에 맞는
+                                    </p>
+                                </>
+                            )}
+                        </div>
+                        <div
+                            className={`flex items-center ${
+                                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                                    ? 'Slb-Title-mo'
+                                    : 'Slb-Point mb-4'
+                            }`}
+                        >
+                            <span
+                                className='text-[#FF331F] leading-none bg-no-repeat bg-bottom pb-2'
+                                style={{
+                                    backgroundImage: `url(${process.env.PUBLIC_URL}/sub_3/sub_3_1_1_line.webp)`,
+                                    backgroundSize: 'contain',
+                                    textShadow:
+                                        '0 0 1px white, 0 0 1px white, 0 0 1px white',
+                                }}
+                            >
+                                적합한 상권을 찾아
+                            </span>
+                        </div>
+                        {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
                             <div
                                 className={`${
                                     deviceInfo.isSmallScreen ||
                                     deviceInfo.isMobile
-                                        ? 'Slb-SubTitle-mo'
+                                        ? 'Slb-Title-mo flex-col mt-4'
+                                        : ''
+                                } flex items-center`}
+                            >
+                                <div
+                                    className={`${
+                                        deviceInfo.isSmallScreen ||
+                                        deviceInfo.isMobile
+                                            ? 'Slb-SubTitle-mo'
+                                            : ''
+                                    } flex items-center`}
+                                >
+                                    가장
+                                    <p
+                                        className={`${
+                                            deviceInfo.isSmallScreen ||
+                                            deviceInfo.isMobile
+                                                ? 'Slb-Point-mo'
+                                                : 'Slb-Point'
+                                        }
+              text-[#FF331F]`}
+                                    >
+                                        <span className=' bg-[#FF331F] ml-1 px-1 text-White'>
+                                            우수한 매장
+                                        </span>
+                                        을
+                                    </p>
+                                    을
+                                </div>
+
+                                <div
+                                    className={`${
+                                        deviceInfo.isSmallScreen ||
+                                        deviceInfo.isMobile
+                                            ? 'Slb-SubTitle-mo'
+                                            : ''
+                                    } flex items-center`}
+                                >
+                                    <p
+                                        className={`${
+                                            deviceInfo.isSmallScreen ||
+                                            deviceInfo.isMobile
+                                                ? 'Slb-Point-mo mr-1'
+                                                : 'Slb-Point'
+                                        }
+              text-[#FF331F]`}
+                                    >
+                                        선별 및 제안
+                                    </p>
+                                    합니다.
+                                </div>
+                            </div>
+                        ) : (
+                            <div
+                                className={`${
+                                    deviceInfo.isSmallScreen ||
+                                    deviceInfo.isMobile
+                                        ? 'Slb-Title-mo'
                                         : ''
                                 } flex items-center`}
                             >
@@ -619,67 +669,22 @@ const Sub4Section1: React.FC = () => {
                                         deviceInfo.isSmallScreen ||
                                         deviceInfo.isMobile
                                             ? 'Slb-Point-mo'
-                                            : 'Slb-Point'
+                                            : 'Slb-Point mr-2'
                                     }
               text-[#FF331F]`}
                                 >
-                                    <span className=' bg-[#FF331F] ml-1 px-1 text-White'>
+                                    <span className=' bg-[#FF331F] mx-2 py-1 px-1 text-White'>
                                         우수한 매장
                                     </span>
-                                    을
-                                </p>
-                            </div>
-
-                            <div
-                                className={`${
-                                    deviceInfo.isSmallScreen ||
-                                    deviceInfo.isMobile
-                                        ? 'Slb-SubTitle-mo'
-                                        : ''
-                                } flex items-center`}
-                            >
-                                <p
-                                    className={`${
-                                        deviceInfo.isSmallScreen ||
-                                        deviceInfo.isMobile
-                                            ? 'Slb-Point-mo mr-1'
-                                            : 'Slb-Point'
-                                    }
-              text-[#FF331F]`}
-                                >
-                                    선별 및 제안
+                                    을 선별 및 제안
                                 </p>
                                 합니다.
                             </div>
-                        </div>
-                    ) : (
-                        <div
-                            className={`${
-                                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                                    ? 'Slb-Title-mo'
-                                    : ''
-                            } flex items-center`}
-                        >
-                            가장
-                            <p
-                                className={`${
-                                    deviceInfo.isSmallScreen ||
-                                    deviceInfo.isMobile
-                                        ? 'Slb-Point-mo'
-                                        : 'Slb-Point mr-2'
-                                }
-              text-[#FF331F]`}
-                            >
-                                <span className=' bg-[#FF331F] mx-2 py-1 px-1 text-White'>
-                                    우수한 매장
-                                </span>
-                                을 선별 및 제안
-                            </p>
-                            합니다.
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
             </div>
+
             <div
                 className={`${
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
@@ -800,7 +805,7 @@ const Sub4Section1: React.FC = () => {
                                     deviceInfo.isSmallScreen ||
                                     deviceInfo.isMobile
                                         ? 'mb-1'
-                                        : 'mt-6 mb-4'
+                                        : 'mt-2 mb-4'
                                 } flex items-end leading-none`}
                             >
                                 <p className='Slb-Point-mo'>유지</p>하기 위해
@@ -902,7 +907,7 @@ const Sub4Section1: React.FC = () => {
                 className={`${
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
                         ? 'Slb-Content-mo flex-col items-center'
-                        : 'Slb-Content flex-col items-center mt-20 mb-20'
+                        : 'Slb-Content flex-col items-center mt-6 mb-6'
                 } flex`}
             >
                 {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
@@ -935,7 +940,7 @@ const Sub4Section1: React.FC = () => {
                 className={`${
                     deviceInfo.isSmallScreen || deviceInfo.isMobile
                         ? 'Slb-Content-mo grid grid-cols-1 gap-6 p-10'
-                        : 'Slb-Content mt-20 mb-60 w-[1100px] grid grid-cols-2 items-center justify-center gap-10'
+                        : 'Slb-Content mt-20 mb-20 w-[1100px] grid grid-cols-2 items-center justify-center gap-10'
                 } `}
             >
                 {desc.map((v, idx) => (

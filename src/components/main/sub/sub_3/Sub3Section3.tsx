@@ -38,8 +38,8 @@ const Sub3Section3: React.FC = () => {
                 <div
                     className={`${
                         deviceInfo.isSmallScreen || deviceInfo.isMobile
-                            ? ' mt-20 flex-col text-center'
-                            : 'mb-5 mt-40 gap-2'
+                            ? ' mt-6 flex-col text-center'
+                            : 'mb-5 mt-10 gap-2'
                     } flex`}
                 >
                     <p>샐러드 & 포케 창업 </p>

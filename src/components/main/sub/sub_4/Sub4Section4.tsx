@@ -73,19 +73,21 @@ const Sub4Section4: React.FC = () => {
                     backgroundSize: 'cover',
                 }}
             >
-                <SlideUpOnView>
-                    {/* 05/15 변경 -SH */}
-                    <Chip text='Point 4' type='black' />
-                    <div
-                        className={`${
-                            deviceInfo.isSmallScreen || deviceInfo.isMobile
-                                ? ''
-                                : 'mb-5 mt-5'
-                        }`}
-                    >
-                        일 잘하는 사람들의 운영 관리 시스템
-                    </div>
-                </SlideUpOnView>
+                <div className='mt-10'>
+                    <SlideUpOnView>
+                        {/* 05/15 변경 -SH */}
+                        <Chip text='Point 4' type='black' />
+                        <div
+                            className={`${
+                                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                                    ? ''
+                                    : 'mb-5 mt-5'
+                            }`}
+                        >
+                            일 잘하는 사람들의 운영 관리 시스템
+                        </div>
+                    </SlideUpOnView>
+                </div>
                 <div
                     className={`w-[1px]  border border-black  ${
                         deviceInfo.isSmallScreen || deviceInfo.isMobile
@@ -98,7 +100,7 @@ const Sub4Section4: React.FC = () => {
                     className={`${
                         deviceInfo.isSmallScreen || deviceInfo.isMobile
                             ? 'flex-col items-center Slb-Point-mo gap-1'
-                            : 'justify-center gap-2 mt-2 mb-40 Slb-Point'
+                            : 'justify-center gap-2 mt-2 mb-20 Slb-Point'
                     } flex leading-none`}
                 >
                     일 잘하는 SLB 식구들은
@@ -181,8 +183,8 @@ const Sub4Section4: React.FC = () => {
                 <div
                     className={`${
                         deviceInfo.isSmallScreen || deviceInfo.isMobile
-                            ? 'flex-col gap-1 items-center mt-20'
-                            : 'mt-20 gap-2'
+                            ? 'flex-col gap-1 items-center mt-10'
+                            : 'mt-10 gap-2'
                     } flex`}
                 >
                     <p>프랜차이즈에 특화된</p>
@@ -210,7 +212,7 @@ const Sub4Section4: React.FC = () => {
                     className={`${
                         deviceInfo.isSmallScreen || deviceInfo.isMobile
                             ? 'aspect-[661/639]'
-                            : 'aspect-[1904/1002] mt-60'
+                            : 'aspect-[1904/1002] mt-40'
                     } w-full`}
                     alt={`슈퍼바이징 시스템`}
                     src={`${process.env.PUBLIC_URL}/sub_4/sub_4_4_2${

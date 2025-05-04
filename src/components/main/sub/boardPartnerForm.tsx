@@ -45,7 +45,7 @@ const BoardPartnerForm: React.FC = () => {
         const emailDomain = emailDomainRef.current?.value || '';
 
         if (
-            (emailLocal != '' || emailDomain != '') &&
+            (emailLocal !== '' || emailDomain !== '') &&
             !isValidEmail(emailLocal, emailDomain)
         ) {
             handleOpenModal(
