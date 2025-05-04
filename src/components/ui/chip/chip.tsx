@@ -14,7 +14,7 @@ const Chip: React.FC<ChipProps> = ({ text, type = 'black' }) => {
         deviceInfo.isMobile || deviceInfo.isSmallScreen
           ? "text-detail rounded-tr-[0.75rem] rounded-bl-[0.75rem] px-3"
           : "text-main rounded-tr-[1rem] rounded-bl-[1rem] px-4 "
-      } inline-block font-black w-fit ${
+      } inline-block font-black w-fit leading-normal ${
         type === "black" ? "bg-Black text-White " : "bg-White text-Black"
       } `}
     >
