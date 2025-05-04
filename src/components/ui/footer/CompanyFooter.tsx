@@ -4,6 +4,29 @@ import { useRecoilValue } from 'recoil';
 import { siteSettingState } from '../../../store/atom';
 import HtmlModal from '../alters/HtmlModal';
 
+const snsIcons = [
+  {
+    imgSrc: '/instargram.png',
+    link: 'https://www.instagram.com/slb_official_/',
+    name: 'Instagram',
+  },
+  {
+    imgSrc: '/naverblog.png',
+    link: 'https://blog.naver.com/slbsalad',
+    name: 'Blog',
+  },
+  {
+    imgSrc: '/youtube_icon.svg',
+    link: 'https://www.youtube.com/@SLB%EC%83%90%EB%9F%AC%EB%93%9C',
+    name: 'YouTube',
+  },
+  {
+    imgSrc: '/tiktok_icon.svg',
+    link: 'https://www.tiktok.com/@slb_salad',
+    name: 'TikTok',
+  },
+];
+
 const CompanyFooter = () => {
   const deviceInfo = useDeviceInfo();
   const siteSetting = useRecoilValue(siteSettingState);
@@ -16,14 +39,6 @@ const CompanyFooter = () => {
     `ADDRESS : 14481 경기 부천시 원미구 삼작로256번길 9 2층`,
     `Copyright © SLB 샐러드&포케 [SALAD LIFE BALANCE]. All rights reserved.`,
   ];
-
-  const handleNaverBlogRedirect = () => {
-    window.open('https://blog.naver.com/slbsalad/', '_blank');
-  };
-
-  const handleInstargramRedirect = () => {
-    window.open('https://www.instagram.com/slb_official_/', '_blank');
-  };
 
   const handleShowModal = (type: 'terms' | 'privacy') => {
     const content =
@@ -77,28 +92,30 @@ const CompanyFooter = () => {
               </div>
             </div>
 
-            <div
+            {/* <div
               className={`flex h-full gap-1 ${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
                   ? 'flex-col'
                   : 'mb-auto'
               }`}
             >
-              <button onClick={handleNaverBlogRedirect}>
-                <img
-                  alt='naverblog'
-                  src={`${process.env.PUBLIC_URL}/naverblog.png`}
-                  className='h-[2rem] m-auto'
-                />
-              </button>
-              <button onClick={handleInstargramRedirect}>
-                <img
-                  alt='instargram'
-                  src={`${process.env.PUBLIC_URL}/instargram.png`}
-                  className='h-[2rem] m-auto'
-                />
-              </button>
-            </div>
+              {snsIcons.map((item, index) => (
+                <a
+                  key={index}
+                  href={item.link}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  aria-label={item.name}
+                  className='text-red-500 hover:text-red-700'
+                >
+                  <img
+                    src={item.imgSrc}
+                    alt={item.name}
+                    className='w-6 h-6 object-contain'
+                  />
+                </a>
+              ))}
+            </div> */}
           </div>
         </div>
       </div>
