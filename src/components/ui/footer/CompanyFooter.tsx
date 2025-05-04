@@ -12,7 +12,7 @@ const CompanyFooter = () => {
 
   const footerContent = [
     `COMPANY : 주식회사 시크릿케이 CEO : 박찬호 TEL : 1533-0516`,
-    `BUSINESS LICENSE : 617-88-02240 CFO : <a href="mailto:secretk_master@naver.com">김예원(secretk_master@naver.com)</a>`,
+    `BUSINESS LICENSE : 617-88-02240`,
     `ADDRESS : 14481 경기 부천시 원미구 삼작로256번길 9 2층`,
     `Copyright © SLB 샐러드&포케 [SALAD LIFE BALANCE]. All rights reserved.`,
   ];
