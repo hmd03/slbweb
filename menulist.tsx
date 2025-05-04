@@ -282,4 +282,101 @@ const menusByCategory: Record<number, MenuResponse[]> = {
             category: { id: 5, name: '추가 메뉴' },
         },
     ],
+    6: [
+        // 음료 메뉴
+        {
+            id: 32,
+            title: 'SLB 아메리카노',
+            description:
+                '피곤함 몰려올 때! 카페인 충전\n꽉꽉 눌러담은 SLB 아메리카노~',
+            media: null,
+            category: { id: 6, name: '음료 메뉴' },
+        },
+        {
+            id: 33,
+            title: 'SLB 카페라떼',
+            description:
+                '밀크에 부드러움에 반한 커피 한잔이면\n활력충전 끝! 카페라떼',
+            media: null,
+            category: { id: 6, name: '음료 메뉴' },
+        },
+        {
+            id: 34,
+            title: 'SLB 바닐라라떼',
+            description:
+                '식후 은은한 단맛 바닐라커피 한잔이면\n여유가 넘친다! SLB 바닐라라떼',
+            media: null,
+            category: { id: 6, name: '음료 메뉴' },
+        },
+        {
+            id: 35,
+            title: 'SLB 카라멜마끼아또',
+            description:
+                '기분전환이 필요할 때, 챙겨가자~\n너를 위한 당충전 카라멜마끼아또~',
+            media: null,
+            category: { id: 6, name: '음료 메뉴' },
+        },
+        {
+            id: 36,
+            title: '문경이키운 오미자에이드',
+            description:
+                '문명 김씨 아저씨가 애지중지 키운\n오미자에이드 상큼하게 한잔 어때?',
+            media: null,
+            category: { id: 6, name: '음료 메뉴' },
+        },
+        {
+            id: 37,
+            title: '고흥이키운 유저에이드',
+            description:
+                '고흥 장씨 아주머니가 애지중지 키운\n유자에이드로 비타민 충전 어때?',
+            media: null,
+            category: { id: 6, name: '음료 메뉴' },
+        },
+        {
+            id: 38,
+            title: '다이어트엔 그린착즙',
+            description:
+                '독소배출, 체중감량에 도움이 되는 다이어트 특화 주스\n(청포도, 케일, 밀싹, 사과, 레몬, 생강)',
+            media: null,
+            category: { id: 6, name: '음료 메뉴' },
+        },
+        {
+            id: 39,
+            title: '스트레스엔 옐로우착즙',
+            description:
+                '내 몸의 염증수치 Down 면역력 Up\n스트레스해소 특화 디톡스 주스(파인애플, 자몽, 오렌지, 레몬, 사과)',
+            media: null,
+            category: { id: 6, name: '음료 메뉴' },
+        },
+        {
+            id: 40,
+            title: '맑은피부엔 스칼렛착즙',
+            description:
+                '피로회복, 장활성화, 노화방지로 피부가 맑아지는\n이너뷰티 특화 주스(오렌지, 당근, 사과, 유자)',
+            media: null,
+            category: { id: 6, name: '음료 메뉴' },
+        },
+        {
+            id: 41,
+            title: '빈속엔 12곡미숫가루',
+            description:
+                '빈속에 아무거나 먹지말자! 달달고소한 맛으로\n속까지 든든한 12곡 미숫가루~',
+            media: null,
+            category: { id: 6, name: '음료 메뉴' },
+        },
+        {
+            id: 42,
+            title: '코카콜라 ZERO',
+            description: '탄산이 그리울 때~ 다이어터들을\n위한 코카콜라 ZERO',
+            media: null,
+            category: { id: 6, name: '음료 메뉴' },
+        },
+        {
+            id: 43,
+            title: '스프라이트 ZERO',
+            description: '탄산이 그리울 때~ 다이어터들을\n위한 스프라이트 ZERO',
+            media: null,
+            category: { id: 6, name: '음료 메뉴' },
+        },
+    ],
 };
