@@ -127,7 +127,7 @@ const Sub2Section4: React.FC = () => {
                     <>
                         <p>
                             음식에 진심인 사람들이 모여
-                            <span className='font-medium'>
+                            <span className='font-medium ml-2'>
                                 맛에 대한 기준이 높은 SLB!
                             </span>
                         </p>
