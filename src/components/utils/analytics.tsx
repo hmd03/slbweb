@@ -34,7 +34,9 @@ export function trackGoogleConversion() {
 export function trackNaverPageView() {
   if (window.wcs && typeof window.wcs.inflow === 'function') {
     window.wcs.inflow();
-    window.wcs.do();
+  }
+  if (typeof wcs_do === 'function') {
+    wcs_do();
   }
 }
 

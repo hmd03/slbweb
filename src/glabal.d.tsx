@@ -7,9 +7,10 @@ declare global {
 
     wcs?: {
       inflow: () => void;
-      do: () => void;
       trans: (conv: { type: string }) => void;
     };
     wcs_add?: Record<string, string>;
   }
+
+  function wcs_do(): void;
 }
