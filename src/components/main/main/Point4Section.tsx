@@ -201,7 +201,6 @@ const Point4Section: React.FC = () => {
       )}
     </div>
   </section>
-  <DividerWithLabel label='Q. 상권선점을 위해서는?' />
   <section
     className={`${
       deviceInfo.isSmallScreen || deviceInfo.isMobile

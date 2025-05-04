@@ -16,7 +16,7 @@ const Point3Section: React.FC = () => {
   ];
   return (
     <>
-    <section
+      <section
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'Slb-Title-mo'
@@ -123,7 +123,8 @@ const Point3Section: React.FC = () => {
                   : 'Slb-Content gap-2'
               } flex items-center leading-none `}
             >
-              <p className='font-medium'>특별한 브랜드</p>, 직원도 점주가 되는
+              <p className='font-medium'>특별한 브랜드</p>
+              <p className=''>, 직원도 점주가 되는</p>
               <p className='font-medium'>힙한 브랜드</p>
             </div>
           </div>
@@ -166,10 +167,11 @@ const Point3Section: React.FC = () => {
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
                 ? 'Slb-Content-mo'
-                : 'Slb-Content gap-2'
+                : 'Slb-Content'
             } flex items-center leading-none `}
           >
-            <p className='font-medium'>특별한 브랜드</p>, 직원도 점주가 되는
+            <p className='font-medium'>특별한 브랜드</p>
+            <p className={`${deviceInfo.isMobile || deviceInfo.isSmallScreen ? 'mr-1' : 'mr-2'}`}>, 직원도 점주가 되는</p>
             <p className='font-medium'>힙한 브랜드</p>
           </div>
         </div>
@@ -365,7 +367,7 @@ const Point3Section: React.FC = () => {
           )}
         </div>
       </section>
-      </>
+    </>
   );
 }
       
