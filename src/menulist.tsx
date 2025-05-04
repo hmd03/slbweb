@@ -67,7 +67,7 @@ export const menusByCategory: Record<number, MenuResponse[]> = {
       id: 6,
       title: '힙한바질파스타 샐러드한상',
       description:
-        '바질=향긋함!{{BR_MOBILE}}올리브오일=고소함! 치즈=풍미!{{BR_PC}}세련된 맛궁합!{{BR_MOBILE}}힙한바질파스타 샐러드!',
+        '바질=향긋함! 올리브오일=고소함!{{BR_MOBILE}}치즈=풍미!{{BR_PC}}세련된 맛궁합!{{BR_MOBILE}}힙한바질파스타 샐러드!',
       media: null,
       category: { id: 1, name: '샐러드 한상' },
       src: `${process.env.PUBLIC_URL}/sub_2/menu/salad6.webp`,
@@ -146,7 +146,7 @@ export const menusByCategory: Record<number, MenuResponse[]> = {
         '집나간 입맛도 돌아온다는{{BR_MOBILE}}중독적인 맛 입맛돈닭갈비!{{BR_PC}}{{BR_MOBILE}}잡곡밥과 함께라서 더 중독적인 포케',
       media: null,
       category: { id: 2, name: '포케 한상' },
-      src: `${process.env.PUBLIC_URL}/sub_2/menu/pok4.webp`,
+      src: `${process.env.PUBLIC_URL}/sub_2/menu/poke4.webp`,
     },
     {
       id: 15,
