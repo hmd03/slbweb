@@ -14,7 +14,7 @@ interface MenuResponse {
     };
 }
 
-const menusByCategory: Record<number, MenuResponse[]> = {
+export const menusByCategory: Record<number, MenuResponse[]> = {
     1: [
         // 샐러드 한상
         {
