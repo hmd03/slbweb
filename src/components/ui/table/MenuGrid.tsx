@@ -28,7 +28,6 @@ const MenuGrid: React.FC<MenuGridProps> = ({
   isSmallScreen,
   cols = 3,
 }) => {
-  const gridCols = `grid-cols-${cols}`;
 
   function formatDescription(description: string): string {
     if (isSmallScreen) {
@@ -56,11 +55,14 @@ const MenuGrid: React.FC<MenuGridProps> = ({
         {menu != null && menu[0].category.name}
       </div>
       <div
-        className={`${
+        className={`grid ${
+          isSmallScreen ? 'mt-2 gap-x-2 gap-y-4' : `mt-4 gap-x-4 gap-y-8`
+        }`}
+        style={
           isSmallScreen
-            ? 'grid-cols-2 mt-2 gap-x-2 gap-y-4'
-            : `${gridCols} mt-4 gap-x-4 gap-y-8`
-        } grid`}
+            ? { display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }
+            : { display: 'grid', gridTemplateColumns: `repeat(${cols}, 1fr)` }
+        }
       >
         {menu != null &&
           menu.map((item) => (
