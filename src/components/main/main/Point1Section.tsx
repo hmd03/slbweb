@@ -25,9 +25,7 @@ const Point1Section: React.FC = () => {
         </div>
         <div
           className={`${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'mb-10'
-              : 'mb-10'
+            deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'mb-10' : 'mb-10'
           } flex items-end leading-none`}
         >
           <p
@@ -129,7 +127,6 @@ const Point1Section: React.FC = () => {
       </div>
     </section>
   );
-}
-      
+};
 
 export default Point1Section;

@@ -7,14 +7,15 @@ import Button from '../../ui/buttons/Button';
 import InputField from '../../ui/inputs/InputField';
 import FileInput from '../../ui/inputs/FileInput';
 import AlterModal from '../../ui/alters/AlterModal';
-import { useRecoilState } from 'recoil';
-import { LoadingState } from '../../../store/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { LoadingState, UserState } from '../../../store/atom';
 import useDeviceInfo from '../../../hooks/useDeviceInfo';
 
 const AdminReviewCardAddModForm: React.FC = () => {
   const deviceInfo = useDeviceInfo();
   const navigate = useNavigate();
   const { id } = useParams<{ id?: string }>();
+  const { isSupervisor } = useRecoilValue(UserState);
 
   const [loading, setLoading] = useRecoilState(LoadingState);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -274,7 +275,7 @@ const AdminReviewCardAddModForm: React.FC = () => {
           >
             {!id ? '등록' : '수정'}
           </Button>
-          {!!id && (
+          {!!id && isSupervisor && (
             <Button
               onClick={handleDelClick}
               theme='error'
