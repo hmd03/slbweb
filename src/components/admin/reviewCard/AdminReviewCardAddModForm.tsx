@@ -26,7 +26,7 @@ const AdminReviewCardAddModForm: React.FC = () => {
   const titleRef = useRef<HTMLInputElement>(null);
 
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imageMsg, setImageMsg] = useState<string>('이미지 사이즈 1920X650');
+  const [imageMsg, setImageMsg] = useState<string>('이미지 사이즈 366X507');
 
   const [imagePath, setImagePath] = useState<string>('');
 
@@ -43,7 +43,7 @@ const AdminReviewCardAddModForm: React.FC = () => {
     } else {
       setImageFile(null);
       setImagePath('');
-      setImageMsg('이미지 사이즈 1920X650');
+      setImageMsg('이미지 사이즈 366X507');
     }
   };
 

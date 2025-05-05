@@ -92,7 +92,6 @@ const SideBarWrapper: React.FC<SideBarWrapperProps> = ({
     { label: '창업문의 관리', path: '/admin/inquiry' },
     { label: '관리자 관리', path: '/admin/master' },
     { label: '배너 관리', path: '/admin/banner' },
-    { label: '리뷰 카드 관리', path: '/admin/card/review' },
     { label: '팝업 관리', path: '/admin/popup' },
     { label: '공지&뉴스', path: '/admin/board/notice' },
     { label: '톡톡 이벤트', path: '/admin/board/event' },
@@ -101,6 +100,7 @@ const SideBarWrapper: React.FC<SideBarWrapperProps> = ({
     { label: '매장관리', path: '/admin/store' },
     { label: '설정', path: '/admin/config' },
   ];
+  // { label: '리뷰 카드 관리', path: '/admin/card/review' },
 
   return (
     <>
