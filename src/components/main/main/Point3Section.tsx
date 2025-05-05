@@ -1,11 +1,79 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useDeviceInfo from '../../../hooks/useDeviceInfo';
 import Chip from '../../ui/chip/chip';
 import SlideUpOnView from '../../ui/slideUpOnView/SlideUpOnView';
 import RollingCard from '../../ui/RollingBanner/RollingCard';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 const Point3Section: React.FC = () => {
   const deviceInfo = useDeviceInfo();
+  const location = useLocation();
+
+  const [reviewCardList, setReviewCardList] = useState<Array<string>>([]);
+
+  useEffect(() => {
+    fetchReviewCardData();
+  }, [location.pathname]);
+
+  const fetchReviewCardData = async () => {
+    try {
+      setReviewCardList([]);
+      const url = `api/content/cards`;
+
+      const response = await axios.get(url);
+      console.log('response: ', response.data);
+      const contentCardList = response.data.contentCardList;
+
+      const updatedReviewCardList = await Promise.all(
+        contentCardList.map(
+          async (contentCard: {
+            media: {
+              id: string;
+              fileType: string;
+              filePath: string;
+            };
+          }) => {
+            if (contentCard.media == null) {
+              return contentCard;
+            }
+
+            let fileSrc = '';
+            fileSrc = await getFile(contentCard.media.id);
+
+            return fileSrc;
+          }
+        )
+      );
+
+      console.log('updatedReviewCardList: ', updatedReviewCardList);
+
+      setReviewCardList(updatedReviewCardList);
+    } catch (error) {
+      console.log('error: ' + error);
+    }
+  };
+
+  const getFile = async (id: string) => {
+    try {
+      const response = await axios.get(`api/files/${id}`, {
+        responseType: 'arraybuffer',
+      });
+
+      const contentType = response.headers['content-type'];
+      const base64String = btoa(
+        new Uint8Array(response.data).reduce(
+          (data, byte) => data + String.fromCharCode(byte),
+          ''
+        )
+      );
+
+      return `data:${contentType};base64,${base64String}`;
+    } catch (error) {
+      console.log('error: ' + error);
+      return '';
+    }
+  };
 
   const imageList = [
     `${process.env.PUBLIC_URL}/main/rolling/review1.jpg`,
@@ -14,6 +82,7 @@ const Point3Section: React.FC = () => {
     `${process.env.PUBLIC_URL}/main/rolling/review4.jpg`,
     `${process.env.PUBLIC_URL}/main/rolling/review5.jpg`,
   ];
+
   return (
     <>
       <section
@@ -82,7 +151,8 @@ const Point3Section: React.FC = () => {
                   : 'mb-[16rem] w-[1100px]'
               }`}
             >
-              <RollingCard images={imageList} />
+              {/* <RollingCard images={imageList} /> */}
+              <RollingCard images={reviewCardList} />
             </div>
           </div>
         </div>
@@ -171,7 +241,15 @@ const Point3Section: React.FC = () => {
             } flex items-center leading-none `}
           >
             <p className='font-medium'>특별한 브랜드</p>
-            <p className={`${deviceInfo.isMobile || deviceInfo.isSmallScreen ? 'mr-1' : 'mr-2'}`}>, 직원도 점주가 되는</p>
+            <p
+              className={`${
+                deviceInfo.isMobile || deviceInfo.isSmallScreen
+                  ? 'mr-1'
+                  : 'mr-2'
+              }`}
+            >
+              , 직원도 점주가 되는
+            </p>
             <p className='font-medium'>힙한 브랜드</p>
           </div>
         </div>
@@ -369,7 +447,6 @@ const Point3Section: React.FC = () => {
       </section>
     </>
   );
-}
-      
+};
 
 export default Point3Section;

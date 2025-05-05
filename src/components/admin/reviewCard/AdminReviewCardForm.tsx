@@ -181,10 +181,10 @@ const AdminReviewCardForm: React.FC = () => {
                 </td>
                 <td className={`${tdClassName} w-[10%]`}>{item.title}</td>
                 <td className={`${tdClassName} w-[10%]`}>{item.fileType}</td>
-                <td className={`${tdClassName} w-[20%]`}>
+                <td className={`${tdClassName} w-[5%]`}>
                   {item.fileType === 'image' && item.media && (
                     <img
-                      className='w-[18.75rem] h-[6.375rem]'
+                      className='aspect-[366/507] h-[6.375rem] mx-auto'
                       src={`${item.media}`}
                     ></img>
                   )}
