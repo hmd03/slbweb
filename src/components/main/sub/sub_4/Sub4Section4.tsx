@@ -56,131 +56,92 @@ const Sub4Section4: React.FC = () => {
           : 'Slb-Title'
       } bg-no-repeat bg-center bg-cover flex flex-col items-center w-full h-fit`}
     >
-      <div
-        className={`${
-          deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'mt-10 aspect-[720/1432]'
-            : 'mt-20 my-60 aspect-[1904/1593]'
-        }  bg-no-repeat bg-center w-full h-full flex flex-col items-center`}
-        style={{
-          backgroundImage: `url(${
-            process.env.PUBLIC_URL
-          }/sub_4/sub_4_4_1_background${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
-          }.webp`,
-          backgroundSize: 'cover',
-        }}
-      >
-        <div
-          className={`${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'pt-20'
-              : 'pt-[12.5rem]'
-          }`}
-        >
-          <SlideUpOnView>
-            {/* 05/15 변경 -SH */}
-            <Chip text='Point 4' type='black' />
-            <div
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'mt-4'
-                  : 'mb-5 mt-6'
-              }`}
-            >
-              일 잘하는 사람들의 운영 관리 시스템
-            </div>
-          </SlideUpOnView>
-        </div>
-        <div
-          className={`w-[1px]  border border-black  ${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'h-10 my-4'
-              : 'h-20 my-6'
-          }`}
-        />
-        <div>가맹점주님의 고민을 줄여드리기 위해</div>
-        <div
-          className={`${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'flex-col items-center Slb-Point-mo gap-1'
-              : 'justify-center gap-2 mt-2 mb-20 Slb-Point'
-          } flex leading-none`}
-        >
-          일 잘하는 SLB 식구들은
-          <p
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile ? ' ' : ''
-            } flex items-end leading-none text-[#FF331F]`}
-          >
-            항상 고민합니다
-          </p>
-        </div>
-        <div
-          className={`${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'Slb-Content-mo gap-2 mt-8 mb-10'
-              : 'Slb-Content gap-2 mb-10'
-          } flex leading-none flex-col items-center`}
-        >
-          {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
-            <>
-              <p>일 잘하는 SLB는 신규 가맹점을 늘리는 것보다</p>
-              <p>현재 가맹점주님들의 성공을 더 중요하게 생각합니다</p>
-            </>
-          ) : (
-            <>
-              <p>일 잘하는 SLB는 신규 가맹점을 늘리는 것보다</p>
-              <p>현재 가맹점주님들의 성공을 더 중요하게 생각합니다</p>
-            </>
-          )}
-        </div>
-        <div
-          className={`${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'Slb-SubTitle-mo flex-col items-center gap-1 leading-none'
-              : 'flex-col items-center gap-2 leading-none mb-[17.5rem]'
-          } flex`}
-        >
-          <p>가맹점주님이 진심으로</p>
-          <p>'가족'이라 부르실 수 있도록 노력하겠습니다!</p>
-        </div>
-        <div
-          className={`${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'hidden'
-              : 'max-w-[1100px]'
-          } w-full h-full`}
-        >
+      {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
+        <>
+          <div className='pt-20'>
+            <SlideUpOnView>
+              <Chip text='Point 4' type='black' />
+              <div className='mt-4'>일 잘하는 사람들의 운영 관리 시스템</div>
+            </SlideUpOnView>
+          </div>
+          <div className='w-[1px] border border-black h-10 my-4' />
+          <div>가맹점주님의 고민을 줄여드리기 위해</div>
+          <div className='flex flex-col items-center Slb-Point-mo gap-1 leading-none'>
+            일 잘하는 SLB 식구들은
+            <p className='flex items-end text-[#FF331F]'>항상 고민합니다</p>
+          </div>
+          <div className='Slb-Content-mo gap-2 mt-8 mb-10 flex flex-col items-center leading-none'>
+            <p>일 잘하는 SLB는 신규 가맹점을 늘리는 것보다</p>
+            <p>현재 가맹점주님들의 성공을 더 중요하게 생각합니다</p>
+          </div>
+          <div className='Slb-SubTitle-mo flex flex-col items-center gap-1 leading-none'>
+            <p>가맹점주님이 진심으로</p>
+            <p>'가족'이라 부르실 수 있도록 노력하겠습니다!</p>
+          </div>
           <div
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'Slb-Point-mo'
-                : 'ml-auto Slb-Point flex-1 flex-col justify-end h-full pb-40 gap-2 leading-none w-[50%]'
-            } flex`}
+            className='mt-10 aspect-[720/694] bg-no-repeat bg-center w-full h-full flex flex-col items-center justify-end'
+            style={{
+              backgroundImage: `url(${process.env.PUBLIC_URL}/sub_4/sub_4_4_1_background_mo.webp)`,
+              backgroundSize: 'cover',
+            }}
           >
-            <p>내 가족이 운영하는</p>
-            <p>매장이라고 생각하면</p>
-            <p>아무리 사소해도</p>
-            <p>대충 할 수 있겠어요?</p>
-            <div
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? ''
-                  : 'ml-auto mt-8'
-              }`}
-            >
-              - SLB 대표
+            <div className='mb-10 text-center'>
+              <p>내 가족이 운영하는 매장이라고</p>
+              <p>생각하면 아무리 사소해도</p>
+              <p>대충 할 수 있겠어요?</p>
             </div>
           </div>
-        </div>
-      </div>
+        </>
+      ) : (
+        <>
+          <div className='pt-10 pb-20 bg-[#F0F0F0] w-full flex flex-col items-center'>
+            <SlideUpOnView>
+              <Chip text='Point 4' type='black' />
+              <div className='mb-5 mt-6'>
+                일 잘하는 사람들의 운영 관리 시스템
+              </div>
+            </SlideUpOnView>
+
+            <div className='w-[1px] border border-black h-20 my-6' />
+            <div>가맹점주님의 고민을 줄여드리기 위해</div>
+            <div className='flex justify-center gap-2 mt-2 mb-20 Slb-Point leading-none'>
+              일 잘하는 SLB 식구들은
+              <p className='flex items-end text-[#FF331F]'>항상 고민합니다</p>
+            </div>
+            <div className='Slb-Content gap-2 mb-10 flex flex-col items-center leading-none'>
+              <p>일 잘하는 SLB는 신규 가맹점을 늘리는 것보다</p>
+              <p>현재 가맹점주님들의 성공을 더 중요하게 생각합니다</p>
+            </div>
+            <div className='flex flex-col items-center gap-2 leading-none'>
+              <p>가맹점주님이 진심으로</p>
+              <p>'가족'이라 부르실 수 있도록 노력하겠습니다!</p>
+            </div>
+          </div>
+          <div
+            className='aspect-[1904/629] bg-no-repeat bg-bottom w-full h-full flex flex-col items-center justify-center'
+            style={{
+              backgroundImage: `url(${process.env.PUBLIC_URL}/sub_4/sub_4_4_1_background.webp)`,
+              backgroundSize: 'cover',
+            }}
+          >
+            <div className='w-full h-full max-w-[1100px]'>
+              <div className='ml-auto Slb-Point flex-1 flex flex-col justify-center h-full gap-2 mt-10 leading-none w-[50%]'>
+                <p>내 가족이 운영하는</p>
+                <p>매장이라고 생각하면</p>
+                <p>아무리 사소해도</p>
+                <p>대충 할 수 있겠어요?</p>
+                <div className='ml-auto mt-8'>- SLB 대표</div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
       <SlideUpOnView>
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
               ? 'flex-col gap-1 items-center mt-10'
-              : 'gap-2'
+              : 'gap-2 mt-40'
           } flex`}
         >
           <p>프랜차이즈에 특화된</p>
@@ -220,7 +181,7 @@ const Sub4Section4: React.FC = () => {
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
             ? 'aspect-[720/1602] mb-20'
-            : 'mt-40 mb-60 aspect-[1904/600]'
+            : 'mt-40 mb-40 aspect-[1904/600]'
         }  bg-no-repeat bg-center w-full flex flex-col items-center`}
         style={{
           backgroundImage: `url(${process.env.PUBLIC_URL}/main/point_2${
