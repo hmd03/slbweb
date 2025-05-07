@@ -32,3 +32,8 @@ export const siteSettingState = atom({
         keywords: '',
     },
 });
+
+export const refreshTriggerState = atom<number>({
+    key: 'refreshTriggerState',
+    default: 0,
+});

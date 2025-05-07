@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import AdminCurrentLayout from '../../ui/layout/AdminCurrentLayout';
 import Button from '../../ui/buttons/Button';
 import InputField from '../../ui/inputs/InputField';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import axios from 'axios';
 import Editor from '../../ui/Editer/Editor';
 import AlterModal from '../../ui/alters/AlterModal';
-import { LoadingState, siteSettingState } from '../../../store/atom';
+import { LoadingState, refreshTriggerState, siteSettingState } from '../../../store/atom';
 import { formatPhone } from '../../utils/formatUtils';
 
 const AdminConfigForm: React.FC = () => {
@@ -25,6 +25,8 @@ const AdminConfigForm: React.FC = () => {
   const keywordsRef = useRef<HTMLInputElement>(null);
   const siteDescRef = useRef<HTMLInputElement>(null);
   const smsRef = useRef<HTMLInputElement>(null);
+
+  const refreshTrigger = useRecoilValue(refreshTriggerState);
 
   const handlePrivacyChange = (content: string) => {
     setEditorPrivacy(content);
@@ -55,7 +57,7 @@ const AdminConfigForm: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [refreshTrigger]);
 
   const onSubmit = async () => {
     const siteName = siteNameRef.current?.value || '';

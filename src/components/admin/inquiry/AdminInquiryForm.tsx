@@ -8,7 +8,7 @@ import { formatDate } from '../../utils/dateUtils';
 import OutlineButton from '../../ui/buttons/OutlineButton';
 import AlterModal from '../../ui/alters/AlterModal';
 import { useRecoilValue } from 'recoil';
-import { UserState } from '../../../store/atom';
+import { refreshTriggerState, UserState } from '../../../store/atom';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { FaRegEye } from 'react-icons/fa';
 import useDeviceInfo from '../../../hooks/useDeviceInfo';
@@ -28,6 +28,8 @@ const AdminInquiryForm: React.FC = () => {
 
   const [searchCategoryData, setSearchCategoryData] = useState<any[]>([]);
   const [searchCategory, setSearchCategory] = useState('-1');
+
+  const refreshTrigger = useRecoilValue(refreshTriggerState);
 
   const [selectedSenderDropdownItem, setSelectedSenderDropdownItem] =
     useState('searchSender');
@@ -53,7 +55,7 @@ const AdminInquiryForm: React.FC = () => {
   useEffect(() => {
     fetchData();
     fetchCategoryData();
-  }, [pageIndex]);
+  }, [pageIndex, refreshTrigger]);
 
   const handlePageChange = (page: number) => {
     setPageIndex(page);

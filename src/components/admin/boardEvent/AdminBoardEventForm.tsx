@@ -8,7 +8,7 @@ import { formatDate } from '../../utils/dateUtils';
 import OutlineButton from '../../ui/buttons/OutlineButton';
 import AlterModal from '../../ui/alters/AlterModal';
 import { useRecoilValue } from 'recoil';
-import { UserState } from '../../../store/atom';
+import { refreshTriggerState, UserState } from '../../../store/atom';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { FaPencilAlt } from 'react-icons/fa';
 import { CgLink } from 'react-icons/cg';
@@ -32,6 +32,8 @@ const AdminBoardEventForm: React.FC = () => {
 
   const deviceInfo = useDeviceInfo();
 
+  const refreshTrigger = useRecoilValue(refreshTriggerState);
+
   let pageItems = 10;
 
   const items = [
@@ -47,7 +49,7 @@ const AdminBoardEventForm: React.FC = () => {
 
   useEffect(() => {
     fetchData();
-  }, [pageIndex]);
+  }, [pageIndex, refreshTrigger]);
 
   const handlePageChange = (page: number) => {
     setPageIndex(page);

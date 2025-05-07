@@ -14,7 +14,7 @@ import useDeviceInfo from '../../../hooks/useDeviceInfo';
 import Dropdown from '../../ui/dropdown/Dropdown';
 import InputField from '../../ui/inputs/InputField';
 import { useRecoilValue } from 'recoil';
-import { UserState } from '../../../store/atom';
+import { refreshTriggerState, UserState } from '../../../store/atom';
 
 const AdminBoardCsForm: React.FC = () => {
   const navigate = useNavigate();
@@ -33,6 +33,8 @@ const AdminBoardCsForm: React.FC = () => {
 
   const deviceInfo = useDeviceInfo();
 
+  const refreshTrigger = useRecoilValue(refreshTriggerState);
+
   let pageItems = 10;
 
   const items = [
@@ -48,7 +50,7 @@ const AdminBoardCsForm: React.FC = () => {
 
   useEffect(() => {
     fetchData();
-  }, [pageIndex]);
+  }, [pageIndex, refreshTrigger]);
 
   const handlePageChange = (page: number) => {
     setPageIndex(page);

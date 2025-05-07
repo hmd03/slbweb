@@ -10,7 +10,7 @@ import AlterModal from '../../ui/alters/AlterModal';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { FaPencilAlt } from 'react-icons/fa';
 import { useRecoilValue } from 'recoil';
-import { UserState } from '../../../store/atom';
+import { refreshTriggerState, UserState } from '../../../store/atom';
 
 const AdminBannerForm: React.FC = () => {
   const navigate = useNavigate();
@@ -25,11 +25,13 @@ const AdminBannerForm: React.FC = () => {
 
   const { isSupervisor } = useRecoilValue(UserState);
 
+  const refreshTrigger = useRecoilValue(refreshTriggerState);
+
   let pageItems = 10;
 
   useEffect(() => {
     fetchData();
-  }, [pageIndex, searchIsMobile]);
+  }, [pageIndex, searchIsMobile, refreshTrigger]);
 
   const handlePageChange = (page: number) => {
     setPageIndex(page);

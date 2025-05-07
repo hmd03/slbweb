@@ -8,7 +8,7 @@ import { formatDate } from '../../utils/dateUtils';
 import OutlineButton from '../../ui/buttons/OutlineButton';
 import AlterModal from '../../ui/alters/AlterModal';
 import { useRecoilValue } from 'recoil';
-import { UserState } from '../../../store/atom';
+import { refreshTriggerState, UserState } from '../../../store/atom';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { FaPencilAlt } from 'react-icons/fa';
 
@@ -21,13 +21,15 @@ const AdminPopupForm: React.FC = () => {
   const [totalItems, setTotalItems] = useState<number>(0);
   const [pageIndex, setPageIndex] = useState<number>(1);
   const { isSupervisor } = useRecoilValue(UserState);
-  const [onConfirm, setOnConfirm] = useState(() => () => {});
+  const [onConfirm, setOnConfirm] = useState(() => () => { });
+  
+  const refreshTrigger = useRecoilValue(refreshTriggerState);
 
   let pageItems = 10;
 
   useEffect(() => {
     fetchData();
-  }, [pageIndex]);
+  }, [pageIndex, refreshTrigger]);
 
   const handlePageChange = (page: number) => {
     setPageIndex(page);
