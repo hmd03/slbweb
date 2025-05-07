@@ -135,7 +135,7 @@ const AdminBoardEventWriteForm: React.FC = () => {
       img.src = URL.createObjectURL(file);
       img.onload = () => {
         setImageMsg(
-          `이미지 권장 사이즈 405X289<br>이미지 사이즈 ${img.width}X${img.height}`
+          `이미지 권장 사이즈 405X289\n이미지 사이즈 ${img.width}X${img.height}`
         );
       };
       console.log('선택된 파일:', file);

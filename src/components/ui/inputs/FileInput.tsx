@@ -32,7 +32,7 @@ const FileInput: React.FC<FileInputProps> = ({ msg, ...inputProps }) => {
       />
       <label
         htmlFor={inputProps.id}
-        className="cursor-pointer text-Black px-4 py-2"
+        className="cursor-pointer text-Black px-4 py-2 whitespace-pre-line text-left"
       >
         {fileName || msg}
       </label>
