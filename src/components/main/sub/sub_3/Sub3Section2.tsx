@@ -261,7 +261,7 @@ const Sub3Section2: React.FC = () => {
           )}
         </div>
       </div>
-      <div className='flex flex-col items-center w-full mb-40'>
+      <div className='flex flex-col items-center w-full'>
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
@@ -302,7 +302,7 @@ const Sub3Section2: React.FC = () => {
           <div
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'Slb-Content-mo gap-2 mt-10 text-center'
+                ? 'Slb-Content-mo gap-2 mt-10 text-center mb-4'
                 : 'Slb-Content gap-2 mb-40 mt-6'
             } flex leading-none flex-col items-center`}
           >
@@ -340,7 +340,7 @@ const Sub3Section2: React.FC = () => {
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
                 ? 'flex-col  border-y-[1px] border-Black'
-                : 'flex-col max-w-[1300px] mt-20 px-20 border-y-[1px] border-Black'
+                : 'flex-col max-w-[1300px] mt-20 px-20 border-t-[1px] border-Black'
             } w-full flex justify-center`}
           >
             <div

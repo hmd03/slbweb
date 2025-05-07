@@ -1,10 +1,11 @@
 import React, { useRef, useState } from 'react';
 import useDeviceInfo from '../../../hooks/useDeviceInfo';
-import { useRecoilState } from 'recoil';
-import { LoadingState } from '../../../store/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { LoadingState, siteSettingState } from '../../../store/atom';
 import AlterModal from '../../ui/alters/AlterModal';
 import axios from 'axios';
 import { trackGoogleConversion, trackNaverConversion } from '../../utils/analytics';
+import HtmlModal from '../../ui/alters/HtmlModal';
 
 const InquiryForm: React.FC = () => {
   const deviceInfo = useDeviceInfo();
@@ -15,6 +16,10 @@ const InquiryForm: React.FC = () => {
   const [message, setMessage] = useState('');
   const [onConfirm, setOnConfirm] = useState(() => () => {});
   const [selectedSource, setSelectedSource] = useState<string>('');
+
+  const siteSetting = useRecoilValue(siteSettingState);
+  const [modalContent, setModalContent] = useState<string>('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const nameRef = useRef<HTMLInputElement>(null);
   const phone1Ref = useRef<HTMLInputElement>(null);
@@ -124,6 +129,12 @@ const InquiryForm: React.FC = () => {
     '지인소개',
     '기타',
   ];
+
+  const handleShowModal = () => {
+    const content = siteSetting.privacyPolicy;
+    setModalContent(content);
+    setIsModalOpen(true);
+  };
 
   return (
     <div className={`w-full flex justify-center px-4 py-8 bg-white`}>
@@ -339,6 +350,7 @@ const InquiryForm: React.FC = () => {
             <input ref={agreeRef} type='checkbox' className='mr-2' />
             개인정보 수집 및 이용에 관한 사항(필수)에 동의합니다.
             <button
+              onClick={() => handleShowModal()}
               className={`px-2 py-0 bg-Black text-White ${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
                   ? 'text-[0.6rem] whitespace-nowrap'
@@ -367,6 +379,12 @@ const InquiryForm: React.FC = () => {
           isCancelVisible={isCancelVisible}
           onConfirm={onConfirm}
           onCancel={handleCancel}
+        />
+      )}
+      {isModalOpen && (
+        <HtmlModal
+          htmlContent={modalContent}
+          onClose={() => setIsModalOpen(false)}
         />
       )}
     </div>

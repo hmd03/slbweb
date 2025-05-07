@@ -222,9 +222,9 @@ const Sub3Section4: React.FC = () => {
       <div
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'aspect-[720/2579] justify-end'
-            : 'aspect-[1904/1891] mb-40 pt-60 h-fit'
-        } bg-no-repeat bg-center bg-cover flex flex-col items-center w-full`}
+            ? 'aspect-[720/2379] justify-end bg-top'
+            : 'aspect-[1904/1891] mb-40 pt-60 h-fit bg-center'
+        } bg-no-repeat bg-cover flex flex-col items-center w-full`}
         style={{
           backgroundImage: `url(${process.env.PUBLIC_URL}/sub_3/sub_3_4_2${
             deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''

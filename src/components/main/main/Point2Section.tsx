@@ -105,15 +105,18 @@ const Point2Section: React.FC = () => {
         {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
           <></>
         ) : (
-          <button
+          <a
+            href="/sub_4/2"
+            target="_blank"
+            rel="noopener noreferrer"
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
                 ? 'text-sub'
-                : 'Slb-Content'
+                : 'Slb-Content cursor-pointer'
             } rounded-[4rem] bg-Point text-White px-4 mt-10 mb-[8rem]`}
           >
             SLB 수익률 확인하기
-          </button>
+          </a>
         )}
       </div>
     </section>

@@ -287,7 +287,7 @@ const Sub1Section3: React.FC = () => {
             <span className='font-medium'>&nbsp;인력을</span>
           </span>
           <span className={`flex`}>
-            <span className='font-medium'>최소화 할 수 있는 구도</span>
+            <span className='font-medium'>최소화 할 수 있는 구조</span>
             입니다.
           </span>
         </div>

@@ -122,7 +122,7 @@ const Sub3Section1: React.FC = () => {
           <>
             <div
               className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
+                deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'mt-1' : ''
               } flex items-end leading-none`}
             >
               <p className={`Slb-Point-mo mr-1 text-[#FF331F] leading-none`}>
@@ -163,9 +163,9 @@ const Sub3Section1: React.FC = () => {
       >
         {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
           <>
-            <p>점주님도 SLB 본사가 없다면 존재할 수 없듯이</p>
+            <p className='mt-4'>점주님도 SLB 본사가 없다면 존재할 수 없듯이</p>
             <p>본사는 점주님들이 없다면 존재할 수 없기 때문!</p>
-            <p className='mt-2'>
+            <p className='mt-4'>
               SLB는{' '}
               <span
                 className='Slb-SubTitle text-[#FF331F] leading-none bg-no-repeat bg-bottom'
@@ -178,7 +178,7 @@ const Sub3Section1: React.FC = () => {
                 "남이 아닌 내 식구가
               </span>
             </p>
-            <p>
+            <p className='mt-2'>
               <span
                 className='Slb-SubTitle text-[#FF331F] leading-none bg-no-repeat bg-bottom'
                 style={{

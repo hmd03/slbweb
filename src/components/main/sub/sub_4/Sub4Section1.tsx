@@ -920,28 +920,47 @@ const Sub4Section1: React.FC = () => {
           <p>확인해 보세요</p>
         </span>
       </div>
+      
       <div
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'px-8' : ''
-        } flex flex-col`}
+        } flex flex-col items-center`}
       >
+        <div
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? 'Slb-Content-mo mt-6 mb-4'
+                : 'Slb-Content mt-20 mb-6'
+            } rounded-[4rem] w-fit bg-Point text-White px-4 `}
+          >
+            홀+포장+배달 매장 수익률 분석
+      </div>
         <img
           loading='lazy'
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'aspect-[626/589] my-6'
-              : 'aspect-[1066/588] my-20 max-w-[1000px]'
+              ? 'aspect-[626/589] mb-6'
+              : 'aspect-[1066/588] mb-20 max-w-[1000px]'
           } w-full`}
           alt={`현재 경기 성장률은 낮고, 물가는 매년 상승 중 물류비용 또한 상승하는 것은 당연한 일입니다.`}
           src={`${process.env.PUBLIC_URL}/sub_4/sub_4_1_12${
             deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
           }.webp`}
         />
+        <div
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile
+                ? 'Slb-Content-mo mt-6 mb-4'
+                : 'Slb-Content mt-20 mb-6'
+            } rounded-[4rem] w-fit bg-Point text-White px-4 `}
+          >
+            배달 전용 매장 수익률 분석
+      </div>
         <img
           loading='lazy'
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'aspect-[626/589] my-6'
+              ? 'aspect-[626/589] mb-6'
               : 'aspect-[1066/588] max-w-[1000px] mb-20'
           } w-full`}
           alt={`현재 경기 성장률은 낮고, 물가는 매년 상승 중 물류비용 또한 상승하는 것은 당연한 일입니다.`}
