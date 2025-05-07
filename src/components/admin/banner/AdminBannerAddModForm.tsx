@@ -124,6 +124,7 @@ const AdminBannerAddModForm: React.FC = () => {
           }
         } catch (error) {
           console.log('사용자 정보를 가져오는 데 실패했습니다.');
+          console.log('error: ' + error);
         }
       }
     };
