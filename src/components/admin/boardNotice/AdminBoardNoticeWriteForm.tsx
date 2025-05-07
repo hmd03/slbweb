@@ -181,7 +181,7 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
                   placeholder='제목'
                   ref={titleRef}
                   autoComplete='id'
-                  readOnly={!!id}
+                  // readOnly={!!id}
                 />
               </td>
             </tr>
