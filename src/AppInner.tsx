@@ -117,18 +117,14 @@ const AppInner: React.FC = () => {
   const [user, setUser] = useRecoilState(UserState);
   const navigate = useNavigate();
   const location = useLocation();
-
   const { isMobile = false } = useDeviceInfo();
   const deviceType = isMobile ? 'mobile' : 'desktop';
   const enterTimeRef = useRef<number>(Date.now());
-
   const isAdminRoute = location.pathname.startsWith('/admin');
-
   const setSetting = useSetRecoilState(siteSettingState);
 
   useEffect(() => {
     enterTimeRef.current = Date.now();
-
     trackGooglePageView(location.pathname + location.search, deviceType);
     trackNaverPageView();
   }, [location.pathname, location.search, deviceType]);
@@ -164,11 +160,22 @@ const AppInner: React.FC = () => {
         });
       }
     };
-
     fetchSettings();
   }, []);
 
   useEffect(() => {
+    let isRefreshing = false;
+    let refreshSubscribers: ((token: string) => void)[] = [];
+
+    const onRefreshed = (token: string) => {
+      refreshSubscribers.forEach((cb) => cb(token));
+      refreshSubscribers = [];
+    };
+
+    const addSubscriber = (cb: (token: string) => void) => {
+      refreshSubscribers.push(cb);
+    };
+
     const interceptor = axios.interceptors.response.use(
       (response) => {
         setIsLoading(false);
@@ -176,86 +183,78 @@ const AppInner: React.FC = () => {
       },
       async (error) => {
         setIsLoading(false);
-        const {
-          config,
-          response: { data },
-        } = error;
+        const { config, response } = error;
+        const originalRequest = config;
 
-        if (data.statusCode === 419 && location.pathname.startsWith('/admin')) {
-          const type = error.response.data.type;
-
-          setIsLoading(false);
+        if (
+          response?.status === 419 &&
+          location.pathname.startsWith('/admin')
+        ) {
+          const type = response.data.type;
 
           if (type === 'refresh') {
-            if (!isLoading) {
-              setUser({
-                id: '',
-                name: '',
-                isSupervisor: false,
-                accessToken: '',
-              });
-              alert('다시 로그인해주세요.');
-              setIsLoading(false);
-              Cookies.set('refreshToken', '', { expires: -1 });
-              navigate('/admin/login');
-              return;
-            }
-          } else if (type === 'access') {
-            const originalRequest = config;
-            if (!isLoading) {
-              setIsLoading(true);
-              const response = await axios.post('api/auth/refresh');
-              const accessToken = response.data.accessToken;
-              const refreshToken = response.data.refreshToken;
-
-              Cookies.set('refreshToken', refreshToken, {
-                expires: 4 / 24,
-              });
-
-              setUser({
-                id: user.id,
-                name: user.name,
-                isSupervisor: user.isSupervisor,
-                accessToken: accessToken,
-              });
-              setIsLoading(false);
-              return axios(originalRequest);
-            }
+            Cookies.remove('refreshToken');
+            setUser({ id: '', name: '', isSupervisor: false, accessToken: '' });
+            alert('다시 로그인해주세요.');
+            navigate('/admin/login');
+            return;
           }
-        } else if (!location.pathname.startsWith('/admin')) {
-          setUser({
-            id: '',
-            name: '',
-            isSupervisor: false,
-            accessToken: '',
-          });
+
+          if (type === 'access') {
+            if (!isRefreshing) {
+              isRefreshing = true;
+              try {
+                const res = await axios.post('/api/auth/refresh');
+                const newAccessToken = res.data.accessToken;
+                const newRefreshToken = res.data.refreshToken;
+                Cookies.set('refreshToken', newRefreshToken, {
+                  expires: 4 / 24,
+                });
+
+                setUser((prev) => ({ ...prev, accessToken: newAccessToken }));
+                onRefreshed(newAccessToken);
+                isRefreshing = false;
+
+                return axios({
+                  ...originalRequest,
+                  headers: {
+                    ...originalRequest.headers,
+                    Authorization: `Bearer ${newAccessToken}`,
+                  },
+                });
+              } catch (e) {
+                Cookies.remove('refreshToken');
+                navigate('/admin/login');
+                return Promise.reject(e);
+              }
+            }
+
+            return new Promise((resolve) => {
+              addSubscriber((token) => {
+                originalRequest.headers.Authorization = `Bearer ${token}`;
+                resolve(axios(originalRequest));
+              });
+            });
+          }
+        }
+
+        if (!location.pathname.startsWith('/admin')) {
+          setUser({ id: '', name: '', isSupervisor: false, accessToken: '' });
         }
         return Promise.reject(error);
       }
     );
 
-    return () => {
-      axios.interceptors.response.eject(interceptor);
-    };
-  }, [
-    location.pathname,
-    navigate,
-    setIsLoading,
-    setUser,
-    user.id,
-    user.name,
-    isLoading,
-  ]);
+    return () => axios.interceptors.response.eject(interceptor);
+  }, [location.pathname, navigate, setUser, setIsLoading]);
 
   useEffect(() => {
     const refreshToken = Cookies.get('refreshToken');
-    if (location.pathname.startsWith('/admin')) {
-      if (!refreshToken) {
-        navigate('/admin/login');
-      }
+    if (location.pathname.startsWith('/admin') && !refreshToken) {
+      navigate('/admin/login');
     }
-  }, [location.pathname, Cookies.get('refreshToken'), navigate, isLoading]);
-
+  }, [location.pathname, navigate]);
+  
   return (
     <>
       <div className='flex w-full h-screen'>

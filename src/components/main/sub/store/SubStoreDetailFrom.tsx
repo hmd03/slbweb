@@ -75,8 +75,6 @@ const SubStoreDetailFrom = () => {
       window.naver.maps.Service.geocode(
         { query: address },
         function (status: string, response: any) {
-          console.log('Geocode Status:', status);
-          console.log('Geocode Response:', response);
 
           if (status !== window.naver.maps.Service.Status.OK) {
             alert('주소 변환 실패 (네트워크 문제 또는 주소 인식 실패)');

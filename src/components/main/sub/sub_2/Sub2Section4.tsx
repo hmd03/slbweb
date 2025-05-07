@@ -8,9 +8,6 @@ import MenuGrid from '../../../ui/table/MenuGrid';
 const Sub2Section4: React.FC = () => {
   const deviceInfo = useDeviceInfo();
   const menus = menusByCategory;
-  console.log(menus[1]);
-  console.log(menus[2]);
-  console.log(menus[3]);
   return (
     <section
       id='section-4'
