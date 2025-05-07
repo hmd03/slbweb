@@ -25,7 +25,7 @@ const Sub3Section4: React.FC = () => {
           backgroundImage: `url(${process.env.PUBLIC_URL}/sub_3/sub_3_4_1_1.webp)`,
         }}
       >
-        <div
+        {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (<></> ) : (<div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
               ? 'invisible'
@@ -95,7 +95,8 @@ const Sub3Section4: React.FC = () => {
               </>
             )}
           </div>
-        </div>
+        </div>)}
+        
       </div>
       <div
         className={`${

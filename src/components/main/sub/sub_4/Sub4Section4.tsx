@@ -179,7 +179,7 @@ const Sub4Section4: React.FC = () => {
         <div
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'flex-col gap-1 items-center'
+              ? 'flex-col gap-1 items-center mt-10'
               : 'gap-2'
           } flex`}
         >

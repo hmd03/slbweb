@@ -26,14 +26,16 @@ const SubForm3: React.FC = () => {
     const absoluteY =
       target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
 
-    window.scrollTo({ top: absoluteY});
+    window.scrollTo({ top: absoluteY });
   };
 
   useEffect(() => {
     if (!page || page === '1') return;
     const pageNum = parseInt(page);
     if (visibleSections.includes(pageNum)) {
-      scrollToSection(`section-${page}`);
+      setTimeout(() => {
+        scrollToSection(`section-${page}`);
+      }, 100);
     }
   }, [page, visibleSections]);
 
