@@ -13,10 +13,8 @@ import AdminReviewCard from './pages/admin/reviewCard/AdminReviewCard';
 import AdminReviewCardAddMod from './pages/admin/reviewCard/AdminReviewCardAddMod';
 import useDeviceInfo from './hooks/useDeviceInfo';
 import {
-  trackGoogleConversion,
   trackGoogleExit,
   trackGooglePageView,
-  trackNaverConversion,
   trackNaverPageView,
 } from './components/utils/analytics';
 
@@ -143,13 +141,6 @@ const AppInner: React.FC = () => {
     window.addEventListener('beforeunload', handler);
     return () => window.removeEventListener('beforeunload', handler);
   }, [location.pathname, location.search, deviceType]);
-
-  useEffect(() => {
-    if (!location.pathname.startsWith('/admin')) {
-      trackGoogleConversion();
-      trackNaverConversion();
-    }
-  }, [location.pathname]);
 
   useEffect(() => {
     const fetchSettings = async () => {

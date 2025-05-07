@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 import useDeviceInfo from '../../../hooks/useDeviceInfo';
 import AlterModal from '../alters/AlterModal';
 import { formatPhone } from '../../utils/formatUtils';
+import { trackGoogleConversion, trackNaverConversion } from '../../utils/analytics';
 
 const InqueryFooter = () => {
   const senderRef = useRef<HTMLInputElement>(null);
@@ -58,6 +59,8 @@ const InqueryFooter = () => {
 
       const data = response.data;
       if (response.status === 201) {
+        trackGoogleConversion();
+        trackNaverConversion();
         alert('등록되었습니다.');
         //handleCancel();
         window.location.reload();

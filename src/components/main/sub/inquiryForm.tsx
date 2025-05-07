@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import { LoadingState } from '../../../store/atom';
 import AlterModal from '../../ui/alters/AlterModal';
 import axios from 'axios';
+import { trackGoogleConversion, trackNaverConversion } from '../../utils/analytics';
 
 const InquiryForm: React.FC = () => {
   const deviceInfo = useDeviceInfo();
@@ -73,6 +74,8 @@ const InquiryForm: React.FC = () => {
 
       const data = response.data;
       if (response.status === 201) {
+        trackGoogleConversion();
+        trackNaverConversion();
         alert('등록되었습니다.');
         window.location.reload();
       } else {
