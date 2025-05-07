@@ -3,6 +3,7 @@ import useDeviceInfo from '../../../../hooks/useDeviceInfo';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { formatDate } from '../../../utils/dateUtils';
+import dayjs from 'dayjs';
 
 const SubBoardEventFrom = () => {
   const navigate = useNavigate();
@@ -19,6 +20,9 @@ const SubBoardEventFrom = () => {
       let url = `api/events`;
 
       const response = await axios.get(url);
+      if (response.status !== 200) {
+        throw new Error('Failed to fetch data');
+      }
 
       const storeList = response.data.eventList;
 
@@ -112,44 +116,58 @@ const SubBoardEventFrom = () => {
                 : 'Slb-Content border-t-[2px] border-Black gap-10 pt-10 grid-cols-3'
             } grid cursor-pointer`}
           >
-            {data.map((item, idx) => (
-              <div
-                key={idx}
-                onClick={() => handleItemClick(item.id)}
-                className='flex flex-col border-Black border-[1px]'
-              >
-                <div>
-                  <img
-                    loading='lazy'
-                    className={`${
-                      deviceInfo.isSmallScreen || deviceInfo.isMobile
-                        ? 'aspect-[405/289]'
-                        : 'aspect-[405/289]'
-                    }  w-full `}
-                    alt={item.title}
-                    src={item.media}
-                  />
+            {data.map((item, idx) => {
+              const now = dayjs();
+              const start = dayjs(item.startDate);
+              const end = dayjs(item.endDate);
+              let status = '';
+
+              if (now.isBefore(start)) {
+                status = '[예정] ';
+              } else if (now.isAfter(end)) {
+                status = '[종료] ';
+              } else {
+                status = '[진행중] ';
+              }
+
+              return (
+                <div
+                  key={idx}
+                  onClick={() => handleItemClick(item.id)}
+                  className='flex flex-col border-Black border-[1px]'
+                >
                   <div>
-                    <div className='border-t-[1px] border-Black p-2 font-medium text-center'>
-                      {item.title.length > 20
-                        ? item.title.slice(0, 20) + '...'
-                        : item.title}
-                    </div>
-                    <p
+                    <img
+                      loading='lazy'
                       className={`${
-                        deviceInfo.isMobile || deviceInfo.isSmallScreen
-                          ? 'text-[10px] mb-2'
-                          : 'text-[16px]'
-                      } text-center`}
-                    >
-                      {`${formatDate(item.startDate)} ~ ${formatDate(
-                        item.endDate
-                      )}`}
-                    </p>
+                        deviceInfo.isSmallScreen || deviceInfo.isMobile
+                          ? 'aspect-[405/289]'
+                          : 'aspect-[405/289]'
+                      }  w-full`}
+                      alt={item.title}
+                      src={item.media}
+                    />
+                    <div>
+                      <div className='border-t-[1px] border-Black p-2 font-medium text-center break-words whitespace-normal'>
+                        {status}
+                        {item.title}
+                      </div>
+                      <p
+                        className={`${
+                          deviceInfo.isMobile || deviceInfo.isSmallScreen
+                            ? 'text-[10px] mb-2'
+                            : 'text-[16px]'
+                        } text-center`}
+                      >
+                        {`${formatDate(item.startDate)} ~ ${formatDate(
+                          item.endDate
+                        )}`}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>
