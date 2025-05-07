@@ -343,7 +343,7 @@ const AppInner: React.FC = () => {
 
                 if (statusCode === 419 && type === 'refresh') {
                     setUser(defaultUser);
-                    navigate('/api/admin/login');
+                    navigate('/admin/login');
                 }
 
                 return Promise.reject(err);
