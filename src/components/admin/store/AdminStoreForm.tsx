@@ -220,6 +220,11 @@ const AdminStoreForm: React.FC = () => {
             }`}
             placeholder='검색어 입력'
             onChange={(e) => setSearchValue(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                fetchData();
+              }
+            }}
           />
           <OutlineButton
             theme='admin'

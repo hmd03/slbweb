@@ -156,6 +156,11 @@ const AdminBoardEventForm: React.FC = () => {
             }`}
             onChange={(e) => setSearchValue(e.target.value)}
             placeholder='검색어 입력'
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                fetchData();
+              }
+            }}
           />
           <OutlineButton
             theme='admin'

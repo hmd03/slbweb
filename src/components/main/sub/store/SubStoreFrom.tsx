@@ -46,7 +46,7 @@ const SubStoreFrom: React.FC = () => {
     try {
       let url = `api/stores?page=${pageIndex}`;
       if (searchValue !== '') {
-        url += `&search=${encodeURIComponent(searchValue)}`; // 검색 파라미터 추가
+        url += `&searchName=${searchValue}&searchAddress=${searchValue}`;
       }
       const response = await axios.get(url);
       const storeList = response.data.storeList;
@@ -149,6 +149,11 @@ const SubStoreFrom: React.FC = () => {
             placeholder='지역 또는 매장명을 입력해주세요'
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                fetchData();
+              }
+            }}
           />
         </div>
 

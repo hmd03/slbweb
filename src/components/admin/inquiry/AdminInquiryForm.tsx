@@ -192,6 +192,12 @@ const AdminInquiryForm: React.FC = () => {
             }`}
             placeholder='검색어 입력'
             onChange={(e) => setSearchSender(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                fetchData();
+                fetchCategoryData();
+              }
+            }}
           />
           <OutlineButton
             onClick={fetchData}
