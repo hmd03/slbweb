@@ -383,7 +383,7 @@ const Sub3Section4: React.FC = () => {
             <span
               className={`${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'my-1 flex-col text-center'
+                  ? 'my-1 flex-col text-center gap-1'
                   : 'flex-col text-center gap-2'
               } flex `}
             >
@@ -405,60 +405,57 @@ const Sub3Section4: React.FC = () => {
       {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
         <>
           <div
-            className={`aspect-[720/1305] mt-10 my-20 bg-no-repeat bg-center bg-contain flex flex-col items-center justify-end w-full h-full`}
+            className={`aspect-[720/400] mt-10 bg-no-repeat bg-top bg-cover flex flex-col items-center justify-end w-full h-full`}
             style={{
               backgroundImage: `url(${process.env.PUBLIC_URL}/sub_3/sub_3_4_4_mo.webp)`,
             }}
+          ></div>
+          <div
+            className={`${
+              deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
+            } w-full leading-none bg-[#F2F2F2] mb-20`}
           >
             <div
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : ''
-              } w-full leading-none`}
+              className={`text-slbContentMo font-normal text-center flex flex-col items-center `}
             >
-              <div
-                className={`text-slbContentMo font-normal text-center flex flex-col items-center `}
-              >
-                <>
-                  <p className=' leading-normal'>
-                    SLB는 가맹점의 매출 및 수익성을 높이기 위해
-                  </p>
-                  <span className='font-medium'>
-                    한식을 접목한 샐러드&포케 프리미엄 브랜드로
-                  </span>
-                  <p className=' leading-normal mb-4'>
-                    <span className='font-medium'>성장하는 중</span>
-                    입니다.
-                  </p>
-                  <p className=' leading-normal'>
-                    점주님들이 브랜드에 자부심을 가지실 수 있도록
-                  </p>
-                  <p className=' leading-normal mb-4'>
-                    SLB는{' '}
-                    <span className='font-medium'>
-                      최소한의 인테리어를 시행
-                    </span>
-                    하고 있습니다.
-                  </p>
-                  <p className=' leading-normal flex flex-col'>
-                    무책임하게 가맹점을 늘리기보다
-                    <span>책임 있는 자세로 가맹점을 관리하고</span>
-                  </p>
-                  <p className=' leading-normal flex flex-col'>
-                    <span>돈을 버실 수 있도록</span>
-                    도움을 드리고 싶습니다.
-                  </p>
-                  <div
-                    className={`w-[1px]  border border-black  ${
-                      deviceInfo.isSmallScreen || deviceInfo.isMobile
-                        ? 'h-10 my-4'
-                        : 'h-20 my-10'
-                    }`}
-                  />
-                  <p className='Slb-SubTitle-mo leading-normal text-[#FF331F] mb-10'>
-                    SLB에게 가맹점은 ‘돈’벌이 수단이 아닌 ‘가족’입니다.
-                  </p>
-                </>
-              </div>
+              <>
+                <p className=' leading-normal'>
+                  SLB는 가맹점의 매출 및 수익성을 높이기 위해
+                </p>
+                <span className='font-medium'>
+                  한식을 접목한 샐러드&포케 프리미엄 브랜드로
+                </span>
+                <p className=' leading-normal mb-4'>
+                  <span className='font-medium'>성장하는 중</span>
+                  입니다.
+                </p>
+                <p className=' leading-normal'>
+                  점주님들이 브랜드에 자부심을 가지실 수 있도록
+                </p>
+                <p className=' leading-normal mb-4'>
+                  SLB는{' '}
+                  <span className='font-medium'>최소한의 인테리어를 시행</span>
+                  하고 있습니다.
+                </p>
+                <p className=' leading-normal flex flex-col'>
+                  무책임하게 가맹점을 늘리기보다
+                  <span>책임 있는 자세로 가맹점을 관리하고</span>
+                </p>
+                <p className=' leading-normal flex flex-col'>
+                  <span>돈을 버실 수 있도록</span>
+                  도움을 드리고 싶습니다.
+                </p>
+                <div
+                  className={`w-[1px]  border border-black  ${
+                    deviceInfo.isSmallScreen || deviceInfo.isMobile
+                      ? 'h-10 my-4'
+                      : 'h-20 my-10'
+                  }`}
+                />
+                <p className='Slb-SubTitle-mo leading-normal text-[#FF331F] mb-10'>
+                  SLB에게 가맹점은 ‘돈’벌이 수단이 아닌 ‘가족’입니다.
+                </p>
+              </>
             </div>
           </div>
         </>

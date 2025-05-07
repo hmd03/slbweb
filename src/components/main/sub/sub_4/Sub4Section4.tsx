@@ -315,7 +315,7 @@ const Sub4Section4: React.FC = () => {
       {/* 05/15 변경 -SH */}
       {/* <Chip text='Point 6' type='black' /> */}
       <SlideUpOnView>
-        <div className='flex flex-col text-center leading-none mb-40'>
+        <div className='flex flex-col text-center leading-none '>
           <span
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
@@ -336,8 +336,8 @@ const Sub4Section4: React.FC = () => {
           <p
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'Slb-Point-mo'
-                : 'Slb-Point'
+                ? 'Slb-Point-mo mb-10'
+                : 'Slb-Point mb-40'
             } leading-none`}
           >
             SLB 본사의 노력
