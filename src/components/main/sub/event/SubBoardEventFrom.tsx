@@ -123,8 +123,8 @@ const SubBoardEventFrom = () => {
                     loading='lazy'
                     className={`${
                       deviceInfo.isSmallScreen || deviceInfo.isMobile
-                        ? 'aspect-[282/201]'
-                        : 'aspect-[282/201]'
+                        ? 'aspect-[405/289]'
+                        : 'aspect-[405/289]'
                     }  w-full `}
                     alt={item.title}
                     src={item.media}

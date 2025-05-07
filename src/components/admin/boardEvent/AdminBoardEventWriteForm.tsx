@@ -31,7 +31,7 @@ const AdminBoardEventWriteForm: React.FC = () => {
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageMsg, setImageMsg] =
-    useState<string>('이미지 권장 사이즈 282X201');
+    useState<string>('이미지 권장 사이즈 405X289');
   const [thumbnailPath, setThumbnailPath] = useState<string>('');
 
   const [startDate, setStartDate] = useState<string>('');
@@ -135,14 +135,14 @@ const AdminBoardEventWriteForm: React.FC = () => {
       img.src = URL.createObjectURL(file);
       img.onload = () => {
         setImageMsg(
-          `이미지 권장 사이즈 282X201<br>이미지 사이즈 ${img.width}X${img.height}`
+          `이미지 권장 사이즈 405X289<br>이미지 사이즈 ${img.width}X${img.height}`
         );
       };
       console.log('선택된 파일:', file);
     } else {
       setImageFile(null);
       setThumbnailPath('');
-      setImageMsg('이미지 권장 사이즈 282X201');
+      setImageMsg('이미지 권장 사이즈 405X289');
     }
   };
 
@@ -299,7 +299,7 @@ const AdminBoardEventWriteForm: React.FC = () => {
                   />
                   {thumbnailPath !== '' && (
                     <img
-                      className='ml-10 w-[3.156rem] h-[2.25rem]'
+                      className='ml-10 h-[2.25rem] aspect-[405/289]'
                       id='thumbnail'
                       alt='thumbnail'
                       src={thumbnailPath}
