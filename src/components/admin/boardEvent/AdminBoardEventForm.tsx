@@ -73,7 +73,7 @@ const AdminBoardEventForm: React.FC = () => {
       handleOpenModal('사용할 수 없는 기능입니다.', false, handleCancel);
       return;
     }
-    handleOpenModal('삭제 하시겠습니까?', false, () => deleteId(id));
+    handleOpenModal('삭제 하시겠습니까?', true, () => deleteId(id));
   };
 
   const fetchData = async () => {
