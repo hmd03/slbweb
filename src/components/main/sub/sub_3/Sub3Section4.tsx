@@ -219,97 +219,16 @@ const Sub3Section4: React.FC = () => {
       ) : (
         <></>
       )}
-      <div
-        className={`${
-          deviceInfo.isSmallScreen || deviceInfo.isMobile
-            ? 'aspect-[720/2379] justify-end bg-top'
-            : 'aspect-[1904/1891] mb-40 pt-60 h-fit bg-center'
-        } bg-no-repeat bg-cover flex flex-col items-center w-full`}
-        style={{
-          backgroundImage: `url(${process.env.PUBLIC_URL}/sub_3/sub_3_4_2${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile ? '_mo' : ''
-          }.webp)`,
-        }}
-      >
-        {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
-          <></>
-        ) : (
-          <>
-            {/* <Chip
-                            text='Point 7'
-                            type={`${
-                                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                                    ? 'black'
-                                    : 'black'
-                            }`}
-                        /> */}
-            <SlideUpOnView>
-              <div className='flex items-end leading-none mb-2'>
-                <p
-                  className={`${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'Slb-Point-mo mt-4'
-                      : 'Slb-Point mt-6'
-                  } text-[#FF331F] font-black leading-none`}
-                >
-                  MZ
-                </p>
-                뿐만 아니라
-                <p
-                  className={`${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'Slb-Point-mo mt-4 ml-1'
-                      : 'Slb-Point mt-6 ml-2'
-                  } text-[#FF331F] font-black leading-none`}
-                >
-                  모든 고객
-                </p>
-                을 사로잡는
-              </div>
-              <div className='flex items-end leading-none mb-10'>
-                SLB만의
-                <p
-                  className={`${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'Slb-Point-mo mt-4 ml-1'
-                      : 'Slb-Point ml-2'
-                  } text-[#FF331F] font-black leading-none`}
-                >
-                  독보적
-                </p>
-                이고
-                <p
-                  className={`${
-                    deviceInfo.isSmallScreen || deviceInfo.isMobile
-                      ? 'Slb-Point-mo mt-4 ml-1'
-                      : 'Slb-Point ml-2'
-                  } text-[#FF331F] font-black leading-none`}
-                >
-                  감각적인 인테리어
-                </p>
-              </div>
-            </SlideUpOnView>
-          </>
-        )}
-        <div
-          className={`${
-            deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'flex-col pb-10'
-              : ' mt-auto mb-80 gap-10 max-w-[1300px] justify-end'
-          } flex w-full`}
-        >
+      {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
+        <>
           <div
-            className={`${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile ? '' : 'w-[45%] '
-            } flex flex-col justify-center`}
-          >
-            <div
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'Slb-SubTitle-mo items-center my-4'
-                  : 'Slb-SubTitle mb-12'
-              } flex flex-col flex-wrap`}
-            >
+            className='aspect-[720/720] bg-no-repeat bg-cover bg-top flex flex-col items-center w-full justify-end'
+            style={{
+              backgroundImage: `url(${process.env.PUBLIC_URL}/sub_3/sub_3_4_2_mo.webp)`,
+            }}
+          ></div>
+          <div className='flex flex-col w-full pb-10 bg-[#F2F2F2]'>
+            <div className='Slb-SubTitle-mo flex flex-col items-center mb-4 mt-12'>
               <p>
                 <span className='font-bold'>
                   고객 동선 & 서비스 동선까지 고려한
@@ -320,88 +239,112 @@ const Sub3Section4: React.FC = () => {
               </p>
             </div>
 
-            <div
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'Slb-Content-mo w-full items-center'
-                  : 'Slb-Content pr-6 gap-8'
-              } break-keep whitespace-pre-wrap flex flex-col`}
-            >
-              {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
-                <>
-                  <DividerWithLabel label='비움과 절제의 미학' />
-                  <div className='mt-4 mb-8 flex flex-col text-center'>
-                    <p>프리미엄 한식X샐러드&포케 전문 브랜드로서</p>
-                    <p>고객 경험을 강화하기 위해 모던함에</p>
-                    <p>한국의 전통적인 정신을 계승하기 위해</p>
-                    <p>비움과 절제의 미학을 반영했고,</p>
-                  </div>
-                  <DividerWithLabel label='순수함과 깨깨끗함' />
-                  <div className='mt-4 mb-8 flex flex-col text-center'>
-                    <p>우리 민족이 가장 좋아하고 숭상하는 빛,</p>
-                    <p>순수함, 깨끗함을 뜻하는 흰색을 메인 컬러로 활용해</p>
-                    <p>SLB만의 인테리어 디자인을 완성했습니다.</p>
-                  </div>
-                  <DividerWithLabel label='오픈 키친' />
-                  <div className='mt-4 mb-8 flex flex-col text-center'>
-                    <p>또한, 요리 퍼포먼스와 청결함을 고객에게</p>
-                    <p>확인시켜 줄 수 있는 오픈 키친으로</p>
-                    <p>고객에게 좋은 인상을 남기고 있습니다.</p>
-                  </div>
-                  <DividerWithLabel label='끊임없는 연구' />
-                  <div className='mt-4 mb-8 flex flex-col text-center'>
-                    <p>SLB는 단순한 유행을 따라가는 것이 아닌</p>
-                    <p>SLB만의 '힙'함을 브랜드에 녹여내기 위해</p>
-                    <p>오랜 시간 고민하고 수많은 디자인 트렌드 연구를 통해</p>
-                    <p>현재의 인테리어 디자인을 개발 할 수 있었습니다.</p>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <p>
-                    프리미엄 한식X샐러드&포케 전문 브랜드로서 고객 경험을
-                    강화하기 위해 모던함에 한국의 전통적인 정신을 계승하기 위해
-                    비움과 절제의 미학을 반영했고,
-                  </p>
-                  <p>
-                    우리 민족이 가장 좋아하고 숭상하는 빛, 순수함, 깨끗함을
-                    뜻하는 흰색을 메인 컬러로 활용해 SLB만의 인테리어 디자인을
-                    완성했습니다.
-                  </p>
-                  <p>
-                    또한, 요리 퍼포먼스와 청결함을 고객에게 확인시켜 줄 수 있는
-                    오픈 키친으로 고객에게 좋은 인상을 남기고 있습니다.
-                  </p>
-                  <p>
-                    SLB는 단순한 유행을 따라가는 것이 아닌 SLB만의 '힙'함을
-                    브랜드에 녹여내기 위해 오랜 시간 고민하고 수많은 디자인
-                    트렌드 연구를 통해 현재의 인테리어 디자인을 개발 할 수
-                    있었습니다.
-                  </p>
-                </>
-              )}
+            <div className='Slb-Content-mo w-full flex flex-col items-center text-center'>
+              <DividerWithLabel label='비움과 절제의 미학' />
+              <div className='mt-4 mb-8'>
+                <p>프리미엄 한식X샐러드&포케 전문 브랜드로서</p>
+                <p>고객 경험을 강화하기 위해 모던함에</p>
+                <p>한국의 전통적인 정신을 계승하기 위해</p>
+                <p>비움과 절제의 미학을 반영했고,</p>
+              </div>
+              <DividerWithLabel label='순수함과 깨끗함' />
+              <div className='mt-4 mb-8'>
+                <p>우리 민족이 가장 좋아하고 숭상하는 빛,</p>
+                <p>순수함, 깨끗함을 뜻하는 흰색을 메인 컬러로 활용해</p>
+                <p>SLB만의 인테리어 디자인을 완성했습니다.</p>
+              </div>
+              <DividerWithLabel label='오픈 키친' />
+              <div className='mt-4 mb-8'>
+                <p>또한, 요리 퍼포먼스와 청결함을 고객에게</p>
+                <p>확인시켜 줄 수 있는 오픈 키친으로</p>
+                <p>고객에게 좋은 인상을 남기고 있습니다.</p>
+              </div>
+              <DividerWithLabel label='끊임없는 연구' />
+              <div className='mt-4 mb-8'>
+                <p>SLB는 단순한 유행을 따라가는 것이 아닌</p>
+                <p>SLB만의 '힙'함을 브랜드에 녹여내기 위해</p>
+                <p>오랜 시간 고민하고 수많은 디자인 트렌드 연구를 통해</p>
+                <p>현재의 인테리어 디자인을 개발 할 수 있었습니다.</p>
+              </div>
             </div>
-            <div
-              className={`${
-                deviceInfo.isSmallScreen || deviceInfo.isMobile
-                  ? 'Slb-SubTitle-mo items-center'
-                  : 'Slb-SubTitle gap-2 mt-10'
-              } flex flex-col flex-wrap`}
-            >
+
+            <div className='Slb-SubTitle-mo flex flex-col items-center'>
               <p>시작부터 남다른 SLB의 고집이 만들어낸</p>
-              <p
-                className={`${
-                  deviceInfo.isSmallScreen || deviceInfo.isMobile
-                    ? 'Slb-Point-mo'
-                    : 'Slb-Point'
-                } text-[#FF331F] font-black leading-none`}
-              >
+              <p className='Slb-Point-mo text-[#FF331F] font-black leading-none'>
                 수익형 인테리어의 완성
               </p>
             </div>
           </div>
+        </>
+      ) : (
+        <div
+          className='aspect-[1904/1891] bg-no-repeat bg-cover bg-center mb-40 pt-60 h-fit flex flex-col items-center w-full'
+          style={{
+            backgroundImage: `url(${process.env.PUBLIC_URL}/sub_3/sub_3_4_2.webp)`,
+          }}
+        >
+          <SlideUpOnView>
+            <div className='flex items-end leading-none mb-2'>
+              <p className='Slb-Point mt-6 text-[#FF331F] font-black'>MZ</p>
+              뿐만 아니라
+              <p className='Slb-Point mt-6 ml-2 text-[#FF331F] font-black'>
+                모든 고객
+              </p>
+              을 사로잡는
+            </div>
+            <div className='flex items-end leading-none mb-10'>
+              SLB만의
+              <p className='Slb-Point ml-2 text-[#FF331F] font-black'>독보적</p>
+              이고
+              <p className='Slb-Point ml-2 text-[#FF331F] font-black'>
+                감각적인 인테리어
+              </p>
+            </div>
+          </SlideUpOnView>
+
+          <div className='flex w-full mt-auto mb-80 gap-10 max-w-[1300px] justify-end'>
+            <div className='w-[45%] flex flex-col justify-center'>
+              <div className='Slb-SubTitle mb-12 flex flex-col'>
+                <p>
+                  <span className='font-bold'>
+                    고객 동선 & 서비스 동선까지 고려한
+                  </span>
+                </p>
+                <p>
+                  <span className='font-bold'>인테리어의 과학적 설계</span>
+                </p>
+              </div>
+              <div className='Slb-Content pr-6 gap-8 break-keep whitespace-pre-wrap flex flex-col'>
+                <p>
+                  프리미엄 한식X샐러드&포케 전문 브랜드로서 고객 경험을 강화하기
+                  위해 모던함에 한국의 전통적인 정신을 계승하기 위해 비움과
+                  절제의 미학을 반영했고,
+                </p>
+                <p>
+                  우리 민족이 가장 좋아하고 숭상하는 빛, 순수함, 깨끗함을 뜻하는
+                  흰색을 메인 컬러로 활용해 SLB만의 인테리어 디자인을
+                  완성했습니다.
+                </p>
+                <p>
+                  또한, 요리 퍼포먼스와 청결함을 고객에게 확인시켜 줄 수 있는
+                  오픈 키친으로 고객에게 좋은 인상을 남기고 있습니다.
+                </p>
+                <p>
+                  SLB는 단순한 유행을 따라가는 것이 아닌 SLB만의 '힙'함을
+                  브랜드에 녹여내기 위해 오랜 시간 고민하고 수많은 디자인 트렌드
+                  연구를 통해 현재의 인테리어 디자인을 개발 할 수 있었습니다.
+                </p>
+              </div>
+              <div className='Slb-SubTitle gap-2 mt-10 flex flex-col'>
+                <p>시작부터 남다른 SLB의 고집이 만들어낸</p>
+                <p className='Slb-Point text-[#FF331F] font-black leading-none'>
+                  수익형 인테리어의 완성
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
       <div
         className={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile
