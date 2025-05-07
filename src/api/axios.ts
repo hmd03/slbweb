@@ -1,8 +1,21 @@
 import axios from 'axios';
 
-// 1) 전역 baseURL
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-// 2) 모든 요청에 httpOnly 쿠키 포함
 axios.defaults.withCredentials = true;
+
+axios.interceptors.response.use(
+    (res) => res,
+    async (err) => {
+        const resp = err.response;
+        if (resp?.data?.statusCode === 419 && resp.data.type === 'access') {
+            await axios.post('/api/auth/refresh');
+            return axios(err.config);
+        }
+        if (resp?.data?.statusCode === 419 && resp.data.type === 'refresh') {
+            window.location.href = '/admin/login';
+        }
+        return Promise.reject(err);
+    }
+);
 
 export default axios;
