@@ -33,6 +33,7 @@ const AdminHeader = ({ ...props }: Props) => {
                 isSupervisor: false,
                 // accessToken: '',
             });
+            navigate('/admin/login');
         } catch (error) {
             console.log('error: ' + error);
         }
