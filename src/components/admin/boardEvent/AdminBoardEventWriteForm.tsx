@@ -11,7 +11,7 @@ import axios from 'axios';
 import Editor from '../../ui/Editer/Editor';
 import RadioButtonGroup from '../../ui/radio/RadioButtonGroup';
 import FileInput from '../../ui/inputs/FileInput';
-import { formatDateYYYYMMDD } from '../../utils/dateUtils';
+import { formatDate } from '../../utils/dateUtils';
 import DatePicker from '../../ui/inputs/DatePicker';
 import dayjs from 'dayjs';
 
@@ -88,8 +88,12 @@ const AdminBoardEventWriteForm: React.FC = () => {
               }
             );
             setSelectedOption(data.isNotice === true ? '1' : '0');
-            setStartDate(formatDateYYYYMMDD(data.startDate));
-            setEndDate(formatDateYYYYMMDD(data.endDate));
+            setStartDate(formatDate(data.startDate));
+            setEndDate(formatDate(data.endDate));
+
+            setStartDateObj(dayjs(data.startDate));
+            setEndDateObj(dayjs(data.endDate));
+
             setThumbnailPath(URL.createObjectURL(thumbnail.data));
             setEditorContent(data.content);
           }
@@ -138,7 +142,6 @@ const AdminBoardEventWriteForm: React.FC = () => {
           `이미지 권장 사이즈 405X289\n이미지 사이즈 ${img.width}X${img.height}`
         );
       };
-      console.log('선택된 파일:', file);
     } else {
       setImageFile(null);
       setThumbnailPath('');

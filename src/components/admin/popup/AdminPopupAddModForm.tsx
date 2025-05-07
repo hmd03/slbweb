@@ -10,7 +10,7 @@ import AlterModal from '../../ui/alters/AlterModal';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { LoadingState, UserState } from '../../../store/atom';
 import Dropdown from '../../ui/dropdown/Dropdown';
-import { formatDateYYYYMMDD } from '../../utils/dateUtils';
+import { formatDate } from '../../utils/dateUtils';
 import DatePicker from '../../ui/inputs/DatePicker';
 import dayjs from 'dayjs';
 
@@ -67,7 +67,6 @@ const AdminPopupAddModForm: React.FC = () => {
       img.onload = () => {
         setImageMsg(`선택한 이미지 사이즈 ${img.width}X${img.height}`);
       };
-      console.log('선택된 파일:', file);
     } else {
       setImageFile(null);
       setImagePath('');
@@ -100,8 +99,10 @@ const AdminPopupAddModForm: React.FC = () => {
             const data = response.data;
 
             titleRef.current!.value = data.title;
-            setStartDate(formatDateYYYYMMDD(data.startDate));
-            setEndDate(formatDateYYYYMMDD(data.endDate));
+            setStartDate(formatDate(data.startDate));
+            setEndDate(formatDate(data.endDate));
+            setStartDateObj(dayjs(data.startDate));
+            setEndDateObj(dayjs(data.endDate));
             linkRef.current!.value = data.link;
             locationXRef.current!.value = data.locationX;
             locationYRef.current!.value = data.locationY;
