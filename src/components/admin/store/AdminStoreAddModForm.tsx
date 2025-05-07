@@ -47,12 +47,28 @@ const AdminStoreForm: React.FC = () => {
           if (response.status === 200) {
             const data = response.data;
 
+            let initialTags: string[] = [];
+            if (Array.isArray(data.tags)) {
+              initialTags = data.tags;
+            } else if (typeof data.tags === 'string') {
+              if (data.tags.trim().startsWith('[')) {
+                try {
+                  initialTags = JSON.parse(data.tags);
+                } catch {
+                  initialTags = [];
+                }
+              } 
+              else {
+                initialTags = data.tags.split(',').map((t: string) => t.trim());
+              }
+            }
+            setTags(initialTags);
+
             setRegion(data.region.code);
             setDefaultRegion(data.region.name);
             setName(data.name);
             setAddress(data.address);
             setPhone(data.contact);
-            setTags(data.tags);
             setOpenDate(formatDateYYYYMMDD(data.createdAt));
             getFile(data.media.id, data.media.fileName);
           }
