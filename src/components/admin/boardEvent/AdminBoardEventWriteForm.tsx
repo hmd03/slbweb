@@ -54,6 +54,7 @@ const AdminBoardEventWriteForm: React.FC = () => {
   };
 
   const handleEditorChange = (content: string) => {
+    console.log(content);
     setEditorContent(content);
   };
 
