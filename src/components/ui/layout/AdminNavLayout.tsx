@@ -10,7 +10,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 const AdminNavLayout = ({ children, ...props }: Props) => {
-  const [isSidebarVisible, setSidebarVisible] = useState(true);
+  const [isSidebarVisible, setSidebarVisible] = useState(false);
 
   const location = useLocation();
   const isLoginRoute = location.pathname === '/admin/login';
@@ -28,7 +28,11 @@ const AdminNavLayout = ({ children, ...props }: Props) => {
   };
 
   useEffect(() => {
-    setSidebarVisible(!deviceInfo.isSmallScreen || !deviceInfo.isMobile);
+    if (deviceInfo.isSmallScreen || deviceInfo.isMobile) {
+      setSidebarVisible(false);
+    } else {
+      setSidebarVisible(true);
+    }
   }, [deviceInfo]);
 
   return (
