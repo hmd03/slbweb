@@ -8,7 +8,7 @@ import InputField from '../../ui/inputs/InputField';
 import { LoadingState, UserState } from '../../../store/atom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import axios from 'axios';
-import Editor from '../../ui/Editer/Editor';
+import Editor, { EditorHandle } from '../../ui/Editer/Editor';
 import RadioButtonGroup from '../../ui/radio/RadioButtonGroup';
 
 const AdminBoardNoticeWriteForm: React.FC = () => {
@@ -21,6 +21,7 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
   const [onConfirm, setOnConfirm] = useState(() => () => {});
   const { isSupervisor } = useRecoilValue(UserState);
 
+  const editorRef = useRef<EditorHandle>(null);
   const titleRef = useRef<HTMLInputElement>(null);
   const [selectedOption, setSelectedOption] = useState('1');
   const [editorContent, setEditorContent] = useState<string>('');
@@ -60,8 +61,9 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
 
   const onSubmit = async () => {
     const title = titleRef.current?.value || '';
-    const content = editorContent;
+    const content = editorRef.current?.getHTML() || '';
 
+    console.log('content:', content);
     if (
       title === '' ||
       content === '' ||
@@ -110,7 +112,7 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
   const handleConfirm = async () => {
     const title = titleRef.current?.value || '';
     const isNotice = selectedOption === '1';
-    const content = editorContent;
+    const content = editorRef.current?.getHTML() || '';
 
     try {
       if (!id) {
@@ -199,7 +201,7 @@ const AdminBoardNoticeWriteForm: React.FC = () => {
             <tr>
               <th className={thClassName}>내용</th>
               <td className={`${tdClassName}`}>
-                <Editor value={editorContent} onChange={handleEditorChange} />
+              <Editor ref={editorRef} value={editorContent} onChange={handleEditorChange} />
               </td>
             </tr>
           </tbody>
