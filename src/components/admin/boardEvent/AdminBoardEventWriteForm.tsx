@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Editor, { EditorHandle } from '../../ui/Editer/Editor';
 import { useNavigate, useParams } from 'react-router-dom';
 import AdminCurrentLayout from '../../ui/layout/AdminCurrentLayout';
 import Button from '../../ui/buttons/Button';
@@ -8,7 +9,6 @@ import InputField from '../../ui/inputs/InputField';
 import { LoadingState, UserState } from '../../../store/atom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import axios from 'axios';
-import Editor from '../../ui/Editer/Editor';
 import RadioButtonGroup from '../../ui/radio/RadioButtonGroup';
 import FileInput from '../../ui/inputs/FileInput';
 import { formatDate } from '../../utils/dateUtils';
@@ -25,6 +25,7 @@ const AdminBoardEventWriteForm: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const [onConfirm, setOnConfirm] = useState(() => () => {});
 
+  const editorRef = useRef<EditorHandle>(null);
   const titleRef = useRef<HTMLInputElement>(null);
   const [selectedOption, setSelectedOption] = useState('1');
   const [editorContent, setEditorContent] = useState<string>('');
@@ -109,9 +110,10 @@ const AdminBoardEventWriteForm: React.FC = () => {
 
   const onSubmit = async () => {
     const title = titleRef.current?.value || '';
-    const media = imageFile;
-    const content = editorContent;
+    const content = editorRef.current?.getHTML() || '';
 
+    console.log('content', content);
+  
     if (
       title === '' ||
       startDate === '' ||
@@ -187,7 +189,7 @@ const AdminBoardEventWriteForm: React.FC = () => {
     const title = titleRef.current?.value || '';
     const isContinued = selectedOption === '1' ? 'true' : 'false';
     const media = imageFile;
-    const content = editorContent;
+    const content = editorRef.current?.getHTML() || '';
 
     try {
       const formData = new FormData();
@@ -315,7 +317,7 @@ const AdminBoardEventWriteForm: React.FC = () => {
             <tr>
               <th className={thClassName}>내용</th>
               <td className={`${tdClassName}`}>
-                <Editor value={editorContent} onChange={handleEditorChange} />
+              <Editor ref={editorRef} value={editorContent} onChange={handleEditorChange} />
               </td>
             </tr>
           </tbody>
