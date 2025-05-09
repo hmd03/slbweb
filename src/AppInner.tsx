@@ -274,38 +274,59 @@ const AppInner: React.FC = () => {
             return;
         }
 
+        const controller = new AbortController();
+        let isMounted = true;
+
         const fetchWithRefresh = async (): Promise<User> => {
             try {
-                const res = await axios.get<{ user: User }>('/api/auth/me');
-                return res.data.user;
+                const { data } = await axios.get<{ user: User }>(
+                    '/api/auth/me',
+                    { withCredentials: true, signal: controller.signal }
+                );
+                return data.user;
             } catch (err: any) {
-                const { response } = err;
-                if (
-                    response?.data?.statusCode === 419 &&
-                    response.data.type === 'access'
-                ) {
-                    await axios.post('/api/auth/refresh');
+                if (axios.isCancel(err)) {
+                    throw err;
+                }
+                const status = err.response?.status;
+
+                if (status === 419 || status === 401) {
+                    await axios.post(
+                        '/api/auth/refresh',
+                        {},
+                        { withCredentials: true }
+                    );
                     const retry = await axios.get<{ user: User }>(
-                        '/api/auth/me'
+                        '/api/auth/me',
+                        { withCredentials: true }
                     );
                     return retry.data.user;
                 }
+
                 throw err;
             }
         };
 
-        setIsLoading(true);
-        fetchWithRefresh()
-            .then((fetchedUser) => {
-                setUser(fetchedUser);
-            })
-            .catch(() => {
-                setUser(defaultUser);
-                navigate('/admin/login');
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
+        (async () => {
+            setIsLoading(true);
+            try {
+                const user = await fetchWithRefresh();
+                if (isMounted) setUser(user);
+            } catch (err) {
+                console.error('Auth failed:', err);
+                if (isMounted) {
+                    setUser(defaultUser);
+                    navigate('/admin/login');
+                }
+            } finally {
+                if (isMounted) setIsLoading(false);
+            }
+        })();
+
+        return () => {
+            isMounted = false;
+            controller.abort();
+        };
     }, [
         isAdminRoute,
         isLoginPage,
