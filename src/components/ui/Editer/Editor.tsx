@@ -172,6 +172,7 @@ const Editor = forwardRef<EditorHandle, EditorProps>(
                 'float',
                 'display',
                 'margin',
+                'align',
             ],
             []
         );

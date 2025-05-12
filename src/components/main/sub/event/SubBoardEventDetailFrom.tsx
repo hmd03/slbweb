@@ -58,12 +58,14 @@ const SubBoardEventDetailFrom = () => {
                 </td>
               </tr>
               <tr>
-                <td
-                  className={`w-full font-sans`}
-                  dangerouslySetInnerHTML={{
-                    __html: data.content,
-                  }}
-                />
+                <td className="w-full font-sans">
+                  <div className="ql-snow">
+                    <div
+                      className="ql-editor"
+                      dangerouslySetInnerHTML={{ __html: data.content }}
+                    />
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>

@@ -20,6 +20,7 @@ const SubBoardNoticeFrom = () => {
           const response = await axios.get(`/api/notices/${id}`);
           if (response.status === 200) {
             const item = response.data;
+            console.log('item.content :', item.content);
             setData({
               title: item.title,
               createdAt: item.createdAt,
@@ -58,12 +59,14 @@ const SubBoardNoticeFrom = () => {
                 </td>
               </tr>
               <tr>
-                <td
-                  className={`w-full font-sans`}
-                  dangerouslySetInnerHTML={{
-                    __html: data.content,
-                  }}
-                />
+                <td className="w-full font-sans">
+                  <div className="ql-snow">
+                    <div
+                      className="ql-editor"
+                      dangerouslySetInnerHTML={{ __html: data.content }}
+                    />
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
