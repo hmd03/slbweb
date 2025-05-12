@@ -30,12 +30,11 @@ const PopupManager: React.FC<PopupManagerProps> = ({
       const header = document.getElementById('header_mo');
       if (header) {
         const headerHeight = header.offsetHeight;
-        setPopupTopOffset(headerHeight + 10); // 10px 아래로 여유
+        setPopupTopOffset(headerHeight + 10); 
       }
     }
   }, [isMobile]);
 
-  // 팝업 목록이 바뀔 때마다 각 팝업에 해당하는 쿠키가 있는지 확인하여 필터링합니다.
   useEffect(() => {
     const filteredPopups = popups.filter(
       (popup) => !Cookies.get(`popup_hidden_${popup.cookiesId}`)
@@ -44,14 +43,12 @@ const PopupManager: React.FC<PopupManagerProps> = ({
     setPopupInitialized(true);
   }, [popups]);
 
-  // 특정 팝업만 닫기 (배열에서 제거)
   const handleClose = (popupToClose: PopupInfo) => {
     setVisiblePopups((prev) =>
       prev.filter((popup) => popup.cookiesId !== popupToClose.cookiesId)
     );
   };
 
-  // 특정 팝업만 24시간 동안 숨김 처리 (쿠키 저장 후 배열에서 제거)
   const handleHideForDay = (popupToHide: PopupInfo) => {
     Cookies.set(`popup_hidden_${popupToHide.cookiesId}`, 'true', {
       expires: 1,
@@ -59,6 +56,14 @@ const PopupManager: React.FC<PopupManagerProps> = ({
     setVisiblePopups((prev) =>
       prev.filter((popup) => popup.cookiesId !== popupToHide.cookiesId)
     );
+  };
+
+  // 링크 자동 보정 함수
+  const normalizeLink = (link: string): string => {
+    if (!/^https?:\/\//i.test(link)) {
+      return `https://${link}`;
+    }
+    return link;
   };
 
   const topPopup = visiblePopups[0];
@@ -75,7 +80,11 @@ const PopupManager: React.FC<PopupManagerProps> = ({
         >
           <div className='flex w-full justify-center'>
             <div className='bg-white shadow-xl border rounded-md overflow-hidden max-w-full'>
-              <a href={topPopup.link} target='_blank' rel='noopener noreferrer'>
+              <a
+                href={normalizeLink(topPopup.link)}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
                 <img
                   src={topPopup.image}
                   alt={topPopup.title}
@@ -106,7 +115,11 @@ const PopupManager: React.FC<PopupManagerProps> = ({
               height: popup.height,
             }}
           >
-            <a href={popup.link} target='_blank' rel='noopener noreferrer'>
+            <a
+              href={normalizeLink(popup.link)}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
               <img
                 src={popup.image}
                 alt={popup.title}
