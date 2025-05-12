@@ -16,6 +16,7 @@ module.exports = {
                 Black: '#231F20',
                 Point: '#ff331f',
                 Storke: '#58595b',
+                BorderGray: '#cccccc'
             },
             fontSize: {
                 slbPoint: '42px',

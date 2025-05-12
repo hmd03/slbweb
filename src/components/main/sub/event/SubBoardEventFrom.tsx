@@ -134,7 +134,7 @@ const SubBoardEventFrom = () => {
                 <div
                   key={idx}
                   onClick={() => handleItemClick(item.id)}
-                  className='flex flex-col border-Black border-[1px]'
+                  className='flex flex-col border-BorderGray border-[1px]'
                 >
                   <div>
                     <img
@@ -148,7 +148,7 @@ const SubBoardEventFrom = () => {
                       src={item.media}
                     />
                     <div>
-                      <div className='border-t-[1px] border-Black p-2 font-medium text-center break-words whitespace-normal'>
+                      <div className='border-t-[1px] border-BorderGray p-2 font-medium text-center break-words whitespace-normal'>
                         {status}
                         {item.title}
                       </div>
