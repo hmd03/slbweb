@@ -106,7 +106,7 @@ const Point2Section: React.FC = () => {
           <></>
         ) : (
           <a
-            href="/sub_4/2"
+            href="/sub_4/rateOfReturn"
             target="_blank"
             rel="noopener noreferrer"
             className={`${

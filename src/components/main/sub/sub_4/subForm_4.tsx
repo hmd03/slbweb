@@ -32,7 +32,11 @@ const SubForm4: React.FC = () => {
   useEffect(() => {
     if (!page || page === '1') return;
     const pageNum = parseInt(page);
-    if (visibleSections.includes(pageNum)) {
+    if(page === 'rateOfReturn'){
+      setTimeout(() => {
+        scrollToSection(`rateOfReturn`);
+      }, 100);
+    } else if (visibleSections.includes(pageNum)) {
       setTimeout(() => {
         scrollToSection(`section-${page}`);
       }, 100);

@@ -909,6 +909,7 @@ const Sub4Section1: React.FC = () => {
           )}
         </div>
         <span
+          id='rateOfReturn'
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
               ? 'flex-col text-center'
