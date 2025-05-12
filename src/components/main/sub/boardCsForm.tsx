@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react';
 import useDeviceInfo from '../../../hooks/useDeviceInfo';
-import { useRecoilState } from 'recoil';
-import { LoadingState } from '../../../store/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { LoadingState, siteSettingState } from '../../../store/atom';
 import AlterModal from '../../ui/alters/AlterModal';
 import axios from 'axios';
+import HtmlModal from '../../ui/alters/HtmlModal';
 
 const BoardCsForm: React.FC = () => {
   const deviceInfo = useDeviceInfo();
@@ -13,6 +14,10 @@ const BoardCsForm: React.FC = () => {
   const [isCancelVisible, setIsCancelVisible] = useState(true);
   const [message, setMessage] = useState('');
   const [onConfirm, setOnConfirm] = useState(() => () => {});
+
+  const siteSetting = useRecoilValue(siteSettingState);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState<string>('');
 
   const [categoryId, setCategoryId] = useState<number | null>(null);
 
@@ -135,6 +140,12 @@ const BoardCsForm: React.FC = () => {
   };
 
   const handleCancel = () => setModalVisible(false);
+
+  const handleShowModal = () => {
+    const content = siteSetting.privacyPolicy;
+    setModalContent(content);
+    setIsModalOpen(true);
+  };
 
   const tableCellStyle = `border border-black align-top ${
     deviceInfo.isSmallScreen || deviceInfo.isMobile
@@ -357,6 +368,7 @@ const BoardCsForm: React.FC = () => {
             <input ref={agreeRef} type='checkbox' className='mr-2' />
             개인정보 수집 및 이용에 관한 사항(필수)에 동의합니다.
             <button
+              onClick={() => handleShowModal()}
               className={`px-2 py-0 bg-Black text-White ${
                 deviceInfo.isSmallScreen || deviceInfo.isMobile
                   ? 'text-[0.6rem] whitespace-nowrap'
@@ -391,6 +403,12 @@ const BoardCsForm: React.FC = () => {
           isCancelVisible={isCancelVisible}
           onConfirm={onConfirm}
           onCancel={handleCancel}
+        />
+      )}
+      {isModalOpen && (
+        <HtmlModal
+          htmlContent={modalContent}
+          onClose={() => setIsModalOpen(false)}
         />
       )}
     </div>
