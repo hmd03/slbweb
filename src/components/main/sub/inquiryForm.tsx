@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { LoadingState, siteSettingState } from '../../../store/atom';
 import AlterModal from '../../ui/alters/AlterModal';
 import axios from 'axios';
-import { trackGoogleConversion, trackNaverConversion } from '../../utils/analytics';
+import { trackGoogleConversion, trackKarrotConversion, trackNaverConversion } from '../../utils/analytics';
 import HtmlModal from '../../ui/alters/HtmlModal';
 
 const InquiryForm: React.FC = () => {
@@ -81,6 +81,7 @@ const InquiryForm: React.FC = () => {
       if (response.status === 201) {
         trackGoogleConversion();
         trackNaverConversion();
+        trackKarrotConversion();
         alert('등록되었습니다.');
         window.location.reload();
       } else {
