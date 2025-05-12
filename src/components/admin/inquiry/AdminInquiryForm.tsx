@@ -4,7 +4,7 @@ import AdminPagination from '../../ui/paging/AdminPagination';
 import AdminCurrentLayout from '../../ui/layout/AdminCurrentLayout';
 import Button from '../../ui/buttons/Button';
 import axios from 'axios';
-import { formatDate } from '../../utils/dateUtils';
+import { formatDateYYYYMMDD } from '../../utils/dateUtils';
 import OutlineButton from '../../ui/buttons/OutlineButton';
 import AlterModal from '../../ui/alters/AlterModal';
 import { useRecoilValue } from 'recoil';
@@ -236,7 +236,7 @@ const AdminInquiryForm: React.FC = () => {
                   {item.senderContact}
                 </td>
                 <td className='border border-Black border-[2px] p-2 text-center w-[20%]'>
-                  {formatDate(item.createdAt)}
+                  {formatDateYYYYMMDD(item.createdAt)}
                 </td>
                 <td className='border border-Black border-[2px] p-2 text-center w-[20%]'>
                   <div className='w-full flex items-center justify-center'>

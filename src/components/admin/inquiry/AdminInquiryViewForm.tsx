@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import AdminCurrentLayout from '../../ui/layout/AdminCurrentLayout';
 import OutlineButton from '../../ui/buttons/OutlineButton';
 import axios from 'axios';
-import { formatDate } from '../../utils/dateUtils';
+import { formatDateYYYYMMDD } from '../../utils/dateUtils';
 
 const AdminInquiryViewForm: React.FC = () => {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ const AdminInquiryViewForm: React.FC = () => {
               ageGroup: data.ageGroup,
               discoveryRoute: data.discoveryRoute,
               content: data.content,
-              createdAt: formatDate(data.createdAt),
+              createdAt: formatDateYYYYMMDD(data.createdAt),
             });
           }
         } catch (error) {
