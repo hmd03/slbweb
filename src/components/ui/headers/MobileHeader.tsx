@@ -122,7 +122,7 @@ const MobileHeader = ({ children, ...props }: Props) => {
         isReady: true,
       },
       {
-        title: '샐러드&포케 창업/n이것만은 꼭! 확인하세요?',
+        title: '샐러드&포케 창업/n이것만은 꼭! 확인하세요',
         link: '/sub_3/3',
         isReady: true,
       },

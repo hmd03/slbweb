@@ -45,3 +45,17 @@ export function trackNaverConversion() {
     window.wcs.trans({ type: 'lead' });
   }
 }
+
+export function trackKarrotPageView() {
+  if (window.karrotPixel?.init && window.karrotPixel?.track) {
+    window.karrotPixel.init('1747014297486600001');
+    window.karrotPixel.track('ViewPage');
+  }
+}
+
+export function trackKarrotConversion() {
+  if (window.karrotPixel?.init && window.karrotPixel?.track) {
+    window.karrotPixel.init('1747014297486600001');
+    window.karrotPixel.track('SubmitApplication');
+  }
+}

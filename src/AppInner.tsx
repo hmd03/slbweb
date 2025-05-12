@@ -11,16 +11,14 @@ import {
     UserState,
 } from './store/atom';
 import AdminNavLayout from './components/ui/layout/AdminNavLayout';
-import Cookies from 'js-cookie';
 import CurrentLayout from './components/ui/layout/CurrentLayout';
 import AdminReviewCard from './pages/admin/reviewCard/AdminReviewCard';
 import AdminReviewCardAddMod from './pages/admin/reviewCard/AdminReviewCardAddMod';
 import useDeviceInfo from './hooks/useDeviceInfo';
 import {
-    trackGoogleConversion,
     trackGoogleExit,
     trackGooglePageView,
-    trackNaverConversion,
+    trackKarrotPageView,
     trackNaverPageView,
 } from './components/utils/analytics';
 import { User } from './types/interface';
@@ -140,6 +138,7 @@ const AppInner: React.FC = () => {
 
         trackGooglePageView(location.pathname + location.search, deviceType);
         trackNaverPageView();
+        trackKarrotPageView();
     }, [location.pathname, location.search, deviceType]);
 
     useEffect(() => {
@@ -154,13 +153,6 @@ const AppInner: React.FC = () => {
         window.addEventListener('beforeunload', handler);
         return () => window.removeEventListener('beforeunload', handler);
     }, [location.pathname, location.search, deviceType]);
-
-    useEffect(() => {
-        if (!location.pathname.startsWith('/admin')) {
-            trackGoogleConversion();
-            trackNaverConversion();
-        }
-    }, [location.pathname]);
 
     useEffect(() => {
         const fetchSettings = async () => {
