@@ -209,7 +209,7 @@ const Sub1Section4: React.FC = () => {
           >
             <p>
               일반적인 프랜차이즈{' '}
-              <span className='font-medium'>오픈 지원 2~3일일</span>
+              <span className='font-medium'>오픈 지원 2~3일</span>
             </p>
             <p>
               <span className='font-medium text-White bg-Black'>

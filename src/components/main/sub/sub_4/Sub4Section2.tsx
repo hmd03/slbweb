@@ -16,7 +16,7 @@ const Sub4Section2: React.FC = () => {
     >
       <SlideUpOnView>
         {/* 05/15 변경 -SH */}
-        <Chip text='Point 2' type='black' />
+        <Chip text='Point 3' type='black' />
         <div
           // className={`${
           //     deviceInfo.isSmallScreen || deviceInfo.isMobile

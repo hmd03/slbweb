@@ -111,7 +111,7 @@ const Sub4Section3: React.FC = () => {
       {/* 05/15 변경 -SH */}
       <Chip
         // text='Point 5'
-        text='Point 3'
+        text='Point 4'
         type={`${
           deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'black' : 'black'
         }`}

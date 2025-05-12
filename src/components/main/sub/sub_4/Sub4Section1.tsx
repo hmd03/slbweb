@@ -576,6 +576,7 @@ const Sub4Section1: React.FC = () => {
       >
         {/* 05/15 변경 -SH */}
         {/* <Chip text='Point 2' type='black' /> */}
+        <Chip text='Point 2' type='black' />
         <SlideUpOnView>
           <div
             className={`${

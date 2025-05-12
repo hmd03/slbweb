@@ -45,7 +45,7 @@ const Point8Section: React.FC = () => {
             {deviceInfo.isMobile || deviceInfo.isSmallScreen ? (
               <div className='flex flex-col items-center text-[28px]'>
                 <p className='text-[#FF331F] leading-none'>
-                  유지 또는 낮추기 위해
+                  낮추기 위해
                 </p>
                 <p className='flex items-end mt-2'>
                   <span className='text-[#FF331F] leading-none'>
@@ -57,7 +57,7 @@ const Point8Section: React.FC = () => {
             ) : (
               <>
                 <p className='text-[#FF331F] leading-none mt-2'>
-                  유지 또는 낮추기 위해 SLB는 노력
+                  낮추기 위해 SLB는 노력
                 </p>
                 합니다!
               </>

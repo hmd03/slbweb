@@ -59,8 +59,8 @@ const Sub4Section4: React.FC = () => {
       {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
         <>
           <div className='pt-20'>
+          <Chip text='Point 5' type='black' />
             <SlideUpOnView>
-              <Chip text='Point 4' type='black' />
               <div className='mt-4'>일 잘하는 사람들의 운영 관리 시스템</div>
             </SlideUpOnView>
           </div>
@@ -95,8 +95,8 @@ const Sub4Section4: React.FC = () => {
       ) : (
         <>
           <div className='pt-10 pb-20 bg-[#F0F0F0] w-full flex flex-col items-center'>
+          <Chip text='Point 5' type='black' />
             <SlideUpOnView>
-              <Chip text='Point 4' type='black' />
               <div className='mb-5 mt-6'>
                 일 잘하는 사람들의 운영 관리 시스템
               </div>
