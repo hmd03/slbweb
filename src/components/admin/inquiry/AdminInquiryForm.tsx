@@ -87,9 +87,9 @@ const AdminInquiryForm: React.FC = () => {
       if (searchCategory !== '-1') {
         url += `&searchCategory=${searchCategory}`;
       }
-      if (selectedSenderDropdownItem !== '') {
-        url += `&searchSender=${searchSender}`;
-      }
+
+      url += `&${selectedSenderDropdownItem}=${searchSender}`;
+
       const response = await axios.get(url);
 
       setData(response.data.inquiryList);
