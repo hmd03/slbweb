@@ -5,6 +5,7 @@ import { LoadingState, siteSettingState } from '../../../store/atom';
 import AlterModal from '../../ui/alters/AlterModal';
 import axios from 'axios';
 import HtmlModal from '../../ui/alters/HtmlModal';
+import FileInput from '../../ui/inputs/FileInput';
 
 const BoardPartnerForm: React.FC = () => {
   const deviceInfo = useDeviceInfo();
@@ -27,9 +28,11 @@ const BoardPartnerForm: React.FC = () => {
   const phone3Ref = useRef<HTMLInputElement>(null);
   const emailIdRef = useRef<HTMLInputElement>(null);
   const emailDomainRef = useRef<HTMLInputElement>(null);
-  const fileRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
   const agreeRef = useRef<HTMLInputElement>(null);
+
+  const [file, setFile] = useState<File | null>(null);
+  const [msg, setMsg] = useState<string>('2M 미만 파일만 첨부 가능합니다.');
 
   const [emailDomainSelect, setEmailDomainSelect] = useState('');
 
@@ -98,6 +101,7 @@ const BoardPartnerForm: React.FC = () => {
       setLoading(true);
 
       const isMobile = deviceInfo.isMobile;
+      const media = file;
 
       const formData = new FormData();
       formData.append('title', titleRef.current?.value || '');
@@ -116,8 +120,8 @@ const BoardPartnerForm: React.FC = () => {
       );
       formData.append('content', contentRef.current?.value || '');
       formData.append('isMobile', isMobile ? 'true' : 'false');
-      if (fileRef.current?.files?.[0]) {
-        formData.append('media', fileRef.current.files[0]);
+      if (media) {
+        formData.append('media', media);
       }
 
       const response = await axios.post('/api/partnership/proposals', formData);
@@ -165,6 +169,21 @@ const BoardPartnerForm: React.FC = () => {
       ? 'text-[12px] pt-2 pl-1'
       : 'text-detail pl-4 pt-4'
   } w-[30%]`;
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setFile(file);
+      const img = new Image();
+      img.src = URL.createObjectURL(file);
+      img.onload = () => {
+        setMsg(file.name);
+      };
+    } else {
+      setFile(null);
+      setMsg('2M 미만 파일만 첨부 가능합니다.');
+    }
+  };
 
   return (
     <div className='w-full flex justify-center px-4 py-8 bg-white'>
@@ -333,7 +352,13 @@ const BoardPartnerForm: React.FC = () => {
                 파일첨부
               </th>
               <td className={tableCellStyle}>
-                <input type='file' ref={fileRef} className='w-full' />
+                <FileInput
+                  id='imgInput'
+                  msg={msg}
+                  accept='image/*'
+                  onChange={handleImageChange}
+                  type='main'
+                />
               </td>
             </tr>
             <tr>
