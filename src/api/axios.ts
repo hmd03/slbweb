@@ -6,14 +6,28 @@ axios.defaults.withCredentials = true;
 axios.interceptors.response.use(
     (res) => res,
     async (err) => {
-        const resp = err.response;
-        if (resp?.data?.statusCode === 419 && resp.data.type === 'access') {
-            await axios.post('/api/auth/refresh');
-            return axios(err.config);
+        const { response, config } = err;
+        if (!response) return Promise.reject(err);
+
+        if (config._retry) {
+            return Promise.reject(err);
         }
-        if (resp?.data?.statusCode === 419 && resp.data.type === 'refresh') {
+
+        if (response.status === 419) {
+            config._retry = true;
+            await axios.post(
+                '/api/auth/refresh',
+                {},
+                { withCredentials: true }
+            );
+            return axios(config);
+        }
+
+        if (response.status === 419 && response.data?.type === 'refresh') {
             window.location.href = '/admin/login';
+            return;
         }
+
         return Promise.reject(err);
     }
 );
