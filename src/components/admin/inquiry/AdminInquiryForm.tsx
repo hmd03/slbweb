@@ -50,6 +50,10 @@ const AdminInquiryForm: React.FC = () => {
       label: '연락처',
       value: 'searchSenderContact',
     },
+    {
+      label: '날짜',
+      value: 'searchDate',
+    },
   ];
 
   useEffect(() => {
@@ -152,6 +156,27 @@ const AdminInquiryForm: React.FC = () => {
     setSearchCategory(value);
   };
 
+  const handleExcelDownload = async () => {
+    try {
+      const response = await axios.get('/api/inquiries/excel', {
+        responseType: 'blob',
+      });
+
+      const blob = new Blob([response.data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
+
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = '창업문의 리스트.xlsx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('엑셀 다운로드 실패:', error);
+    }
+  };
+
   return (
     <AdminCurrentLayout title='창업문의 리스트'>
       <div
@@ -207,11 +232,24 @@ const AdminInquiryForm: React.FC = () => {
             className={`h-[3rem] bg-LightGray ${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
                 ? 'w-full'
-                : 'w-[5rem] '
+                : 'w-[6rem] px-2'
             }`}
           >
             검색
           </OutlineButton>
+          <div className='w-full'>
+            <OutlineButton
+              theme='admin'
+              className={`bg-LightGray float-right p-2 ${
+                deviceInfo.isSmallScreen || deviceInfo.isMobile
+                  ? 'w-full'
+                  : 'w-fit'
+              }`}
+              onClick={handleExcelDownload}
+            >
+             창업문의 리스트 다운로드(엑셀파일)
+            </OutlineButton>
+          </div>
         </div>
         <table className='min-w-full border-collapse border border-[2px] border-Black'>
           <thead className='bg-LightGray text-diagram'>
