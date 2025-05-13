@@ -52,7 +52,7 @@ const SlideUpOnView: React.FC<SlideUpOnViewProps> = ({ children }) => {
       id={`slideup-${idRef.current}`}
       ref={ref}
       className={`
-        flex flex-col items-center transition-all duration-700 ease-out
+        z-10 flex flex-col items-center transition-all duration-700 ease-out
         ${isVisible ? 'opacity-100' : 'opacity-0'}
         ${animate ? 'animate-slideup' : ''}
       `}

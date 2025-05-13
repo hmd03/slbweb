@@ -71,74 +71,76 @@ const PopupManager: React.FC<PopupManagerProps> = ({
   if (isMobile && !topPopup) return null;
 
   return (
-    <>
+    <div className="relative z-">
       {isMobile ? (
-        <div
-          className='fixed left-0 right-0 z-[9998] overflow-hidden w-full'
-          style={{ top: popupTopOffset }}
-        >
-          <div className='flex w-full justify-center'>
-            <div className='bg-white shadow-xl border rounded-md overflow-hidden max-w-full'>
-              <a
-                href={normalizeLink(topPopup.link)}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <img
-                  src={topPopup.image}
-                  alt={topPopup.title}
-                  className='w-[90vw] object-contain'
-                  style={{
-                    aspectRatio: `${topPopup.width} / ${topPopup.height}`,
-                  }}
-                />
-              </a>
-              <div className='bg-black bg-opacity-70 text-white flex justify-between text-xs px-3 py-2'>
-                <button onClick={() => handleHideForDay(topPopup)}>
-                  24시간 동안 다시 열람하지 않습니다.
-                </button>
-                <button onClick={() => handleClose(topPopup)}>닫기</button>
-              </div>
+        visiblePopups.map((popup, idx) => (
+          <div
+            key={popup.cookiesId + idx}
+            className={`absolute z-[${8100 - idx}] bg-white shadow-xl border rounded-md overflow-hidden`}
+            style={{
+              top: popupTopOffset,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '90vw',
+            }}
+          >
+            <a
+              href={normalizeLink(popup.link)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src={popup.image}
+                alt={popup.title}
+                className="w-full object-contain"
+                style={{
+                  aspectRatio: `${popup.width} / ${popup.height}`,
+                }}
+              />
+            </a>
+            <div className="bg-black bg-opacity-70 text-white flex justify-between text-xs px-3 py-2">
+              <button onClick={() => handleHideForDay(popup)}>
+                24시간 동안 다시 열람하지 않습니다.
+              </button>
+              <button onClick={() => handleClose(popup)}>닫기</button>
             </div>
           </div>
-        </div>
+        ))
       ) : (
-        // 사이트 콘텐츠 기준으로 고정되도록 수정 (fixed → absolute)
-        <div className='relative z-0'>
-          {visiblePopups.map((popup, idx) => (
-            <div
-              key={popup.cookiesId + idx}
-              className='absolute z-[9999] bg-white shadow-lg border rounded-md overflow-hidden'
-              style={{
-                top: popup.locationY,
-                left: popup.locationX,
-                width: popup.width,
-                height: popup.height,
-              }}
+        // PC 버전은 그대로 유지
+        visiblePopups.map((popup, idx) => (
+          <div
+            key={popup.cookiesId + idx}
+            className="absolute z-[8100] bg-white shadow-lg border rounded-md overflow-hidden"
+            style={{
+              top: popup.locationY,
+              left: popup.locationX,
+              width: popup.width,
+              height: popup.height,
+            }}
+          >
+            <a
+              href={normalizeLink(popup.link)}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <a
-                href={normalizeLink(popup.link)}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <img
-                  src={popup.image}
-                  alt={popup.title}
-                  className='w-full object-contain'
-                  style={{ height: popup.height - 32 }}
-                />
-              </a>
-              <div className='absolute bottom-0 left-0 right-0 h-[32px] bg-black bg-opacity-70 text-white flex justify-between text-xs px-3 py-2'>
-                <button onClick={() => handleHideForDay(popup)}>
-                  24시간 동안 다시 열람하지 않습니다.
-                </button>
-                <button onClick={() => handleClose(popup)}>닫기</button>
-              </div>
+              <img
+                src={popup.image}
+                alt={popup.title}
+                className="w-full object-contain"
+                style={{ height: popup.height - 32 }}
+              />
+            </a>
+            <div className="absolute bottom-0 left-0 right-0 h-[32px] bg-black bg-opacity-70 text-white flex justify-between text-xs px-3 py-2">
+              <button onClick={() => handleHideForDay(popup)}>
+                24시간 동안 다시 열람하지 않습니다.
+              </button>
+              <button onClick={() => handleClose(popup)}>닫기</button>
             </div>
-          ))}
-        </div>
+          </div>
+        ))
       )}
-    </>
+    </div>
   );
 };
 
