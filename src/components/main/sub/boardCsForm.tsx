@@ -5,6 +5,7 @@ import { LoadingState, siteSettingState } from '../../../store/atom';
 import AlterModal from '../../ui/alters/AlterModal';
 import axios from 'axios';
 import HtmlModal from '../../ui/alters/HtmlModal';
+import FileInput from '../../ui/inputs/FileInput';
 
 const BoardCsForm: React.FC = () => {
   const deviceInfo = useDeviceInfo();
@@ -21,13 +22,15 @@ const BoardCsForm: React.FC = () => {
 
   const [categoryId, setCategoryId] = useState<number | null>(null);
 
+  const [fileData, setFile] = useState<File | null>(null);
+  const [msg, setMsg] = useState<string>('2M 미만 파일만 첨부 가능합니다.');
+
   const nameRef = useRef<HTMLInputElement>(null);
   const phone1Ref = useRef<HTMLInputElement>(null);
   const phone2Ref = useRef<HTMLInputElement>(null);
   const phone3Ref = useRef<HTMLInputElement>(null);
   const emailIdRef = useRef<HTMLInputElement>(null);
   const emailDomainRef = useRef<HTMLInputElement>(null);
-  const fileRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
   const agreeRef = useRef<HTMLInputElement>(null);
 
@@ -96,6 +99,8 @@ const BoardCsForm: React.FC = () => {
       setModalVisible(false);
       setLoading(true);
 
+      const media = fileData;
+
       const formData = new FormData();
       formData.append('categoryId', String(categoryId));
       formData.append('senderName', nameRef.current?.value || '');
@@ -108,8 +113,8 @@ const BoardCsForm: React.FC = () => {
         `${emailIdRef.current?.value}@${emailDomainRef.current?.value}`
       );
       formData.append('content', contentRef.current?.value || '');
-      if (fileRef.current?.files?.[0]) {
-        formData.append('media', fileRef.current.files[0]);
+      if (media) {
+        formData.append('media', media);
       }
 
       const response = await axios.post('/api/customer/inquiries', formData);
@@ -147,6 +152,29 @@ const BoardCsForm: React.FC = () => {
     setIsModalOpen(true);
   };
 
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    const MAX_SIZE = 2 * 1024 * 1024;
+  
+    if (file) {
+      if (file.size > MAX_SIZE) {
+        setFile(null);
+        setMsg('2MB 보다 큰 파일은 첨부할 수 없습니다.');
+        return;
+      }
+  
+      setFile(file);
+      const img = new Image();
+      img.src = URL.createObjectURL(file);
+      img.onload = () => {
+        setMsg(file.name);
+      };
+    } else {
+      setFile(null);
+      setMsg('2MB 미만 파일만 첨부 가능합니다.');
+    }
+  };
+  
   const tableCellStyle = `border border-black align-top ${
     deviceInfo.isSmallScreen || deviceInfo.isMobile
       ? 'text-[12px]'
@@ -339,7 +367,13 @@ const BoardCsForm: React.FC = () => {
                 파일첨부
               </th>
               <td className={tableCellStyle}>
-                <input type='file' ref={fileRef} className='w-full' />
+                <FileInput
+                  id='imgInput'
+                  msg={msg}
+                  accept='image/*'
+                  onChange={handleImageChange}
+                  type='main'
+                />
               </td>
             </tr>
             <tr>

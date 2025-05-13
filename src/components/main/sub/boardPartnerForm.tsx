@@ -31,8 +31,8 @@ const BoardPartnerForm: React.FC = () => {
   const contentRef = useRef<HTMLTextAreaElement>(null);
   const agreeRef = useRef<HTMLInputElement>(null);
 
-  const [file, setFile] = useState<File | null>(null);
-  const [msg, setMsg] = useState<string>('2M 미만 파일만 첨부 가능합니다.');
+  // const [fileData, setFile] = useState<File | null>(null);
+  // const [msg, setMsg] = useState<string>('2M 미만 파일만 첨부 가능합니다.');
 
   const [emailDomainSelect, setEmailDomainSelect] = useState('');
 
@@ -101,7 +101,7 @@ const BoardPartnerForm: React.FC = () => {
       setLoading(true);
 
       const isMobile = deviceInfo.isMobile;
-      const media = file;
+      // const media = fileData;
 
       const formData = new FormData();
       formData.append('title', titleRef.current?.value || '');
@@ -120,9 +120,9 @@ const BoardPartnerForm: React.FC = () => {
       );
       formData.append('content', contentRef.current?.value || '');
       formData.append('isMobile', isMobile ? 'true' : 'false');
-      if (media) {
-        formData.append('media', media);
-      }
+      // if (media) {
+      //   formData.append('media', media);
+      // }
 
       const response = await axios.post('/api/partnership/proposals', formData);
       const data = response.data;
@@ -159,6 +159,29 @@ const BoardPartnerForm: React.FC = () => {
 
   const handleCancel = () => setModalVisible(false);
 
+  // const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //     const file = event.target.files?.[0];
+  //     const MAX_SIZE = 2 * 1024 * 1024;
+    
+  //     if (file) {
+  //       if (file.size > MAX_SIZE) {
+  //         setFile(null);
+  //         setMsg('2MB 보다 큰 파일은 첨부할 수 없습니다.');
+  //         return;
+  //       }
+    
+  //       setFile(file);
+  //       const img = new Image();
+  //       img.src = URL.createObjectURL(file);
+  //       img.onload = () => {
+  //         setMsg(file.name);
+  //       };
+  //     } else {
+  //       setFile(null);
+  //       setMsg('2MB 미만 파일만 첨부 가능합니다.');
+  //     }
+  //   };
+
   const tableCellStyle = `border border-black align-top ${
     deviceInfo.isSmallScreen || deviceInfo.isMobile
       ? 'text-[12px]'
@@ -169,21 +192,6 @@ const BoardPartnerForm: React.FC = () => {
       ? 'text-[12px] pt-2 pl-1'
       : 'text-detail pl-4 pt-4'
   } w-[30%]`;
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setFile(file);
-      const img = new Image();
-      img.src = URL.createObjectURL(file);
-      img.onload = () => {
-        setMsg(file.name);
-      };
-    } else {
-      setFile(null);
-      setMsg('2M 미만 파일만 첨부 가능합니다.');
-    }
-  };
 
   return (
     <div className='w-full flex justify-center px-4 py-8 bg-white'>
@@ -347,7 +355,7 @@ const BoardPartnerForm: React.FC = () => {
                 </div>
               </td>
             </tr>
-            <tr>
+            {/* <tr>
               <th className={`${tableCellStyle} ${tableHeadStyle}`}>
                 파일첨부
               </th>
@@ -360,7 +368,7 @@ const BoardPartnerForm: React.FC = () => {
                   type='main'
                 />
               </td>
-            </tr>
+            </tr> */}
             <tr>
               <th className={`${tableCellStyle} ${tableHeadStyle}`}>
                 ✓ 제안 내용
