@@ -59,7 +59,7 @@ const RollingBanner: React.FC<RollingBannerProps> = ({ items }) => {
 
   return (
     <div
-      className='relative w-full overflow-hidden z-10'
+      className='relative w-full overflow-hidden z-0'
       style={{ height: `${bannerHeight}px` }}
     >
       {items.map((item, index) => {
