@@ -33,7 +33,7 @@ const Point8Section: React.FC = () => {
                 : 'Slb-SubTitle'
             }`}
           >
-            가맹점주님들을 위해 매년 물류 비용
+            가맹점주님들을 위해 매년 물류 비용을
           </div>
           <div
             className={`${
