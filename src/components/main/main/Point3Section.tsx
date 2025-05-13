@@ -22,7 +22,6 @@ const Point3Section: React.FC = () => {
       const url = `api/content/cards`;
 
       const response = await axios.get(url);
-      console.log('response: ', response.data);
       const contentCardList = response.data.contentCardList;
 
       const updatedReviewCardList = await Promise.all(
@@ -45,8 +44,6 @@ const Point3Section: React.FC = () => {
           }
         )
       );
-
-      console.log('updatedReviewCardList: ', updatedReviewCardList);
 
       setReviewCardList(updatedReviewCardList);
     } catch (error) {
