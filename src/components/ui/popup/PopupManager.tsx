@@ -30,7 +30,7 @@ const PopupManager: React.FC<PopupManagerProps> = ({
       const header = document.getElementById('header_mo');
       if (header) {
         const headerHeight = header.offsetHeight;
-        setPopupTopOffset(headerHeight + 10); 
+        setPopupTopOffset(headerHeight + 10);
       }
     }
   }, [isMobile]);
@@ -58,7 +58,6 @@ const PopupManager: React.FC<PopupManagerProps> = ({
     );
   };
 
-  // 링크 자동 보정 함수
   const normalizeLink = (link: string): string => {
     if (!/^https?:\/\//i.test(link)) {
       return `https://${link}`;
@@ -104,37 +103,40 @@ const PopupManager: React.FC<PopupManagerProps> = ({
           </div>
         </div>
       ) : (
-        visiblePopups.map((popup, idx) => (
-          <div
-            key={popup.cookiesId + idx}
-            className='fixed z-[9999] bg-white shadow-lg border rounded-md overflow-hidden'
-            style={{
-              top: popup.locationY,
-              left: popup.locationX,
-              width: popup.width,
-              height: popup.height,
-            }}
-          >
-            <a
-              href={normalizeLink(popup.link)}
-              target='_blank'
-              rel='noopener noreferrer'
+        // 사이트 콘텐츠 기준으로 고정되도록 수정 (fixed → absolute)
+        <div className='relative z-0'>
+          {visiblePopups.map((popup, idx) => (
+            <div
+              key={popup.cookiesId + idx}
+              className='absolute z-[9999] bg-white shadow-lg border rounded-md overflow-hidden'
+              style={{
+                top: popup.locationY,
+                left: popup.locationX,
+                width: popup.width,
+                height: popup.height,
+              }}
             >
-              <img
-                src={popup.image}
-                alt={popup.title}
-                className='w-full object-contain'
-                style={{ height: popup.height - 32 }}
-              />
-            </a>
-            <div className='absolute bottom-0 left-0 right-0 h-[32px] bg-black bg-opacity-70 text-white flex justify-between text-xs px-3 py-2'>
-              <button onClick={() => handleHideForDay(popup)}>
-                24시간 동안 다시 열람하지 않습니다.
-              </button>
-              <button onClick={() => handleClose(popup)}>닫기</button>
+              <a
+                href={normalizeLink(popup.link)}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <img
+                  src={popup.image}
+                  alt={popup.title}
+                  className='w-full object-contain'
+                  style={{ height: popup.height - 32 }}
+                />
+              </a>
+              <div className='absolute bottom-0 left-0 right-0 h-[32px] bg-black bg-opacity-70 text-white flex justify-between text-xs px-3 py-2'>
+                <button onClick={() => handleHideForDay(popup)}>
+                  24시간 동안 다시 열람하지 않습니다.
+                </button>
+                <button onClick={() => handleClose(popup)}>닫기</button>
+              </div>
             </div>
-          </div>
-        ))
+          ))}
+        </div>
       )}
     </>
   );
