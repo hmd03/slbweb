@@ -83,7 +83,9 @@ const InquiryForm: React.FC = () => {
         trackNaverConversion();
         trackKarrotConversion();
         alert('등록되었습니다.');
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       } else {
         alert(data.message);
       }

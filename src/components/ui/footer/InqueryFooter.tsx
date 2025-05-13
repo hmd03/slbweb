@@ -64,7 +64,9 @@ const InqueryFooter = () => {
         trackKarrotConversion();
         alert('등록되었습니다.');
         //handleCancel();
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       } else {
         alert(data.message);
       }
