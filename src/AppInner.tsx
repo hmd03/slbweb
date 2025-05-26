@@ -155,13 +155,7 @@ const AppInner: React.FC = () => {
 
     return (
         <>
-            <SeoHelmet
-                title={settings.title}
-                description={settings.description}
-                keywords={settings.keywords}
-                imageUrl={`${window.location.origin}/adminLoginLogo.png`}
-                url={`${window.location.origin}${location.pathname}${location.search}`}
-            />
+          <SeoHelmet />
           <div className='flex w-full h-screen'>
               <Suspense fallback={<Loading isLoading={isLoading} />}>
                   {isAdminRoute ? (

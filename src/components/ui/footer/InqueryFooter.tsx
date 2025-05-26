@@ -13,6 +13,7 @@ const InqueryFooter = () => {
   const contactRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useRecoilState(LoadingState);
   const deviceInfo = useDeviceInfo();
+  const [isMobile, SetIsMobile] = useState(deviceInfo.isMobile ? true : false);
 
   const footerRef = useRef<HTMLDivElement>(null);
   const [footerHeight, setFooterHeight] = useState(0);
@@ -22,6 +23,10 @@ const InqueryFooter = () => {
   const [isCancelVisible, setIsCancelVisible] = useState(true);
   const [message, setMessage] = useState('');
   const [onConfirm, setOnConfirm] = useState(() => () => {});
+
+  useEffect(() => {
+    SetIsMobile(deviceInfo.isMobile ? true : false);
+  }, [deviceInfo.isMobile]);
 
   const handleSubmitClick = () => {
     //handleOpenModal(`등록 하시겠습니까?`, true, () => onSubmit());
@@ -49,13 +54,16 @@ const InqueryFooter = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('/api/inquiries', {
+
+      const bodyData = {
         senderName: sender,
         preferredRegion,
         senderContact: contact,
-        isMobile: deviceInfo.isMobile,
+        isMobile: isMobile,
         category: 1,
-      });
+      };
+
+      const response = await axios.post('/api/inquiries', bodyData);
 
       const data = response.data;
       if (response.status === 201) {
@@ -63,7 +71,6 @@ const InqueryFooter = () => {
         trackNaverConversion();
         trackKarrotConversion();
         alert('등록되었습니다.');
-        //handleCancel();
         setTimeout(() => {
           window.location.reload();
         }, 500);
@@ -75,7 +82,7 @@ const InqueryFooter = () => {
     } finally {
       setLoading(false);
     }
-  }, [setLoading]);
+  }, [setLoading, isMobile]);
 
   const handleOpenModal = (
     msg: string,

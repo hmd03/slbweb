@@ -9,6 +9,7 @@ import HtmlModal from '../../ui/alters/HtmlModal';
 
 const InquiryForm: React.FC = () => {
   const deviceInfo = useDeviceInfo();
+  const isMobile = deviceInfo.isMobile ? true : false;
 
   const [loading, setLoading] = useRecoilState(LoadingState);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -61,7 +62,7 @@ const InquiryForm: React.FC = () => {
     try {
       handleCancel();
       setLoading(true);
-
+      
       const payload = {
         senderName: nameRef.current?.value,
         senderContact: `${phone1Ref.current?.value}-${phone2Ref.current?.value}-${phone3Ref.current?.value}`,
@@ -72,9 +73,10 @@ const InquiryForm: React.FC = () => {
             ? etcSourceRef.current?.value
             : selectedSource,
         content: messageRef.current?.value,
-        isMobile: deviceInfo.isMobile,
+        isMobile: isMobile,
         category: 2,
       };
+
       const response = await axios.post('/api/inquiries', payload);
 
       const data = response.data;
