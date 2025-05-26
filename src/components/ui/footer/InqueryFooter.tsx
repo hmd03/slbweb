@@ -13,7 +13,7 @@ const InqueryFooter = () => {
   const contactRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useRecoilState(LoadingState);
   const deviceInfo = useDeviceInfo();
-  const [isMobile, SetIsMobile] = useState(deviceInfo.isMobile ? true : false);
+  const [isMobile, SetIsMobile] = useState(deviceInfo.isSmallScreen ? true : false);
 
   const footerRef = useRef<HTMLDivElement>(null);
   const [footerHeight, setFooterHeight] = useState(0);
@@ -25,8 +25,8 @@ const InqueryFooter = () => {
   const [onConfirm, setOnConfirm] = useState(() => () => {});
 
   useEffect(() => {
-    SetIsMobile(deviceInfo.isMobile ? true : false);
-  }, [deviceInfo.isMobile]);
+    SetIsMobile(deviceInfo.isSmallScreen ? true : false);
+  }, [deviceInfo.isSmallScreen]);
 
   const handleSubmitClick = () => {
     //handleOpenModal(`등록 하시겠습니까?`, true, () => onSubmit());

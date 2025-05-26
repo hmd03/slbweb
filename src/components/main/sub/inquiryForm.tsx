@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useDeviceInfo from '../../../hooks/useDeviceInfo';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { LoadingState, siteSettingState } from '../../../store/atom';
@@ -9,7 +9,7 @@ import HtmlModal from '../../ui/alters/HtmlModal';
 
 const InquiryForm: React.FC = () => {
   const deviceInfo = useDeviceInfo();
-  const isMobile = deviceInfo.isMobile ? true : false;
+  const [isMobile, SetIsMobile] = useState(deviceInfo.isSmallScreen ? true : false);
 
   const [loading, setLoading] = useRecoilState(LoadingState);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -21,6 +21,10 @@ const InquiryForm: React.FC = () => {
   const siteSetting = useRecoilValue(siteSettingState);
   const [modalContent, setModalContent] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+      SetIsMobile(deviceInfo.isSmallScreen ? true : false);
+    }, [deviceInfo.isSmallScreen]);
 
   const nameRef = useRef<HTMLInputElement>(null);
   const phone1Ref = useRef<HTMLInputElement>(null);
