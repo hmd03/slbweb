@@ -141,8 +141,8 @@ const Sub4Section2: React.FC = () => {
           loading='lazy'
           className={`${
             deviceInfo.isSmallScreen || deviceInfo.isMobile
-              ? 'aspect-[657/842] my-6'
-              : 'aspect-[1067/844] mb-6 max-w-[1100px]'
+              ? 'aspect-[436/560] my-6'
+              : 'aspect-[2292/1815] mb-6 max-w-[1100px]'
           } w-full`}
           alt={`SLB 맞춤 창업 비용 안내`}
           src={`${process.env.PUBLIC_URL}/sub_4/sub_4_2_2${
