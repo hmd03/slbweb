@@ -117,6 +117,7 @@ const AdminBannerAddModForm: React.FC = () => {
             linkRef.current!.value = data.link;
             priorityRef.current!.value = data.priority;
             durationRef.current!.value = data.duration;
+            setSelectedOption(data.isMobile ? '1' : '0');
 
             if (data.media.fileName !== null) {
               getFile(data.media.id, data.media.fileName);
