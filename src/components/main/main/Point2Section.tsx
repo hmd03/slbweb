@@ -47,12 +47,12 @@ const Point2Section: React.FC = () => {
         </SlideUpOnView>
         {deviceInfo.isSmallScreen || deviceInfo.isMobile ? (
           <div
-            className={`w-full mt-6 mb-10 px-10 flex flex-col justify-around items-center`}
+            className={`w-[95%] mt-6 mb-10 px-10 flex flex-col justify-around gap-5 items-center`}
           >
             <div className=''>
               <img
                 loading='lazy'
-                className='w-full rounded-t'
+                className='aspect-[455/220] w-full shadow-[4px_4px_12px_rgba(0,0,0,0.25),_-2px_-2px_6px_rgba(0,0,0,0.15)]'
                 alt='평균매출 7,350만원 9천4백 최고매출'
                 src={`${process.env.PUBLIC_URL}/main/point_2_mo_3.webp`}
               />
@@ -60,7 +60,7 @@ const Point2Section: React.FC = () => {
             <div className=''>
               <img
                 loading='lazy'
-                className='w-full rounded-t'
+                className='aspect-[455/220] w-full shadow-[4px_4px_12px_rgba(0,0,0,0.25),_-2px_-2px_6px_rgba(0,0,0,0.15)]'
                 alt='평균매출 4,700만원 8천9백 최고매출'
                 src={`${process.env.PUBLIC_URL}/main/point_2_mo_2.webp`}
               />
@@ -68,7 +68,7 @@ const Point2Section: React.FC = () => {
             <div className=''>
               <img
                 loading='lazy'
-                className='w-full rounded-t'
+                className='aspect-[455/220] w-full  shadow-[4px_4px_12px_rgba(0,0,0,0.25),_-2px_-2px_6px_rgba(0,0,0,0.15)]'
                 alt='평균매출 7,960만원 7천9백 최고매출'
                 src={`${process.env.PUBLIC_URL}/main/point_2_mo_1.webp`}
               />
@@ -79,7 +79,7 @@ const Point2Section: React.FC = () => {
             <div className='w-[31%]'>
               <img
                 loading='lazy'
-                className='w-full rounded-t'
+                className='aspect-[320/423] w-full shadow-[4px_4px_12px_rgba(0,0,0,0.25),_-2px_-2px_6px_rgba(0,0,0,0.15)]'
                 alt='평균매출 7,350만원 9천4백 최고매출'
                 src={`${process.env.PUBLIC_URL}/main/point_2_store_1.webp`}
               />
@@ -87,7 +87,7 @@ const Point2Section: React.FC = () => {
             <div className='w-[31%]'>
               <img
                 loading='lazy'
-                className='w-full rounded-t'
+                className='aspect-[320/423] w-full shadow-[4px_4px_12px_rgba(0,0,0,0.25),_-2px_-2px_6px_rgba(0,0,0,0.15)]'
                 alt='평균매출 4,700만원 8천9백 최고매출'
                 src={`${process.env.PUBLIC_URL}/main/point_2_store_2.webp`}
               />
@@ -95,7 +95,7 @@ const Point2Section: React.FC = () => {
             <div className='w-[31%]'>
               <img
                 loading='lazy'
-                className='w-full rounded-t'
+                className='aspect-[320/423] w-full shadow-[4px_4px_12px_rgba(0,0,0,0.25),_-2px_-2px_6px_rgba(0,0,0,0.15)]'
                 alt='평균매출 7,960만원 7천9백 최고매출'
                 src={`${process.env.PUBLIC_URL}/main/point_2_store_3.webp`}
               />
@@ -106,9 +106,9 @@ const Point2Section: React.FC = () => {
           <></>
         ) : (
           <a
-            href="/sub_4/rateOfReturn"
-            target="_blank"
-            rel="noopener noreferrer"
+            href='/sub_4/rateOfReturn'
+            target='_blank'
+            rel='noopener noreferrer'
             className={`${
               deviceInfo.isSmallScreen || deviceInfo.isMobile
                 ? 'text-sub'
