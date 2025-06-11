@@ -59,19 +59,19 @@ const RollingBanner: React.FC<RollingBannerProps> = ({ items }) => {
 
   return (
     <div
-      className='relative w-full overflow-hidden z-0'
+      className="relative w-full overflow-hidden z-0"
       style={{ height: `${bannerHeight}px` }}
     >
       {items.map((item, index) => {
         const mediaUrl =
           typeof item.media === 'string' ? item.media : item.media.filePath;
-        const fileTypeParts = item.fileType.split('/'); // 예: ["video", "youtube"] 또는 ["image", "jpg"]
+        const fileTypeParts = item.fileType.split('/'); // ex: ["video", "youtube"] or ["image", "jpg"]
         const isActive = index === currentIndex;
 
         const content =
           fileTypeParts[0] === 'video' && fileTypeParts[1] === 'youtube' ? (
             <iframe
-              width='100%'
+              width="100%"
               height={bannerHeight}
               src={`https://www.youtube.com/embed/${extractYouTubeId(
                 mediaUrl
@@ -79,14 +79,14 @@ const RollingBanner: React.FC<RollingBannerProps> = ({ items }) => {
                 mediaUrl
               )}&controls=0&modestbranding=1&showinfo=0&rel=0`}
               title={`YouTube video ${index}`}
-              frameBorder='0'
-              allow='autoplay; encrypted-media'
+              frameBorder="0"
+              allow="autoplay; encrypted-media"
               allowFullScreen
             />
           ) : fileTypeParts[0] === 'video' ? (
             <video
               style={{ height: `${bannerHeight}px` }}
-              className='w-full object-fill'
+              className="w-full object-fill"
               autoPlay
               loop
               muted
@@ -95,7 +95,7 @@ const RollingBanner: React.FC<RollingBannerProps> = ({ items }) => {
             </video>
           ) : fileTypeParts[0] === 'image' ? (
             <img
-              className='w-full object-fill'
+              className="w-full object-fill"
               style={{ height: `${bannerHeight}px` }}
               src={mediaUrl}
               alt={`Banner ${index}`}
@@ -105,18 +105,20 @@ const RollingBanner: React.FC<RollingBannerProps> = ({ items }) => {
         return (
           <div
             key={index}
-            className={`absolute inset-0 transition-opacity duration-500 ${
-              deviceInfo.isSmallScreen || deviceInfo.isMobile
-                ? 'aspect-[1/1]'
-                : ''
-            } ${isActive ? 'opacity-100' : 'opacity-0'}`}
+            className={[
+              'absolute inset-0 transition-opacity duration-500',
+              deviceInfo.isSmallScreen || deviceInfo.isMobile ? 'aspect-[1/1]' : '',
+              isActive ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none',
+            ]
+              .filter(Boolean)
+              .join(' ')}
           >
             {item.link ? (
               <a
                 href={normalizeLink(item.link)}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='block w-full h-full'
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full h-full cursor-pointer"
               >
                 {content}
               </a>
@@ -127,18 +129,22 @@ const RollingBanner: React.FC<RollingBannerProps> = ({ items }) => {
         );
       })}
 
-      <div className='absolute bottom-7 left-1/2 transform -translate-x-1/2 flex space-x-2'>
+      <div className="absolute bottom-7 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {items.map((_, index) => (
           <div
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`${
+            className={[
+              index === currentIndex
+                ? 'bg-Point'
+                : 'bg-white',
               deviceInfo.isMobile || deviceInfo.isSmallScreen
                 ? 'w-1 h-1'
-                : 'w-3 h-3 border border-[#231F20]'
-            } rounded-full cursor-pointer ${
-              index === currentIndex ? 'bg-Point' : 'bg-white'
-            }`}
+                : 'w-3 h-3 border border-[#231F20]',
+              'rounded-full cursor-pointer',
+            ]
+              .filter(Boolean)
+              .join(' ')}
           />
         ))}
       </div>
