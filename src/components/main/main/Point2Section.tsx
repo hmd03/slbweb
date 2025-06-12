@@ -79,7 +79,7 @@ const Point2Section: React.FC = () => {
             <div className='w-[31%]'>
               <img
                 loading='lazy'
-                className='aspect-[320/423] w-full shadow-[4px_4px_12px_rgba(0,0,0,0.25),_-2px_-2px_6px_rgba(0,0,0,0.15)]'
+                className='aspect-[320/423] w-[90%] shadow-[4px_4px_12px_rgba(0,0,0,0.25),_-2px_-2px_6px_rgba(0,0,0,0.15)]'
                 alt='평균매출 7,350만원 9천4백 최고매출'
                 src={`${process.env.PUBLIC_URL}/main/point_2_store_1.webp`}
               />
@@ -87,7 +87,7 @@ const Point2Section: React.FC = () => {
             <div className='w-[31%]'>
               <img
                 loading='lazy'
-                className='aspect-[320/423] w-full shadow-[4px_4px_12px_rgba(0,0,0,0.25),_-2px_-2px_6px_rgba(0,0,0,0.15)]'
+                className='aspect-[320/423] w-[90%] shadow-[4px_4px_12px_rgba(0,0,0,0.25),_-2px_-2px_6px_rgba(0,0,0,0.15)]'
                 alt='평균매출 4,700만원 8천9백 최고매출'
                 src={`${process.env.PUBLIC_URL}/main/point_2_store_2.webp`}
               />
@@ -95,7 +95,7 @@ const Point2Section: React.FC = () => {
             <div className='w-[31%]'>
               <img
                 loading='lazy'
-                className='aspect-[320/423] w-full shadow-[4px_4px_12px_rgba(0,0,0,0.25),_-2px_-2px_6px_rgba(0,0,0,0.15)]'
+                className='aspect-[320/423] w-[90%] shadow-[4px_4px_12px_rgba(0,0,0,0.25),_-2px_-2px_6px_rgba(0,0,0,0.15)]'
                 alt='평균매출 7,960만원 7천9백 최고매출'
                 src={`${process.env.PUBLIC_URL}/main/point_2_store_3.webp`}
               />
