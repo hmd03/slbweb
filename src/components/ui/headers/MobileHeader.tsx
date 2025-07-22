@@ -296,21 +296,36 @@ const MobileHeader = ({ children, ...props }: Props) => {
             </ul>
           </div>
 
-          <div className='flex text-white text-sm font-semibold'>
-            <a
-              href='/inquiry'
-              onClick={closeMenu}
-              className='bg-[#F03838] flex-1 py-3 flex items-center justify-center gap-2'
-            >
-              <FaPhoneAlt size={14} /> 온라인 창업문의
-            </a>
-            <a
-              href='/board/cs'
-              onClick={closeMenu}
-              className='bg-[#F58220] flex-1 py-3 flex items-center justify-center gap-2'
-            >
-              <FaCommentDots size={14} /> 고객 문의
-            </a>
+          <div className='flex flex-col'>
+            <div className='flex flex-col w-full items-start justify-end Slb-Content-mo text-White px-4 h-fit mb-[1rem]'>
+              <p className=''>샵인샵이 필요할 때?</p>
+              <p>고기덮밥전문 <span className='font-semibold'>삼시육끼덥밥</span></p>
+              <a
+                href='https://forms.gle/NsW8Rx8Vcaw7AzHb7'
+                target='_blank'
+                rel='noopener noreferrer'
+                className={` rounded-[4rem] bg-Point text-White mt-2 px-4`}
+              >
+                바로가기 →
+              </a>
+            </div>
+
+            <div className='flex text-white text-sm font-semibold'>
+              <a
+                href='/inquiry'
+                onClick={closeMenu}
+                className='bg-[#F03838] flex-1 py-3 flex items-center justify-center gap-2'
+              >
+                <FaPhoneAlt size={14} /> 온라인 창업문의
+              </a>
+              <a
+                href='/board/cs'
+                onClick={closeMenu}
+                className='bg-[#F58220] flex-1 py-3 flex items-center justify-center gap-2'
+              >
+                <FaCommentDots size={14} /> 고객 문의
+              </a>
+            </div>
           </div>
         </div>
       </div>
