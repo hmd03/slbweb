@@ -228,7 +228,7 @@ const AdminPopupAddModForm: React.FC = () => {
         }
       } else {
         setLoading(true);
-        const response = await axios.put(`api/popups/${id}`, formData);
+        const response = await axios.put(`/api/popups/${id}`, formData);
 
         const data = response.data;
         setLoading(false);
