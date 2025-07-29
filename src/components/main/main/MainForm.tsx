@@ -102,7 +102,10 @@ const MainForm: React.FC = () => {
   const fetchPopupData = async () => {
     try {
       setPopupList([]);
-      const url = `api/popups?page=1&searchIsMobile`;
+
+      const searchDueDate = new Date();
+      searchDueDate.setHours(23, 59, 59, 999);
+      const url = `api/popups?page=1&searchIsExposed=true&searchDueDate=${encodeURIComponent(searchDueDate.toISOString())}`;
 
       const response = await axios.get(url);
       const popupList = response.data.popupList;
