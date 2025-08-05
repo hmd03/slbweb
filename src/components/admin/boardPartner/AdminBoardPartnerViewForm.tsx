@@ -153,7 +153,7 @@ const AdminBoardPartnerViewForm: React.FC = () => {
   const tdClassName = 'bg-White border border-Black border-[2px] p-2 w-[70%]';
 
   return (
-    <AdminCurrentLayout title='창업문의 상세보기'>
+    <AdminCurrentLayout title='협력제안 상세보기'>
       <div className='w-full h-fit p-5 border border-Black bg-White flex flex-col items-center justify-center'>
         <table className='min-w-full border-collapse border border-[2px] border-Black'>
           <thead className='text-diagram'></thead>
