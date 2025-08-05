@@ -204,7 +204,7 @@ const Header = ({ children, ...props }: Props) => {
            <p className=''>샵인샵이 필요할 때?</p>
            <p>고기덮밥전문 <span className='font-semibold'>삼시육끼덥밥</span></p>
            <a
-            href='https://forms.gle/NsW8Rx8Vcaw7AzHb7'
+            href='https://saladpokeslb.wixsite.com/shopinshop'
             target='_blank'
             rel='noopener noreferrer'
             className={` rounded-[4rem] bg-Point text-White mt-2 px-4 mb-[8rem]`}
