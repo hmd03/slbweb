@@ -199,43 +199,43 @@ const Header = ({ children, ...props }: Props) => {
      {/* 상단 헤더 영역 */}
      <div ref={headerRef} className='w-full bg-white shadow z-30'>
        <div className='flex flex-col justify-between items-center px-4 w-full border-b-[2px] border-black'>
-         <div className='flex justify-between w-full max-w-[1300px]'>
-         <div className='flex flex-col w-full max-w-[1300px] items-start justify-start mt-4 Slb-Content'>
-           <p className=''>샵인샵이 필요할 때?</p>
-           <p>고기덮밥전문 <span className='font-semibold'>삼시육끼덥밥</span></p>
-           <a
-            href='https://saladpokeslb.wixsite.com/shopinshop'
-            target='_blank'
-            rel='noopener noreferrer'
-            className={` rounded-[4rem] bg-Point text-White mt-2 px-4 mb-[8rem]`}
-          >
-            바로가기 →
-          </a>
-         </div>
+         <div className='flex justify-between w-full max-w-[1300px] h-fit'>
+          <div className='flex flex-col w-full items-start justify-start mt-4 Slb-Content h-fit'>
+            <p className=''>샵인샵이 필요할 때?</p>
+            <p>고기덮밥전문 <span className='font-semibold'>삼시육끼덥밥</span></p>
+            <a
+              href='https://saladpokeslb.wixsite.com/shopinshop'
+              target='_blank'
+              rel='noopener noreferrer'
+              className={` rounded-[4rem] bg-Point text-White mt-2 px-4 `}
+              >
+                바로가기 →
+              </a>
+          </div>
            <img
              alt='Logo'
              onClick={handleLogoClick}
              src={`${process.env.PUBLIC_URL}/adminLoginLogo.png`}
-             className='h-[6rem] m-auto mt-10 cursor-pointer select-none'
+             className='h-[6rem] mt-10 cursor-pointer select-none'
            />
-           <div className='flex w-full max-w-[1300px] justify-end space-x-4 mt-4'>
-           {snsIcons.map((item, index) => (
-             <a
-               key={index}
-               href={item.link}
-               target='_blank'
-               rel='noopener noreferrer'
-               aria-label={item.name}
-               className='text-red-500 hover:text-red-700 h-fit'
-             >
-               <img
-                 src={item.imgSrc}
-                 alt={item.name}
-                 className='w-6 h-6 object-contain'
-               />
-             </a>
-           ))}
-         </div>
+            <div className='flex w-full max-w-[1300px] justify-end space-x-4 mt-4 h-fit'>
+              {snsIcons.map((item, index) => (
+                <a
+                  key={index}
+                  href={item.link}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  aria-label={item.name}
+                  className='text-red-500 hover:text-red-700 h-fit'
+                >
+                  <img
+                    src={item.imgSrc}
+                    alt={item.name}
+                    className='w-6 h-6 object-contain'
+                  />
+                </a>
+              ))}
+          </div>
          </div>
          <div className='flex justify-between items-center max-w-[1300px] mt-3 mb-6 text-main mx-auto w-full'>
            <a
