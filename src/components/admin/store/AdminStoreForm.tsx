@@ -279,6 +279,7 @@ const AdminStoreForm: React.FC = () => {
                 <td className='border border-Black border-[2px] p-2 text-center w-[10%]'>
                   {item.fileType === 'image' && item.media && (
                     <img
+                      alt=''
                       className='w-[18.75rem] h-[6.375rem]'
                       src={`${item.media}`}
                     ></img>

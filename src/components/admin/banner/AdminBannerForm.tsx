@@ -218,6 +218,7 @@ const AdminBannerForm: React.FC = () => {
                 <td className={`${tdClassName} w-[20%]`}>
                   {item.fileType === 'image' && item.media && (
                     <img
+                      alt=''
                       className='w-[18.75rem] h-[6.375rem]'
                       src={`${item.media}`}
                     ></img>

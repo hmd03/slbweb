@@ -165,7 +165,7 @@ const AdminPopupForm: React.FC = () => {
                 }`}</td>
                 <td className={`${tdClassName} w-[25%]`}>{item.title}</td>
                 <td className={`${tdClassName} w-[20%]`}>
-                  <img src={item.media.src} />
+                  <img src={item.media.src} alt=''/>
                 </td>
                 <td className={`${tdClassName} w-[15%]`}>
                   {formatDate(item.startDate)}

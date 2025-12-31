@@ -186,6 +186,7 @@ const AdminReviewCardForm: React.FC = () => {
                 <td className={`${tdClassName} w-[5%]`}>
                   {item.fileType === 'image' && item.media && (
                     <img
+                      alt=''
                       className='aspect-[366/507] h-[6.375rem] mx-auto'
                       src={`${item.media}`}
                     ></img>
