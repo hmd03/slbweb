@@ -202,7 +202,7 @@ const Header = ({ children, ...props }: Props) => {
          <div className='flex justify-between w-full max-w-[1300px] h-fit'>
           <div className='flex flex-col w-full items-start justify-start mt-4 Slb-Content h-fit'>
             <p className=''>샵인샵이 필요할 때?</p>
-            <p>고기덮밥전문 <span className='font-semibold'>삼시육끼덥밥</span></p>
+            <p>고기덮밥전문 <span className='font-semibold'>삼시육끼덮밥</span></p>
             <a
               href='https://saladpokeslb.wixsite.com/shopinshop'
               target='_blank'

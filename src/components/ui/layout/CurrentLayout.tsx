@@ -25,7 +25,7 @@ const CurrentLayout = ({ children, ...props }: Props) => {
             <div ref={shopInShopRef} className='flex flex-col w-full items-start justify-end Slb-Content px-4 h-fit h-[9rem] bg-LightGray text-Black py-[0.5rem]'>
               <p className=''>샵인샵이 필요할 때?</p>
               <p>
-                  고기덮밥전문 <span className='font-semibold'>삼시육끼덥밥</span>
+                  고기덮밥전문 <span className='font-semibold'>삼시육끼덮밥</span>
               </p>
               <a
                   href='https://saladpokeslb.wixsite.com/shopinshop'
